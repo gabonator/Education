@@ -1,0 +1,38 @@
+body {
+	background: url(layoutSep.jpg) #eeeeee repeat-x
+}
+.header {
+	color:#8020b0;
+	height:40px;
+	font-weight:bold;
+	text-align:right;
+	padding-right:20px;
+	FONT: 32px Tahoma, Helvetica, sans-serif;
+}
+.footer {
+	color:#d0d0d0;
+	height:32px;
+	font-size:12px;
+	font-weight:bold;
+	text-align:center;
+}
+
+.tabTL { width:10px; height:10px;  background: url("layoutTL.gif") }
+.tabTC { width:400px; height:10px; background: url("layoutT.gif") }
+.tabTR { width:10px; height:10px;  background: url("layoutTR.gif") }
+.tabBL { width:10px; height:10px;  background: url("layoutBL.gif") }
+.tabBC { width:400px; height:10px; background: url("layoutB.gif") }
+.tabBR { width:10px; height:10px;  background: url("layoutBR.gif") }
+.tabCL { width:10px; height:260px; background: url("layoutL.gif") }
+.tabCR { width:10px; height:260px; background: url("layoutR.gif") }
+.tabCC { width:400px; height:260px; background: #ffffff; font-size:12px; }
+
+.menu { background:#f0f0f0; }
+.menu td { font-size:12px; padding-left:8px; color:#000000; font-weight:bold; }
+.menu td a:link,
+.menu td a:visited { color:#000000; text-decoration:none; }
+.menu td a:hover,
+.menu td a:active { color:#8020b0; text-decoration:underline; }
+
+.hidden { display:none; width:8px; height:8px; }
+.text { padding-left:8px;}
