@@ -149,7 +149,7 @@ I already had some experience in remote controlling software by web browser. In 
 
 ![Remote control app](res/Picture10.png)
 
-![Remote control host](res/Picture11.png =300x)
+<img src="res/Picture11.png" width="300" alt="Remote control host">
 
 Simplified code for RPN evaluator for microcontroller use (no dynamic allocations) can be found [here](https://github.com/gabonator/DS203/blob/master/Source/Framework/Eval.h) and integration with existing methods can be seen [here](https://github.com/gabonator/DS203/blob/master/Source/Core/Sdk.h):
 ```c
