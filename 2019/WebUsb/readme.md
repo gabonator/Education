@@ -42,7 +42,7 @@ For my initial experiments, I took the [STM32 blue pill web usb implementation](
 
 I was curious if this code could be ported to my simple operating system for LA104 based on STM32F103. So I took all the necessary files from this [repository](https://github.com/lupyuen/bluepill-bootloader/tree/master/src), removed the startup code and flashing related stuff and this is what [I have got](https://github.com/gabonator/LA104/tree/master/system/apps_usb/test67_webusb/source):
 
-![Working webusb implementation](res/Picture7.png =300x)
+<img src="res/Picture7.png" width="300" alt="Working webusb implementation">
 
 Main function in bluepill bootloader just configured the hardware and in an endless loop it was polling and handling USB requests. In my case I moved the polling function into the interrupt handler USB_LP_CAN_RX0_IRQ
 
@@ -87,13 +87,13 @@ Now I just wanted to try if I am able to transfer some messages from browser int
 
 For me it seemed that the webusb support code for microcontroller was still too complex and I wanted to reduce it into minimum working solution. After removing WinUSB and USB21_standard I reduced the number of files into 7, but still it was depending on libopencm3 library. [Here is the result](https://github.com/gabonator/LA104/tree/master/system/apps_usb/test67_webusb/source_minimal)
 
-![Minimal webusb implementation](res/Picture6.png =250x)
+<img src="res/Picture6.png" width="250" alt="Minimal webusb implementation">
 
 WebUsb is a powerful technology and I planned to use it more extensively in the future, so I wanted to merge all the source files into one single file and get rid of the libopencm3 library. By including one header and adding one source code to the codebase of any project, you would get webusb support. Here is the [single file implementation](https://github.com/gabonator/LA104/tree/master/system/apps_usb/test67_webusb/source_single)
 
 Later I decided to isolate the libopencm3 source codes from the webusb implementation, so it would be easier to apply some fixes and changes to the webusb code. Scripts for automatic code generation [are here](https://github.com/gabonator/LA104/tree/master/system/apps_usb/test67_webusb/joiner), sample program echoing all received data back to the browser is [here](https://github.com/gabonator/LA104/tree/master/system/apps_usb/test67_webusb/source_single2) with the web code [here](https://github.com/gabonator/LA104/tree/master/system/apps_usb/test67_webusb/web)
 
-![Single file webusb implementation](res/Picture9.png =230x)
+<img src="res/Picture9.png" width="230" alt="Single file webusb implementation">
 
 The minimal code to use this is following:
 ```c
