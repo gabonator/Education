@@ -93,7 +93,7 @@ WebUsb is a powerful technology and I planned to use it more extensively in the 
 
 Later I decided to isolate the libopencm3 source codes from the webusb implementation, so it would be easier to apply some fixes and changes to the webusb code. Scripts for automatic code generation [are here](https://github.com/gabonator/LA104/tree/master/system/apps_usb/test67_webusb/joiner), sample program echoing all received data back to the browser is [here](https://github.com/gabonator/LA104/tree/master/system/apps_usb/test67_webusb/source_single2) with the web code [here](https://github.com/gabonator/LA104/tree/master/system/apps_usb/test67_webusb/web)
 
-![Minimal webusb implementation](res/Picture9.png =230x)
+![Single file webusb implementation](res/Picture9.png =230x)
 
 The minimal code to use this is following:
 ```c
@@ -147,9 +147,9 @@ How to effectively use this technology to remotely control  operating system run
 
 I already had some experience in remote controlling software by web browser. In sygic I developed simple solution which allowed the user to remotely control the car navigation software, e.g. by simulating the GPS coordinates by a keyboard controlled car running on google maps. For this purpose, the application creates two servers: One for serving the web page and scripts and the second for websocket connection. The commands sent from browser to the application were in C-like syntax and the application evaluates these calls using RPN evaluator and returns back results. All received commands in opposite direction are evaluated in javascript using setTimeout function and allowed the application to draw road geometry or labels on map for debugging purposes.
 
-![Minimal webusb implementation](res/Picture10.png)
+![Remote control app](res/Picture10.png)
 
-![Minimal webusb implementation](res/Picture11.png =260x)
+![Remote control host](res/Picture11.png =300x)
 
 Simplified code for RPN evaluator for microcontroller use (no dynamic allocations) can be found [here](https://github.com/gabonator/DS203/blob/master/Source/Framework/Eval.h) and integration with existing methods can be seen [here](https://github.com/gabonator/DS203/blob/master/Source/Core/Sdk.h):
 ```c
