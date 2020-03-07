@@ -16,6 +16,14 @@ Nedavali ste na fyzike pozor, ked sa preberali elektricke obvody? Tento workshop
 - 30x rezistor 330 ohm (obycajny vyvodovy staci 1/4W)
 - 8x arduino uno (napr https://www.gme.sk/klon-arduino-uno-r3-atmega328p-ch340-mini-usb )
 
+## Materialy pre studentov
+
+[student](student.md)
+
+## Prezentacia
+
+[presentation](workshopelectro.pdf)
+
 ## Osnova
 
-![draft](draft.txt)
+[draft](draft.txt)

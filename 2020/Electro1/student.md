@@ -92,7 +92,8 @@ void loop() {
 ```
 
 ## Riesenie
-![riesenie](prog5.ino)
+[riesenie](prog5.ino)
+
 
 ## Materialy ku workshopu
-![riesenie](readme.md)
+[readme](readme.md)
