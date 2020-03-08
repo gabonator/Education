@@ -33,6 +33,9 @@
 ## Fotka pripravku:
 ![pripravok](pripravok.jpg)
 
+## Vyvody LED
+![led symbol](symbol.jpg)
+
 ## Zapojenie arduina a pripravku:
 ![arduino](arduino.png)
 
