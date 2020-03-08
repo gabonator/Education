@@ -13,14 +13,14 @@ Nedavali ste na fyzike pozor, ked sa preberali elektricke obvody? Tento workshop
 
 ## Nakupit (pre 8 ludi s rezervou):
 
-| Pocet | Co      | Oznacenie GME                   | Jednotkova cena | Celkova cena    | Linka         |
-------------------|---------------------------------|-----------------|-----------------|---------------|
-| 10x   | cervena LED 5mm obycajna | LED 5MM RED 400/50  | 0.09       | 0.90            | https://www.gme.sk/led-5mm-red-400-50-bl-bje5v4v-2 |
-| 10x   | zelena LED 5mm obycajna | LED 5MM GREEN   | 0.098           | 0.98            | |
-| 10x   | zlta LED 5mm obycajna | LED 5MM YELLOW    | 0.009           | 0.90            | |
-| 30x   | Rezistor 330 ohm | RR 330R                | 0.058           | 1.75            | https://www.gme.sk/rm-330r-0207-0-6w-1 | 
-| 2x    | Lamacia lista rovna 40 pinova | S1G40 2,54mm | 0.24         | 0.48            | https://www.gme.sk/oboustranny-kolik-s1g40-2-54mm |
-| 8x    | Arduino Uno | Klon Arduino UNO R3 ATmega328P CH340 USB mini | 7.80  | 62.4    | https://www.gme.sk/klon-arduino-uno-r3-atmega328p-ch340-mini-usb |
+| Pocet | Co                            | Oznacenie GME                                 | Jednotkova cena | Celkova cena | Linka         |
+|-------|-------------------------------|-----------------------------------------------|-----------------|--------------|---------------|
+| 10x   | cervena LED 5mm obycajna      | LED 5MM RED 400/50                            | 0.09            | 0.90         | https://www.gme.sk/led-5mm-red-400-50-bl-bje5v4v-2 |
+| 10x   | zelena LED 5mm obycajna       | LED 5MM GREEN                                 | 0.098           | 0.98         | |
+| 10x   | zlta LED 5mm obycajna         | LED 5MM YELLOW                                | 0.009           | 0.90         | |
+| 30x   | Rezistor 330 ohm              | RR 330R                                       | 0.058           | 1.75         | https://www.gme.sk/rm-330r-0207-0-6w-1 | 
+| 2x    | Lamacia lista rovna 40 pinova | S1G40 2,54mm                                  | 0.24            | 0.48         | https://www.gme.sk/oboustranny-kolik-s1g40-2-54mm |
+| 8x    | Arduino Uno                   | Klon Arduino UNO R3 ATmega328P CH340 USB mini | 7.80            | 62.4         | https://www.gme.sk/klon-arduino-uno-r3-atmega328p-ch340-mini-usb |
 
 naklady dokopy: 0.90 + 0.98 + 0.90 + 0.48 + 1.75 + 62.40 = 67.41 eur
 
