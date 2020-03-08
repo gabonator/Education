@@ -1,5 +1,9 @@
 # Electro workshop 1
 
+![preview](preview.jpg)
+
+## Fyzikalne velicny
+
 | Velicina | Oznacenie | Jednotka | Skratka | Analogia         |
 -----------|-----------|----------|---------|------------------|
 | Napatie  | U         | Volt     | V       | Tlak vody        |
@@ -27,7 +31,7 @@
 [http://x.valky.eu/arduino](http://x.valky.eu/arduino)
 
 ## Fotka pripravku:
-Nemame!
+![pripravok](pripravok.jpg)
 
 ## Zapojenie arduina a pripravku:
 ![arduino](arduino.png)
@@ -37,6 +41,9 @@ Nemame!
 
 ## Volt amperova charakteristika LED diody:
 ![voltamp](voltamp.jpg)
+
+## Oznacenie pinov a polarita
+![arduino](pripojenie.png)
 
 ## Program na rozsvietenie LEDiek:
 
