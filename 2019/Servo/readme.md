@@ -69,5 +69,5 @@ Pre 8 ucastnikov
   - S27/U13: kruh, funkcie sin cos, argument v radianoch, preco
 
 ## Zaver
-  - pridat 3d modely ku pan-tilt podstavcom
+  - [Riesenia uloh](model/) navrhol Andrej Gerhard
 
