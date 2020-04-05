@@ -6,7 +6,7 @@ In this list you will see some interesting projects I was working on
 
 ### Voice controlled beer hoist
 - Hardware / software project with offline hotword voice analyser running on Raspberry pi
-- Project in progress. Raspberry pi runs snowboy hotword detection library. Recognized commands are sent through bluetooth to arduino based controller which controls hoist. Precise control of hoist is achieved using hall sensor counting the hoists drum revolutions. 
+- Project in progress. Raspberry pi runs snowboy hotword detection library. Recognized commands are sent through bluetooth to arduino based controller which controls hoist. Precise control of hoist is achieved using hall sensor counting the hoists drum turns. 
 - [Code](https://github.com/gabonator/Projects/tree/master/BeerHoist)
 - Unofficial video:
 
