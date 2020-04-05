@@ -8,7 +8,8 @@ In this list you will see some interesting projects I was working on
 - Hardware / software project with offline hotword voice analyser running on Raspberry pi
 - Project in progress. Raspberry pi runs snowboy hotword detection library. Recognized commands are sent through bluetooth to arduino based controller which controls hoist. Precise control of hoist is achieved using hall sensor counting the hoists drum revolutions. 
 - [Code](https://github.com/gabonator/Projects/tree/master/BeerHoist)
-- Unofficial video
+- Unofficial video:
+
 [![Beer hoist](https://img.youtube.com/vi/QlplAXO4FNo/0.jpg)](https://www.youtube.com/watch?v=QlplAXO4FNo "Beer hoist test")
 
 ### Reverse engineering of USB camera protocol
@@ -17,7 +18,8 @@ In this list you will see some interesting projects I was working on
 - Protocol was captured on windows machine using their own camera software with Wireshark
 - Simple bayer demosaicing and exposure control
 - [Code](https://github.com/gabonator/Work-in-progress/blob/master/AmScope/main.cpp)
-- ![Amscope camera](res/2020_amscope.jpg)
+
+![Amscope camera](res/2020_amscope.jpg)
 
 ## 2019
 
@@ -29,7 +31,8 @@ In this list you will see some interesting projects I was working on
 - See online: [wormhole](https://rawgit.valky.eu/gabonator/Work-in-progress/master/LaserApps/wormhole/index.html), [spiral](https://rawgit.valky.eu/gabonator/Work-in-progress/master/LaserApps/spiral3d/index.html)
 - [Code](https://github.com/gabonator/Work-in-progress/tree/master/LaserApps)
 - Development of interactive version using ILDA interface is in progress...
-- Video: 
+- Video:
+ 
 [![Beer hoist](https://img.youtube.com/vi/iCVEEQ8QII4/0.jpg)](https://www.youtube.com/watch?v=iCVEEQ8QII4 "Laser projector experiments")
 
 ### Lectures for Creative point (Slovak business agency)
@@ -41,6 +44,7 @@ In this list you will see some interesting projects I was working on
 - WebUSB allows web browser to talk to USB peripherals
 - [Full project description](https://github.com/gabonator/Education/blob/master/2019/WebUsb/readme.md)
 - Video: 
+
 [![WebUsb Oscilloscope video](https://img.youtube.com/vi/aghTg4Pggv4/0.jpg)](https://www.youtube.com/watch?v=aghTg4Pggv4 "WebUsb Oscilloscope")
 
 ### Operating system for ARM M3 (STM32F103)
@@ -56,6 +60,7 @@ In this list you will see some interesting projects I was working on
 - System is based on Load sensor cell which measures what force is produced when the CDC machine pulls the piston in and out. Measured values are transmitted over WiFi to software running on computer (web based application communicating through websockets with the ESP8266 MCU)
 - [Code](https://github.com/gabonator/Projects/tree/master/CncRigidityMeas)
 - Video: 
+
 [![Rigidity measurement](https://img.youtube.com/vi/K8F_eh5UJhA/0.jpg)](https://www.youtube.com/watch?v=K8F_eh5UJhA "Rigidity measurement")
 
 ## 2016
@@ -66,7 +71,9 @@ In this list you will see some interesting projects I was working on
 - Multiplayer tunellers game (in C++) was designed and players can join the game just by opening a web page
 - NaCl techology later was deprecated by google and replaced by Wasm
 - [Code](https://github.com/gabonator/Work-in-progress/tree/master/ChromeNaCl/tuneller)
-- Picture of another NaCl game, screenshot TBD: ![Worms](res/2016_tuneller.jpg)
+- Picture of another NaCl game, screenshot TBD: 
+
+![Worms](res/2016_tuneller.jpg)
 
 ### Custom MESH wireless stack
 - Software, hardware, microcontroller
@@ -87,6 +94,7 @@ In this list you will see some interesting projects I was working on
 - [Code](https://github.com/gabonator/Work-in-progress/tree/master/GarminHud)
 - [Hackaday article](http://hackaday.com/2014/03/30/controlling-the-garmin-hud-with-bluetooth/)
 - Video:
+
 [![Garmin HUD and Sygic](https://img.youtube.com/vi/WK9IV0syupE/0.jpg)](https://www.youtube.com/watch?v=WK9IV0syupE "Garmin HUD and Sygic")
 
 ### DOS Games running in web browser
@@ -111,7 +119,8 @@ In this list you will see some interesting projects I was working on
 - Geiger Counter and GPS is attached to a laptop computer and this mobile station measures levels od ionizing radiation during driving and results are visualized in a map
 - [See online](https://rawgit.valky.eu/gabonator/Work-in-progress/master/GeigerTracker/visualization/index.html)
 - [Code](https://github.com/gabonator/Work-in-progress/tree/master/GeigerTracker/visualization)
-- ![Geiger tracker](res/2013_geiger.png)
+
+![Geiger tracker](res/2013_geiger.png)
 
 ### DS203 Oscilloscope firmware
 - Software microcontroller project
