@@ -6,9 +6,10 @@ In this list you will see some interesting projects I was working on
 
 ### Voice controlled beer hoist
 - Hardware / software project with offline hotword voice analyser running on Raspberry pi
-- Raspberry pi runs snowboy hotword detection library. Recognized commands are sent through bluetooth to arduino based controller which controls hoist. Precise control of hoist is achieved using hall sensor counting the hoists drum revolutions. 
+- Project in progress. Raspberry pi runs snowboy hotword detection library. Recognized commands are sent through bluetooth to arduino based controller which controls hoist. Precise control of hoist is achieved using hall sensor counting the hoists drum revolutions. 
 - [Code](https://github.com/gabonator/Projects/tree/master/BeerHoist)
-- Unofficial video: [![Beer hoist](https://img.youtube.com/vi/QlplAXO4FNo/0.jpg)](https://www.youtube.com/watch?v=QlplAXO4FNo "Beer hoist test")
+- Unofficial video
+[![Beer hoist](https://img.youtube.com/vi/QlplAXO4FNo/0.jpg)](https://www.youtube.com/watch?v=QlplAXO4FNo "Beer hoist test")
 
 ### Reverse engineering of USB camera protocol
 - Reverse engineering, USB protocol, software
@@ -28,7 +29,8 @@ In this list you will see some interesting projects I was working on
 - See online: [wormhole](https://rawgit.valky.eu/gabonator/Work-in-progress/master/LaserApps/wormhole/index.html), [spiral](https://rawgit.valky.eu/gabonator/Work-in-progress/master/LaserApps/spiral3d/index.html)
 - [Code](https://github.com/gabonator/Work-in-progress/tree/master/LaserApps)
 - Development of interactive version using ILDA interface is in progress...
-- Video: [![Beer hoist](https://img.youtube.com/vi/iCVEEQ8QII4/0.jpg)](https://www.youtube.com/watch?v=iCVEEQ8QII4 "Laser projector experiments")
+- Video: 
+[![Beer hoist](https://img.youtube.com/vi/iCVEEQ8QII4/0.jpg)](https://www.youtube.com/watch?v=iCVEEQ8QII4 "Laser projector experiments")
 
 ### Lectures for Creative point (Slovak business agency)
 - Teaching and lectures
@@ -38,12 +40,13 @@ In this list you will see some interesting projects I was working on
 - Microcontroller software project with WebUSB technology
 - WebUSB allows web browser to talk to USB peripherals
 - [Full project description](https://github.com/gabonator/Education/blob/master/2019/WebUsb/readme.md)
-- Video: [![WebUsb Oscilloscope video](https://img.youtube.com/vi/aghTg4Pggv4/0.jpg)](https://www.youtube.com/watch?v=aghTg4Pggv4 "WebUsb Oscilloscope")
+- Video: 
+[![WebUsb Oscilloscope video](https://img.youtube.com/vi/aghTg4Pggv4/0.jpg)](https://www.youtube.com/watch?v=aghTg4Pggv4 "WebUsb Oscilloscope")
 
 ### Operating system for ARM M3 (STM32F103)
 - Microcontroller software project
 - [Full project description](https://github.com/gabonator/LA104)
-- ![LA104 DS203 operating system](res/2019_laos.png)
+- ![LA104 DS203 operating system](res/2019_laos.jpg)
 
 ## 2018
 
@@ -52,7 +55,8 @@ In this list you will see some interesting projects I was working on
 - The rigidity and damping effect of plastic shock absorber for HVAC systems is being analysed. The plastic absorber introduces small hole in its piston to allow the air to flow in and out when the piston is pressed. The manufacturer wanted to examine the behaviour of the absorber and verify if the damping attributes are in allowed range.
 - System is based on Load sensor cell which measures what force is produced when the CDC machine pulls the piston in and out. Measured values are transmitted over WiFi to software running on computer (web based application communicating through websockets with the ESP8266 MCU)
 - [Code](https://github.com/gabonator/Projects/tree/master/CncRigidityMeas)
-- Video: [![Rigidity measurement](https://img.youtube.com/vi/K8F_eh5UJhA/0.jpg)](https://www.youtube.com/watch?v=K8F_eh5UJhA "Rigidity measurement")
+- Video: 
+[![Rigidity measurement](https://img.youtube.com/vi/K8F_eh5UJhA/0.jpg)](https://www.youtube.com/watch?v=K8F_eh5UJhA "Rigidity measurement")
 
 ## 2016
 
@@ -67,7 +71,7 @@ In this list you will see some interesting projects I was working on
 ### Custom MESH wireless stack
 - Software, hardware, microcontroller
 - Allows building complex mesh networks with CC1101 transceiver
-- [code](https://github.com/gabonator/Work-in-progress/tree/master/PanstampSwap)
+- [Full project description](https://github.com/gabonator/Work-in-progress/tree/master/PanstampSwap)
 
 ### Download manager with voice captcha cracker
 - Software project, signal analysis
@@ -82,6 +86,8 @@ In this list you will see some interesting projects I was working on
 - Garmin HUD display is a device which shows you the driving instructions after pairing with compatible navigation app over bluetooth
 - [Code](https://github.com/gabonator/Work-in-progress/tree/master/GarminHud)
 - [Hackaday article](http://hackaday.com/2014/03/30/controlling-the-garmin-hud-with-bluetooth/)
+- Video:
+[![Garmin HUD and Sygic](https://img.youtube.com/vi/WK9IV0syupE/0.jpg)](https://www.youtube.com/watch?v=WK9IV0syupE "Garmin HUD and Sygic")
 
 ### DOS Games running in web browser
 - Software project, reverse engineering
