@@ -99,7 +99,7 @@ In this list you will see some interesting projects I was working on
 
 ### DOS Games running in web browser
 - Software project, reverse engineering
-- Games were disassembled using IDA, generated assemby was fed through processor which turns the instructions into javascript
+- Games were disassembled using IDA, generated assemby was fed through processor which turns the instructions into javascript or C++
 - Web browser simulates graphics card and programmable interrupt controller and other necessary components
 - ![Alley cat](res/2014_cat.png)
 - Play online: [Alley cat](https://rawgit.valky.eu/gabonator/Work-in-progress/master/DosGames/CicParser2017/js/test.html), [Star goose](https://rawgit.valky.eu/gabonator/Work-in-progress/master/DosGames/JsGoose/index.html)
@@ -112,7 +112,8 @@ In this list you will see some interesting projects I was working on
 - CNC G-code generator for engraving labels
 - [Projet description and code](https://github.com/gabonator/Projects/tree/master/TypoCnc)
 - [Try online](https://rawgit.valky.eu/gabonator/Projects/master/TypoCnc/typo.html)
-- ![Typo carver](res/2013_typocarver.png)
+
+![Typo carver](res/2013_typocarver.png)
 
 ### Geiger tracker
 - Hardware / Software project
