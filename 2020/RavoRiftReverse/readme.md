@@ -4,7 +4,7 @@
 
 Ravo Rive application is supplied with Super Ravo Zapper device, you can find more information here:
 - Device: [https://www.pro-zdravi.net/produkt/super-ravo-zapper](https://www.pro-zdravi.net/produkt/super-ravo-zapper)
-- Application download location: [https://www.pro-zdravi.net/produkt/super-ravo-zapper](https://www.pro-zdravi.net/produkt/super-ravo-zapper)
+- Application download location: [https://www.super-ravo-zapper.cz/ke-stazeni-download](https://www.super-ravo-zapper.cz/ke-stazeni-download)
 
 Installation package was built using InnoSetup packager, it can be unpacked using innoextract utility:
 
@@ -85,7 +85,7 @@ public class Main {
 //...
 ```
 
-The supplied key "AGyy4_kl66!ye4@.35" is not a real decryption key, it just some unusal mechanism to unlock the EncDec class. After analysing this class, we can see the real encryption algorithm "DESede/CBC/PKCS5Padding" as well as the decryption key "ort_8jiosbjihog135687984"
+The supplied key "AGyy4_kl66!ye4@.35" is not a real decryption key, it just some unusal mechanism to unlock the EncDec class. After analysing [this class](EncDec.java), we can see the real encryption algorithm "DESede/CBC/PKCS5Padding" as well as the decryption key "ort_8jiosbjihog135687984"
 
 By creating simple java app which just calls the decryption methods from EncDec class we can quickly decrypt the database:
 
@@ -106,25 +106,25 @@ To run, just call:
     
 And voila, you have the cure for coronavirus:
 
-> CORONAVIRUS SARS;Coronavirus. SARS;;;9918;0;3;0;0;kHz
-> CORONAVIRUS SARS;Coronavirus. SARS;;;9740;0;3;0;0;kHz
-> CORONAVIRUS SARS;Coronavirus. SARS;;;4959;0;3;0;0;kHz
-> CORONAVIRUS SARS;Coronavirus. SARS;;;4870;0;3;0;0;kHz
-> CORONAVIRUS SARS;Coronavirus. SARS;;2479;2480;1;3;0;0;kHz
-> CORONAVIRUS SARS;Coronavirus. SARS;;;2435;0;3;0;0;kHz
-> CORONAVIRUS SARS;Coronavirus. SARS;;1394;1395;1;3;0;0;kHz
-> CORONAVIRUS SARS;Coronavirus. SARS;;1369;1370;1;3;0;0;kHz
-> CORONAVIRUS SARS;Coronavirus. SARS;;1239;1240;1;3;0;0;kHz
-> CORONAVIRUS SARS;Coronavirus. SARS;;1217;1218;1;3;0;0;kHz
-> CORONAVIRUS SARS;Coronavirus. SARS;;;774800;0;3;0;0;Hz
-> CORONAVIRUS SARS;Coronavirus. SARS;;;760900;0;3;0;0;Hz
-> CORONAVIRUS SARS;Coronavirus. SARS;;;619900;0;3;0;0;Hz
-> CORONAVIRUS SARS;Coronavirus. SARS;;;608700;0;3;0;0;Hz
-> CORONAVIRUS SARS;Coronavirus. SARS;;;464900;0;3;0;0;Hz
-> CORONAVIRUS SARS;Coronavirus. SARS;;;456500;0;3;0;0;Hz
-> CORONAVIRUS SARS;Coronavirus. SARS;;;309900;0;3;0;0;Hz
-> CORONAVIRUS SARS;Coronavirus. SARS;;;304400;0;3;0;0;Hz
-> CORONAVIRUS SARS;Coronavirus. SARS;;;155000;0;3;0;0;Hz
+> CORONAVIRUS SARS;Coronavirus. SARS;;;9918;0;3;0;0;kHz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;;9740;0;3;0;0;kHz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;;4959;0;3;0;0;kHz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;;4870;0;3;0;0;kHz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;2479;2480;1;3;0;0;kHz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;;2435;0;3;0;0;kHz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;1394;1395;1;3;0;0;kHz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;1369;1370;1;3;0;0;kHz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;1239;1240;1;3;0;0;kHz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;1217;1218;1;3;0;0;kHz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;;774800;0;3;0;0;Hz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;;760900;0;3;0;0;Hz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;;619900;0;3;0;0;Hz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;;608700;0;3;0;0;Hz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;;464900;0;3;0;0;Hz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;;456500;0;3;0;0;Hz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;;309900;0;3;0;0;Hz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;;304400;0;3;0;0;Hz\
+> CORONAVIRUS SARS;Coronavirus. SARS;;;155000;0;3;0;0;Hz\
 > CORONAVIRUS SARS;Coronavirus. SARS;;;152200;0;3;0;0;Hz
 
 The values matches the PatogenData class with following constructor (just the hzKhz boolean is at the end)
