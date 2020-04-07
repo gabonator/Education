@@ -127,12 +127,23 @@ And voila, you have the cure for coronavirus:
 > CORONAVIRUS SARS;Coronavirus. SARS;;;155000;0;3;0;0;Hz\
 > CORONAVIRUS SARS;Coronavirus. SARS;;;152200;0;3;0;0;Hz
 
-The values matches the PatogenData class with following constructor (just the hzKhz boolean is at the end)
+The values matches the PatogenData class with following constructor (just the order is different, see PatogenData.getDataLineText method)
 ```
     public PatogenData(String shortName2, String longName2, String description2, boolean constantFreq2, Long freqFrom2, Long freqTo2, Long shiftSpeed2, boolean hzKhz2, Integer lenHours2, Integer lenMinutes2, Integer lenSeconds2)
 ```
 
-So following line *CORONAVIRUS SARS;Coronavirus. SARS;;;304400;0;3;0;0;Hz* can be translated: shortName=CORONAVIRUS SARS, longName=Coronavirus. SARS, constatFreq=none, freqFrom=none, freqTo=304.4kHz, shiftSpeed=0, hzKhz=3?, lenHours=0, lenMinutes=0, lenSeconds=3. In human language, it will configure the generator to produce 304.4 kHz for 3 seconds and then jump to the next line in database
+So following line *CORONAVIRUS SARS;Coronavirus. SARS;;;304400;0;3;0;0;Hz* can be translated: 
+- shortName=CORONAVIRUS SARS
+- longName=Coronavirus. SARS
+- constatFreq=none
+- freqFrom=none
+- freqTo=304400 Hz
+- shiftSpeed=0
+- lenMinutes=0
+- lenHours=0
+- lenSeconds=3
+
+In human language, it will configure the generator to produce 304.4 kHz for 3 seconds and then jump to the next line in database
 
 ## Hardware reverse engineering
 
