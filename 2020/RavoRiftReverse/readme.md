@@ -11,7 +11,7 @@ Installation package was built using InnoSetup packager, it can be unpacked usin
     brew install innoextract
     innoextract Rife_setup_1_21.exe
     
-After extracting you will find some FTDI driver packages, encrypted dataases, java libraries and main application file in form of JAR archive. It is a simple GUI based java app (RAVO_RIFE.JAR) which allows uploading various presets into the Super Ravo Zapper device. To disassemble whole application I have used jadx decompiler
+After extracting you will find some FTDI driver packages, encrypted databases, java libraries and main application file in form of JAR archive. It is a simple GUI based java app (RAVO_RIFE.JAR) which allows uploading various presets into the Super Ravo Zapper device. To disassemble whole application I have used the jadx decompiler
 
     brew install jadx
     jadx RAVO_RIFE.jar
@@ -127,28 +127,28 @@ And voila, you have the cure for coronavirus:
 > CORONAVIRUS SARS;Coronavirus. SARS;;;155000;0;3;0;0;Hz\
 > CORONAVIRUS SARS;Coronavirus. SARS;;;152200;0;3;0;0;Hz
 
-The values matches the PatogenData class with following constructor (just the order is different, see PatogenData.getDataLineText method)
+These values match the PatogenData class with following constructor (just the order is different, see PatogenData.getDataLineText method)
 ```
     public PatogenData(String shortName2, String longName2, String description2, boolean constantFreq2, Long freqFrom2, Long freqTo2, Long shiftSpeed2, boolean hzKhz2, Integer lenHours2, Integer lenMinutes2, Integer lenSeconds2)
 ```
 
-So following line *CORONAVIRUS SARS;Coronavirus. SARS;;;304400;0;3;0;0;Hz* can be translated: 
+So following line **CORONAVIRUS SARS;Coronavirus. SARS;;;304400;0;3;0;0;Hz** can be translated: 
 - shortName=CORONAVIRUS SARS
 - longName=Coronavirus. SARS
 - constatFreq=none
 - freqFrom=none
 - freqTo=304400 Hz
 - shiftSpeed=0
-- lenMinutes=0
+- lenMinutes=3
 - lenHours=0
-- lenSeconds=3
+- lenSeconds=0
 
-In human language, it will configure the generator to produce 304.4 kHz for 3 seconds and then jump to the next line in database
+In human language, it will configure the generator to produce 304.4 kHz for 3 minutes and then jump to the next line in database
 
 ## Hardware reverse engineering
 
 After analysing the output signal with oscilloscope, I have found out following:
-- During startup, the amplitude slowly rises to 15V, when there is no impedance at the output, the device will beep and notify the user that something is wrong. The human holding two stainless steel electrodes can be faked by attaching 680 ohm resistor to the output
+- During startup, the amplitude slowly rises to 15Vpp (min value 0V, max value 15V), when there is wrong impedance at the output, the device will beep and notify the user that something is wrong. The human holding two stainless steel electrodes can be faked by attaching 680 ohm resistor to the output (1k was too much)
 - The device just produces square signal with 50% duty cycle with slightly altering frequency
 - Frequency alternations should match the table in encrypted database. Multiple frequencies (lines) with the same patogen name are generated in sequence
 - The amplitude of the generator is fixed during use, so the only parameter which varies in time is frequency

@@ -8,9 +8,9 @@ In this list you will see some interesting projects I was working on
 - Hardware / software project with offline hotword voice analyser running on Raspberry pi
 - Project in progress. Raspberry pi runs snowboy hotword detection library. Recognized commands are sent through bluetooth to arduino based controller which controls hoist. Precise control of hoist is achieved using hall sensor counting the hoists drum turns. 
 - [Code](https://github.com/gabonator/Projects/tree/master/BeerHoist)
-- Unofficial video:
+- video:
 
-[![Beer hoist](https://img.youtube.com/vi/QlplAXO4FNo/0.jpg)](https://www.youtube.com/watch?v=QlplAXO4FNo "Beer hoist test")
+[![Beer hoist](https://img.youtube.com/vi/yEDIq5enFHE/0.jpg)](https://www.youtube.com/watch?v=yEDIq5enFHE "Beer hoist test")
 
 ### Reverse engineering of USB camera protocol
 - Reverse engineering, USB protocol, software
@@ -140,3 +140,5 @@ In this list you will see some interesting projects I was working on
 - AtomClock
 - Webotherm
 - add thesis to papers
+- keybug
+- rift ravo reverse engineering
