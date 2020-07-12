@@ -17,6 +17,11 @@
 
 [presentation](workshopelectro2.pdf)
 
+## Materialy pre studentov
+
+[student](student.md)
+
+
 ## Osnova
 
 [draft](draft.txt)
