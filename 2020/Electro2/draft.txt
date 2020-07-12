@@ -1,0 +1,19 @@
+## Draft
+
+- RGB dioda, zapojenie so spolocnou anodou, katodou, zopakovanie konstrukcie diody,
+- mozno si o diodach povedat viac, nobelova cena za vysokosvietivu modru...
+- vyhoda je, ze arduino moze rovno drivovat ledku, na rozdiel od ziarovky
+- farebny model, aditivny, subtraktivny
+- on off skusat farebne kombinacie
+- s forom robit PWM
+- pouzit PWM
+- linearne interpolacie
+- adresovatelne ledky, animacie nedame!
+- RGB swap, RGB interpolate, stroboscope, night sky
+- sirena (modra anim cervena)
+
+
+
+## Appendix
+
+- https://www.nobelprize.org/prizes/physics/2014/press-release/

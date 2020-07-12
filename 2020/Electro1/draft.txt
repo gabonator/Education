@@ -1,0 +1,133 @@
+Teoria: 45 min
+Letovanie: 40 min
+Programovanie: 60 min
+
+# 0
+- Introduction
+
+# 1
+- Kto vie co je to elektrika? Na co nam elektrika sluzi? Podla akych zakonov sa riadi?
+- Na to, aby sme sa vedeli orientovat v tak komplexnom zapojeni ako vidime na obrazku sa
+musime oboznamit s urcitymi zakonmi ktore definuju ako sa "elektrika" chova. Pocul uz niekto
+pojem "Ohmov zakon"? Je to taky zakladny zakon ktory dava do suvisu napatie, prud a odpor co
+su uplne najzakladnejsie pojmy s ktorymi sa musime oboznamit, ak chceme pochopit jednoduche
+elektricke obvody. Dalsie zakony ktore si dnes predstavime sa volaju Kirchhoffov napatovy zakon
+a Kirchhoffov prudovy zakon.
+
+# 1          
+- Pochopit co sa deje v elektrickych obvodoch nie je pre novacika velmi jednoduche, elektriku 
+nevidime, niekedy ju mozeme citit ale tomu sa chceme vyhnut. Pre diagnostiku a navrh elektrickych
+zariadeni pouzivame rozne pomocky ako multimetre a osciloskopy, ktore nam vedia odmerat co sa 
+na ktorom vodici deje.
+- Javy ktore sa daju vo vodicoch pri prechode jednosmerneho elektrickeho prudu su ale velmi podobne
+s tymi, ktore sa deju pri vode prechadzajucej cez rurky a hadice. Skusime vyuzit tieto analogie
+aby sme pochopili podstatu ohmovho a kirchhoffovych zakonov.
+- Predstavme si takuto zahradnu hadicu pripojenu na vodovodny kohutik. Niekde tam v pozadi je 
+zdroj vody (napriklad studna) a nejake cerpadlo, ktore nam udrzuje vo vodovodnych rozvodoch nejaky
+tlak. 
+- Otvorenim kohutika zacne voda prudit cez hadicu a vyjde von.
+- Pri takomto deji, ake fyzikalne pojmy vidime, ake pojmy charakterizuju toto vytekanie vody?
+- teplota na snezaujima, prud a tlak. Keby bola hadica dlha, co sa zmeni? Keby bola tensia, co sa zmeni?
+
+# 3 
+- V nasich analogiach si budeme pomahat s takymto zariadeniami
+- prve si mozeme predstavit ako striekacku naplnenu vodou, kde na piest tlaci pruzina. Konce
+striekacky su uzatvorene a voda moze vydchadzat a prudit iba ak konce striekacky prepojime hadickou
+- Druhe zariadenie je manometer, ktory nam ukazuje aky je tlak v danom mieste. Ak by sme do neho fukli,
+	alebo tlacili vodu, ukaze kladnu vychylku doprava. Ak by sme z neho vzduch cucali alebo bol na vstupe
+podtlak, tak ukaze zapornu vychylku dolava. Ak je tlak zhodny s referencnym tlakom (nemozeme povedat
+nulovy, pretoze nulovy je iba vo vesmire) tak ukazuje nulovu vychylku. Manometer teda ukazuje teda tlak
+vzdhladom na referencny tlak - tlak nasej atmosfery
+
+# 4 
+- prvy myslienkovy experiment (jednoducha zataz)
+- mame nas zdroj, ktory z jednej strany tlaci vodu a z druhej strany cuca
+- na vyvody zdroja sme pripojili prekazku: zuzenu rurku, ktora vytvara prudu vody odpor a znizuje 
+rychlost prietoku
+- merame manometrom tlak pred zuzenim, v strede a na konci. Kedze na piest je vyvijana sila, vznika 
+v hornej casti zapojenia tlak, ktory zenie vodu dopredu do prekazky. Zaroven spodna cast piestu
+vodu vycucava a tlak je tu zaporny. Ak najdeme presny stred zuzenia, namerali by sme tam presny
+priemer oboch tlakov ako su na konci - cize v nasom pripade nulu
+- aky tlak by bol na roznych miestach? Kedze rury su inde dostatocne siroke, nenastava na nich 
+tak vyrazny brzdny ucinok ako v pripade zuzenia
+- kvoli comu nam ten tlak klesa? je to prekazka, vznikaju na nej kapilarne trenia
+- v scheme rozlisujeme zdroj, prepajacie "vodice" a prekazku "odpor"
+
+- kapacita zdroja? skrat? (tvrdy zdroj?)
+- voda moze prechadzat iba hadickami, tak ako v pripade elektriky moze ta prechadzat iba urcitymi
+materialmi, ktore obsahuju volne nosice naboja (elektrony)
+- situaciu s vodnymi analogiami si mozeme predstavit aj tak, ze cele toto nase zapojenie je hodene
+v betone, a voda nedokaze prudit inym priestorom ako prave hadickami. V pripade, ze by niekde bola
+hadicka prerusena, resp. vodic by bol roztrhnuty a medzi jeho koncami by bola kratka medzera, tak
+voda (prud) by obvodom neprechadzal. Ak by sme vsak pouzili zdroj s extremne vysokym tlakom, tak by
+bola prerazila aj bez beton a takyto jav v elektronike nazyvame vyboj.
+  
+# 5 
+- seriove zapojenie
+- predstavme si, ze takto za sebou zapojime viacere prekazky
+- co by sa stalo keby sme niektoru z nich upchali? Tlak ostava, ale prud nepreteka
+- dokonca tlak bude rovnaky aj ked ho budeme merat za prvou prekazkou? Preco? je to uzavreta
+nadoba bez prudenia v nej je v kazom bode tlak rovnaky
+- ked si povieme, ze mame zdroj, ktory dodava presny tlak na vstupe a vystupe, dajme tomu 2 atmosfery,
+- a mame tu 4 zuzenia, ako sabude vyvijat hodnota tlaku v takomto zapojeni?
+- plati tu teda jedno pravidlo: cely tlak, ktory nam dodava zdroj sa *premietne* na vsetky odpory (zuzenia)
+- aby sme si definovali nejake presne pravidlo, tak si zvolime nejaky smer v ktorom budeme postupovat 
+po tomto obvode (resp. slucke), na kazdom prvku sledujeme aky je rozdiel tlaku na vystupe, voci tlaku na 
+vstupe
+- na prvej prekazke je ubytok 1 atmosfera* (musia byt kilopaskaly), cize si delta P1 = -4, kedze
+prekazky su rovnako dlhe a rovnako uzke, ubytok na kazdej z nich bude identicky. Na konci mame zdroj,
+a ked postupujeme v smere sipky, vidime ze na vystupe su 2 paskaly a na vstupe -2, cize delta Pzdroj = 4.
+Dame do vzorca.
+
+- dolezite je, ze v kazdom bode tejto schemy je vzdy rovnaky prietok vody za jednotku casu!!! (v paralelnom
+je to inak)
+
+# 11 
+- paralelne zapojenie
+- co sa vsak bude diat, ak sa nam voda bude v nasom zapojeni vetvit?
+- opat sa voda bude sirit podla urcitych pravidiel. V prvom rade sa uz nejedna
+o jednoduchu slucku, takze nebude platit ze v kazdom bode schemy bude pretekat
+rovnake mnozstvo vody. Ale o prude vody vieme povedat jednu vec, ktora je 
+samozrejma - ak sa schema v nejakom bode vetvi, tak sucet prichadzajucich prudov
+sa rovna suctu vychadzajuich prudov.
+
+- akym sposobom by sme hodnotu vedeli merat v takomto zapojeni s vodou? Pretoze
+manometer nam v takomto zapojeni nijako nepomoze.
+- ak by sme nemali 3 vetvy, alebo iba jednu, o kolko by sa zvysil prietok
+pri pridani dalsej vetvy? a dalsej?
+
+# 6
+- skusime pouzit taketo zapojenie, je to jednoduchy lievik, v ktorom je ulozena
+gulicka. Tuto gulicku stahuje nadol gravitacia ale zaroven tlaci dohora prud vody.
+Cim vacsi je prud vody, tym vyssie sa gulicka stabilizuje. Cize poloha gulicky
+nam reprezentuje hodnotu prietoku vody
+
+# 7 
+- predstavme si, ze jedno zapojenie do ktoreho pustame vodu. v prvom pripade je
+prietok nizky, sledujeme aku hodnotu nam ukazu manometre
+- zvysime prietok, cize mnozstvo litrov ktore prejdu zapojenim za jednotku casu
+(napriklad minutu), tlak indikovany na manometroch stupne
+- skusime este zvysit prietok, tlak opat stupne.
+- Co je dolezite je to, ze kolkokrat zvysime prietok, tolkokrat sa zvysi aj
+indikovany tlak (resp. potencial), zaroven aj diferencial tlakov.
+- Zapamatame si: ubytok tlaku na prekazke je priamo umerny odporu prekazky  !!
+
+# 8 
+- prave ste pochopili principy jednoduchych jednosmernych linearnych obvodov,
+iba si zamenime symboly, namiesto vody mame prud, namiesto tlaku napatia a
+zuzenina je odpor, alebo rezistor
+
+# 9 
+- pridame si este jeden zaujimavy komponent: diodu
+- ta ma tu vlastnost, ze prepusta prud iba v jednom smere
+- ma specialnu vlastnost, ze nie je linearna. Ubytok napatia na diode nezavisi od prudu linearne
+ako v pripade rezistivnych prvkov (ako sme videli v pripade vody).
+- na vodnej analogii si to mozeme vysvetlit tak, ze prud vody strati urcite mnozstvo energie tym,
+ze posobi proti gulicke na pruzine a toto mnozstvo energie je vzdy rovnake, nezavisle od prudu,
+dosiahne urcitu hodnotu a potom uz nestupa
+
+
+
+Nova anotacia:
+- Čerstvo získané vedomosti využijeme pri návrhu zapojenia arduina a semaforu zostaveného z troch LED diód s predradnými rezistormi. V prvý deň si navrhnuté zapojenie zletujeme a oživíme pomocou jednoduchého programu v jazyku C s využitím iba troch príkazov.
+- V druhý deň podujatia si povieme niečo o miešaní farieb, aditívnom a subtraktívnom farebnom modeli, o regulácii jasu a lineárnych interpoláciách a budeme pokračovať v programovaní led diód a skúsime vytvárať rôzne farebné animácie.

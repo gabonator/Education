@@ -2,6 +2,8 @@
 
 - programovanie RGB Led a animacie
 
+![preview](preview.jpg)
+
 ## Nakupit (pre 8 ludi s rezervou):
 
 | Pocet | Co      | Oznacenie GME                   | Jednotkova cena | Celkova cena    | Linka         |
@@ -11,17 +13,10 @@
 | 2x    | Lamacia lista rovna 40 pinova | S1G40 2,54mm | 0.24         | 0.48            | https://www.gme.sk/oboustranny-kolik-s1g40-2-54mm |
 | 8x    | Arduino Uno | Klon Arduino UNO R3 ATmega328P CH340 USB mini | 7.80  | 62.4    | https://www.gme.sk/klon-arduino-uno-r3-atmega328p-ch340-mini-usb |
 
+## Prezentacia
 
-## Draft
+[presentation](workshopelectro2.pdf)
 
-- RGB dioda, zapojenie so spolocnou anodou, katodou, zopakovanie konstrukcie diody,
-- mozno si o diodach povedat viac, nobelova cena za vysokosvietivu modru...
-- vyhoda je, ze arduino moze rovno drivovat ledku, na rozdiel od ziarovky
-- farebny model, aditivny, subtraktivny
-- on off skusat farebne kombinacie
-- s forom robit PWM
-- pouzit PWM
-- linearne interpolacie
-- adresovatelne ledky, animacie nedame!
-- RGB swap, RGB interpolate, stroboscope, night sky
-- sirena (modra anim cervena)
+## Osnova
+
+[draft](draft.txt)
