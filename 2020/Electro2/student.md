@@ -1,5 +1,10 @@
-- preview
-- pripravok 
+# Electro workshop 2
+
+- programovanie RGB Led a animacie
+
+![preview](preview.jpg)
+
+![pripravok](pripravok.jpg)
 
 ## Uloha 1:
 
@@ -49,7 +54,7 @@ Najdite predpis pre y1, y2, y3 a vypiste funkcne hodnoty pre 0..10
 
 - [riesenie/uloha2a](riesenie/prog2_u2a.ino)
 - ![uloha2a](riesenie/prog2_u2a.png)
-- [riesenie/uloha2b](riesenie/prog2_u2b.ino)
+- [riesenie/uloha2b](riesenie/prog3_u2b.ino)
 - ![uloha2b](riesenie/prog3_u2b.png)
 
 ## Uloha 3
@@ -60,9 +65,9 @@ Najdite predpis pre y1, y2, y3 a vypiste funkcne hodnoty pre 0..10
 - ![uloha3](riesenie/prog4_u3.png)
 
 ## Uloha 4
+- ![pripojenie](connection.png)
 - otvorit ukazku "blink.ino"
 - pripojit pripravok
-+ obrazok pripojenia 
 - Rozsvietit jednotlive kanaly
 - Vyskusat rozne kombinacie farieb
 - Kolko roznych kombinacii vieme vytvorit z troch kanalov? 
