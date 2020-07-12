@@ -114,7 +114,7 @@ void loop()
 
 ## Uloha 9
 - Plynulý prechod farieb dúhy s interpoláciou
-- [riesenie/uloha9](riesenie/prog9_u10.ino)
+- [riesenie/uloha9](riesenie/prog10_u9.ino)
 
 ## Uloha 10
 - bonus

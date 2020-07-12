@@ -1,9 +1,9 @@
 void setup() 
 {
-  pinMode(3, OUTPUT); // cervena
+  pinMode(3, OUTPUT); // zelena
   pinMode(4, OUTPUT);
   pinMode(5, OUTPUT); // modra
-  pinMode(6, OUTPUT); // zelena
+  pinMode(6, OUTPUT); // cervena
   digitalWrite(4, LOW);
 }
 
