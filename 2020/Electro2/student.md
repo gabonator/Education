@@ -59,6 +59,13 @@ Najdite predpis pre y1, y2, y3 a vypiste funkcne hodnoty pre 0..10
 
 ## Uloha 3
 
+```C
+int interpoluj(int odkial, int kam, int percent)
+{
+  return odkial + (kam-odkial)*percent/100;
+}
+```
+
 - Otestovat funkciu interpoluj
 - Interpolovat hodnotu od 50 do 100 (v sto alebo 20 krokoch)
 - [riesenie/uloha3](riesenie/prog4_u3.ino)

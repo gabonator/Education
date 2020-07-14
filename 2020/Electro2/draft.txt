@@ -12,7 +12,31 @@
 - RGB swap, RGB interpolate, stroboscope, night sky
 - sirena (modra anim cervena)
 
+## Pokles so stvorcom vzdialenosti
 
+> P = 1 W
+> S = 4/3*pi*r^2
+> L = P/S = 1W/(4/3*pi*r^2)
+>   
+> L10cm = 2.38 mW/cm^2
+> L20cm = 0.59 mW/cm^2 = L10cm/4
+> L30cm = 0.26 mW/cm^2 = L10cm/9
+> L40cm = 0.15 mW/cm^2 = L10cm/16
+
+
+## Volt amperova charakteristika
+
+| U[V]	| I[mA]	| I[A]	| P[W]	| R[Ohm] |
+|-------|-------|-------|-------|--------|
+|1	| 100	|	|	|	 |
+|2	| 150	|	|	|        |
+|3	| 200	|	|	|        |
+|4	| 250	|	|	|        |
+|5	| 300	|	|	|        |
+
+> I[A] = I[mA] / 1000
+> P[W] = U[V] * I[A]
+> R[Ohm] = U[V] / I[A]
 
 ## Appendix
 
