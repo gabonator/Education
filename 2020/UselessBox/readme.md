@@ -39,9 +39,11 @@
 ## Letovanie
 
 - Prepinac
+
 ![prepinac](prepinac.jpg)
 
 - Napajaci kabel
+
 ![napajanie](napajanie.jpg)
 
 - Ti ktori budu sikovnejsi zatial mozu rozmyslat ako zmontovat krabicku dokopy, treba ich upozornit aby neprilepili aj vrchnak s prepinacom. Ten budeme mat pocas programovania od skatule odpojeny, aby sme vedeli odladit krajne polohy serva
@@ -51,7 +53,7 @@
 - Zlozenie a zlepenie krabicky okrem vrhnaka (tam kde sa bude montovat prepinac a servo)
 - Namontovanie prepinaca a prilepenie serva
 - Umiestnenie packy tak, aby sa vedela schovat pod rovinu druheho vrchnaka a zaroven aby v jednej krajnej polohe dokazala prepnut prepinac
-- Overenie pohyblivosti a ci dokaze krajna poloha serva prepnut prepinac
+- Overenie pohyblivosti packy (bez pripojenia elektriky) a ci dokaze krajna poloha serva prepnut prepinac
 
 ## Programovanie
 
@@ -97,8 +99,9 @@ void loop() {
 ```
 
 - Pripojime servo podla obrazku s dupont kablom male-male: GND (hnedy) 5V (oranzovy), pin 9 (zlty)
-! obrazok
 - spustit ukazku a sledovat pohyb serva
+
+![schema servo](schema1.png)
 
 ### Uloha 2: Pridanie pauzy
 
@@ -130,9 +133,9 @@ void loop() {
 ```
 
 - Analyza programu:
-  - prvy *for* postupuje od hodnoty 0 po hodnotu 180 s krokom 1. Nastavi servu poolohu a pocka 15 milisekund.
+  - prvy **for** postupuje od hodnoty 0 po hodnotu 180 s krokom 1. Nastavi servu poolohu a pocka 15 milisekund.
   - Hadanka: Kolko bude trvat takyto pohyb? (15ms * 180 = 2.7s)
-  - druhy *for* sa zase vrati z hodnoty 180 na hodnotu 0.
+  - druhy **for** sa zase vrati z hodnoty 180 na hodnotu 0.
 
 ### Uloha 3: Montaz a rozsah
 
@@ -188,7 +191,8 @@ void setup() {
 - Druhu krajnu polohu na GND (nastastie mame dva GND vedla seba)
 - Stredny pin prepinaca teda bude nadobudat bud 3.3V alebo GND. Takyto signal mozeme kludne pripojit na vstupy pin arduina, kedze rozhodovacia uroven toho, ci bude arduino registrovat na vstupnom pine logicku jednotku alebo nulu je polovica napajacieho napatia. Napajacie napatie je 5V, takze cokolvek vacsie ako 2.5V na vstupnom pine bude povazovat arduino za logicku jednotku
 - Stredny pin pripojime na pin 5
-! obrazok
+
+![schema prepinc](schema2.png)
 
 - Namiesto cakania sleep(5000) budeme cakat na okamih, kedy bude prepinac zapnuty
 - Na to potrebujeme nakonfigurovat vstupny pin s prikazom ```pinMode(5, INPUT);``` vo funkcii setup
@@ -226,9 +230,10 @@ void loop() {
 ```
 
 ### Uloha 6: Kontrola logickej urovne
-- Kedze su dve moznosti ako prepinac namontovat na vrchnak, tak je mozne ze im to bude vracat presne opacnu hodnotu. V takom pripade by stacilo prehodit krajne kabliky na prepinaci, ale pri istotu si prichystame program, ktory bude aj zobrazovat logicku uroven z prepinaca
-- Pouzijeme prikazy *Serial.begin* a *Serial.print*
+- Kedze su dve moznosti ako prepinac namontovat na vrchnak, tak je mozne ze im to bude vracat presne opacnu hodnotu, ako by ocakavali. V takom pripade by stacilo prehodit krajne kabliky na prepinaci, ale pri istotu si prichystame program, ktory bude aj zobrazovat logicku uroven z prepinaca
+- Pouzijeme prikazy **Serial.begin** a **Serial.print**
 - Seriovu konzolu otvorime: Tools -> Serial Monitor
+- V seriovej konzole nastavime komunikacnu rychlost 9600
 
 ```C
 #include <Servo.h>
