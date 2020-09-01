@@ -1,6 +1,6 @@
 # Electro workshop 3
 
-- digitalny vstup, pull up a klavesnica
+Čaká nás ďalší zo série Arduino workshopov. Tentokrát sa pozrieme na to, v akých režimoch vie pracovať GPIO pin mikrokontroléra. Zameráme sa na možnosť sledovania vonkajšej logickej úrovne, aby sme mohli k našemu zariadeniu pripojiť spínače a prepínače. S pomocou osciloskopu preskúmame prechodové javy pri spínani a rozpínaní mechanických kontaktov a porozmýšľame, ako správne v programe vyhodnotiť, kedy bolo tlačidlo zopnuté a kedy rozpnuté. Po pochopení pojmov ako “debouncing” a “pull-up resistor” pripojíme ku Arduinu jednoduchú maticovú 4x4 klávesnicu a naprogramujeme si kódovy zámok.
 
 ## BOM
 
@@ -19,11 +19,115 @@
 
 ## Draft
 
-- Digitalny vstup, vypisovat hodnotu, 50hz sum?
-- ukazka sumu s osciloskopom
-- ukazka prechodoveho javu
-- debouncing
-- vysvetlit vstupny pin
-- schmitt trigger
-- maticova klavesnica
-- heslo
+Improvizacia podla prezentacie
+
+## Prezentacia
+
+[presentation](prezentacia.pdf)
+
+## Ulohy
+
+Pripravok na zletovanie:
+
+![pripravok](res/pripravok.jpg)
+
+### Uloha 1
+
+![uloha1](res/uloha1.png)
+
+- Uloha 1: Rozsviet internu LED podla podla logickeho stavu na vstupnom pine D2
+- Pouzit prikazy: pinMode, digitalRead, digitalWrite
+
+[sablona ulohy 1](progs/u1.ino)
+[riesenie ulohy 1](progs/u1riesenie.ino)
+
+### Uloha 2
+
+- Uloha 2: Vypisuj hodnotu logickeho stavu pinu D2 v 100ms intervaloch
+- Pouzit prikazy: Serial.begin, Serial.print
+
+[sablona ulohy 2](progs/u2.ino)
+[riesenie ulohy 2](progs/u2riesenie.ino)
+
+### Pull up / down
+
+![pullup](res/pullup.png)
+
+![pulldown](res/pulldown.png)
+
+### Zjednodusene zapojenie GPIO
+
+![gpio](res/gpio.png)
+
+### Uloha 3
+
+- pripojit spinac a vyhodnotit stav zopnutia internym pull-upom
+
+[sablona ulohy 3](progs/u3.ino)
+[riesenie ulohy 3](progs/u3riesenie.ino)
+
+### Uloha 4
+
+- detekovat stlacene a rozopnutie (v okamih stlacenia vypisat cez seriovu konzolu...)
+
+[sablona ulohy 4](progs/u4.ino)
+[riesenie ulohy 4](progs/u4riesenie.ino)
+
+### Uloha 5
+
+- detekovat stlacenie a rozopnutie - debouncing
+
+[sablona ulohy 5](progs/u5.ino)
+[riesenie ulohy 5](progs/u5riesenie.ino)
+
+### Uloha 6
+
+- prepinat internu led v okamihu stlacenia tlacidla
+
+[sablona ulohy 6](progs/u6.ino)
+[riesenie ulohy 6](progs/u6riesenie.ino)
+
+### Maticova klavesnica
+
+![klavesncia schema](res/klavesnica1.png)
+
+![klavesncia pripojenie](res/klavesnica2.png)
+
+### Uloha 7
+
+– rozsvietit internu led ked je stlacena cislica “1” (piny 5 a 9)
+
+[sablona ulohy 7](progs/u7.ino)
+[riesenie ulohy 7](progs/u7riesenie.ino)
+
+### Uloha 8
+
+- detekovat stlacenie v prvom riadku (vyhodnotit klavesy 1, 2, 3, A)
+
+[sablona ulohy 8](progs/u8.ino)
+[riesenie ulohy 8](progs/u8riesenie.ino)
+
+### Uloha 9
+
+- detekovat vsetky klavesy
+
+[sablona ulohy 9](progs/u9.ino)
+[riesenie ulohy 9](progs/u9riesenie.ino)
+
+### Ukazka 10
+
+- fantomove klavesy pri stlaceni 3ch klaves v mriezke
+
+### Uloha 11
+
+- Dvojznakovy kodovy zamok
+
+[sablona ulohy 11](progs/u11.ino)
+[riesenie ulohy 11](progs/u11riesenie.ino)
+
+### Uloha 12
+
+- Klavesnica – stvorznakovy kodovy zamok
+
+[sablona ulohy 12](progs/u12.ino)
+[riesenie ulohy 12](progs/u12riesenie.ino)

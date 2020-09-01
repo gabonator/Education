@@ -1,8 +1,12 @@
 # Useless box
 - Jednoduche zapojenie arduina so servo motorom a prepinacom napajane 9V bateriou
-
 ![preview](uselessbox1.jpg)
 ![preview](uselessbox2.jpg)
+
+## Anotacia
+Na tomto workshope skonštruujeme tzv. “Useless box”. Zariadenie pozostáva z drevenej krabičky, na ktorej je vo vrchnej časti namontovaný prepínač. Po prepnutí prepínača sa krabička otvorí a servo motor mechanickým ramenom prepne prepínač do pôvodnej polohy. 
+Najprv si povieme niečo o konštrukcii, návrhu a výrobe podobných krabičiek pomocou laserovej rezačky. Vysvetlíme si ako ovládať servo motor 9g s Arduinom a ako správne pripojiť prepínač ku vstupnému pinu mikrokontroléra.
+Po zmontovaní krabičky a umiestnení prepínača a servo motora prejdeme ku programovaniu Arduina. Vo vytvorenom programe budeme spracovávat signál z prepínača a podľa neho ovládať pohyb motora. Po overení funkčnosti uložíme elektronické zapojenie dovnútra krabičky, čím získame funkčný batériou napájaný prototyp useless boxu.
 
 ## Bill of material
 
