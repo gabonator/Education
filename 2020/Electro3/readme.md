@@ -31,6 +31,14 @@ Pripravok na zletovanie:
 
 ![pripravok](res/pripravok.jpg)
 
+### Uloha 0
+
+- Skontrolovat ci funguje komunikacia medzi Arduino IDE a Arduino Nano
+- File -> Examples -> 01. Basics -> Blink
+- Tools -> Board -> Arduino Nano
+- Tools -> Processor -> Atmega 328P (Old bootloader)
+
+
 ### Uloha 1
 
 ![uloha1](res/uloha1.png)
@@ -38,16 +46,14 @@ Pripravok na zletovanie:
 - Uloha 1: Rozsviet internu LED podla podla logickeho stavu na vstupnom pine D2
 - Pouzit prikazy: pinMode, digitalRead, digitalWrite
 
-[sablona ulohy 1](progs/u1.ino)
-[riesenie ulohy 1](progs/u1riesenie.ino)
+[sablona ulohy 1](progs/u1.ino), [riesenie ulohy 1](progs/u1riesenie.ino)
 
 ### Uloha 2
 
 - Uloha 2: Vypisuj hodnotu logickeho stavu pinu D2 v 100ms intervaloch
 - Pouzit prikazy: Serial.begin, Serial.print
 
-[sablona ulohy 2](progs/u2.ino)
-[riesenie ulohy 2](progs/u2riesenie.ino)
+[sablona ulohy 2](progs/u2.ino), [riesenie ulohy 2](progs/u2riesenie.ino)
 
 ### Pull up / down
 
@@ -63,29 +69,29 @@ Pripravok na zletovanie:
 
 - pripojit spinac a vyhodnotit stav zopnutia internym pull-upom
 
-[sablona ulohy 3](progs/u3.ino)
-[riesenie ulohy 3](progs/u3riesenie.ino)
+- aktivacia intrerneho pull-upu: 
+  1. nastavit pin na vstup cez *pinMode*
+  2. zapisat logicku uroven HIGH cez *digitalWrite*
+
+[sablona ulohy 3](progs/u3.ino), [riesenie ulohy 3](progs/u3riesenie.ino)
 
 ### Uloha 4
 
-- detekovat stlacene a rozopnutie (v okamih stlacenia vypisat cez seriovu konzolu...)
+- detekovat stlacene a rozopnutie (v okamihu stlacenia vypisat cez seriovu konzolu...)
 
-[sablona ulohy 4](progs/u4.ino)
-[riesenie ulohy 4](progs/u4riesenie.ino)
+[sablona ulohy 4](progs/u4.ino), [riesenie ulohy 4](progs/u4riesenie.ino)
 
 ### Uloha 5
 
 - detekovat stlacenie a rozopnutie - debouncing
 
-[sablona ulohy 5](progs/u5.ino)
-[riesenie ulohy 5](progs/u5riesenie.ino)
+[sablona ulohy 5](progs/u5.ino), [riesenie ulohy 5](progs/u5riesenie.ino)
 
 ### Uloha 6
 
 - prepinat internu led v okamihu stlacenia tlacidla
 
-[sablona ulohy 6](progs/u6.ino)
-[riesenie ulohy 6](progs/u6riesenie.ino)
+[sablona ulohy 6](progs/u6.ino), [riesenie ulohy 6](progs/u6riesenie.ino)
 
 ### Maticova klavesnica
 
@@ -97,37 +103,40 @@ Pripravok na zletovanie:
 
 – rozsvietit internu led ked je stlacena cislica “1” (piny 5 a 9)
 
-[sablona ulohy 7](progs/u7.ino)
-[riesenie ulohy 7](progs/u7riesenie.ino)
+[sablona ulohy 7](progs/u7.ino), [riesenie ulohy 7](progs/u7riesenie.ino)
 
 ### Uloha 8
 
 - detekovat stlacenie v prvom riadku (vyhodnotit klavesy 1, 2, 3, A)
 
-[sablona ulohy 8](progs/u8.ino)
-[riesenie ulohy 8](progs/u8riesenie.ino)
+[sablona ulohy 8](progs/u8.ino), [riesenie ulohy 8](progs/u8riesenie.ino)
 
 ### Uloha 9
 
 - detekovat vsetky klavesy
 
-[sablona ulohy 9](progs/u9.ino)
-[riesenie ulohy 9](progs/u9riesenie.ino)
+[sablona ulohy 9](progs/u9.ino), [riesenie ulohy 9](progs/u9riesenie.ino)
 
 ### Ukazka 10
 
-- fantomove klavesy pri stlaceni 3ch klaves v mriezke
+- fantomove klavesy pri stlaceni troch klaves v mriezke (napr. 1, 3, 7 indikuje aj stlacenu 9)
 
 ### Uloha 11
 
 - Dvojznakovy kodovy zamok
 
-[sablona ulohy 11](progs/u11.ino)
-[riesenie ulohy 11](progs/u11riesenie.ino)
+[sablona ulohy 11](progs/u11.ino), [riesenie ulohy 11](progs/u11riesenie.ino)
 
 ### Uloha 12
 
 - Klavesnica – stvorznakovy kodovy zamok
 
-[sablona ulohy 12](progs/u12.ino)
-[riesenie ulohy 12](progs/u12riesenie.ino)
+[sablona ulohy 12](progs/u12.ino), [riesenie ulohy 12](progs/u12riesenie.ino)
+
+
+## Timing
+
+- Uvodna teoria 20 min
+- Letovanie 30 min
+- Celkovo 2 h 30 min
+

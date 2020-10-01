@@ -4,6 +4,16 @@ In this list you will see some interesting projects I was working on
 
 ## 2020
 
+### RF Toolkit
+
+Ultimate toolkit for hacking OOK/ASK wireless devices (weather stations, wireless keys...) using CC1101 transceiver
+- Hardware / software project running on LA104 (Arm M3 STM32F103)
+- useful for capturing weather station signals / all wireless devices using OOK/ASK modulation
+- synthesizing fake packets and sending them back to weather stations
+- web usb analyser running in web browser with RTL433 library (very popular library for decoding ook modulations)
+
+[![LA104 RF Toolkit](https://img.youtube.com/vi/Gwyi00NKBNg/0.jpg)](https://www.youtube.com/watch?v=Gwyi00NKBNg "LA104 RF Toolkit")
+
 ### Voice controlled beer hoist
 - Hardware / software project with offline hotword voice analyser running on Raspberry pi
 - Project in progress. Raspberry pi runs snowboy hotword detection library. Recognized commands are sent through bluetooth to arduino based controller which controls hoist. Precise control of hoist is achieved using hall sensor counting the hoists drum turns. 
@@ -36,7 +46,10 @@ In this list you will see some interesting projects I was working on
 [![Beer hoist](https://img.youtube.com/vi/iCVEEQ8QII4/0.jpg)](https://www.youtube.com/watch?v=iCVEEQ8QII4 "Laser projector experiments")
 
 ### Lectures for Creative point (Slovak business agency)
-- Teaching and lectures
+
+[![Creative point](https://img.youtube.com/vi/R7AnwH3DmAo/0.jpg)](https://www.youtube.com/watch?v=R7AnwH3DmAo "Creative point")
+
+- Technology related lectures on electronics
 - Teaching how to make simple arduino base projects for attendees with no previous engineering experience, e.g.: [Midi synthesizer with capacitive sensing](https://github.com/gabonator/Education/tree/master/2019/MidiSynth), [Simple IoT weather station](https://github.com/gabonator/Education/tree/master/2019/creativePointWeather), [Laser projector with two servo motors](https://github.com/gabonator/Education/tree/master/2019/Servo)...
 
 ### Webusb oscilloscope with DS203

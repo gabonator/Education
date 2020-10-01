@@ -17,6 +17,7 @@ void loop()
     {
       Serial.print("Stlacil\n");
       bolStlaceny = 1;
+      delay(100);
     }
   }
   else
@@ -25,6 +26,7 @@ void loop()
     {
       Serial.print("Pustil\n");
       bolStlaceny = 0;
+      delay(100);
     }
   }
 }
