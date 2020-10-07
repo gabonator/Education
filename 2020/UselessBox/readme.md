@@ -292,5 +292,14 @@ void loop() {
 - Po kontrole ci je rozsah pohybu serva primerany mozeme vrchnak prilepit a arduino odpojit od PC
 - Overime zapojenie s napajanim s 9V bateriou a ulozime vsetko dovnutra krabicky
 
+### Podklad pre rezanie
+
+- navrhol a odladil Andrej Gerhat a Robert Kolek
+
+![cutting layout](layout.pdf)
+
 ### Zaver
 - Nezabudnut odpojit bateriu od arduina, inak sa rychlo vybije
+- 9V bateria nezvlada velke prudove narazy pri rychlom pohybe serva
+- aj pri pomalych pohyboch sa rychlo vybije. Treba skusit samostatnu regulacnu linku, pretoze pri poklese napatia sa restartuje cele arduino a nastavaju problemy. Dalsia moznost je napajanie z power banky. Napajanie z USB bolo bezproblemove. Servo na limit na napajanie max 6V, nie je mozne ho napajat priamo z 9V baterie. Zvazit pouzitie napajania zo 4.5V alebo 6V s pomocou AA/AAA baterii
+

@@ -11,6 +11,7 @@ Ultimate toolkit for hacking OOK/ASK wireless devices (weather stations, wireles
 - useful for capturing weather station signals / all wireless devices using OOK/ASK modulation
 - synthesizing fake packets and sending them back to weather stations
 - web usb analyser running in web browser with RTL433 library (very popular library for decoding ook modulations)
+- spectrum analyser
 
 [![LA104 RF Toolkit](https://img.youtube.com/vi/Gwyi00NKBNg/0.jpg)](https://www.youtube.com/watch?v=Gwyi00NKBNg "LA104 RF Toolkit")
 
