@@ -3,13 +3,13 @@
 Standalone atmel board workshop with ATTINY84
 
 
-![Isolation milling](res/isolationMilling.jpg)
+![Isolation milling](isolationMilling.jpg)
 
-![Lines](res/lines.png)
+![Lines](lines.png)
 
-![Render](res/render1.png)
+![Render](render1.png)
 
-![Render](res/render2.png)
+![Render](render2.png)
 
 
 CNC Milling: ![Milling](hviezda.bot.etch.tap)
