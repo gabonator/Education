@@ -28,5 +28,5 @@ void loop()
   {
     digitalWrite(leds[i], 0);
   }
-  delay(180);
+  delay(980);
 }

@@ -1,33 +1,38 @@
 ## Arduino
 
 1. Schema datasheety
-   ![scheme](arduinoScheme1.png)
+   ![scheme](res/arduinoScheme1.png)
    - Datasheet [ATtiny84](https://www.microchip.com/wwwproducts/en/ATTINY84A)
    - Datasheet [ATmega328p](https://www.microchip.com/wwwproducts/en/ATmega328p)
 2. Bootloader
 3. Pinout
-   ![pinout](attiny84pinout.jpg)
+   ![pinout](res/attiny84pinout.jpg)
 
 ## Navrh plosneho spoja
 
 1. Stiahnut eagle schemu s komponentami
 2. Pospajat podla navodu 
-   ![components](res/hviezda_base_sch.png)
-   - 10 – R1 – LED1 - GND
-   - 11 – R2 – LED2 – GND
-   - 12 – R3 – LED3 – GND
-   - 13 – R4 – LED4 – GND
-   - 5 – R5 – LED5 – GND
-   - 2 – S1 – GND
-   - GND – BAT1 – VDD
-   - GND – C1 – VDD
 
-   - ICSP MISO – 8
-   - ICSP VCC – VCC
-   - ICSP SCK – 9
-   - ICSP MOSI – 7
-   - ICSP RESET – 4
-   - ICSP GND - GND
+   ![components](res/hviezda_base_sch.png)
+   - 5x LED dioda s predradnym rezistorom
+   - spinac, bateria, kondenzator, ICSP konektor
+   - Ledky
+     - 10 – R1 – LED1 - GND
+     - 11 – R2 – LED2 – GND
+     - 12 – R3 – LED3 – GND
+     - 13 – R4 – LED4 – GND
+     - 5 – R5 – LED5 – GND
+   - Ostatne 
+     - 2 – S1 – GND
+     - GND – BAT1 – VDD
+     - GND – C1 – VDD
+   - ICSP konektor
+     - ICSP MISO – 8
+     - ICSP VCC – VCC
+     - ICSP SCK – 9
+     - ICSP MOSI – 7
+     - ICSP RESET – 4
+     - ICSP GND - GND
 
 3. Prepnut do pohladu na dosku (BRD/SCH)
 4. Pouzit vygenerovanu geometriu pre hviezdu !pridat linku star.js:
@@ -39,7 +44,7 @@
 5. Umiestnit komponenty
 6. Pospajat
 7. Vygenerovat G-kod
-8. Pozriet v [ncviewer.com](ncviewer.com)
+8. Pozriet v [ncviewer.com](https://ncviewer.com)
    ![gcode](res/lines.png)
 
 Materialy a riesenie:
@@ -68,7 +73,6 @@ Materialy a riesenie:
   - Hviezdicku s ICSP konektorom
   - Prepajacie kable
    ![arduino isp](res/arduinoIsp.jpg)
-   ![hviezda isp](res/icspConnection.jpg)
 
 1. Vyskusat blink
   - File -> Examples -> 01. Basics -> Blink
@@ -97,7 +101,7 @@ Materialy a riesenie:
   - Port
   - File -> Examples -> 11. Arduino ISP -> Arduino ISP
   - Pripojit arduino ku hviezdicke
-    ![ICSP connection](res/icspConnection.png)
+   ![hviezda isp](res/icspConnection.jpg)
 
 5. Vyskusat blink na hviezdicke
   - File -> Examples -> 01. Basics -> Blink
@@ -140,24 +144,23 @@ enum {LED1 = 0, LED2 = 1, LED3 = 3, LED4 = 2, LED5 = 8, SWITCH = 10};
   - [riesenie](arduino/p3b.ino)
 
 4. Toggle - stlacenim vsetky rozsvietit a dalsim stlacenim vypnut
-  - [zaklad](arduino/p3a.ino)
-  - [riesenie](arduino/p3b.ino)
-
-
-5. Soft pwm - zvysovat jas kazdej diody (pilovy signal)
   - [zaklad](arduino/p4a.ino)
   - [riesenie](arduino/p4b.ino)
 
-6. Trojuholnikovy signal s jednou LED
+5. Soft pwm - zvysovat jas kazdej diody (pilovy signal)
   - [zaklad](arduino/p5a.ino)
   - [riesenie](arduino/p5b.ino)
 
-7. Trojuholnikovy signal s roznymi periodami pre kazdu LED
+6. Trojuholnikovy signal s jednou LED
   - [zaklad](arduino/p6a.ino)
   - [riesenie](arduino/p6b.ino)
 
+7. Trojuholnikovy signal s roznymi periodami pre kazdu LED
+  - [zaklad](arduino/p7a.ino)
+  - [riesenie](arduino/p7b.ino)
+
 8. Low power a Sleep mode
-  - [zaklad](arduino/p6a.ino)
+  - [zaklad](arduino/p8a.ino)
 
 ```C
 void setupLowPower()

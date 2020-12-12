@@ -59,6 +59,6 @@ Po oživení a otestovaní zariadenia toto odpojíme od programovacieho interfac
 
 ## Materialy
 
-- ![Material](material.md)
-- ![Prezentacia](presentation.pdf)
+- [Material](material.md)
+- [Prezentacia](prezentacia.pdf)
 - ![Photo](res/photoSmall.jpg)
