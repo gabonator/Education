@@ -1,16 +1,16 @@
 ## Arduino
 
-1. Schema datasheety
+1. Schema Arduino Uno R3 a datasheety
    ![scheme](res/arduinoScheme1.png)
    - Datasheet [ATtiny84](https://www.microchip.com/wwwproducts/en/ATTINY84A)
    - Datasheet [ATmega328p](https://www.microchip.com/wwwproducts/en/ATmega328p)
 2. Bootloader
-3. Pinout
+3. Pinout ATtiny84
    ![pinout](res/attiny84pinout.jpg)
 
 ## Navrh plosneho spoja
 
-1. Stiahnut eagle schemu s komponentami
+1. Stiahnut eagle schemu s komponentami [hviezda_base.sch](eagle/hviezda_base.sch)
 2. Pospajat podla navodu 
 
    ![components](res/hviezda_base_sch.png)
@@ -35,7 +35,7 @@
      - ICSP GND - GND
 
 3. Prepnut do pohladu na dosku (BRD/SCH)
-4. Pouzit vygenerovanu geometriu pre hviezdu !pridat linku star.js:
+4. Pouzit vygenerovanu geometriu pre hviezdu (star.js)[res/star.js]
    - Layer: 16 bottom, Wire bend straight, Width 20
    - ```
      WIRE (1650 550) (2708 -7) (2505 1171) (3361 2006) (2179 2178) (1650 3250) (1120 2178) (-62 2006) (794 1171) (591 -7) (1649 550)
@@ -50,7 +50,7 @@
 Materialy a riesenie:
   - Schema s komponentami: [hviezda_base.sch](eagle/hviezda_base.sch)
   - Doska s komponentami: [hviezda_base.brd](eagle/hviezda_base.brd)
-  - Skript na generovanie hviezdicoveho polygonu: (star.js)[res/star.js]
+  - Skript na generovanie hviezdicoveho polygonu: [star.js](res/star.js)
   - Schema riesenie: [hviezda.sch](eagle/hviezda.sch)
   - Doska riesenie: [hviezda.brd](eagle/hviezda.brd)
   - Gcode: [hviezda.bot.etch.tap](eagle/hviezda.bot.etch.tap)

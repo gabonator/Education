@@ -2,6 +2,10 @@
 
 Minimalne zapojenie bateriou napajaneho mikrokontrolera atmel ATTiny84 s diodami a spinacom v tvare Vianocnej hviezdice. Jas diod je riadeny softarovou implementaciou modifikovaneho PWM algoritmu. Mikrokontroler programujeme s pomocou ICSP interfacu, na tento ucel mozeme pouzit vhodny programator alebo lubovolne ine arduino. Pozrieme sa na moznosti, ako predlzit zivotnost bateriou napajaneho zariadenia a ake komponenty vyzaduje mikrokontroler pre svoju prevadzku.
 
+![Photo](res/photoSmall.jpg)
+
+## Video
+
 [![Blikajuca hviezda](https://img.youtube.com/vi/yC3a1zbonJ0/0.jpg)](https://www.youtube.com/watch?v=yC3a1zbonJ0 "Blikajuca hviezda")
 
 ## Anotacia
@@ -61,4 +65,3 @@ Po oživení a otestovaní zariadenia toto odpojíme od programovacieho interfac
 
 - [Material](material.md)
 - [Prezentacia](prezentacia.pdf)
-- ![Photo](res/photoSmall.jpg)
