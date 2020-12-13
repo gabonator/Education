@@ -1,3 +1,5 @@
+enum {LED1 = 0, LED2 = 1, LED3 = 3, LED4 = 2, LED5 = 8, SWITCH = 10};
+
 volatile uint8_t counter = 0;
 volatile uint8_t level1 = 0;
 volatile uint8_t level2 = 0;
@@ -23,17 +25,23 @@ void setup()
   setupPwm();
 }
 
+
+void update(volatile uint8_t& uroven, int& smer)
+{
+  uroven = uroven + smer;
+  if (uroven == 50)
+    smer = -1;
+  if (uroven == 0)
+    smer = 1;
+}
+
 int smer1 = 1;
 
 void loop() 
 {
-  level1 = level1 + smer1;
-  if (level1 == 255)
-    smer1 = -1;
-  if (level1 == 0)
-    smer1 = 1;
+  update(level1, smer1);
 
-  delay(5);
+  delay(1);
 }
 
 

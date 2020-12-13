@@ -19,8 +19,21 @@ void setup()
 
 void loop() 
 {
-  if (digitalRead(SWITCH) == 1)
-    digitalWrite(LED1, 0); 
-  else
-    digitalWrite(LED1, 1); 
+  while (digitalRead(SWITCH) == 1);
+
+  for (int i=0; i<5; i++)
+    digitalWrite(leds[i], 1);
+
+  delay(200);
+  while (digitalRead(SWITCH) == 0);
+  delay(100);
+  
+  while (digitalRead(SWITCH) == 1);
+
+  for (int i=0; i<5; i++)
+    digitalWrite(leds[i], 0);
+
+  delay(200);
+  while (digitalRead(SWITCH) == 0);
+  delay(100);
 }

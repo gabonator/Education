@@ -25,16 +25,30 @@ void setup()
   setupPwm();
 }
 
-int smer1 = 1;
+void update(volatile uint8_t& out, uint8_t vstup)
+{
+  int level = max(255-vstup, vstup);  
+  if (level > 190)
+    out = level - 190;
+  else 
+    out = 0;
+}
+
+uint8_t pos = 0;
+
+void wheel()
+{
+  pos = pos + 1;
+  update(level1, pos-255*0/5);
+  update(level2, pos-255*1/5);
+  update(level3, pos-255*2/5);
+  update(level4, pos-255*3/5);
+  update(level5, pos-255*4/5);
+}
 
 void loop() 
 {
-  level1 = level1 + smer1;
-  if (level1 == 50)
-    smer1 = -1;
-  if (level1 == 0)
-    smer1 = 1;
-
+  wheel();
   delay(1);
 }
 

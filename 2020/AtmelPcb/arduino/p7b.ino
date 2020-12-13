@@ -1,3 +1,5 @@
+enum {LED1 = 0, LED2 = 1, LED3 = 3, LED4 = 2, LED5 = 8, SWITCH = 10};
+
 volatile uint8_t counter = 0;
 volatile uint8_t level1 = 0;
 volatile uint8_t level2 = 0;
@@ -25,7 +27,7 @@ void setup()
 
 
 int l1 = 0, l2 = 0, l3 = 0, l4 = 0, l5 = 0;
-int d1 = 39, d2 = 51, d3 = 39, d4 = 15, d5 = 12;
+int d1 = 39, d2 = 51, d3 = 27, d4 = 15, d5 = 12;
 
 void upd(int &l, int& d, volatile uint8_t& r)
 {

@@ -1,3 +1,5 @@
+enum {LED1 = 0, LED2 = 1, LED3 = 3, LED4 = 2, LED5 = 8, SWITCH = 10};
+
 volatile uint8_t counter = 0;
 volatile uint8_t level1 = 0;
 volatile uint8_t level2 = 0;
