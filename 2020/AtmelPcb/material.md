@@ -5,7 +5,7 @@
    - Datasheet [ATtiny84](https://www.microchip.com/wwwproducts/en/ATTINY84A)
    - Datasheet [ATmega328p](https://www.microchip.com/wwwproducts/en/ATmega328p)
 2. Bootloader
-3. Pinout ATtiny84
+3. Pinout ATTiny84
    ![pinout](res/attiny84pinout.jpg)
 
 ## Navrh plosneho spoja
@@ -46,6 +46,7 @@
 7. Vygenerovat G-kod
 8. Pozriet v [ncviewer.com](https://ncviewer.com)
    ![gcode](res/lines.png)
+   ![Isolation milling](res/isolationMilling.jpg)
 
 Materialy a riesenie:
   - Schema s komponentami: [hviezda_base.sch](eagle/hviezda_base.sch)
@@ -66,17 +67,20 @@ Materialy a riesenie:
    ![pin1](res/pin1.png)
    ![chip1](res/pin1chip.jpg)
 
-## Ozivenie - programovanie ATtiny84 s AVRISP
+## Ozivenie - programovanie ATTiny84 s AVRISP
 
 0. Potrebujeme
-  - Arduino Uno, alebo iny variant
+  - Arduino Uno, Nano, alebo iny variant
   - Hviezdicku s ICSP konektorom
   - Prepajacie kable
    ![arduino isp](res/arduinoIsp.jpg)
 
 1. Vyskusat blink
   - File -> Examples -> 01. Basics -> Blink
-  - Tools -> Board -> Arduino Uno
+  - Tools -> Board -> Arduino Uno 
+    - (alebo v pripade Arduino Nano) 
+    - Tools -> Board -> Arduino Nano
+    - Processor -> ATmega328p (Old Bootloader)
   - Tools -> Port -> Nastavit port
   - Upload
 
@@ -84,7 +88,7 @@ Materialy a riesenie:
   - File -> Examples -> 11. Arduino ISP -> Arduino ISP
   - Upload
 
-3. Instalacia podpory pre AtTiny84
+3. Instalacia podpory pre ATTiny84
   - Arduino Preferences:
   - Do Additional Boards Manager URLs pridame:
   - https://raw.githubusercontent.com/damellis/attiny/ide-1.6.x-boards-manager/package_damellis_attiny_index.json
@@ -95,13 +99,16 @@ Materialy a riesenie:
     ![board support1](res/boardSupport2.png)
 
 4. Programovanie cez Arduino ISP
-  - Tools -> Board -> ATtiny82/44/84
-  - Processor -> ATtiny84
-  - Clock -> Internal 1 MHz
   - Port
   - File -> Examples -> 11. Arduino ISP -> Arduino ISP
   - Pripojit arduino ku hviezdicke
    ![hviezda isp](res/icspConnection.jpg)
+   ![arduino nano](res/nano.jpg)
+  - Tools -> Programmer -> Arduino as ISP
+  - Tools -> Board -> ATtiny82/44/84
+  - Processor -> ATtiny84
+  - Clock -> Internal 1 MHz
+  - V pripade Arduino Nano treba pripojit ku RST-GND kondenzator 1uF - 10uF, [autoreset problem](https://forum.arduino.cc/index.php?topic=91767.msg689235#msg689235)
 
 5. Vyskusat blink na hviezdicke
   - File -> Examples -> 01. Basics -> Blink
@@ -143,9 +150,12 @@ enum {LED1 = 0, LED2 = 1, LED3 = 3, LED4 = 2, LED5 = 8, SWITCH = 10};
   - [zaklad](arduino/p3a.ino)
   - [riesenie](arduino/p3b.ino)
 
-4. Toggle - stlacenim vsetky rozsvietit a dalsim stlacenim vypnut
+4. Spinac - rozsvietit hornu LED ked je stlaceny prepinac
   - [zaklad](arduino/p4a.ino)
   - [riesenie](arduino/p4b.ino)
+  - Toggle - stlacenim vsetky rozsvietit a dalsim stlacenim vypnut
+  - [zaklad](arduino/p4a.ino)
+  - [riesenie](arduino/p4c.ino)
 
 5. Soft pwm - zvysovat jas kazdej diody (pilovy signal)
   - [zaklad](arduino/p5a.ino)
@@ -160,9 +170,13 @@ enum {LED1 = 0, LED2 = 1, LED3 = 3, LED4 = 2, LED5 = 8, SWITCH = 10};
   - [riesenie](arduino/p7b.ino)
 
 8. Low power a Sleep mode
+  - Po stlaceni tlacidla prejst do sleep modu
   - [zaklad](arduino/p8a.ino)
+  - [riesenie](arduino/p8b.ino)
 
 ```C
+#include <avr/sleep.h>
+
 void setupLowPower()
 {
   #define BODS 7 //BOD Sleep bit in MCUCR
@@ -192,7 +206,11 @@ ISR(PCINT1_vect)
 }
 ```
 
-9. Finalny program
+9. Bonus: Koleso
+  - Upravit program tak, aby sa pohyb zrychloval a potom spomaloval
+  - [zaklad](arduino/p9.ino)
+
+10. Finalny program
   - [riesenie](arduino/final.ino)
 
 ## Finalizacia
