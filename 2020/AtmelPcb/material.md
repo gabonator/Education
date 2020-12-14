@@ -35,7 +35,7 @@
      - ICSP GND - GND
 
 3. Prepnut do pohladu na dosku (BRD/SCH)
-4. Pouzit vygenerovanu geometriu pre hviezdu (star.js)[res/star.js]
+4. Pouzit vygenerovanu geometriu pre hviezdu [star.js](res/star.js)
    - Layer: 16 bottom, Wire bend straight, Width 20
    - ```
      WIRE (1650 550) (2708 -7) (2505 1171) (3361 2006) (2179 2178) (1650 3250) (1120 2178) (-62 2006) (794 1171) (591 -7) (1649 550)
@@ -58,7 +58,7 @@ Materialy a riesenie:
 
 ## Osadenie plosneho spoja
 
-1. Podla osadzovacieho planu a schemy osadit dosku !plan
+1. Podla osadzovacieho planu a schemy osadit dosku
    ![schema](res/schema.png)
    ![osadzovaci plan](res/osadzovaciPlan.png)
 2. Zletovat bez cipu
