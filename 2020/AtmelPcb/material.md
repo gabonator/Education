@@ -105,10 +105,10 @@ Materialy a riesenie:
    ![hviezda isp](res/icspConnection.jpg)
    ![arduino nano](res/nano.jpg)
   - Tools -> Programmer -> Arduino as ISP
-  - Tools -> Board -> ATtiny82/44/84
+  - Tools -> Board -> ATtiny24/44/84
   - Processor -> ATtiny84
   - Clock -> Internal 1 MHz
-  - V pripade Arduino Nano treba pripojit ku RST-GND kondenzator 1uF - 10uF, [autoreset problem](https://forum.arduino.cc/index.php?topic=91767.msg689235#msg689235)
+  - V pripade Arduino Nano treba po naprogramovani ArduinoIsp progarmu pripojit ku RST-GND kondenzator 1uF - 10uF, tento potlaci resetovaci signal pri otvarani portu. Arduino sa totiz po otvoreni portu hned resetne a prikazy z programatora avrdude sa dostavaju do bootloadera namiesto do ArduinoIsp [autoreset problem](https://forum.arduino.cc/index.php?topic=91767.msg689235#msg689235)
 
 5. Vyskusat blink na hviezdicke
   - File -> Examples -> 01. Basics -> Blink
@@ -134,15 +134,15 @@ void loop() {
 
 ## Programujeme
 
-1. Rozsvietit postupne kazdu led diodu
-  - definicia pinov
+1. Rozsvietit postupne kazdu led diodu v poradi do kruhu
+  - definicia pinov nam pomoze pri praci, namiesto ```digitalWrite(8, HIGH);``` mozeme napisat ```digitalWrite(LED5, HIGH);```
 ```C
 enum {LED1 = 0, LED2 = 1, LED3 = 3, LED4 = 2, LED5 = 8, SWITCH = 10};
 ```
   - [zaklad](arduino/p1a.ino)
   - [riesenie](arduino/p1b.ino)
 
-2. Spustit animaciu 10x po stlaceni tlacidla
+2. Spustit animaciu 10x po stlaceni tlacidla, pouzit prikaz for, alebo while
   - [zaklad](arduino/p2a.ino)
   - [riesenie](arduino/p2b.ino)
 
@@ -150,26 +150,26 @@ enum {LED1 = 0, LED2 = 1, LED3 = 3, LED4 = 2, LED5 = 8, SWITCH = 10};
   - [zaklad](arduino/p3a.ino)
   - [riesenie](arduino/p3b.ino)
 
-4. Spinac - rozsvietit hornu LED ked je stlaceny prepinac
+4. Spinac - rozsvietit hornu LED ked je stlaceny prepinac - prepojit digitalWrite s digitalRead
   - [zaklad](arduino/p4a.ino)
   - [riesenie](arduino/p4b.ino)
-  - Toggle - stlacenim vsetky rozsvietit a dalsim stlacenim vypnut
+  - Toggle - stlacenim vsetky rozsvietit a dalsim stlacenim vypnut - zohladnit debouncing aj ked drzime tlacidlo stlacene
   - [zaklad](arduino/p4a.ino)
   - [riesenie](arduino/p4c.ino)
 
-5. Soft pwm - zvysovat jas kazdej diody (pilovy signal)
+5. Soft pwm - zvysovat jas kazdej diody (pilovy signal), sledovat linearitu
   - [zaklad](arduino/p5a.ino)
   - [riesenie](arduino/p5b.ino)
 
-6. Trojuholnikovy signal s jednou LED
+6. Trojuholnikovy signal s jednou LED, v prvej faze inkrementujeme jas, po dosiahnuti maxima zacneme dekrementovat az po minimum
   - [zaklad](arduino/p6a.ino)
   - [riesenie](arduino/p6b.ino)
 
-7. Trojuholnikovy signal s roznymi periodami pre kazdu LED
+7. Trojuholnikovy signal s roznymi periodami pre kazdu LED, vyuzivame fixed point aritmetiku
   - [zaklad](arduino/p7a.ino)
   - [riesenie](arduino/p7b.ino)
 
-8. Low power a Sleep mode
+8. Low power a Sleep mode - vypiname zbytocne periferie (ADC) a aktivujeme spankovy rezim. S multimetrom skontrolujeme spotrebu, v spanku by mala byt menej ako 0.1uA
   - Po stlaceni tlacidla prejst do sleep modu
   - [zaklad](arduino/p8a.ino)
   - [riesenie](arduino/p8b.ino)
@@ -210,7 +210,7 @@ ISR(PCINT1_vect)
   - Upravit program tak, aby sa pohyb zrychloval a potom spomaloval
   - [zaklad](arduino/p9.ino)
 
-10. Finalny program
+10. Finalny program - tento naprogramujeme na zaver, program kombinuje v sebe predosle algoritmy a s pomocou tlacidla ich vieme prepinat
   - [riesenie](arduino/final.ino)
 
 ## Finalizacia
@@ -219,7 +219,34 @@ ISR(PCINT1_vect)
 - skontrolovat spotrebu
 - Pozor! Nikdy nemat pripojenie ICSP a bateriu zaroven!
 - Odhad vydrze zariadenia na jednu bateriu, [analyza](https://components101.com/batteries/cr2032-lithium-coin-cell-pinout-specs-equivalent-datasheet)
-   ![capacity2032](res/capacity2032.png)
+- ![capacity2032](res/capacity2032.png)
+
+
+## Problemy
+- zdoraznit orientaciu led diod a odcitavanie znaciek z osadzovacieho planu
+- ledky zasunut az na doraz
+- vysvetlit ako sa pouzivaju pin headery (ktora strana ide do DPS)
+- niektore pocitace maju problemy s driverom CH340 na cinskych arduinach, treba mat prichystane prave arduino ako zalohu
+- na programovanie radsej pouzit arduino uno, ktory ma novy bootloader, ktory potlaca problem s autoresetom. Novy bootloader ked zisti ze dostava prikazy pre AVRISP, tak hned skonci
+- pri letovani najprv naletovat rezistory, ledky (pozor na orientaciu), drziak baterie a pin header
+  - skontrolovat multimetrom najprv skrat na baterii
+  - skontrolovat dupont kablikom M-F napojenym na VCC (pravy spodny pin) ci sa rozsvietia diody po kontakte kabla s rezistorom
+- letovanie zabralo extremne vela casu, treba sa pripravit na samostatnu pracu - ku uloham doplnit presnejsie zadanie
+- davat pozor, aby nikto nemal zaroven zapojenu bateriu a ICSP kabel, kvoli bezpecnosti preto radsej napajame zariadenie z 3.3V namiesto 5V ako je na obrazku. Zaroven je 3.3V blizie ku napatiu baterie 3V, co znamena ze nam led diody budu svietit podobnou intenzitou pocas programovania ako aj pri napajani z baterie
+- vzhladom na chybnu objednavku sme pouzili 330 Ohm rezistory namiesto 470 Ohm
+- pouzite dosky neboli spravne osetrene lakom na DPS a neboli vyrobene podla generovaneho G-kodu, co malo za nasledok zuzenie cesticiek a prelievanie cinu pri letovani
+
+## Casovanie
+- zaciatok 17:40
+- prezentacia koniec 17:10 (27 min)
+- navrh plosneho spoja - schema koniec
+- navrh plosneho spoja - doska rozmiestnene 17:42
+- navrh plosneho spoja - doska koniec 17:59
+- osadenie letovanie - rezistory koniec - 18:35
+- osadenie letovanie koniec - individualne
+- programator koniec - individualne
+- podpora attiny84 koniec - individualne
+- programovanie koniec - individualne
 
 ## Referencie
 - https://learn.circuit.rocks/the-basic-arduino-schematic-diagram

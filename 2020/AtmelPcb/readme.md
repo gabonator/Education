@@ -50,7 +50,7 @@ Po oživení a otestovaní zariadenia toto odpojíme od programovacieho interfac
 |-------|-------------------------------|-----------------------------------------------|-----------------|--------------|---------------|
 | 8x    | AtTiny84, DIP14               | ATTINY84-20PU MICROCHIP (ATMEL)               | 2.6             | 20.8         | https://www.tme.eu/sk/details/attiny84-20pu/modelovy-rad-avr-8-bit/microchip-atmel/ |
 | 8x    | Mikrospinac                   | Mikrospínač TC-0103-T (WM)                    | 0.11            | 0.88         | https://www.gme.sk/tc-0103-t |
-| 40x   | Rezistor 470Ohm               | Metalizovaný rezistor RM 470R 0207 0,6W 1%    | 0.11            | 4.4          | https://www.gme.sk/rm-10k-0207-0-6w-1 | 
+| 40x   | Rezistor 470Ohm               | Metalizovaný rezistor RM 470R 0207 0,6W 1%    | 0.11            | 4.4          | https://www.gme.sk/rm-470r-0207-0-6w-1 | 
 | 40x   | Cervena LED 5mm obycajna      | LED 5MM RED 400/50                            | 0.09            | 3.6          | https://www.gme.sk/led-5mm-red-400-50-bl-bje5v4v-2 |
 | 1x    | Lista rovna 2x40              | Kolíková lišta S2G80 2,54mm                   | 0.39            | 0.39         | https://www.gme.sk/oboustranny-kolik-s2g80-2-54mm |
 | 8x    | Kondenzator 100n              | Keramický kondenzátor CK 100n/100V X7R RM5,08 | 0.11            | 0.88         | https://www.gme.sk/ck-100n-100v-x7r-rm5-08-10-hitano |
