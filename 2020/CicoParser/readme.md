@@ -21,7 +21,7 @@ Cicoparser is set of tools for conversion of old dos games into modern operating
     - conversion of EGA video ram into RGB buffer
   - breaking up infinte loops
     - so the code can be run iteratively in non-blocking mode
-    ! [!infinite loop breakup](breakup.png)
+    - ![infinite loop breakup](breakup.png)
 
 This is a demonstration that most of old x86 applications can be easily ported to other platforms by rewriting the assembly code into higher language. Proof of concept was done in the past where I converted two games (alley cat, star goose) to C++ and Javascript, so they can run in web browser. 
 And this time I wanted to improve the conversion tool to reduce the effort of manually fixing produced code. And to extend it so it can be used on more complex applications which span over mutliple segments. 
@@ -92,7 +92,7 @@ function sub_674()
 ## Development
 
 - 2014 
-  - [Alley cat ported into C++](https://github.com/gabonator/Work-in-progress/tree/master/DosGames/JsGoose), just proof of concept including sound emulation.
+  - [Alley cat ported into C++](https://github.com/gabonator/Work-in-progress/tree/master/DosGames/AlleyCat), just proof of concept including sound emulation.
   - Playable online here [alleycat.html](https://rawgit.valky.eu/gabonator/Work-in-progress/master/DosGames/AlleyCat/Javascript/alleycat.html)
   - [Star goose](https://github.com/gabonator/Work-in-progress/tree/master/DosGames/JsGoose)
   - Playable online here: [JSGoose/index.html](https://rawgit.valky.eu/gabonator/Work-in-progress/master/DosGames/JsGoose/index.html)
