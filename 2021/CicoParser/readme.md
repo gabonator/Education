@@ -114,3 +114,8 @@ function sub_674()
 - Advanced optimizations (all optimizations are currently turned off to prevent errors)
 - Support for Borland C applications
 
+
+### why??
+
+ked mame dos box?
+vykreslovanie do rovin, upscaling, custom sprite draw
