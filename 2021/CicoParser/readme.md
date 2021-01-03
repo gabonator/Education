@@ -1,121 +1,80 @@
 # Cicoparser 
 
-Cicoparser is set of tools for conversion of old dos games into modern operating systems
+![logo](logo.png)
 
-## Swift goose
+CicoParser is a set of tools for conversion of IBM PC DOS applications into modern operating systems. Instead of emulation of the computer CPU, memory and peripherals, CicoParser translates assembly code of the program into C language and therefore achieves much higher efficiency than emulation. This also offers unlimited possibilities to extend or improve the original application:
+  - run games and applications on any device and platform
+  - adding high definition graphics while keeping original gameplay mechanics
+  - drawing into multiple planes and more efficient scaling
+  - improving input interface - adding touch control
+  - online high score boards
+  - full control over the application – debugging in programming IDE
+  - easy deployment on web through HTML5 & javascript export or web assembly
 
-![gameplay](swiftgoose.png)
 
-[Swift goose](https://github.com/gabonator/Projects/tree/master/XenonResurrection/SwiftGoose) is an old DOS game "Star goose" released in 1988 ported to swift. This was done in these stages:
-  - disassembly of the original binary (x86 assembler)
-    - extraction of datasegment (or all referenced segments by code) from original binary 
-    - ![extract data](extractdseg.png)
-    - extraction of code (using IDA disassembler or any other which can split the code into functions)
-    - ![extract code](ida.png)
-  - conversion of the assembly code into C language 
-    - using the CicoParser tool
-    - ![converted code](converted.png)
-  - building host application which runs this code
-    - simple BIOS, DOS and EGA emulation
-    - keyboard emulation (so we can control the game tapping the screen)
-    - conversion of EGA video ram into RGB buffer
-  - breaking up infinte loops
-    - so the code can be run iteratively in non-blocking mode
-    - ![infinite loop breakup](breakup.png)
+## Assembly listing
 
-This is a demonstration that most of old x86 applications can be easily ported to other platforms by rewriting the assembly code into higher language. Proof of concept was done in the past where I converted two games (alley cat, star goose) to C++ and Javascript, so they can run in web browser. 
-And this time I wanted to improve the conversion tool to reduce the effort of manually fixing produced code. And to extend it so it can be used on more complex applications which span over mutliple segments. 
-To bring this even into higher level this iphone application in Swift/Objective C was made. It was not clear if the arm architecture and llvm compiler will allow me to do clever tricks with unaligned dereferencing (memory16 function), but everything runs well without any problems.
+![slide1](slide1.png)
 
-```C
-BYTE& memory(WORD segment, WORD offset)
-{
-    if (segment == _dseg)
-        return *(datasegment + offset);
-    if (segment == _seg000)
-        return *(segment0 + offset);
-}
+Application to be converted is fed through disassembler (IDA or Ghidra) to produce assembly listing. The disassembler does not need to provide any special features, we just need it to identify all parts of the code and to identify all functions. Some applications use indirect calls by register value and in this case we need to tell ida where are those missing parts of the code.
+With the python script CicoExport.py executed in IDA python interface a set of extra files is generated:
+  - segments.h – with definition of segments and their placement in memory
+  - binary file for each segment (usually only the data segment is necessary)
 
-WORD& memory16(WORD segment, WORD offset)
-{
-    if (segment == _dseg)
-        return *(WORD*)(datasegment + offset);
-    if (segment == _seg000)
-        return *(WORD*)(segment0 + offset);
-}
-```
+## Conversion into C
 
-## Cicoparser
+![slide2](slide2.png)
 
-Cicoparser is the tool which does all the hard work of rewriting the assembly code produced by disassembler into C language or Javascript. Heavily based on regular expresssions it converts the assembly code line by line into C while trying to analyse the code to perform the conditional jumps without using CPU flags to produce more human readable code. 
+Each line of the assembly listing is turned into C language. This is not as straightforward as it seems. Intel CPU uses flags register which is updated after every arithmetical or comparison operation and all of the conditional branching instructions depend on the correct combination of these flags. Cryptic compare/alu instructions in combination with branching is turned into human readable comparisons in C. When necessary, flag register is updated (e.g. when shifting to the right and jumping when carry flag is on), but in most situations the conditional jump can be converted into simple numeric comparison.
+To correctly emulate video adapter, video memory access is differentiated from the data segment access. Unfortunately this needs to be done by hand in some places.
 
-Since the generated assembly files can have several thousand of lines (Xenon2 disassembly has 46000 lines) this is done in two stages. At first the assembly file is parsed and turned into intermediate binary pseudocode optimized for fast reading and processing. This is done only once and takes about 20 seconds. Then the conversion itself is very fast since it does not need to parse text and works just with known set of instructions in fixed size binary form.
+## Two stage conversion
 
-Cicoparser also supports simple optimizations to turn jumps into loops and simplification of arithmetical expressions. Tricky part was the javascript support - since this language does not have "goto" command, the code which uses labels and jumps was turn into big switch which handles the program counter flow:
+![slide3](slide3.png)
 
-```javascript
-function sub_674()
-{
-  var _pc = 0;
-  while (_pc != -1 && typeof(_pc) != "undefined" )
-  switch (_pc)
-  {
-    case 0:
-    STAT(0x674);
-    _push(di);
-    _push(r16[cx]);
-    r16[cx] = 0;
-    r16[ax] = 0x3C00;
-    _int(0x21);
-    r16[cx] = _pop();
-    r16[dx] = _pop();
-    if ( !cf ) // jnb 
-      { _pc = 0x683; continue; }
-    return;
-  case 0x683:
-    _data16set(0x8F1E, r16[ax]);
-    r16[bx] = r16[ax];
-    r16[ax] = 0x4000;
-    _int(0x21);
-    if ( !cf ) // jnb 
-      { _pc = 0x690; continue; }
-    return;
-  case 0x690:
-    r16[ax] = 0x3E00;
-    r16[bx] = _data16get(0x8F1E);
-    _int(0x21);
-    _pc = -1;
-  }
-}
-```
+Conversion is done in two stages. At first, the assembly code is parsed and transformed into intermediate file with list of fixed size pseudo instructions. Parsing is heavily based on regular expressions and it takes significant time to process whole asm listing (e.g. 20 seconds to process 40 000 lines of assembly). Assembly can use various forms referring to the same address in memory, disassemblers try to be clever and automatically name identified variables in data/code segment (e.g. word_1CF78). This can come handy when reverse engineering an application, but for this converter it is just a complication. To convert this name back to memory address, we need to know where the image was loaded, or where the data segment is placed. By subtracting data segment base address from this value, we get the relative address in data segment. For this purpose the Cicoparser assembly importer needs the “segments.h” file to know, where is which segment located.
+
+## Export into C or Javascript
+
+![slide4](slide4.png)
+
+Second conversion stage is exporting into C language (or Javascript). All pseudo instructions from intermediate file are turned into C statements. Some of the instruction just call their C counterparts (instruction rol calls _rol(…) function, int calls _int(…)) which need to be implemented in the host application. There are two types of memory access in those applications – byte access and word access. The memory(segment, offset) function takes the linear byte buffer for specific segment and returns reference to the specific byte. Whereas memory16(segment, offset) takes specific byte in the segment, casts it to word and then return reference to it. This makes the code perfectly readable.
+Contrary to this approach, javascript or big-endian platforms, or platform where it is not possible to dereference unaligned need separate functions for working with words – memory16get and memory16set. Another complication is lack of goto command in javascript. Jumping around the code inside a function can be replaced with switch statement as can be seen in image above. All labels generated by IDA disassembler contain the memory address in the name, so we just take this numeric value and use it as case value.
+Javascript does not support conversion into signed/unsigned. Registers and their 16 bit forms are implemented in Javascript as typed arrays (UInt8Array, UInt16Array) which refer to the same ArrayBuffer, using signed type arrays (Int8Array, Int16Array) also allows to create signed comparisons very easily.
+In situations where the parser is not able to determine how to turn the assembly into C/Javascript, it leaves marks which stop evaluation of the code and requires the programmer to manually fix this code. This happens for example for indirect calls/branches or for conditional branches which condition is based on flag values which are modified in other function than the one that is being transformed.
+
+## Code optimizations
+
+![slide5](slide5.png)
+
+Currently there are two types of optimizations. Arithmetical optimization which join operations done on the same register into one expression. And loop optimizations for reduction of label/goto pairs. 
+
+## Application host
+
+![slide6](slide6.png)
+
+Generated code needs host application which implements the CPU methods (string move/store operations, some ALU operations), RAM access, video RAM access, port access and interrupt calls. For filesystem access (open file, read file, close file) interrupt 21h (DOS) needs to be implemented. Video adapter emulation is done by handling writes to the memory starting at A000:0000. Sound (square wave tone generator) is implemented by listening to ports 61h, 42h and 43h. And human interface can be either keyboard, mouse or joystick. Applications handling keyboard input usually attach to interrupt 16h, but I found it much easier to directly alter the variables modified in this interrupt instead of emulating the keyboard subsystem.
+Before jumping to application entry point, the host application loads the data segment buffer contents from file (or other segments if necessary)
+Depending on how these components are implemented, final code can run as desktop application with help of SDL library, or as web application by using Canvas element or as a native application on mobile phone. 
+
+## Application finalization
+
+![slide6](slide7.png)
+
+For demonstration of this conversion process I have ported game Star Goose published in 1988 to iOS. File system functions refer to bundled files (bird1.x, bird2.x, blox.x, intro.x, newbird.x, podz1.x) and before jumping to application entry point, data segment contents is loaded from bundled file into memory. Entry point (start function) is usually infinite loop which needs to broken up into non blocking calls. Each call should ideally represent single frame of gameplay. This game uses EGA video adapter and video RAM is converted into raw RGB buffer which is subsequently converted into UIImageView after every frame. For firing missiles, overlay buttons are placed on sides of the screen and for controlling the ship touches on the screen are converted into the screen coordinate and set the ship position directly.
 
 ## Development
 
 - 2014 
   - [Alley cat ported into C++](https://github.com/gabonator/Work-in-progress/tree/master/DosGames/AlleyCat), just proof of concept including sound emulation.
-  - Playable online here [alleycat.html](https://rawgit.valky.eu/gabonator/Work-in-progress/master/DosGames/AlleyCat/Javascript/alleycat.html)
+  - Not playable demo here [alleycat.html](https://rawgit.valky.eu/gabonator/Work-in-progress/master/DosGames/AlleyCat/Javascript/alleycat.html)
   - [Star goose](https://github.com/gabonator/Work-in-progress/tree/master/DosGames/JsGoose)
-  - Playable online here: [JSGoose/index.html](https://rawgit.valky.eu/gabonator/Work-in-progress/master/DosGames/JsGoose/index.html)
+  - Playable here: [JSGoose/index.html](https://rawgit.valky.eu/gabonator/Work-in-progress/master/DosGames/JsGoose/index.html)
 - 2017
   - Cicoparser was started based on the previous experiments [CicParser2017](https://github.com/gabonator/Work-in-progress/tree/master/DosGames/CicParser2017)
   - Alley cat was turned into playable game
   - Play online here: [CicParser2017/js/test.html](https://rawgit.valky.eu/gabonator/Work-in-progress/master/DosGames/CicParser2017/js/test.html)
-- 2020
+- 2021
   - Porting cicoparser and host to OSX/SDL
-  - Porting Xenon2 game (only intro working) [Xenon2 intro](https://github.com/gabonator/Projects/tree/master/XenonResurrection/Simulator)
+  - Porting Xenon2 game (only intro and first frames of gameplay) [Xenon2 intro](https://github.com/gabonator/Projects/tree/master/XenonResurrection/Simulator)
   - Porting Star goose to C++ and swift: [SwiftGoose](https://github.com/gabonator/Projects/tree/master/XenonResurrection/SwiftGoose)
-
-## Where to go next?
-
-- 50% of the uncertainties which need to be fixed by hand can be fixed automatically. This would mean that less than 1% of code would need to be manually verified and fixed.
-- Finish Xenon 2 game (currently the intro works 100%)
-- Find some simple VGA games and try converting them (currently EGA and CGA emulation was done)
-- Export into C, Javascript and Wasm, switch for avoiding unaligned dereferencing
-- Advanced optimizations (all optimizations are currently turned off to prevent errors)
-- Support for Borland C applications
-
-
-### why??
-
-ked mame dos box?
-vykreslovanie do rovin, upscaling, custom sprite draw
