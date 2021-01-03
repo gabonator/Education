@@ -63,6 +63,10 @@ Depending on how these components are implemented, final code can run as desktop
 
 For demonstration of this conversion process I have ported game Star Goose published in 1988 to iOS. File system functions refer to bundled files (bird1.x, bird2.x, blox.x, intro.x, newbird.x, podz1.x) and before jumping to application entry point, data segment contents is loaded from bundled file into memory. Entry point (start function) is usually infinite loop which needs to broken up into non blocking calls. Each call should ideally represent single frame of gameplay. This game uses EGA video adapter and video RAM is converted into raw RGB buffer which is subsequently converted into UIImageView after every frame. For firing missiles, overlay buttons are placed on sides of the screen and for controlling the ship touches on the screen are converted into the screen coordinate and set the ship position directly.
 
+## Video
+
+[![Star goose 1988 rebirth](https://img.youtube.com/vi/IaZiQrUdR9s/0.jpg)](https://www.youtube.com/watch?v=IaZiQrUdR9s "Star goose 1988 rebirth")
+
 ## Development
 
 - 2014 
