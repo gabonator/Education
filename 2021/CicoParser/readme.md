@@ -2,13 +2,13 @@
 
 ![logo](logo.png)
 
-CicoParser is a set of tools for conversion of IBM PC DOS applications into modern operating systems. Instead of emulation of the computer CPU, memory and peripherals, CicoParser translates assembly code of the program into C language and therefore achieves much higher efficiency than emulation. This also offers unlimited possibilities to extend or improve the original application:
+CicoParser is a set of tools for conversion of IBM PC DOS applications into modern operating systems. Instead of emulation of the computer CPU, memory and peripherals, CicoParser translates assembly code of the program into C language and therefore achieves much higher performance than emulation. This also offers unlimited possibilities to extend or improve the original application:
   - run games and applications on any device and platform
   - adding high definition graphics while keeping original gameplay mechanics
   - drawing into multiple planes and more efficient scaling
   - improving input interface - adding touch control
   - online high score boards
-  - full control over the application – debugging in programming IDE
+  - full control over the application – debugging in programming IDE with C++ support
   - easy deployment on web through HTML5 & javascript export or web assembly
 
 
@@ -16,10 +16,10 @@ CicoParser is a set of tools for conversion of IBM PC DOS applications into mode
 
 ![slide1](slide1.png)
 
-Application to be converted is fed through disassembler (IDA or Ghidra) to produce assembly listing. The disassembler does not need to provide any special features, we just need it to identify all parts of the code and to identify all functions. Some applications use indirect calls by register value and in this case we need to tell ida where are those missing parts of the code.
+Application executable is fed through disassembler (IDA or Ghidra) to produce assembly listing. The disassembler does not need to provide any special features, we just need it to identify all parts of the code and to identify all function bodies. Some applications use indirect calls by register value and in this case we need to tell ida where are those missing parts of the code.
 With the python script CicoExport.py executed in IDA python interface a set of extra files is generated:
   - segments.h – with definition of segments and their placement in memory
-  - binary file for each segment (usually only the data segment is necessary)
+  - binary file for each segment
 
 ## Conversion into C
 
@@ -32,7 +32,7 @@ To correctly emulate video adapter, video memory access is differentiated from t
 
 ![slide3](slide3.png)
 
-Conversion is done in two stages. At first, the assembly code is parsed and transformed into intermediate file with list of fixed size pseudo instructions. Parsing is heavily based on regular expressions and it takes significant time to process whole asm listing (e.g. 20 seconds to process 40 000 lines of assembly). Assembly can use various forms referring to the same address in memory, disassemblers try to be clever and automatically name identified variables in data/code segment (e.g. word_1CF78). This can come handy when reverse engineering an application, but for this converter it is just a complication. To convert this name back to memory address, we need to know where the image was loaded, or where the data segment is placed. By subtracting data segment base address from this value, we get the relative address in data segment. For this purpose the Cicoparser assembly importer needs the “segments.h” file to know, where is which segment located.
+Conversion is done in two stages. At first, the assembly code is parsed and transformed into intermediate file with list of fixed size pseudo instructions. Parsing is heavily based on regular expressions and it takes significant time to process whole asm listing (e.g. 20 seconds to process 40 000 lines of assembly). Assembly can take various forms referring to the same address in memory, disassemblers try to be clever and automatically name identified variables in data/code segment (e.g. word_1CF78). This can come handy when reverse engineering an application, but for this converter it is just a complication. To convert this name back to memory address, we need to know where the image was loaded, or where the data segment is placed. By subtracting data segment base address from this value, we get the relative address in data segment. For this purpose the Cicoparser assembly importer needs the “segments.h” file to know, where is which segment located.
 
 ## Export into C or Javascript
 
@@ -41,7 +41,7 @@ Conversion is done in two stages. At first, the assembly code is parsed and tran
 Second conversion stage is exporting into C language (or Javascript). All pseudo instructions from intermediate file are turned into C statements. Some of the instruction just call their C counterparts (instruction rol calls _rol(…) function, int calls _int(…)) which need to be implemented in the host application. There are two types of memory access in those applications – byte access and word access. The memory(segment, offset) function takes the linear byte buffer for specific segment and returns reference to the specific byte. Whereas memory16(segment, offset) takes specific byte in the segment, casts it to word and then return reference to it. This makes the code perfectly readable.
 Contrary to this approach, javascript or big-endian platforms, or platform where it is not possible to dereference unaligned need separate functions for working with words – memory16get and memory16set. Another complication is lack of goto command in javascript. Jumping around the code inside a function can be replaced with switch statement as can be seen in image above. All labels generated by IDA disassembler contain the memory address in the name, so we just take this numeric value and use it as case value.
 Javascript does not support conversion into signed/unsigned. Registers and their 16 bit forms are implemented in Javascript as typed arrays (UInt8Array, UInt16Array) which refer to the same ArrayBuffer, using signed type arrays (Int8Array, Int16Array) also allows to create signed comparisons very easily.
-In situations where the parser is not able to determine how to turn the assembly into C/Javascript, it leaves marks which stop evaluation of the code and requires the programmer to manually fix this code. This happens for example for indirect calls/branches or for conditional branches which condition is based on flag values which are modified in other function than the one that is being transformed.
+In situations where the parser is not able to determine how to turn the assembly into C/Javascript, it leaves marks which stop evaluation of the code and requires the programmer to manually fix this code. This happens for example for indirect calls/branches or for conditional branches which condition is based on flag values which are modified outside the analysed function.
 
 ## Code optimizations
 
@@ -53,13 +53,13 @@ Currently there are two types of optimizations. Arithmetical optimization which 
 
 ![slide6](slide6.png)
 
-Generated code needs host application which implements the CPU methods (string move/store operations, some ALU operations), RAM access, video RAM access, port access and interrupt calls. For filesystem access (open file, read file, close file) interrupt 21h (DOS) needs to be implemented. Video adapter emulation is done by handling writes to the memory starting at A000:0000. Sound (square wave tone generator) is implemented by listening to ports 61h, 42h and 43h. And human interface can be either keyboard, mouse or joystick. Applications handling keyboard input usually attach to interrupt 16h, but I found it much easier to directly alter the variables modified in this interrupt instead of emulating the keyboard subsystem.
-Before jumping to application entry point, the host application loads the data segment buffer contents from file (or other segments if necessary)
+Generated code needs host application which implements the CPU methods (string move/store operations, some ALU operations), RAM access, video RAM access, port access and interrupt calls. For filesystem access (open file, read file, close file) interrupt 21h (DOS) needs to be implemented. Video adapter emulation is done by handling writes to the memory starting at A000:0000 and handling video port access. Sound (square wave tone generator) is implemented by listening to ports 61h, 42h and 43h. And human interface can be either keyboard, mouse or joystick. Applications handling keyboard input usually attach to interrupt 16h, but I found it much easier to directly alter the variables modified in this interrupt instead of emulating the keyboard subsystem.
+Before jumping to application entry point, the host application loads the data segment buffer contents from file (or whole memory snapshot)
 Depending on how these components are implemented, final code can run as desktop application with help of SDL library, or as web application by using Canvas element or as a native application on mobile phone. 
 
 ## Application finalization
 
-![slide6](slide7.png)
+![slide7](slide7.png)
 
 For demonstration of this conversion process I have ported game Star Goose published in 1988 to iOS. File system functions refer to bundled files (bird1.x, bird2.x, blox.x, intro.x, newbird.x, podz1.x) and before jumping to application entry point, data segment contents is loaded from bundled file into memory. Entry point (start function) is usually infinite loop which needs to broken up into non blocking calls. Each call should ideally represent single frame of gameplay. This game uses EGA video adapter and video RAM is converted into raw RGB buffer which is subsequently converted into UIImageView after every frame. For firing missiles, overlay buttons are placed on sides of the screen and for controlling the ship touches on the screen are converted into the screen coordinate and set the ship position directly.
 
@@ -82,3 +82,8 @@ For demonstration of this conversion process I have ported game Star Goose publi
   - Porting cicoparser and host to OSX/SDL
   - Porting Xenon2 game (only intro and first frames of gameplay) [Xenon2 intro](https://github.com/gabonator/Projects/tree/master/XenonResurrection/Simulator)
   - Porting Star goose to C++ and swift: [SwiftGoose](https://github.com/gabonator/Projects/tree/master/XenonResurrection/SwiftGoose)
+  - Porting initial scenes for PopCorn, Tetris
+  
+## Screenshots
+
+![slide8](slide8.png)
