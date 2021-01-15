@@ -2,7 +2,19 @@
 
 In this list you will see some interesting projects I was working on
 
+## 2021
+
+### Cicoparser
+- [CicoParser](https://github.com/gabonator/Education/tree/master/2021/CicoParser) is a set of tools for conversion of IBM PC DOS applications into modern operating systems. Instead of emulation of the computer CPU, memory and peripherals, CicoParser translates assembly code of the program into C language and therefore achieves much higher performance than emulation. This also offers unlimited possibilities to extend or improve the original application
+- ![Cicoparser](res/2021_cico.png)
+- [![Star goose 1988 rebirth](https://img.youtube.com/vi/IaZiQrUdR9s/0.jpg)](https://www.youtube.com/watch?v=IaZiQrUdR9s "Star goose 1988 rebirth")
+
 ## 2020
+
+### LA104 Logic analyser custom firmware
+- Custom firmware for LA104 logic analyser
+- Full featured hardware hacker toolkit
+- [![LA104 OS Review video](https://img.youtube.com/vi/8FxnDp6G_iQ/0.jpg)](https://www.youtube.com/watch?v=8FxnDp6G_iQ "LA104 OS Review video")
 
 ### RF Toolkit
 
