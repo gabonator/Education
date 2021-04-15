@@ -1,6 +1,6 @@
 # Cicoparser 
 
-![logo](logo.png)
+![logo](res/logo.png)
 
 CicoParser is a set of tools for conversion of IBM PC DOS applications into modern operating systems. Instead of emulation of the computer CPU, memory and peripherals, CicoParser translates assembly code of the program into C language and therefore achieves much higher performance than emulation. This also offers unlimited possibilities to extend or improve the original application:
   - run games and applications on any device and platform
