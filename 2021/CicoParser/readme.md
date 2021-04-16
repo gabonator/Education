@@ -137,4 +137,10 @@ For demonstration of this conversion process I have ported game Star Goose publi
 
 ![slide8](res/slide8.png)
 
+
+
+
+
+
+
 [![Star goose 1988 rebirth](https://img.youtube.com/vi/IaZiQrUdR9s/0.jpg)](https://www.youtube.com/watch?v=IaZiQrUdR9s "Star goose 1988 rebirth")
