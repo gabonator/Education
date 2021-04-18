@@ -15,7 +15,7 @@ CicoParser is a set of tools for conversion of IBM PC DOS applications into mode
 
 This video demonstrates how to fully reverse engineer a PC DOS game using cicoparser and compile it as desktop OSX application in 25 minutes!
 
-[![Cicoparser demo video](res/video0.jpg)](https://www.youtube.com/watch?v=8FxnDp6G_iQ "Cicoparser demo video")
+[![Cicoparser demo video](res/video0.jpg)](https://www.youtube.com/watch?v=4fAeUx8A-OE "Cicoparser demo video")
 
 Tools used in this demonstration:
   - [Cicoparser source code](https://github.com/gabonator/Projects/tree/master/XenonResurrection/Parser)
