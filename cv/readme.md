@@ -7,7 +7,9 @@ In this list you will see some interesting projects I was working on
 ### Cicoparser
 - [CicoParser](https://github.com/gabonator/Education/tree/master/2021/CicoParser) is a set of tools for conversion of IBM PC DOS applications into modern operating systems. Instead of emulation of the computer CPU, memory and peripherals, CicoParser translates assembly code of the program into C language and therefore achieves much higher performance than emulation. This also offers unlimited possibilities to extend or improve the original application
 - ![Cicoparser](res/2021_cico.png)
-- [![Star goose 1988 rebirth](https://img.youtube.com/vi/IaZiQrUdR9s/0.jpg)](https://www.youtube.com/watch?v=IaZiQrUdR9s "Star goose 1988 rebirth")
+- Video: Full game reverse engineering in 20 minutes
+
+[![Cicoparser: Full game reverse engineering](https://img.youtube.com/vi/4fAeUx8A-OE/0.jpg)](https://www.youtube.com/watch?v=4fAeUx8A-OE "Cicoparser: Full game reverse engineering")
 
 ## 2020
 
