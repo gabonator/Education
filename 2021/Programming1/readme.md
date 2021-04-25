@@ -48,6 +48,22 @@ Break<br>
 ### Uloha 2: Kalkulacka
 ![uloha2](uloha2.png)
 
+| Operacia                    | Zapis |
+|-----------------------------|-----|
+| Scitanie                    | 2 + 3 = 5 |
+| Odcitanie                   | 2 - 3 = -1 |
+| Nasobenie                   | 2 * 3 = 6 |
+| Scitanie                    | 2 / 3 = 0.66666 |
+| Umocnenie                   | Math.pow(2, 3) = 8 |
+| Druha odmocnina             | Math.sqrt(9) = 3 |
+| Zaokruhlenie nadol          | Math.floor(3.9) = 3 |
+| Zvysok po deleni            | 7 % 4 = 3 |
+| Absolutna hodnota           | Math.abs(-3) = 3 |
+| PI                          | Math.PI = 3.141592653 |
+| Sinus v radianoch           | Math.sin(Math.PI/4) = 0.70716 |
+| Kosinus v radianoch         | Math.sin(Math.PI/4) = 0.70716 |
+| Sinus v stupnoch            | Math.sin(45 / 180 * Math.PI) = 0.70716 |
+
 ### Uloha 3: Obvod a obsah stvorca
 
 - doplnte riadok pre vypocet obsahu stvorca
@@ -55,9 +71,9 @@ Break<br>
 strana = 5
 obvod = 4*strana
 ```
+!!! riesenie 3
 
 ### Uloha 4: Porovnavanie
-- zistite akej numerickej hodnote sa rovna true a false
 ```javascript
 5 < 10
 5 >= 10
@@ -66,13 +82,71 @@ obvod = 4*strana
 true == 15
 ```
 
+- aj true a false mozeme porovnat s cislami, zistite akej numerickej hodnote sa rovna true a false
+
+| Operator                    | Vyznam                    |
+|-----------------------------|---------------------------|
+| a >= b                      | a je vacsie alebo rovne b |
+| a > b                       | a je vacsie ako b |
+| a < b                       | a je mensie ako b |
+| a <= b                      | a je mensie alebo rovne b |
+| a == b                      | a je rovne b |
+| a = b                       | nastav hodnotu b do premennej a |
+| a != b                      | a je ine ako b |
+| a                           | ak a je pravda (nie je nulove) |
+| !a                          | ak a nie je pravda (ak a je nula) |
+| !(a == b)                   | a je ine ako b |
+| !(a > b)                    | a je mensie |
+
 ### Uloha 5: Alert a prompt
 ```javascript
 meno = prompt("Ako sa volas")
 alert("Ahoj " + meno)
 ```
+- co robia funkcie prompt a alert?
 
 ### Uloha 6: Vypis cisel od 1 po 10
+- editujeme test.js
+- upravte program tak, aby cisla vypisal pod seba 
+- !!!riesenie 6
+
+```javascript
+var i = 1
+while (i <= 10)
+{
+    document.write(i);
+    i = i + 1
+}
+```
+
+### Uloha 7: Vypis cisel od 1 po 10 - obvod a obsah
+- Upravte program tak, aby pre kazde cislo napisal "Stvorec so stranou X ma obvod X"
+- !!! riesenie 7a
+- Upravte program tak, aby pre kazde cislo napisal "Stvorec so stranou X ma obvod X a obsah X"
+- !!! riesenie 7b
+
+### Uloha 8:
+- Modifikaciou test.html nakreslit tri cervene gulicky vedla seba
+- TODO: obrazok (rrr)
+- !!! riesenie 8a
+- nakreslite maticu guliciek 3x3 podla obrazku
+- TODO: obrazok (rgb,rgb,rgb)
+- !!! riesenie 8b
+
+### Uloha 9:
+- vygenerovat HTML ktore nakresli 10 cervenych guliciek vedla seba
+
+!!! debug 
 
 
-!!! tabulka operatorov
+| a     | b     | And <br> a && b <br> a zaroven | Or <br> a || b <br> alebo |
+|-------|-------|-----------------|----------------|
+| false | false | false           | false          |
+| false | true  | false           | true           |
+| true  | false | false           | true           |
+| true  | true  | true            | true           |
+
+```javascript
+//???
+```
+
