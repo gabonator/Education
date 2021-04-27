@@ -148,22 +148,30 @@ while (i <= 10)
 
 ### Uloha 9: generovanie html
 - vygenerovat v javascripte HTML ktore nakresli 10 cervenych guliciek vedla seba
-- ![uloha 9](uloha9.png)
+
+![uloha 9](uloha9.png)
+
 - [riesenie](riesenia.md#uloha-9)
 
 ### Uloha 10: generovanie html
 - vygenerovat v javascripte HTML ktore nakresli 2x10 cervenych guliciek v dvoch riadkoch
-- ![uloha 10](uloha10.png)
+
+![uloha 10](uloha10.png)
+
 - [riesenie](riesenia.md#uloha-10)
 
 ### Uloha 11: vnorene slucky
 - vygenerovat v javascripte HTML ktore nakresli maticu 10x10 cervenych guliciek
-- ![uloha 11](uloha11.png)
+
+![uloha 11](uloha11.png)
+
 - [riesenie](riesenia.md#uloha-11)
 
 ### Uloha 12:
 - vygenerovat v javascripte HTML ktore nakresli maticu 5x5 cervenych guliciek, vypisat suradnice pred kazdou gulickou
-- ![uloha 12](uloha12.png)
+
+![uloha 12](uloha12.png)
+
 - [riesenie](riesenia.md#uloha-12)
 
 ### Uloha 13: podmienky
@@ -214,7 +222,7 @@ while (y <= 5)
 
 - prepiste predosly program s pouzitim vhodneho binarneho operatora
 
-| a     | b     | And <br> konjunkcia <br> logicky sucin <br> a `&&` b <br> "a zaroven" | Or <br> disjunkcia <br> logicky sucet <br> a `||` b <br> "alebo" |
+| a     | b     | And <br> konjunkcia <br> logicky sucin <br> a \&\& b <br> "a zaroven" | Or <br> disjunkcia <br> logicky sucet <br> a \|\| b <br> "alebo" |
 |-------|-------|-----------------|----------------|
 | false | false | false           | false          |
 | false | true  | false           | true           |

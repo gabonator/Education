@@ -84,7 +84,7 @@ while (i <= 10)
 
 # uloha 9
 
-```html
+```javascript
 var i = 1
 while (i <= 10)
 {
