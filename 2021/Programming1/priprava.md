@@ -14,31 +14,25 @@
   ![snip1](https://exaktime.zendesk.com/hc/article_attachments/360049280033/Snipping-Selection.gif)
   ![snip2](https://exaktime.zendesk.com/hc/article_attachments/360049284273/Snipping.gif)
 - Nastavte si anglicku klavesnicu, a zistitke ako sa pisu nasledujuce symboly
-
-plus +
-minus -
-krat *
-deleno /
-rovna sa =
-zatvorka lava (
-zatvorka prava )
-zlozena zatvorka lava {
-zlozena zatvorka prava }
-hranata zatvorka lava [
-hranata zatvorka prava ]
-symbol mensie <
-symbol vacsie >
-vykricnik !
-bodka .
-or |
-and &
-
-
-
-uvodzovka dvojita "
-uvodzovka jednoducha '     ---- vyhodit!!!
-
-
-opacne lomitko \
-bodkociarka ;
+  - plus +
+  - minus -
+  - krat *
+  - deleno /
+  - rovna sa =
+  - zatvorka lava (
+  - zatvorka prava )
+  - zlozena zatvorka lava {
+  - zlozena zatvorka prava }
+  - hranata zatvorka lava [
+  - hranata zatvorka prava ]
+  - symbol mensie <
+  - symbol vacsie >
+  - vykricnik !
+  - bodka .
+  - or |
+  - and &
+  - uvodzovka dvojita "
+  - uvodzovka jednoducha '
+  - opacne lomitko \
+  - bodkociarka ;
 

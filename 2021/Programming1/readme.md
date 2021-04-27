@@ -135,12 +135,16 @@ while (i <= 10)
 
 ### Uloha 8: html image
 - Modifikaciou test.html nakreslit tri cervene gulicky vedla seba
-- ![uloha 8a](uloha8a.png)
+
+![uloha 8a](uloha8a.png)
+
 - [riesenie](riesenia.md#uloha-8-a)
+
 - nakreslite maticu guliciek 3x3 podla obrazku
-- ![uloha 8a](uloha8a.png)
+
+![uloha 8a](uloha8b.png)
+
 - [riesenie](riesenia.md#uloha-8-b)
-- ![uloha 8b](uloha8b.png)
 
 ### Uloha 9: generovanie html
 - vygenerovat v javascripte HTML ktore nakresli 10 cervenych guliciek vedla seba
