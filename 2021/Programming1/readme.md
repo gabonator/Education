@@ -21,6 +21,9 @@ A práve nástroj Developer Tools v browseri Chrome použijeme ako editor a debu
 
 ### Uloha 1: Vyskusat si HTML tagy
 
+- Nastavit Debug console dock side na spodok
+- Otvorit test.html
+
 ```html
 <h1>H1: Toto je moja stranka</h1>
 <b>Bold</b> 
@@ -33,6 +36,7 @@ Break<br>
 <!-- poznamka -->
 <br>
 <br>
+<img src=cat.png>
 ```
 
 ### Uloha 2: Kalkulacka
@@ -48,11 +52,11 @@ Break<br>
 | Umocnenie                   | Math.pow(2, 3) = 8 |
 | Druha odmocnina             | Math.sqrt(9) = 3 |
 | Zaokruhlenie nadol          | Math.floor(3.9) = 3 |
-| Zvysok po deleni            | 7 % 4 = 3 |
+| Zvysok po deleni (modulo)   | 7 % 4 = 3 |
 | Absolutna hodnota           | Math.abs(-3) = 3 |
 | PI                          | Math.PI = 3.141592653 |
 | Sinus v radianoch           | Math.sin(Math.PI/4) = 0.70716 |
-| Kosinus v radianoch         | Math.sin(Math.PI/4) = 0.70716 |
+| Kosinus v radianoch         | Math.cos(Math.PI/4) = 0.70716 |
 | Sinus v stupnoch            | Math.sin(45 / 180 * Math.PI) = 0.70716 |
 
 ### Uloha 3: Obvod a obsah stvorca
@@ -133,42 +137,63 @@ while (i <= 10)
 - Upravte program tak, aby pre kazde cislo napisal "Stvorec so stranou X ma obvod X a obsah X"
 - [riesenie](riesenia.md#uloha-7-b)
 
-### Uloha 8: html image
-- Modifikaciou test.html nakreslit tri cervene gulicky vedla seba
+### Uloha 8: Zvysok po deleni
+- Upravte nasledujuci program tak, aby spravne vypocital podiel a zvysok a zaroven urcil ci je cislo parne
 
-![uloha 8a](uloha8a.png)
+```javascript
+var i = 1
+while (i <= 10)
+{
+    var podiel = "neviem"
+    var zvysok = "neviem"
+    var parne = "neviem"
 
+    document.write(i + " po deleni dvomi je " + podiel + " a zvysok " + 
+      zvysok + ", cislo je parne: " + parne + "<br>")
+    i = i + 1
+}
+```
 - [riesenie](riesenia.md#uloha-8-a)
 
-- nakreslite maticu guliciek 3x3 podla obrazku
-
-![uloha 8a](uloha8b.png)
+- Upravte tento program aby vypocital podiel po deleni tromi a urcil ci je cislo delitelne tromi
 
 - [riesenie](riesenia.md#uloha-8-b)
 
-### Uloha 9: generovanie html
-- vygenerovat v javascripte HTML ktore nakresli 10 cervenych guliciek vedla seba
+### Uloha 9: html image
+- Modifikaciou test.html nakreslit tri cervene gulicky vedla seba
 
-![uloha 9](uloha9.png)
+![uloha 9a](uloha9a.png)
 
-- [riesenie](riesenia.md#uloha-9)
+- [riesenie](riesenia.md#uloha-9-a)
+
+- nakreslite maticu guliciek 3x3 podla obrazku
+
+![uloha 9a](uloha9b.png)
+
+- [riesenie](riesenia.md#uloha-9-b)
 
 ### Uloha 10: generovanie html
-- vygenerovat v javascripte HTML ktore nakresli 2x10 cervenych guliciek v dvoch riadkoch
+- vygenerovat v javascripte HTML, ktore nakresli 10 cervenych guliciek vedla seba
 
-![uloha 10](uloha10.png)
+![uloha 10a](uloha10a.png)
 
-- [riesenie](riesenia.md#uloha-10)
+- [riesenie](riesenia.md#uloha-10-a)
+
+- vygenerovat v javascripte HTML, ktore nakresli 2x10 cervenych guliciek v dvoch riadkoch
+
+![uloha 10b](uloha10b.png)
+
+- [riesenie](riesenia.md#uloha-10-b)
 
 ### Uloha 11: vnorene slucky
-- vygenerovat v javascripte HTML ktore nakresli maticu 10x10 cervenych guliciek
+- vygenerovat v javascripte HTML, ktore nakresli maticu 10x10 cervenych guliciek
 
 ![uloha 11](uloha11.png)
 
 - [riesenie](riesenia.md#uloha-11)
 
 ### Uloha 12:
-- vygenerovat v javascripte HTML ktore nakresli maticu 5x5 cervenych guliciek, vypisat suradnice pred kazdou gulickou
+- vygenerovat v javascripte HTML, ktore nakresli maticu 5x5 cervenych guliciek, vypisat suradnice pred kazdou gulickou
 
 ![uloha 12](uloha12.png)
 
@@ -180,7 +205,7 @@ while (i <= 10)
 - [riesenie](riesenia.md#uloha-13)
 
 ### Uloha 14: zlozene podmienky
-- upravte predosly priklad tak, aby hlavna diagonala bola zelena (tie gulicky pre ktore plati ze suradnice stlpca a riadku su rovnake)
+- upravte predosly priklad tak, aby hlavna diagonala bola zelena (tie gulicky, pre ktore plati ze suradnice stlpca a riadku su rovnake)
 - ![uloha 14](uloha14.png)
 - [riesenie](riesenia.md#uloha-14)
 
@@ -222,12 +247,13 @@ while (y <= 5)
 
 - prepiste predosly program s pouzitim vhodneho binarneho operatora
 
-| a     | b     | And <br> konjunkcia <br> logicky sucin <br> a \&\& b <br> "a zaroven" | Or <br> disjunkcia <br> logicky sucet <br> a \|\| b <br> "alebo" |
-|-------|-------|-----------------|----------------|
-| false | false | false           | false          |
-| false | true  | false           | true           |
-| true  | false | false           | true           |
-| true  | true  | true            | true           |
+| a     | b     | And <br> konjunkcia <br> logicky sucin <br> a \&\& b <br> "a zaroven" | Or <br> disjunkcia <br> logicky sucet <br> a \|\| b <br> "alebo" | Not <br> negacia <br> !a | Xor <br> a ^ b |
+|-------|-------|-----------------|----------------|---------|-------|
+| false | false | false           | false          | true    | false |
+| false | true  | false           | true           | true    | true  |
+| true  | false | false           | true           | false   | true  |
+| true  | true  | true            | true           | false   | false |
+| ![a](venn_a.png) | ![b](venn_b.png) | ![and](venn_and.png) | ![or](venn_or.png) | ![not a](venn_nota.png) | ![xor](venn_xor.png) |
 
 ### Uloha 18: zlozene podmienky s binarnymi operatormi
 - Najdite podmienku pre tento obrazok
@@ -244,6 +270,7 @@ while (y <= 5)
 - [riesenie](riesenia.md#uloha-19)
 
 ### Uloha 20
+- TODO: pridat obrazok
 - Pre hlavnu diagonalu plati, ze x-ova a y-ova suradnica su zhodne
 
 | x | y |
@@ -343,7 +370,6 @@ function vykresli(stlpcov, riadkov, farba)
 
 - upravte funkciu tak, aby spravne konvertovala stupne Celzia na Ferenheity
 - Pomocka: pouzite google pre vyhladanie konverzneho vzorca
-- [riesenie](riesenia.md#uloha-25-a)
 
 ```javascript
 function naFarenheity(stupne)
@@ -357,6 +383,8 @@ for (var teplota = 0; teplota < 100; teplota = teplota + 10)
 }
 ```
 
+- [riesenie](riesenia.md#uloha-25-a)
+
 - upravte program tak, aby zobrazil konverziu pre teploty -20 az 100 vratane s krokom 5 stupnov
 - [riesenie](riesenia.md#uloha-25-b)
 
@@ -364,7 +392,7 @@ for (var teplota = 0; teplota < 100; teplota = teplota + 10)
 
 ### Uloha 26: Zellerov algoritmus
 
-- Nastudujte (Zellerov algoritmus)[https://en.wikipedia.org/wiki/Determination_of_the_day_of_the_week]
+- Nastudujte [Zellerov algoritmus](https://en.wikipedia.org/wiki/Determination_of_the_day_of_the_week)
 - Krokujte s debuggerom a zistite aky bol den v den vasho narodenia
 
 ```javascript
@@ -460,11 +488,13 @@ for (var a=0; a<360; a+=30)
   var tick = 0;
   setInterval( ()=>
   {
-    tick = tick + .1
+    tick = tick + 0.1
     for (var i=0; i<10; i++)
     {
       var macka = document.getElementById("macka"+i);
       var a = i*360/10+tick*5;
+
+      // dopln kod
 
       macka.style.transform = "rotate("+(a+180)+"deg)"
     }

@@ -71,18 +71,51 @@ while (i <= 10)
 
 # uloha 8 a
 
+```javascript
+var i = 1
+while (i <= 10)
+{
+    var podiel = Math.floor(i / 2)
+    var zvysok = i - podiel*2
+    var parne = zvysok == 0
+
+    document.write(i + " po deleni dvomi je " + podiel + " a zvysok " + 
+      zvysok + ", cislo je parne: " + parne + "<br>")
+    i = i + 1
+}
+```
+
+# uloha 8 b
+
+```javascript
+var i = 1
+while (i <= 10)
+{
+    var podiel = Math.floor(i / 3)
+    var zvysok = i - podiel*3
+    var delitelne = zvysok == 0
+
+    document.write(i + " po deleni tromi je " + podiel + " a zvysok " + 
+      zvysok + ", cislo je delitelne tromi: " + delitelne + "<br>")
+    i = i + 1
+}
+```
+
+# uloha 9 a
+
 ```html
 <img src=red.png><img src=red.png><img src=red.png>
 ```
 
-# uloha 8 b
+# uloha 9 b
+
 ```html
 <img src=red.png><img src=green.png><img src=blue.png><br>
 <img src=red.png><img src=green.png><img src=blue.png><br>
 <img src=red.png><img src=green.png><img src=blue.png><br>
 ```
 
-# uloha 9
+# uloha 10 a
 
 ```javascript
 var i = 1
@@ -93,7 +126,7 @@ while (i <= 10)
 }
 ```
 
-# uloha 10
+# uloha 10 b
 
 ```javascript
 var i = 1
