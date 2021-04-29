@@ -458,7 +458,54 @@ Highcharts.chart('container', { series: [{ data: pole }] })
 
 - [riesenie](riesenia.md#uloha-29)
 
-### Uloha 30: Macky
+### Uloha 30: Canvas
+
+- Pouzite html kod
+```html
+<canvas id="canvas" width="200" height="200" style="border:1px #808080 dashed;"></canvas><br>
+```
+- A javascript
+
+```javascript
+var ctx = canvas.getContext('2d');
+var imdata = ctx.createImageData(canvas.width, canvas.height);
+width = canvas.width
+height = canvas.height
+i = 0
+
+for (var y=0; y<width; y++)
+{
+  for (var x=0; x<height; x++)
+  {
+    var vzdialenost = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
+    if (vzdialenost % 20 < 10)
+    {
+      imdata.data[i++] = 0;    // cervena
+      imdata.data[i++] = 255;  // zelena
+      imdata.data[i++] = 0;    // modra
+      imdata.data[i++] = 255;  // alpha
+    } else
+    {
+      imdata.data[i++] = 255;  // cervena
+      imdata.data[i++] = 0;    // zelena
+      imdata.data[i++] = 0;    // modra
+      imdata.data[i++] = 255;  // alpha
+    }
+  }
+}
+ctx.putImageData(imdata, 0, 0);
+```
+
+- Tento program nakresli sustredne kruznice 
+- Pre kazdy bod obrazku vypocita vzdialenost od pociatku suradnicovej sustavy (bod 0, 0) a podla zvysku po deleni dvadsiatimi nakresli bud cerveny alebo zeleny bod
+- Upravte program tak, aby sustredne kruznice mali stred v strede obrazka
+- [riesenie](riesenia.md#uloha-30-a)
+
+- Zapuzdrite cely kod do funkcie *kresli* a s pomocou prikazu ```setInterval(kresli, 20)``` ktory bude tuto funkciu volat kazdych 20 milisekund (50x za sekunudu) vytvorte animaciu
+- V animacii pripocitajte ku hodnote *vzdialenost* cislo, ktore sa bude pri kazdom volani funkcie kresli zvacsovat o jedna
+- [riesenie](riesenia.md#uloha-30-b)
+
+### Uloha 31: Macky
 - HTML zapis ```<img src=cat.png style='position:absolute; left:100px; top:200px;'>``` nakresli macku na suradniciach x=100 y=200
 - Nasledujuci program vypocita body na kruznici
 - Upravte ho tak, aby boli macky vykreslene prave na tychto suradniciach
@@ -472,9 +519,9 @@ for (var a=0; a<360; a+=30)
   document.write("<img src=cat.png>");
 }
 ```
-- [riesenie](riesenia.md#uloha-30)
+- [riesenie](riesenia.md#uloha-31)
 
-### Uloha 31: Animacia
+### Uloha 32: Animacia
 
 - polohu objektu mozeme modifikovat realtime zapisom do ```macka.style.left``` a ```macka.style.top```
 - upravte tento program tak, aby boli macky umiestnene na kruhu podla uhla *adeg* (rovnako ako v predoslej ukazke)
@@ -501,3 +548,4 @@ for (var a=0; a<360; a+=30)
 
   }, 10);
 ```
+

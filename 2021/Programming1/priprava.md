@@ -13,7 +13,7 @@
 - Pocas workshopu budeme fotografovat nase vytvory s pomocou "Snipping tool"-u a zdielat v chate v Teamsoch. Ak tento nastroj nepoznate, natrenujte podla [tejto stranky](https://exaktime.zendesk.com/hc/en-us/articles/360037477253-FAQ-Capturing-Effective-Screenshots)
   ![snip1](https://exaktime.zendesk.com/hc/article_attachments/360049280033/Snipping-Selection.gif)
   ![snip2](https://exaktime.zendesk.com/hc/article_attachments/360049284273/Snipping.gif)
-- Nastavte si anglicku klavesnicu, a zistitke ako sa pisu nasledujuce symboly
+- Pri programovani pouzivame rozne druhy zatvoriek a symbolov. Nastavte si anglicku klavesnicu, a zistite ako sa pisu nasledujuce znaky:
   - plus +
   - minus -
   - krat *
@@ -29,7 +29,8 @@
   - symbol vacsie >
   - vykricnik !
   - bodka .
-  - or |
+  - ciarka ,
+  - or (pipe, zvisla ciara) |
   - and &
   - uvodzovka dvojita "
   - uvodzovka jednoducha '

@@ -772,8 +772,82 @@ Highcharts.chart("container", {
     }]
 });
 ```
+## uloha 30 a
 
-## uloha 30
+```
+<script language="javascript">
+var ctx = canvas.getContext('2d');
+var imdata = ctx.createImageData(canvas.width, canvas.height);
+var width = canvas.width
+var height = canvas.height
+var i = 0
+
+for (var y=0; y<width; y++)
+{
+  for (var x=0; x<height; x++)
+  {
+    var vzdialenost = Math.sqrt(Math.pow(x-width/2, 2) + Math.pow(y-height/2, 2))
+    if (vzdialenost % 20 < 10)
+    {
+      imdata.data[i++] = 0;    // cervena
+      imdata.data[i++] = 255;  // zelena
+      imdata.data[i++] = 0;    // modra
+      imdata.data[i++] = 255;  // alpha
+    } else
+    {
+      imdata.data[i++] = 255;  // cervena
+      imdata.data[i++] = 0;    // zelena
+      imdata.data[i++] = 0;    // modra
+      imdata.data[i++] = 255;  // alpha
+    }
+  }
+}
+ctx.putImageData(imdata, 0, 0);
+</script>
+```
+
+## uloha 30 b
+
+```javascript
+var posun = 0
+
+function kresli()
+{
+  var ctx = canvas.getContext('2d')
+  var imdata = ctx.createImageData(canvas.width, canvas.height)
+  var width = canvas.width
+  var height = canvas.height
+  var i = 0
+
+  posun = posun + 1
+
+  for (var y=0; y<width; y++)
+  {
+    for (var x=0; x<height; x++)
+    {
+      var vzdialenost = Math.sqrt(Math.pow(x-width/2, 2) + Math.pow(y-height/2, 2)) + posun
+      if (vzdialenost % 20 < 10)
+      {
+        imdata.data[i++] = 0    // cervena
+        imdata.data[i++] = 255  // zelena
+        imdata.data[i++] = 0    // modra
+        imdata.data[i++] = 255  // alpha
+      } else
+      {
+        imdata.data[i++] = 255  // cervena
+        imdata.data[i++] = 0    // zelena
+        imdata.data[i++] = 0    // modra
+        imdata.data[i++] = 255  // alpha
+      }
+    }
+  }
+  ctx.putImageData(imdata, 0, 0)
+}
+
+setInterval(kresli, 20)
+```
+
+## uloha 31
 
 ```javascript
 for (var a=0; a<360; a+=30)
@@ -785,7 +859,7 @@ for (var a=0; a<360; a+=30)
 }
 ```
 
-## uloha 31
+## uloha 32
 ```javascript
   for (var i=0; i<10; i++)
   {
