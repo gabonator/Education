@@ -1,7 +1,8 @@
 # C
+
+- int, bodkociarky, format
 ```
 #include <stdio.h>
-- int, bodkociarky, format
 int main()
 {
     int i = 1;
@@ -38,8 +39,8 @@ public class Main
 ```
 
 # python
-- bez typu, odsadenie, concatenate s ciarkou
 
+- bez typu, odsadenie, concatenate s ciarkou
 ```
 i = 1
 while i<=10:
@@ -68,8 +69,8 @@ while ($i <= 10)
 ```
 
 # c#
-- int, bodkociarky, concatenate s plus
 
+- int, bodkociarky, concatenate s plus
 ```
 using System;
 class HelloWorld {
@@ -87,8 +88,8 @@ class HelloWorld {
 ```
 
 # VB
-- deklarovat vsetko s dim, while end while, concatenate plus str
 
+- deklarovat vsetko s dim, while end while, concatenate plus str
 ```
 Module VBModule
     Sub Main()
@@ -126,7 +127,6 @@ end.
 # objective C
 
 - ako C, format, bez new line
-
 ```
 #import <Foundation/Foundation.h>
 
@@ -148,6 +148,7 @@ int main (int argc, const char * argv[])
 ```
 
 # swift
+
 - deklaracia var, print escape, bez bodkociarok, print bez new line
 ```
 var i = 1
@@ -158,8 +159,8 @@ while (i<=10) {
 ```
 
 # javascript
-- volitelne bodkociarky, concatenate s plus, bez new line
 
+- volitelne bodkociarky, concatenate s plus, bez new line
 ```
 i = 1;
 
@@ -173,6 +174,7 @@ while (i<=5)
 ```
 
 # bash
+
 - ziadne medzery pri deklaracii, dolar pre dosadenie
 ```
 i=1
@@ -186,6 +188,7 @@ done
 ```
 
 # vba
+
 - bez deklaracie, for next, concatenate s plus a str
 - ActiveDocument.Content.InsertAfter, vbNewLine
 - pre spustenie funkcie treba lezat v jej tele
@@ -202,13 +205,3 @@ Sub moje()
   Next i
 End Sub
 ```
-
-
-
-
-
-
-
-
-
-

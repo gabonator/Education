@@ -535,3 +535,4 @@ for (var a=0; a<360; a+=30)
   }, 10);
 ```
 
+- [riesenie](riesenia.md#uloha-32)

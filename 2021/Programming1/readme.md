@@ -18,6 +18,8 @@ A práve nástroj Developer Tools v browseri Chrome použijeme ako editor a debu
 - [Prezentacia](prezentacia.pdf)
 
 ## Ulohy
-
 - [Ulohy](ulohy.md)
 
+## Organizacia
+- 2x 10 min prestavka: https://www.timeanddate.com/timer/
+- https://www.bigtimer.net/?minutes=10
