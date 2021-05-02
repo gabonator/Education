@@ -20,6 +20,9 @@ A práve nástroj Developer Tools v browseri Chrome použijeme ako editor a debu
 ## Ulohy
 - [Ulohy](ulohy.md)
 
-## Organizacia
-- 2x 10 min prestavka: https://www.timeanddate.com/timer/
+## Extras
+- Organizacia: 2x 10 min prestavka: https://www.timeanddate.com/timer/
 - https://www.bigtimer.net/?minutes=10
+- Onlinegdb: [https://www.onlinegdb.com/online_c_compiler](https://www.onlinegdb.com/online_c_compiler)
+- Programy pre onlinegdb [onlinegdb](onlinegdb.md)
+
