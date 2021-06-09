@@ -36,3 +36,5 @@ kolko 1 minuta videa
 - seriova komunikacia, RS232
 - https://www.youtube.com/watch?v=PJ_bS7meE7s&ab_channel=HowTo
 - I2C
+- https://escapequotes.net/wp-content/uploads/2016/02/esp8266-wemos-d1-mini-pinout.png
+- install esp8266 tutorial!!
