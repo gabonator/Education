@@ -9,6 +9,19 @@
 - workshop rozdelime na dve casti - staticke kreslenie geometrie, jednoduche scrollovanie textu
 - interaktivna grafika
 
+## Anotacia
+
+Beseda:
+  - pamate, bit, bajt
+  - komunikacne zbernice, paralelne, seriove
+  - displeje, suradnicove sustavy
+
+Workshop:
+  - arduino a displej
+  - kreslenie zakladnych geometrickych utvarov
+  - animacia
+  - interaktivna animacia
+
 ## BOM
 
 - Nakup pre 8 ucastnikov kurzu dokopy 140.90 eur
@@ -21,8 +34,13 @@
 | 2x    | Dupont kabel F-F              | Dupont prepojovacie vodice zasuvka-zasuvka 40 kusov | 3.90      | 7.80         | https://www.gme.sk/propojovaci-vodice-zasuvka-zasuvka-40-kusu |
 | 2x    | Lista rovna                   | Kolikova lista S1G40 2.54mm                   | 0.27            | 0.54         | https://www.gme.sk/oboustranny-kolik-s1g40-2-54mm |
 
-## Ulohy
+## Priprava
+- [Priprava](priprava/priprava.md)
 
+## Prezentacia
+- TBD
+
+## Ulohy
 - finalny program [pingpong.ino](pingpong.ino)
 
 ## Draft
