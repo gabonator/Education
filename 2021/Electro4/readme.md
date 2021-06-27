@@ -38,11 +38,37 @@ Workshop:
 - [Priprava](priprava/priprava.md)
 
 ## Prezentacia
-- TBD
+- [Logicke obvody](prezentacia/logickeobvody.pdf)
+- [Zbernice](prezentacia/zbernice.pdf)
+- OLED Displej (TBD)
+
+## Animacie
+- Zoom na integrovany obvod: 
+
+![Zoom](prezentacia/zoom.gif)
+
+- Konstruktor - simulator polovodicovych cipov
+
+![Konstruktor](prezentacia/konstruktor.gif)
+
+- Paralelna komunikacia
+
+![Parallel bus](prezentacia/comm_para.gif)
+
+- Seriova komunikacia
+
+![Serial bus](prezentacia/comm_serial.gif)
+
+- I2C bus - TBD
+- I2C protocol - TBD
 
 ## Ulohy
-- finalny program [pingpong.ino](pingpong.ino)
+- demo [demo.ino](programy/demo.ino) 
 
+![render1.png](resources/render1.png)
+
+- finalny program [pingpong.ino](programy/pingpong.ino)
+                    
 ## Draft
 
 - bit
@@ -56,3 +82,11 @@ kolko 1 minuta videa
 - I2C
 - https://escapequotes.net/wp-content/uploads/2016/02/esp8266-wemos-d1-mini-pinout.png
 - install esp8266 tutorial!!
+
+## References
+- https://www.zachtronics.com/kohctpyktop-engineer-of-the-people/
+- https://www.electronics-tutorials.ws/boolean/bool_2.html
+- https://electricalacademia.com/digital-circuits/basic-logic-gates-definition-truth-tables-examples/
+- https://www.youtube.com/watch?v=PJ_bS7meE7s&ab_channel=HowTo
+- https://github.com/olikraus/u8g2/wiki/fntlistall
+- https://github.com/olikraus/u8g2/wiki/u8g2reference#drawcircle
