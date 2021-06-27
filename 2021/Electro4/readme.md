@@ -65,7 +65,7 @@ Workshop:
 ## Ulohy
 - demo [demo.ino](programy/demo.ino) 
 
-![render1.png](resources/render1.png)
+![render1.png](resources/demo.png)
 
 - finalny program [pingpong.ino](programy/pingpong.ino)
                     
