@@ -59,6 +59,10 @@ Workshop:
 
 ![Serial bus](prezentacia/comm_serial.gif)
 
+- Kreslenie s u8g2 kniznicou
+
+![Drawing](prezentacia/drawing.gif)
+
 - I2C bus - TBD
 - I2C protocol - TBD
 
@@ -90,3 +94,5 @@ kolko 1 minuta videa
 - https://www.youtube.com/watch?v=PJ_bS7meE7s&ab_channel=HowTo
 - https://github.com/olikraus/u8g2/wiki/fntlistall
 - https://github.com/olikraus/u8g2/wiki/u8g2reference#drawcircle
+- https://github.com/olikraus/u8g2/wiki/u8g2reference#getdisplaywidth
+- https://makeabilitylab.github.io/physcomp/advancedio/oled.html
