@@ -40,14 +40,9 @@ Workshop:
 ## Prezentacia
 - [Logicke obvody](prezentacia/logickeobvody.pdf)
 - [Zbernice](prezentacia/zbernice.pdf)
-- [OLED Displej](oled.md)
 
 ## Ulohy
-- demo [demo.ino](programy/demo.ino) 
-
-![render1.png](resources/demo.png)
-
-- finalny program [pingpong.ino](programy/pingpong.ino)
+- [Ulohy](tasks.md)
 
 ## Animacie
 - Zoom na integrovany obvod: 
