@@ -40,7 +40,14 @@ Workshop:
 ## Prezentacia
 - [Logicke obvody](prezentacia/logickeobvody.pdf)
 - [Zbernice](prezentacia/zbernice.pdf)
-- OLED Displej (TBD)
+- [OLED Displej](oled.md)
+
+## Ulohy
+- demo [demo.ino](programy/demo.ino) 
+
+![render1.png](resources/demo.png)
+
+- finalny program [pingpong.ino](programy/pingpong.ino)
 
 ## Animacie
 - Zoom na integrovany obvod: 
@@ -65,13 +72,6 @@ Workshop:
 
 - I2C bus - TBD
 - I2C protocol - TBD
-
-## Ulohy
-- demo [demo.ino](programy/demo.ino) 
-
-![render1.png](resources/demo.png)
-
-- finalny program [pingpong.ino](programy/pingpong.ino)
                     
 ## Draft
 
@@ -96,3 +96,9 @@ kolko 1 minuta videa
 - https://github.com/olikraus/u8g2/wiki/u8g2reference#drawcircle
 - https://github.com/olikraus/u8g2/wiki/u8g2reference#getdisplaywidth
 - https://makeabilitylab.github.io/physcomp/advancedio/oled.html
+- https://www.youtube.com/watch?v=2z9qme_ygRI&ab_channel=ASML
+- https://www.youtube.com/watch?v=6IAkYpmA1DQ&ab_channel=HowToMechatronics
+- https://www.youtube.com/watch?v=2ciyXehUK-U&ab_channel=JohnHarrington
+- https://www.sccs.swarthmore.edu/users/06/adem/engin/e77vlsi/lab3/
+- https://pngable.com/png/XyPyPMafwW/cmos-nand-gate-logic-nor-bipolar-junction-transistor-png
+- https://www.4004.com/

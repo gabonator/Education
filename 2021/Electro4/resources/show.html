@@ -1,58 +1,208 @@
-<canvas id="canvas" style="border:1px #808080 dashed; width:800px; height:400px;"></canvas>
+<body bgcolor=black>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+
+<table><tr><td>
+<canvas id="canvas" style="border:8px solid #000000; width:640px; height:320; overflow:right;"></canvas>
+</td><td>
+<pre style="width:500px; background:#f0f0f0" id="pre1"><code id="code1" class="language-cpp"></code></pre>
+</td></tr></table>
 
 <script>
-  var canvas = document.getElementById("canvas");
-  var ctx = canvas.getContext('2d');
-  canvas.width = 800; //can.width;
-  canvas.height = 400; //can.height;
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext('2d');
+canvas.width = 640;
+canvas.height = 320;
 
+function showPixel(_x, _y)
+{
+  var dx = _x < 64 ? 30 : -30;
+  var dy = _y < 32 ? 10 : -10;
 
-var buf=[
+  x = _x * 5 + 2;
+  y = _y * 5 + 2;
+  ctx.strokeStyle = "#ff5555";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x+dx, y+dy);
+  ctx.stroke();
+  ctx.font = "20px Arial";
+  ctx.fillStyle = "#ff5555";
+  ctx.textAlign = dx < 0 ? "right" : "left";
+  ctx.fillText("("+_x+", "+_y+")", x+dx, y+dy);
+}
 
-0x00000000, 0x00000000, 0xf8f00000, 0x08040404, 0xe0e0009c, 0xc0006040, 0xc0e0a0e0, 0xe0a02000, 0xf8f000c0, 0xec200020, 0x200000ec, 0xe000e0e0, 0xe0c00020, 0x00c0e0a0, 0xe0000000, 0xe02040e0, 
-0xe0c000c0, 0xc0e02020, 0xecec2000, 0xe0e00000, 0xc0e02040, 0x20f8f000, 0x00000000, 0x7c449c18, 0xfcf80038, 0x00f8fc04, 0x7c449c18, 0x08000038, 0x0000fcfc, 0x00000000, 0x00000000, 0x00000000, 
-0x00000000, 0x00000000, 0x01000000, 0x02020202, 0x03030001, 0x01000000, 0x02020203, 0x03020300, 0x03010003, 0x03020002, 0x00000203, 0x80830300, 0x83818080, 0x00828282, 0x0f000000, 0x03020a0f, 
-0x03010001, 0x01030202, 0x03030200, 0x03030002, 0x03030000, 0x02030100, 0x00000000, 0x03030303, 0x03010003, 0x00010302, 0x03030303, 0x02000003, 0x00020303, 0x00000000, 0x00000000, 0x00000000, 
-0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x40800000, 0x04081020, 0x01020204, 0x00000101, 0x00000000, 0x01000000, 0x02020101, 0x10080404, 
-0x00804020, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x70800000, 0x0000030c, 0x00000000, 0x1020c000, 0x02040408, 0x02020202, 0x04040202, 0xc0201008, 0x00000000, 
-0x03000000, 0x0080700c, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x80408000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00ff0000, 0x00000000, 0x00000000, 0x0000807f, 0x00000000, 0x00000000, 0x00000000, 0x80000000, 0x0000007f, 
-0x00000000, 0x00ff0000, 0x00000000, 0x00000000, 0x20408000, 0x02040810, 0x00000001, 0x08040201, 0x80402010, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x07000000, 0x00806018, 0x00000000, 0x04020100, 0x20101008, 0x20202020, 0x10102020, 0x01020408, 0x00000000, 
-0x60800000, 0x00000718, 0x20408000, 0x02040810, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x08040201, 0x80402010, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-0x040404fc, 0x04040404, 0x0000fc04, 0x00000000, 0x00000000, 0xfcfcfcfc, 0xfcfcfcfc, 0x0000fcfc, 0x01000000, 0x10080402, 0x40202010, 0x80804040, 0x80808080, 0x40808080, 0x20204040, 0x04081010, 
-0x20408102, 0x02040810, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x08040201, 0x80402010, 0x00000000, 0x00000000, 0x00000000, 
-0x0808080f, 0x08080808, 0x00000f08, 0x00000000, 0x00000000, 0x0f0f0f0f, 0x0f0f0f0f, 0x00000f0f, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x12141810, 
-0x10101011, 0x10101010, 0x10101010, 0x10101010, 0x10101010, 0x10101010, 0x10101010, 0x10101010, 0x10101010, 0x10101010, 0x10101010, 0x10101010, 0x10101010, 0x18141211, 0x00000010, 0x00000000, 
-];
-/*
-  for (int i=0; i<size; i+=2)
-  {
-    char msg[30];
-    sprintf(msg, "0x%08x, 0x%08x, ", buf[i], buf[i+1]);
-    Serial.print(msg);
-    if (((i/2)%8) == 7)
-      Serial.print("\n");
-  }
-
-*/
-      ctx.fillStyle = "#000000";
-      ctx.fillRect(0, 0, 1000, 1000);
-
-for (var y=0; y<64; y++)
-  for (var x=0; x<128; x++)
-  {
-    var page = Math.floor(y/8);
-    var index = page*128+x;
-//    var word = Math.floor(index/32);
-    var bit = y%8;
-    var dword = buf[Math.floor(index/4)]
-    var byte = (dword >> (((index&3))*8) ) & 0xff;
-    var pix = (byte >> (bit)) & 1;
-
+function draw(buf)
+{
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(0, 0, 1000, 1000);
+  for (var y=0; y<64; y++)
+    for (var x=0; x<128; x++)
+    {
+      var page = Math.floor(y/8);
+      var index = page*128+x;
+      var bit = y%8;
+      var dword = buf ? buf[Math.floor(index/4)] : 0;
+      var byte = (dword >> (((index&3))*8) ) & 0xff;
+      var pix = (byte >> (bit)) & 1;
       ctx.fillStyle = pix ? "#d0d0d0" : "#202020";
-      ctx.fillRect(50 + x*5, 50 + y*5, 4, 4);
-//console.log([word, buf.length]);
+      ctx.fillRect(x*5, y*5, 4, 4);
+    }
+}
+
+function parse()
+{
+  var ranges = [];
+  var current = 0;
+  var p = document.querySelector("#pre1").childNodes[0].childNodes;
+  for (var i=0; i<p.length; i++)
+  {
+    var text = p[i].nodeValue;
+    if (text && text.indexOf("SYNC") != -1)
+    {
+      var range = new Range();
+
+      var epos = text.indexOf("SYNC") -1;
+      while (epos > 0 && p[i].nodeValue[epos] == ' ')
+        epos--;
+      range.setEnd(p[i], epos+1);
+
+      var tokenRange = new Range();
+      tokenRange.setStart(p[i], text.indexOf("SYNC"));
+      tokenRange.setEnd(p[i], text.indexOf("SYNC")+4);
+      tokenRange.deleteContents();
+
+      for (var j=i-1; j>=0; j--)
+      {
+        var bpos = p[j].nodeValue ? p[j].nodeValue.lastIndexOf("\n") : -1;
+        if (bpos == -1)
+          continue;
+
+        bpos++;
+        while (p[j].nodeValue[bpos] == ' ')
+          bpos++;
+
+        range.setStart(p[j], bpos);
+        ranges.push(range);
+        break;
+      }
+    }
   }
+  return ranges;
+}
+
+function drawRange(r)
+{
+  document.getSelection().removeAllRanges();
+  document.getSelection().addRange(r);
+
+  var matches = r.toString().match("\\((\\d+)\\s*,\\s*(\\d+)");
+  if (matches)
+  {
+    showPixel(matches[1], matches[2]);
+  }
+}
+
+
+draw(null);
+
+var index = 0;
+var obj;
+var ranges = [];
+var aux;
+var anim = true;
+var screens;
+
+var animInterval;
+
+function useCode(code)
+{
+  aux = hljs.highlight(code, {language:"cpp"});
+  document.querySelector("#code1").innerHTML = aux.value;
+  ranges = parse();
+}
+
+function runAnim()
+{
+  animInterval = setInterval(() =>
+  {
+    draw(screens[index]);
+    if (index < ranges.length)
+      drawRange(ranges[index]);    
+    if (++index >= screens.length) 
+      index = 0;
+  }, 1000);
+}
+
+window.addEventListener('keydown', function(event) {
+  const key = event.key;
+  if (key == "ArrowUp" && index > 0)
+  {
+    index--;
+    clearInterval(animInterval);
+
+    draw(screens[index]);
+    if (index < ranges.length)
+      drawRange(ranges[index]);
+  }  
+  if (key == "ArrowDown" && index < screens.length-1)
+  {
+    index++;
+    clearInterval(animInterval);
+
+    draw(screens[index]);
+    if (index < ranges.length)
+      drawRange(ranges[index]);
+  }  
+});
+
+function loadScriptHtml(url)
+{
+  return new Promise( (resolve, reject) =>
+  {
+    if (window._callback)
+      throw "multiple callbacks";
+
+    window._callback = (data) => {
+      resolve(data);
+      delete window._callback;
+    };
+
+    var script = document.createElement('script');
+    script.id = "remote_script";
+    script.type = 'text/javascript';
+    script.src = url;
+    var head = document.getElementsByTagName('head')[0];
+
+    for (var i=0; i<head.childNodes.length; i++)
+    {
+      if ( head.childNodes[i].nodeName == "SCRIPT" && head.childNodes[i].id == "remote_script" )
+      {
+        head.removeChild(head.childNodes[i]);
+        break;
+      }
+    }
+
+    head.appendChild(script);
+  });
+}
+var hash = document.location.hash;
+var script = "colors.js";
+
+if (hash.substr(0, 1) == "#")
+  script = hash.substr(1);
+
+window.addEventListener('load', function(event) {
+  loadScriptHtml(script).then(data=>
+  {
+    screens = data.screens;
+    useCode(data.code);
+    runAnim();
+  });
+
+});
+
+
 </script>
