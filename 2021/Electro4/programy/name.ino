@@ -15,5 +15,6 @@ void loop()
   u8g2.clearBuffer();
   u8g2.setCursor(30, 40);
   u8g2.print("Gabriel");
+  u8g2.drawLine(25, 42, 100, 42);
   u8g2.sendBuffer();
 }

@@ -26,7 +26,7 @@ Prepajacimi kablami prepojime 3.3V napajanie, zem a zbernicu I2C medzi Wemos D1 
 
 Otestujte tento program:
 
-```c
+```C
 #include <Arduino.h>
 #include <U8g2lib.h>
 #include <Wire.h>
@@ -72,14 +72,23 @@ Upravte predosly program tak, aby ste vykreslili panacika podla obrazka:
 
 - [riesenie](programy/body.ino)
 
-## Uloha 3: Hadanka
+## Uloha 3: Domcek
+
+- Nakreslite domcek podla obrazka
+
+![house_image.png](resources/house_image.png)
+
+- [riesenie](programy/house.ino)
+
+
+## Uloha 4: Hadanka
 
 - Zistite, co robi nasledujuci program
 - Sledujte vystup v konzole (Tools -> Serial monitor), nastavte baudrate na 9600
 - Co robi operator ```%```?
 - Upravte program na rozsah 0..4 (5 roznych hodnot)
 
-```c
+```C
 void setup()
 {
   Serial.begin(9600);
@@ -92,11 +101,11 @@ void loop()
 }
 ```
 
-## Uloha 4: Jablka, hrusky, maliny
+## Uloha 5: Jablka, hrusky, maliny
 
 Upravte tento program tak, aby vypisoval nahodne niektore zo styroch vasich oblubenych ovoci:
 
-```c
+```C
 void setup()
 {
   Serial.begin(9600);
@@ -123,12 +132,12 @@ void loop()
 
 - [riesenie](programy/fruits.ino)
 
-## Uloha 5: Sierpinskeho trojuholnik
+## Uloha 6: Sierpinskeho trojuholnik
 
 - Nastudujte kreslenie sierpinskeho trojuholnika metodou "chaos game" podla [videa](https://www.youtube.com/watch?v=droTYSmSGHg) 
 - Upravte nasledujuci program aby ste nakreslili sierpinskeho trojuholnik:
 
-```c
+```C
 #include <Arduino.h>
 #include <U8g2lib.h>
 #include <Wire.h>
@@ -160,6 +169,7 @@ void loop()
     x = (x + px0) / 2;
     y = (y + py0) / 2;
   }
+  // ???
   u8g2.drawPixel(x, y);
   u8g2.sendBuffer();
 }
@@ -167,14 +177,6 @@ void loop()
 
 - [Riesenie bez pola](programy/sierpinski1.ino)
 - [Riesenie s polom](programy/sierpinski2.ino)
-
-## Uloha 6:
-
-- Nakreslite domcek podla obrazka
-
-![house_image.png](resources/house_image.png)
-
-- [riesenie](programy/house.ino)
 
 ## Uloha 7: Slniecko
 
@@ -193,6 +195,7 @@ void loop()
 - Vypiste vase meno v strede displeja a posuvajte ho vzdy o jeden pixel doprava
 - Ked zmizne z obrazovky, presunte ho na zapornu Xovu suradnicu tak, aby sa postupne vynoril zlava
 - [Riesenie](programy/scroll.ino)
+
 TBD
 
 ## Uloha 10: Stvorec s vertikalnym odrazom
@@ -221,7 +224,7 @@ TBD
   - D6 - uzemnenie
   - D5 - vstup s pullup (INPUT_PULLUP)
 - V 100ms intervaloch vypisujte stav tlacidiel cez seriovu linku pre overenie funkcnosti vo formate: ```tlacidlo1=zapnute,tlacidlo2=vypnute```
-- [Riesenie](resources/testbutton.ino)
+- [Riesenie](programy/testbutton.ino)
 
 ## Uloha 13: Pohyb so spinacmi
 
@@ -258,7 +261,7 @@ void loop()
 ## Uloha 15: Gulicka
 - Namiesto stvorca vykreslime pismeno "o":
 
-```c
+```C
   // pridat do setup
   u8g2.setFont(u8g2_font_ncenB08_tr);
 
@@ -266,10 +269,10 @@ void loop()
   u8g2.print("o");
 ```
 
-### Uloha 16: Super
+## Uloha 16: Super
 - Na pravu stranu vykreslime podlozku supera, ktora bude presne sledovat polohu lopticky a nikdy ju neminie
 
-### Uloha 17: Score
+## Uloha 17: Score
 - Do stredu obrazovky v hornej casti vypiseme skore v tvare "5 : 1"
 - Vzdy pri prehre hraca sa inkrementuje cislo za dvojbodkou
 - [riesenie](programy/pingpong.ino)
