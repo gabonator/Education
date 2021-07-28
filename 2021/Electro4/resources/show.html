@@ -119,6 +119,8 @@ var animInterval;
 
 function useCode(code)
 {
+  if (typeof(hljs) == "undefined")
+    return;
   aux = hljs.highlight(code, {language:"cpp"});
   document.querySelector("#code1").innerHTML = aux.value;
   ranges = parse();

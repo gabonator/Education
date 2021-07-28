@@ -11,16 +11,14 @@
 
 ## Anotacia
 
-Beseda:
-  - pamate, bit, bajt
-  - komunikacne zbernice, paralelne, seriove
-  - displeje, suradnicove sustavy
+Beseda: Na besede sa porozprávame o tom, čo je to vlastne počítač, prečo pracuje s jednotkami a nulami a čo sa vovnútri deje, keď si pozeráme na youtube obľúbené video. Pôjdeme do hĺbky až na úroveň tranzistorov a pozrieme sa, aké základné logické štruktúry vytvárajú. Počítač, to však nie je iba procesor a preto si vysvetlíme ako prebieha komunikácia s perifériami a ako počítač komunikuje s okolitým svetom. Či už to sú externé periférie ako tlačiareň a myš, alebo perifére interné ako displej alebo akcelerometer v mobilnom telefóne.
+Zameriame sa na dvojvodičovú zbernicu I2C a komunikáciu Arduina s OLED displejom. Naučíme sa v akej súradnicovej sústave takéto displeje pracujú a ako sa na nich dajú vykresliť jednoduché statické obrázky alebo animácie s pomocou útvarov ako úsečka alebo kružnica.
 
-Workshop:
-  - arduino a displej
-  - kreslenie zakladnych geometrickych utvarov
-  - animacia
-  - interaktivna animacia
+Workshop1: Na workshope budeme pracovať s modulom ESP8266 na doske Wemos D1 mini ku ktorému pripojíme 128x64 pixelový OLED displej. S pomocou knižnice u8g2 budeme vykreslovať základné geometrické útvary a skúsime tiež vykresliť jednoduché animácie.
+
+Workshop2: Ďalej budeme pokračovať v programovaní grafických aplikácií v prostredí arduino. Ku statickým obrázkom a animáciám pridáme interaktívnu grafiku. Ku arduinu pripojíme dva spínače, s ktorými budeme ovládať zobrazené objekty na OLED displeji. Naším cieľom bude naprogramovanie jednoduchej ping-pong hry.
+
+Príprava: Priniesť si kábel na USB-micro, postupovať podľa návodu [Priprava](priprava/priprava.md)
 
 ## BOM
 
@@ -97,3 +95,5 @@ kolko 1 minuta videa
 - https://www.sccs.swarthmore.edu/users/06/adem/engin/e77vlsi/lab3/
 - https://pngable.com/png/XyPyPMafwW/cmos-nand-gate-logic-nor-bipolar-junction-transistor-png
 - https://www.4004.com/
+- https://github.com/olikraus/u8g2/wiki/fntlistall
+- https://makeabilitylab.github.io/physcomp/advancedio/oled.html
