@@ -5,7 +5,7 @@ void setup()
 
 void loop()
 {
-  int i = rand()%3;
+  int i = rand() % 4;
   if (i==0)
   {
     Serial.println("jablka");
@@ -17,6 +17,10 @@ void loop()
   if (i==2)
   {
     Serial.println("maliny");
+  }
+  if (i==3)
+  {
+    Serial.println("cucoriedky");
   }
   delay(100);
 }

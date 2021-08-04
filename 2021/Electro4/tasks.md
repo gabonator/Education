@@ -61,8 +61,11 @@ void loop(void)
 
 - Upravte predosly program tak, aby zobrazil vase meno v strede displeja a pod nim nakreslil vodorovnu ciaru (podciarknuty napis)
 - Pouzite font ```u8g2_font_ncenB12_tr```
+
+![name_image.png](resources/name_image.png)
+
 - [Riesenie](programy/name.ino)
-TODO 
+- [Riesenie amimacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#name.js)
 
 ## Uloha 2: Panacik
 
@@ -70,7 +73,8 @@ Upravte predosly program tak, aby ste vykreslili panacika podla obrazka:
 
 ![body_image.png](resources/body_image.png)
 
-- [riesenie](programy/body.ino)
+- [Riesenie](programy/body.ino)
+- [Riesenie amimacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#body.js)
 
 ## Uloha 3: Domcek
 
@@ -78,7 +82,8 @@ Upravte predosly program tak, aby ste vykreslili panacika podla obrazka:
 
 ![house_image.png](resources/house_image.png)
 
-- [riesenie](programy/house.ino)
+- [Riesenie](programy/house.ino)
+- [Riesenie amimacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#house.js)
 
 
 ## Uloha 4: Hadanka
@@ -126,11 +131,15 @@ void loop()
   {
     Serial.println("maliny");
   }
+  if (i==3)
+  {
+    Serial.println("cucoriedky");
+  }
   delay(100);
 }
 ```
 
-- [riesenie](programy/fruits.ino)
+- [Riesenie](programy/fruits.ino)
 
 ## Uloha 6: Sierpinskeho trojuholnik
 
@@ -144,7 +153,7 @@ void loop()
 
 U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE, SCL, SDA);
 
-// polohy troch bodov vo vrcholoch trojuholnika
+// polohy troch bodov vo vrcholoch trojuholnika [0, 60] [64, 0] [127, 63]
 int px0 = 0; 
 int py0 = 60;
 int px1 = 64;
@@ -177,26 +186,66 @@ void loop()
 
 - [Riesenie bez pola](programy/sierpinski1.ino)
 - [Riesenie s polom](programy/sierpinski2.ino)
+- [Riesenie amimacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#sierpinski.js)
 
 ## Uloha 7: Slniecko
 
-- Nakreslite slniecko podla obrazka
+- Upravenim programu nakreslite slniecko podla obrazka
+
+```C
+#include <Arduino.h>
+#include <U8g2lib.h>
+#include <Wire.h>
+
+U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE, SCL, SDA);
+
+void setup()
+{
+  u8g2.begin();            
+}
+
+void loop()
+{
+  int centerx = 64;
+  int centery = 32;
+  int radius = 12;
+  int rays = 10;
+  
+  for (int i=0; i<rays; i++)
+  {
+    int angle = 360*i/rays;
+    int sx = centerx + cos(angle*PI/180) * radius;
+    int sy = centery + sin(angle*PI/180) * radius;
+
+    u8g2.drawPixel(sx, sy);
+  }
+  
+  u8g2.sendBuffer();
+}
+```
 
 ![sun_image.png](resources/sun_image.png)
 
-- [riesenie](programy/sun.ino)
+- [Riesenie](programy/sun.ino)
+- [Riesenie amimacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#sun.js)
 
 ## Uloha 8: Animovane slniecko
 
 - Nechajte luce okolo slnka rotovat
-- [riesenie](programy/sunanim.ino)
+
+![house_image.png](resources/sunanim2.gif)
+
+- [Riesenie](programy/sunanim2.ino)
+- [Riesenie amimacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#sunanim2.js)
 
 ## Uloha 9: Scrollovany text
 - Vypiste vase meno v strede displeja a posuvajte ho vzdy o jeden pixel doprava
 - Ked zmizne z obrazovky, presunte ho na zapornu Xovu suradnicu tak, aby sa postupne vynoril zlava
-- [Riesenie](programy/scroll.ino)
 
-TBD
+![scroll.png](resources/scroll.gif)
+
+- [Riesenie](programy/scroll.ino)
+- [Riesenie amimacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#scroll.js)
 
 ## Uloha 10: Stvorec s vertikalnym odrazom
 - Vykreslite oramovanie displeja
@@ -204,13 +253,15 @@ TBD
 - V okamihu narazu ho nechate posuvat o jeden pixel dolava az kym nenarazi na lavu hranu displeja
 - V okamihu narazu zmente smer posuvu doprava a opakujte
 
-TBD
+- [Ukazka](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show_flybox.html#1,0)
+- [Riesenie](programy/flybox1.ino)
 
 ## Uloha 11: Stvorec pohyb v dvoch smeroch
 
 - Rozsirte predosly program o pohyb aj v Y-ovej osi
 
-TBD
+- [Ukazka](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show_flybox.html#1,1)
+- [Riesenie](programy/flybox2.ino)
 
 ## Uloha 12: Spinace
 
@@ -224,6 +275,37 @@ TBD
   - D6 - uzemnenie
   - D5 - vstup s pullup (INPUT_PULLUP)
 - V 100ms intervaloch vypisujte stav tlacidiel cez seriovu linku pre overenie funkcnosti vo formate: ```tlacidlo1=zapnute,tlacidlo2=vypnute```
+
+
+```C
+void setup()
+{
+  Serial.begin(9600);
+
+  ???
+}
+
+void loop()
+{
+  int tlac1 = ???;
+  int tlac2 = ???;
+  Serial.print("tlacidlo1=");
+  if (tlac1 == 1)
+  {
+    Serial.print("zapnute");
+  }
+  else
+  {
+    Serial.print("vypnute");
+  }
+
+  ???
+
+  Serial.print("\n");
+  delay(100);
+}
+```
+
 - [Riesenie](programy/testbutton.ino)
 
 ## Uloha 13: Pohyb so spinacmi
@@ -254,18 +336,19 @@ void loop()
 - [Riesenie](programy/pohyb.ino)
 
 ## Uloha 14: Detekcia kolizie
-- Skombinujte predosly program s odrazajucim sa stvorcom z ulohy 11, pricom pouzijeme stvorec
+- Skombinujte predosly program s odrazajucim sa stvorcom z ulohy 11
 - Skuste vypocitat ci sa lietajuca "lopticka" dotkla nasej "podlozky" s ktorou pohybujeme
-- Ak lopticka vyletela mimo, premiestnimeju ju do stredu
+- Ak lopticka vyletela mimo, premiestnimeju ju do stredu (popripade zastavime program na 1 sekundu aby mal hrac cas sa pripravit)
 
 ## Uloha 15: Gulicka
-- Namiesto stvorca vykreslime pismeno "o":
+- Namiesto stvorca vykreslime pismeno "o", potom treba upravit vypocet, kedze toto pismeno ma mensi rozmer:
 
 ```C
   // pridat do setup
   u8g2.setFont(u8g2_font_ncenB08_tr);
 
   // vykreslenie gulicky
+  u8g2.setCursor(10, 10);                
   u8g2.print("o");
 ```
 

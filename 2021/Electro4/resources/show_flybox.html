@@ -1,0 +1,116 @@
+<body bgcolor=black>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+
+<table><tr><td>
+<canvas id="canvas" style="border:8px solid #000000; width:640px; height:320; overflow:right;"></canvas>
+</td><td>
+<pre style="width:500px; background:#f0f0f0" id="pre1"><code id="code1" class="language-cpp"></code></pre>
+</td></tr></table>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext('2d');
+canvas.width = 640;
+canvas.height = 320;
+
+function showPixel(_x, _y)
+{
+  var dx = _x < 64 ? 30 : -30;
+  var dy = _y < 32 ? 10 : -10;
+
+  x = _x * 5 + 2;
+  y = _y * 5 + 2;
+  ctx.strokeStyle = "#ff5555";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x+dx, y+dy);
+  ctx.stroke();
+  ctx.font = "20px Arial";
+  ctx.fillStyle = "#ff5555";
+  ctx.textAlign = dx < 0 ? "right" : "left";
+  ctx.fillText("("+_x+", "+_y+")", x+dx, y+dy);
+}
+
+function draw()
+{
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(0, 0, 1000, 1000);
+  for (var y=0; y<64; y++)
+    for (var x=0; x<128; x++)
+    {
+/*
+      var page = Math.floor(y/8);
+      var index = page*128+x;
+      var bit = y%8;
+      var dword = buf ? buf[Math.floor(index/4)] : 0;
+      var byte = (dword >> (((index&3))*8) ) & 0xff;
+      var pix = (byte >> (bit)) & 1;
+*/
+      var pix = buf[y*128 + x];
+      ctx.fillStyle = pix ? "#d0d0d0" : "#202020";
+      ctx.fillRect(x*5, y*5, 4, 4);
+    }
+}
+
+
+var buf = new Array(128*64).fill(0);
+
+draw();
+
+function clear()
+{
+  buf = new Array(128*64).fill(0);
+}
+
+function putpixel(x, y)
+{
+  buf[Math.floor(x) + Math.floor(y)*128] = 1;
+
+}
+
+function line(x1, y1, x2, y2)
+{
+  var l = Math.max(Math.abs(x2-x1), Math.abs(y2-y1));
+  for (var i=0; i<=l; i++)
+    putpixel(x1 + (x2-x1)*i/l, y1 + (y2-y1)*i/l);
+}
+
+function rect(x1, y1, x2, y2)
+{
+  line(x1, y1, x2, y1);
+  line(x2, y1, x2, y2);
+  line(x2, y2, x1, y2);
+  line(x1, y2, x1, y1);
+}
+
+var bx = 128/2-5;
+var by = 64/2-5;
+var dx = 0;
+var dy = 0;
+setInterval(() =>
+{
+  clear();
+  rect(0, 0, 127, 63);
+  rect(bx, by, bx+10, by+10);
+  bx += dx;
+  by += dy;
+  if (bx+10 >= 126 || bx <= 1)
+    dx *= -1;
+  if (by+10 >= 62 || by <= 1)
+    dy *= -1;
+  draw();
+}, 50);
+
+var hash = document.location.hash;
+
+if (hash.substr(0, 1) == "#")
+{
+  var vals = hash.substr(1).split(",")
+  dx = parseInt(vals[0]);
+  dy = parseInt(vals[1]);
+}
+
+</script>
