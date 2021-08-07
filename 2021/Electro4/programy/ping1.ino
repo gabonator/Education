@@ -22,6 +22,11 @@ void setup()
   pinMode(D5, INPUT_PULLUP);
 }
 
+int bx = 128/2-5;
+int by = 64/2-5;
+int dx = 1;
+int dy = 1;
+
 void loop()
 {
   if (digitalRead(D7) == 0 && py > 9)
@@ -32,5 +37,33 @@ void loop()
   u8g2.clearBuffer();
   u8g2.drawFrame(0, 0, 128, 64);
   u8g2.drawBox(2, py-7, 3, 14);
+
+  u8g2.drawFrame(bx, by, 10, 10);
+
+  bx = bx + dx;
+  by = by + dy;
+
+  if (bx+10 >= 127 || bx <= 5)
+    dx = -dx;
+  if (by+10 >= 63 || by <= 1)
+    dy = -dy;
+
   u8g2.sendBuffer();
+  
+  if (bx <= 5)
+  {
+    int lopta_vrch = by;
+    int lopta_spodok = by + 10;
+    int hrac_vrch = py-7;
+    int hrac_spodok = py-7+14;
+
+    // TODO: nakreslit
+    if (hrac_vrch > lopta_spodok || hrac_spodok < lopta_vrch)
+    {
+      // netrafil
+      delay(1000);
+      bx = 128/2-5;
+      by = 64/2-5;
+    }
+  }
 }

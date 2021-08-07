@@ -1,5 +1,3 @@
-// TODO: verify
-
 #include <Arduino.h>
 #include <U8g2lib.h>
 #include <Wire.h>
@@ -20,12 +18,14 @@ void loop()
   u8g2.clearBuffer();
 
   u8g2.drawFrame(0, 0, 128, 64);
-  u8g2.drawFrame(bx, by, bx+10, by+10);
+  u8g2.drawFrame(bx, by, 10, 10);
 
   bx = bx + direction;
 
-  if (bx+10 >= 126)
+  if (bx+10 >= 127)
     direction = -1;
   if (bx <= 1)
     direction = 1;
+
+  u8g2.sendBuffer();
 }

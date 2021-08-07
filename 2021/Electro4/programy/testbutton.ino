@@ -1,3 +1,7 @@
+#ifdef __AVR__
+enum {D8=8, D7=7, D6=6, D5=5};
+#endif
+
 void setup()
 {
   Serial.begin(9600);

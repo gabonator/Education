@@ -1,4 +1,4 @@
-# Pripojenie OLED s Wemos D1 mini
+# Prepojenie OLED s Wemos D1 mini
 
 Naletujeme dva 8 pinove headery na modul Wemos D1, na spince naletujeme dvojpinove headery
 
@@ -9,6 +9,13 @@ Naletujeme dva 8 pinove headery na modul Wemos D1, na spince naletujeme dvojpino
 Prepajacimi kablami prepojime 3.3V napajanie, zem a zbernicu I2C medzi Wemos D1 a OLED displejom
 
 ![wiring1.jpg](resources/wiring1.jpg)
+
+# Prepojenie OLED s Arduino Nano
+
+- Tools -> Board: Arduino Nano
+- Tools -> Processor: ATmega328P (Old Bootloader)
+
+![nano.png](resources/nano.png)
 
 # Kreslenie s OLED
 
@@ -65,7 +72,7 @@ void loop(void)
 ![name_image.png](resources/name_image.png)
 
 - [Riesenie](programy/name.ino)
-- [Riesenie amimacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#name.js)
+- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#name.js)
 
 ## Uloha 2: Panacik
 
@@ -74,7 +81,7 @@ Upravte predosly program tak, aby ste vykreslili panacika podla obrazka:
 ![body_image.png](resources/body_image.png)
 
 - [Riesenie](programy/body.ino)
-- [Riesenie amimacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#body.js)
+- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#body.js)
 
 ## Uloha 3: Domcek
 
@@ -83,7 +90,7 @@ Upravte predosly program tak, aby ste vykreslili panacika podla obrazka:
 ![house_image.png](resources/house_image.png)
 
 - [Riesenie](programy/house.ino)
-- [Riesenie amimacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#house.js)
+- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#house.js)
 
 
 ## Uloha 4: Hadanka
@@ -186,11 +193,12 @@ void loop()
 
 - [Riesenie bez pola](programy/sierpinski1.ino)
 - [Riesenie s polom](programy/sierpinski2.ino)
-- [Riesenie amimacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#sierpinski.js)
+- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#sierpinski.js)
 
 ## Uloha 7: Slniecko
 
 - Upravenim programu nakreslite slniecko podla obrazka
+- Pre vykreslenie vyplneneho kruhu pouzite prikaz   `u8g2.drawDisc(x, y, r);`
 
 ```C
 #include <Arduino.h>
@@ -227,7 +235,7 @@ void loop()
 ![sun_image.png](resources/sun_image.png)
 
 - [Riesenie](programy/sun.ino)
-- [Riesenie amimacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#sun.js)
+- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#sun.js)
 
 ## Uloha 8: Animovane slniecko
 
@@ -236,7 +244,7 @@ void loop()
 ![house_image.png](resources/sunanim2.gif)
 
 - [Riesenie](programy/sunanim2.ino)
-- [Riesenie amimacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#sunanim2.js)
+- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#sunanim2.js)
 
 ## Uloha 9: Scrollovany text
 - Vypiste vase meno v strede displeja a posuvajte ho vzdy o jeden pixel doprava
@@ -245,7 +253,7 @@ void loop()
 ![scroll.png](resources/scroll.gif)
 
 - [Riesenie](programy/scroll.ino)
-- [Riesenie amimacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#scroll.js)
+- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#scroll.js)
 
 ## Uloha 10: Stvorec s vertikalnym odrazom
 - Vykreslite oramovanie displeja
@@ -275,6 +283,7 @@ void loop()
   - D6 - uzemnenie
   - D5 - vstup s pullup (INPUT_PULLUP)
 - V 100ms intervaloch vypisujte stav tlacidiel cez seriovu linku pre overenie funkcnosti vo formate: ```tlacidlo1=zapnute,tlacidlo2=vypnute```
+- pouzite porovnanie `digitalRead(pin) == HIGH` alebo `digitalRead(pin) == LOW`
 
 
 ```C
@@ -287,10 +296,8 @@ void setup()
 
 void loop()
 {
-  int tlac1 = ???;
-  int tlac2 = ???;
   Serial.print("tlacidlo1=");
-  if (tlac1 == 1)
+  if (???)
   {
     Serial.print("zapnute");
   }
@@ -338,7 +345,13 @@ void loop()
 ## Uloha 14: Detekcia kolizie
 - Skombinujte predosly program s odrazajucim sa stvorcom z ulohy 11
 - Skuste vypocitat ci sa lietajuca "lopticka" dotkla nasej "podlozky" s ktorou pohybujeme
-- Ak lopticka vyletela mimo, premiestnimeju ju do stredu (popripade zastavime program na 1 sekundu aby mal hrac cas sa pripravit)
+- Ak lopticka vyletela mimo, premiestnime ju do stredu (popripade zastavime program na 1 sekundu aby mal hrac cas sa pripravit)
+
+- Podla obrazku urcite podmienku pre vzajomnu polohu lopticky a hraca v okamihu "minutia" (tato je jednoduchsia ako urcit podmienku pre uspesny odraz)
+
+![collision.png](resources/collision.png)
+
+- [Riesenie](programy/ping1.ino)
 
 ## Uloha 15: Gulicka
 - Namiesto stvorca vykreslime pismeno "o", potom treba upravit vypocet, kedze toto pismeno ma mensi rozmer:
@@ -352,10 +365,14 @@ void loop()
   u8g2.print("o");
 ```
 
+- [Riesenie](programy/ping2.ino)
+
 ## Uloha 16: Super
 - Na pravu stranu vykreslime podlozku supera, ktora bude presne sledovat polohu lopticky a nikdy ju neminie
+
+- [Riesenie](programy/ping3.ino)
 
 ## Uloha 17: Score
 - Do stredu obrazovky v hornej casti vypiseme skore v tvare "5 : 1"
 - Vzdy pri prehre hraca sa inkrementuje cislo za dvojbodkou
-- [riesenie](programy/pingpong.ino)
+- [Riesenie](programy/ping4.ino)

@@ -20,7 +20,14 @@ void setup()
   pinMode(D6, OUTPUT);
   digitalWrite(D6, LOW);
   pinMode(D5, INPUT_PULLUP);
+
+  u8g2.setFont(u8g2_font_ncenB08_tr);  
 }
+
+int bx = 128/2-5;
+int by = 64/2-5;
+int dx = 1;
+int dy = 1;
 
 void loop()
 {
@@ -32,5 +39,34 @@ void loop()
   u8g2.clearBuffer();
   u8g2.drawFrame(0, 0, 128, 64);
   u8g2.drawBox(2, py-7, 3, 14);
+
+  //u8g2.drawFrame(bx, by, 6, 5);
+  u8g2.setCursor(bx, by+5);
+  u8g2.print("o");
+
+  bx = bx + dx;
+  by = by + dy;
+
+  if (bx+6 >= 127 || bx <= 5)
+    dx = -dx;
+  if (by+5 >= 63 || by <= 1)
+    dy = -dy;
+
   u8g2.sendBuffer();
+  
+  if (bx <= 5)
+  {
+    int lopta_vrch = by;
+    int lopta_spodok = by + 5;
+    int hrac_vrch = py-7;
+    int hrac_spodok = py-7+14;
+
+    if (hrac_vrch > lopta_spodok || hrac_spodok < lopta_vrch)
+    {
+      // netrafil
+      delay(1000);
+      bx = 128/2-5;
+      by = 64/2-5;
+    }
+  }
 }

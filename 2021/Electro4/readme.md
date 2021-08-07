@@ -1,4 +1,4 @@
-# Electro workshop 4
+# Electro workshop 5
 
 ![preview](preview.jpg)
 
@@ -62,24 +62,7 @@ Príprava: Priniesť si kábel na USB-micro, postupovať podľa návodu [Priprav
 - Kreslenie s u8g2 kniznicou
 
 ![Drawing](prezentacia/drawing.gif)
-
-- I2C bus - TBD
-- I2C protocol - TBD
                     
-## Draft
-
-- bit
-- 4 bity -> prve procesory, kalkulacky
-- 8 bitov, velkosti harddiskov v GB, ascii tabulka, kolko kb je jedna A4, kolko jedna kniha, kolko 1 minuta zvuku,
-kolko 1 minuta videa
-
-- komunikacia, paralelna zbernica, lpt tlaciaren
-- seriova komunikacia, RS232
-- https://www.youtube.com/watch?v=PJ_bS7meE7s&ab_channel=HowTo
-- I2C
-- https://escapequotes.net/wp-content/uploads/2016/02/esp8266-wemos-d1-mini-pinout.png
-- install esp8266 tutorial!!
-
 ## References
 - https://www.zachtronics.com/kohctpyktop-engineer-of-the-people/
 - https://www.electronics-tutorials.ws/boolean/bool_2.html
