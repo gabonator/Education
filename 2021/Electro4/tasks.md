@@ -17,17 +17,23 @@ Prepajacimi kablami prepojime 3.3V napajanie, zem a zbernicu I2C medzi Wemos D1 
 
 ![nano.png](resources/nano.png)
 
+# Prepojenie OLED s Arduino Uno R3
+
+- Tools -> Board: Arduino Uno
+
+![uno.png](resources/uno.png)
+
 # Kreslenie s OLED
 
 ![oled.png](resources/oled.png)
 
-## Farby
-
-[![colors.png](resources/colors.png)](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#colors.js)
-
 ## Geometria
 
 [![demo.png](resources/demo.png)](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#demo.js)
+
+## Farby
+
+[![colors.png](resources/colors.png)](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#colors.js)
 
 ## Uloha 0: Demo
 
@@ -198,7 +204,7 @@ void loop()
 ## Uloha 7: Slniecko
 
 - Upravenim programu nakreslite slniecko podla obrazka
-- Pre vykreslenie vyplneneho kruhu pouzite prikaz   `u8g2.drawDisc(x, y, r);`
+- Pre vykreslenie vyplneneho kruhu pouzite prikaz `u8g2.drawDisc(x, y, r);`
 
 ```C
 #include <Arduino.h>
@@ -240,7 +246,7 @@ void loop()
 ## Uloha 8: Animovane slniecko
 
 - Nechajte luce okolo slnka rotovat
-
+- Vyuzite goniometricke [funckie sin a cos](https://www.geogebra.org/m/cNEtsbvC)
 ![house_image.png](resources/sunanim2.gif)
 
 - [Riesenie](programy/sunanim2.ino)
