@@ -202,9 +202,14 @@ void loop()
 - [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#sierpinski.js)
 
 ## Uloha 7: Slniecko
-
-- Upravenim programu nakreslite slniecko podla obrazka
+- Nakreslite slniecko
 - Pre vykreslenie vyplneneho kruhu pouzite prikaz `u8g2.drawDisc(x, y, r);`
+
+![sun_image.png](resources/sun_image.png)
+
+## Uloha 7a: Slniecko
+- Upravenim programu nakreslite slniecko podla obrazka
+- Vyuzite goniometricke [funckie sin a cos](https://www.geogebra.org/m/cNEtsbvC)
 
 ```C
 #include <Arduino.h>
@@ -238,15 +243,13 @@ void loop()
 }
 ```
 
-![sun_image.png](resources/sun_image.png)
-
 - [Riesenie](programy/sun.ino)
 - [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#sun.js)
 
 ## Uloha 8: Animovane slniecko
 
 - Nechajte luce okolo slnka rotovat
-- Vyuzite goniometricke [funckie sin a cos](https://www.geogebra.org/m/cNEtsbvC)
+
 ![house_image.png](resources/sunanim2.gif)
 
 - [Riesenie](programy/sunanim2.ino)
