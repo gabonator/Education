@@ -80,3 +80,9 @@ Príprava: Priniesť si kábel na USB-micro, postupovať podľa návodu [Priprav
 - https://www.4004.com/
 - https://github.com/olikraus/u8g2/wiki/fntlistall
 - https://makeabilitylab.github.io/physcomp/advancedio/oled.html
+
+## Notes
+- Prezentacie: 75 min
+- Letovanie: 25 min
+- Nakonfigurovanie arduina: 25 min
+- Splnene ulohy vramci 3h30min: 7

@@ -37,6 +37,8 @@ Prepajacimi kablami prepojime 3.3V napajanie, zem a zbernicu I2C medzi Wemos D1 
 
 ## Uloha 0: Demo
 
+- Ak je zoznam portov v programe arduino prazdny, treba doinstalovat driver pre [CH340](https://learn.sparkfun.com/tutorials/how-to-install-ch340-drivers/all), priama linka [CH341SER.EXE](https://cdn.sparkfun.com/assets/learn_tutorials/8/4/4/CH341SER.EXE)
+
 Otestujte tento program:
 
 ```C
@@ -258,6 +260,7 @@ void loop()
 ## Uloha 9: Scrollovany text
 - Vypiste vase meno v strede displeja a posuvajte ho vzdy o jeden pixel doprava
 - Ked zmizne z obrazovky, presunte ho na zapornu Xovu suradnicu tak, aby sa postupne vynoril zlava
+- Zoznam podporovanych fontov: [fntlist12](https://github.com/olikraus/u8g2/wiki/fntlist12) [fntlist16](https://github.com/olikraus/u8g2/wiki/fntlist16) [fntlist99](https://github.com/olikraus/u8g2/wiki/fntlist99)
 
 ![scroll.png](resources/scroll.gif)
 
@@ -327,7 +330,8 @@ void loop()
 ## Uloha 13: Pohyb so spinacmi
 
 - Vyuzite nasledujuci kod pre pohybovanie s obdlznikom. Pri stlaceni jedneho tlacidla znizte hodnotu ```py``` o jedna, pri stlaceni druheho ju zvyste. Obmedzte pohyb tak, aby obdlznik neopustil displej
-```
+
+```C
 #include <Arduino.h>
 #include <U8g2lib.h>
 #include <Wire.h>
@@ -385,3 +389,12 @@ void loop()
 - Do stredu obrazovky v hornej casti vypiseme skore v tvare "5 : 1"
 - Vzdy pri prehre hraca sa inkrementuje cislo za dvojbodkou
 - [Riesenie](programy/ping4.ino)
+
+## Bonusove ulohy:
+- [bresenhamova kruznica](https://en.wikipedia.org/wiki/Midpoint_circle_algorithm) [A](http://members.chello.at/easyfilter/bresenham.html)
+- [line](https://www.redblobgames.com/grids/line-drawing.html)
+- [bezierova krivka](resources/show_bezier.html#1,1,0,0,1) [A](resources/show_bezier.html#1,0,0,0,0) [B](resources/show_bezier.html#1,1,0,0,0) [C](resources/show_bezier.html#1,1,1,0,0) [D](resources/show_bezier.html#1,1,0,1,0) [E](resources/show_bezier.html#1,1,0,0,1)
+- [vektorova grafika](resources/show_vector.html#1,1) [A](show_vector.html#1,0) [B](show_vector.html#0,1)
+- [3d kocka](resources/show_3dbox.html#0.005,0.003,0.007) [A](resources/show_3dbox.html#0.008,0,0)
+- [star fields](resources/show_starfields.html)	
+- [Konstruktor](https://github.com/pavel-krivanek/PharoChipDesigner)
