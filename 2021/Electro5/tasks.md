@@ -29,11 +29,11 @@ Prepajacimi kablami prepojime 3.3V napajanie, zem a zbernicu I2C medzi Wemos D1 
 
 ## Geometria
 
-[![demo.png](resources/demo.png)](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#demo.js)
+[![demo.png](resources/demo.png)](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show.html#demo.js)
 
 ## Farby
 
-[![colors.png](resources/colors.png)](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#colors.js)
+[![colors.png](resources/colors.png)](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show.html#colors.js)
 
 ## Uloha 0: Demo
 
@@ -80,7 +80,7 @@ void loop(void)
 ![name_image.png](resources/name_image.png)
 
 - [Riesenie](programy/name.ino)
-- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#name.js)
+- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show.html#name.js)
 
 ## Uloha 2: Panacik
 
@@ -89,7 +89,7 @@ Upravte predosly program tak, aby ste vykreslili panacika podla obrazka:
 ![body_image.png](resources/body_image.png)
 
 - [Riesenie](programy/body.ino)
-- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#body.js)
+- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show.html#body.js)
 
 ## Uloha 3: Domcek
 
@@ -98,7 +98,7 @@ Upravte predosly program tak, aby ste vykreslili panacika podla obrazka:
 ![house_image.png](resources/house_image.png)
 
 - [Riesenie](programy/house.ino)
-- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#house.js)
+- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show.html#house.js)
 
 
 ## Uloha 4: Hadanka
@@ -201,7 +201,7 @@ void loop()
 
 - [Riesenie bez pola](programy/sierpinski1.ino)
 - [Riesenie s polom](programy/sierpinski2.ino)
-- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#sierpinski.js)
+- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show.html#sierpinski.js)
 
 ## Uloha 7: Slniecko
 - Nakreslite slniecko
@@ -246,7 +246,7 @@ void loop()
 ```
 
 - [Riesenie](programy/sun.ino)
-- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#sun.js)
+- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show.html#sun.js)
 
 ## Uloha 8: Animovane slniecko
 
@@ -255,7 +255,7 @@ void loop()
 ![house_image.png](resources/sunanim2.gif)
 
 - [Riesenie](programy/sunanim2.ino)
-- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#sunanim2.js)
+- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show.html#sunanim2.js)
 
 ## Uloha 9: Scrollovany text
 - Vypiste vase meno v strede displeja a posuvajte ho vzdy o jeden pixel doprava
@@ -265,7 +265,7 @@ void loop()
 ![scroll.png](resources/scroll.gif)
 
 - [Riesenie](programy/scroll.ino)
-- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show.html#scroll.js)
+- [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show.html#scroll.js)
 
 ## Uloha 10: Stvorec s vertikalnym odrazom
 - Vykreslite oramovanie displeja
@@ -273,14 +273,14 @@ void loop()
 - V okamihu narazu ho nechate posuvat o jeden pixel dolava az kym nenarazi na lavu hranu displeja
 - V okamihu narazu zmente smer posuvu doprava a opakujte
 
-- [Ukazka](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show_flybox.html#1,0)
+- [Ukazka](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_flybox.html#1,0)
 - [Riesenie](programy/flybox1.ino)
 
 ## Uloha 11: Stvorec pohyb v dvoch smeroch
 
 - Rozsirte predosly program o pohyb aj v Y-ovej osi
 
-- [Ukazka](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro4/resources/show_flybox.html#1,1)
+- [Ukazka](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_flybox.html#1,1)
 - [Riesenie](programy/flybox2.ino)
 
 ## Uloha 12: Spinace
@@ -393,8 +393,8 @@ void loop()
 ## Bonusove ulohy:
 - [bresenhamova kruznica](https://en.wikipedia.org/wiki/Midpoint_circle_algorithm) [A](http://members.chello.at/easyfilter/bresenham.html)
 - [line](https://www.redblobgames.com/grids/line-drawing.html)
-- [bezierova krivka](resources/show_bezier.html#1,1,0,0,1) [A](resources/show_bezier.html#1,0,0,0,0) [B](resources/show_bezier.html#1,1,0,0,0) [C](resources/show_bezier.html#1,1,1,0,0) [D](resources/show_bezier.html#1,1,0,1,0) [E](resources/show_bezier.html#1,1,0,0,1)
-- [vektorova grafika](resources/show_vector.html#1,1) [A](show_vector.html#1,0) [B](show_vector.html#0,1)
-- [3d kocka](resources/show_3dbox.html#0.005,0.003,0.007) [A](resources/show_3dbox.html#0.008,0,0)
-- [star fields](resources/show_starfields.html)	
+- [bezierova krivka](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_bezier.html#1,1,0,0,1) [A](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_bezier.html#1,0,0,0,0) [B](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_bezier.html#1,1,0,0,0) [C](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_bezier.html#1,1,1,0,0) [D](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_bezier.html#1,1,0,1,0) [E](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_bezier.html#1,1,0,0,1)
+- [vektorova grafika](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_vector.html#1,1) [A](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/show_vector.html#1,0) [B](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/show_vector.html#0,1)
+- [3d kocka](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_3dbox.html#0.005,0.003,0.007) [A](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_3dbox.html#0.008,0,0)
+- [star fields](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_starfields.html)	
 - [Konstruktor](https://github.com/pavel-krivanek/PharoChipDesigner)
