@@ -1,0 +1,142 @@
+<body bgcolor=black>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+
+<table><tr><td>
+<canvas id="canvas" style="border:8px solid #000000; width:640px; height:320; overflow:right;"></canvas>
+</td><td>
+<pre style="width:500px; background:#f0f0f0" id="pre1"><code id="code1" class="language-cpp"></code></pre>
+</td></tr></table>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext('2d');
+canvas.width = 640;
+canvas.height = 320;
+
+function showPixel(_x, _y)
+{
+  var dx = _x < 64 ? 30 : -30;
+  var dy = _y < 32 ? 10 : -10;
+
+  x = _x * 5 + 2;
+  y = _y * 5 + 2;
+  ctx.strokeStyle = "#ff5555";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x+dx, y+dy);
+  ctx.stroke();
+  ctx.font = "20px Arial";
+  ctx.fillStyle = "#ff5555";
+  ctx.textAlign = dx < 0 ? "right" : "left";
+  ctx.fillText("("+_x+", "+_y+")", x+dx, y+dy);
+}
+
+function draw()
+{
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(0, 0, 1000, 1000);
+  for (var y=0; y<64; y++)
+    for (var x=0; x<128; x++)
+    {
+/*
+      var page = Math.floor(y/8);
+      var index = page*128+x;
+      var bit = y%8;
+      var dword = buf ? buf[Math.floor(index/4)] : 0;
+      var byte = (dword >> (((index&3))*8) ) & 0xff;
+      var pix = (byte >> (bit)) & 1;
+*/
+      var pix = buf[y*128 + x];
+      ctx.fillStyle = pix ? "#d0d0d0" : "#202020";
+      ctx.fillRect(x*5, y*5, 4, 4);
+    }
+}
+
+
+var buf = new Array(128*64).fill(0);
+
+draw();
+
+function clear()
+{
+  buf = new Array(128*64).fill(0);
+}
+
+function putpixel(x, y)
+{
+  if (x>=0 && x <= 127 && y >= 0 && y <= 63)
+  buf[Math.floor(x) + Math.floor(y)*128] = 1;
+
+}
+
+function line(x1, y1, x2, y2)
+{
+  var l = Math.max(Math.abs(x2-x1), Math.abs(y2-y1));
+  for (var i=0; i<=l; i++)
+    putpixel(x1 + (x2-x1)*i/l, y1 + (y2-y1)*i/l);
+}
+
+function rect(x1, y1, x2, y2)
+{
+  line(x1, y1, x2, y1);
+  line(x2, y1, x2, y2);
+  line(x2, y2, x1, y2);
+  line(x1, y2, x1, y1);
+}
+
+function interpolate(x1, y1, x2, y2, a)
+{
+  return [x1 + (x2-x1)*a, y1 + (y2-y1)*a];
+}
+var points = [
+  10, 60, 
+  50, 10,
+  90, 5,
+  120, 50
+  ];
+
+var show1 = true, show2 = true, show3 = false, show4 = false, show5=true;
+var j = 0;
+setInterval(() =>
+{
+  j++;
+  if (j>100)
+    j -= 100;
+  clear();
+  for (var i=0; i<points.length; i+=2)
+    rect(points[i]-2, points[i+1]-2, points[i]+2, points[i+1]+2)
+//  poly(p); 
+  var last = Math.floor(j);
+  for (var i=0; i<=last+0.2; i+=0.2)
+  {
+    var p1 = interpolate(points[0], points[1], points[2], points[3], i/100);
+    if (i>=last && show1)
+      putpixel(p1[0], p1[1]);
+    var p2 = interpolate(points[4], points[5], points[6], points[7], i/100);
+    if (i>=last && show2)
+      putpixel(p2[0], p2[1]);
+    if (i>=last && show3)
+      line(p1[0], p1[1], p2[0], p2[1]);
+    var p3 = interpolate(p1[0], p1[1], p2[0], p2[1], i/100);
+    if ((show4 && i>=last) || show5)
+      putpixel(p3[0], p3[1]);
+  }
+  draw();
+}, 50);
+
+var hash = document.location.hash;
+
+if (hash.substr(0, 1) == "#")
+{
+  var vals = hash.substr(1).split(",")
+  show1 = parseInt(vals[0]);
+  show2 = parseInt(vals[1]);
+  show3 = parseInt(vals[2]);
+  show4 = parseInt(vals[3]);
+  show5 = parseInt(vals[4]);
+}
+
+</script>

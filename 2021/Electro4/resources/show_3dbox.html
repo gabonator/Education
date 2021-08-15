@@ -1,0 +1,227 @@
+<body bgcolor=black>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+
+<table><tr><td>
+<canvas id="canvas" style="border:8px solid #000000; width:640px; height:320; overflow:right;"></canvas>
+</td><td>
+<pre style="width:500px; background:#f0f0f0" id="pre1"><code id="code1" class="language-cpp"></code></pre>
+</td></tr></table>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext('2d');
+canvas.width = 640;
+canvas.height = 320;
+
+function showPixel(_x, _y)
+{
+  var dx = _x < 64 ? 30 : -30;
+  var dy = _y < 32 ? 10 : -10;
+
+  x = _x * 5 + 2;
+  y = _y * 5 + 2;
+  ctx.strokeStyle = "#ff5555";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x+dx, y+dy);
+  ctx.stroke();
+  ctx.font = "20px Arial";
+  ctx.fillStyle = "#ff5555";
+  ctx.textAlign = dx < 0 ? "right" : "left";
+  ctx.fillText("("+_x+", "+_y+")", x+dx, y+dy);
+}
+
+function draw()
+{
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(0, 0, 1000, 1000);
+  for (var y=0; y<64; y++)
+    for (var x=0; x<128; x++)
+    {
+/*
+      var page = Math.floor(y/8);
+      var index = page*128+x;
+      var bit = y%8;
+      var dword = buf ? buf[Math.floor(index/4)] : 0;
+      var byte = (dword >> (((index&3))*8) ) & 0xff;
+      var pix = (byte >> (bit)) & 1;
+*/
+      var pix = buf[y*128 + x];
+      ctx.fillStyle = pix ? "#d0d0d0" : "#202020";
+      ctx.fillRect(x*5, y*5, 4, 4);
+    }
+}
+
+
+var buf = new Array(128*64).fill(0);
+
+draw();
+
+function clear()
+{
+  buf = new Array(128*64).fill(0);
+}
+
+function putpixel(x, y)
+{
+  if (x>=0 && x <= 127 && y >= 0 && y <= 63)
+  buf[Math.floor(x) + Math.floor(y)*128] = 1;
+
+}
+
+function line(x1, y1, x2, y2)
+{
+  var l = Math.max(Math.abs(x2-x1), Math.abs(y2-y1));
+  if (l>200)
+    return;
+  for (var i=0; i<=l; i++)
+    putpixel(x1 + (x2-x1)*i/l, y1 + (y2-y1)*i/l);
+}
+function line2(x1, y1, x2, y2)
+{
+  var l = Math.max(Math.abs(x2-x1), Math.abs(y2-y1));
+  if (l>200)
+    return;
+  for (var i=0; i<=l; i+=4)
+    putpixel(x1 + (x2-x1)*i/l, y1 + (y2-y1)*i/l);
+}
+
+/////////////
+
+
+var box =
+[
+    [[-10,10,-10],[10,10,-10],[10,-10,-10],[-10,-10,-10]], // rear
+    [[-10,10,10],[10,10,10],[10,-10,10],[-10,-10,10]], // front
+    
+    [[10,10,-10],[10,-10,-10],[10,-10,10],[10,10,10]], // left
+    [[-10,10,-10],[-10,-10,-10],[-10,-10,10],[-10,10,10]], // right
+
+    [[-10,10,-10],[-10,10,10],[10,10,10],[10,10,-10]], // top
+    [[-10,-10,-10],[-10,-10,10],[10,-10,10],[10,-10,-10]]]; // bottom
+
+var orientations = [-1, 1, 1, -1, -1, 1];
+
+var x = 0, y =0, z= 0, Zoff =-30, Xoff = 64, Yoff = 32;
+
+function orientation(p1x, p1y, p2x, p2y, p3x, p3y)
+{
+    var val = (p2y - p1y) * (p3x - p2x) - (p2x - p1x) * (p3y - p2y);
+    if (val == 0)
+        return 0;
+    return (val > 0) ? 1: -1;
+}
+
+function RotatePoints(x, y, z)
+{
+  var Lines=[[], [], [], [], [], []];
+  var Translated=[[], [], [], [], [], []];
+
+    for (var loop1=0; loop1<box.length; loop1++)
+        for (var loop2=0; loop2<4; loop2++)
+        {
+            Lines[loop1][loop2] = {x:box[loop1][loop2][0],
+              y: box[loop1][loop2][1],
+              z: box[loop1][loop2][2]};
+//            Translated[loop1][loop2] = {x:box[loop1][loop2][0],
+//              y: box[loop1][loop2][1],
+//              z: box[loop1][loop2][2]};//Lines[loop1][loop2];
+        }
+
+  for (var loop1=0; loop1<box.length; loop1++)
+    for (var loop2=0; loop2<4; loop2++)
+    {
+      Translated[loop1][loop2]= {
+       x: Lines[loop1][loop2].x,
+       y: Math.cos(x)*Lines[loop1][loop2].y - Math.sin(x)*Lines[loop1][loop2].z,
+       z: Math.sin(x)*Lines[loop1][loop2].y + Math.cos(x)*Lines[loop1][loop2].z};
+
+      Translated[loop1][loop2]= {
+        x: Math.cos(y)*Translated[loop1][loop2].x - Math.sin(y)*Translated[loop1][loop2].y,
+        y: Math.sin(y)*Translated[loop1][loop2].x + Math.cos(y)*Translated[loop1][loop2].y,
+        z: Translated[loop1][loop2].z};
+
+      Translated[loop1][loop2]= {
+        x:Math.cos(z)*Translated[loop1][loop2].x + Math.sin(z)*Translated[loop1][loop2].z,
+        y:Translated[loop1][loop2].y,
+        z:-Math.sin(z)*Translated[loop1][loop2].x + Math.cos(z)*Translated[loop1][loop2].z
+      };
+    }
+
+var k = 50;
+  // draw
+  for(var loop1=0; loop1<Translated.length; loop1++)
+  {                                    
+//    if ((Translated[loop1][0].z+Zoff<0) && (Translated[loop1][1].z+Zoff<0) &&
+//       (Translated[loop1][2].z+Zoff<0) && (Translated[loop1][3].z+Zoff<0))
+    {
+      var temp = (Translated[loop1][0].z+Zoff) / k;
+      var nx = Translated[loop1][0].x / temp + Xoff;
+      var ny = Translated[loop1][0].y / temp + Yoff;
+      temp = (Translated[loop1][1].z+Zoff) / k;
+      var nx2 = Translated[loop1][1].x / temp + Xoff;
+      var ny2 = Translated[loop1][1].y / temp + Yoff;
+      temp = (Translated[loop1][2].z+Zoff) / k;
+      var nx3 = Translated[loop1][2].x / temp + Xoff;
+      var ny3 = Translated[loop1][2].y / temp + Yoff;
+      temp = (Translated[loop1][3].z+Zoff) / k;
+      var nx4 = Translated[loop1][3].x / temp + Xoff;
+      var ny4 = Translated[loop1][3].y / temp + Yoff;
+        
+      if (orientation(nx, ny, nx2, ny2, nx3, ny3) == orientations[loop1])
+      {
+        DrawPoly(nx,ny,nx2,ny2,nx3,ny3,nx4,ny4,loop1);
+      } else
+      {
+        DrawPoly2(nx,ny,nx2,ny2,nx3,ny3,nx4,ny4,loop1);
+      }
+    }
+  }
+
+}
+
+function DrawPoly(x1, y1, x2, y2, x3, y3, x4, y4)
+{
+  line(x1, y1, x2, y2);
+  line(x2, y2, x3, y3);
+  line(x3, y3, x4, y4);
+  line(x4, y4, x1, y1);
+}
+
+function DrawPoly2(x1, y1, x2, y2, x3, y3, x4, y4)
+{
+  line2(x1, y1, x2, y2);
+  line2(x2, y2, x3, y3);
+  line2(x3, y3, x4, y4);
+  line2(x4, y4, x1, y1);
+}
+
+
+dx = 0.01;
+dy = 0.01333;
+dz = 0.01777;
+
+setInterval(() =>
+{
+  x += dx;
+  y += dy;
+  z += dz;
+  clear();
+  RotatePoints(x, y, z);
+  draw();
+}, 10);
+
+var hash = document.location.hash;
+
+if (hash.substr(0, 1) == "#")
+{
+  var vals = hash.substr(1).split(",")
+  dx = parseFloat(vals[0]);
+  dy = parseFloat(vals[1]);
+  dz = parseFloat(vals[2]);
+}
+
+</script>
