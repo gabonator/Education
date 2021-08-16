@@ -38,6 +38,7 @@ Príprava: Priniesť si kábel na USB-micro, postupovať podľa návodu [Priprav
 ## Prezentacia
 - [Logicke obvody](prezentacia/logickeobvody.pdf)
 - [Zbernice](prezentacia/zbernice.pdf)
+- [Checkpoint](prezentacia/checkpoint.pdf)
 
 ## Ulohy
 - [Ulohy](tasks.md)
