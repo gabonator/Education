@@ -203,47 +203,13 @@ void loop()
 - [Riesenie s polom](programy/sierpinski2.ino)
 - [Riesenie animacia](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show.html#sierpinski.js)
 
-## Uloha 7: Funkcia
-
-- Zavolajte funkciu `smajlik(10, 10)` a za hodnoty suradnic dosadte take cisla, aby bol smajlik vykresleny v strede obrazovky
-- Nakreslite 4 smajliky vedla seba
-- Nakreslite maticu 4x3 smajliky
-
-```C
-#include <Arduino.h>
-#include <U8g2lib.h>
-#include <Wire.h>
-
-U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE, SCL, SDA);
-
-void smajlik(int x, int y)
-{
-  u8g2.drawCircle(x, y, 12);   
-  u8g2.drawCircle(x, y, 10, U8G2_DRAW_LOWER_LEFT | U8G2_DRAW_LOWER_RIGHT);
-  u8g2.drawDisc(x-3, y-6, 2);
-  u8g2.drawDisc(x+3, y-6, 2);
-}
-
-void setup()
-{
-  u8g2.begin();            
-}
-
-void loop()
-{
-  u8g2.clearBuffer();
-  // ???
-  u8g2.sendBuffer();
-}
-```
-
-## Uloha 7a: Slniecko
+## Uloha 7: Slniecko
 - Nakreslite slniecko
 - Pre vykreslenie vyplneneho kruhu pouzite prikaz `u8g2.drawDisc(x, y, r);`
 
 ![sun_image.png](resources/sun_image.png)
 
-## Uloha 7b: Slniecko
+## Uloha 7a: Slniecko
 - Upravenim programu nakreslite slniecko podla obrazka
 - Vyuzite goniometricke [funckie sin a cos](https://www.geogebra.org/m/cNEtsbvC)
 
@@ -429,6 +395,6 @@ void loop()
 - [line](https://www.redblobgames.com/grids/line-drawing.html)
 - [bezierova krivka](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_bezier.html#1,1,0,0,1) [A](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_bezier.html#1,0,0,0,0) [B](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_bezier.html#1,1,0,0,0) [C](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_bezier.html#1,1,1,0,0) [D](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_bezier.html#1,1,0,1,0) [E](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_bezier.html#1,1,0,0,1)
 - [vektorova grafika](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_vector.html#1,1) [A](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/show_vector.html#1,0) [B](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/show_vector.html#0,1)
-- [3d kocka](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_3dbox.html#0.005,0.003,0.007) [A](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_3dbox.html#0,0.008,0)
+- [3d kocka](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_3dbox.html#0.005,0.003,0.007) [A](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_3dbox.html#0.008,0,0)
 - [star fields](https://rawgit.valky.eu/gabonator/Education/master/2021/Electro5/resources/show_starfields.html)	
 - [Konstruktor](https://github.com/pavel-krivanek/PharoChipDesigner)
