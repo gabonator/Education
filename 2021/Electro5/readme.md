@@ -87,3 +87,5 @@ Príprava: Priniesť si kábel na USB-micro, postupovať podľa návodu [Priprav
 - Letovanie: 25 min
 - Nakonfigurovanie arduina: 25 min
 - Splnene ulohy vramci 3h30min: 7
+- Checkpoint prezentacia: 1h
+- Programovanie 2h30min
