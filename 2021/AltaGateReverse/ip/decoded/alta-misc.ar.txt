@@ -1,0 +1,50 @@
+CHIP X
+  IsHidden   : YES;
+  FAMILY     : ALTA;
+  SIZE       : 0 0;
+  HasIoChain : NO;
+  DeviceID   : 0xFFFFFF00;
+
+  LOGIC LOGIC0
+    DIMENSION : 1 1 -2 -2;
+    SIZE : 0;
+  END_LOGIC
+
+  GLOBAL_TRACKS
+    FROM_TERMS : SEAM 0 1;
+    FROM_GRID  : Default 0;
+    TO_TERMS   : SEAM 0 1;
+    TO_GRIDS   : ALL 0;
+  END_GLOBAL_TRACKS
+
+  IO IOW
+    DIRECTION : W;
+    DIMENSION : 0 3 0 -2;
+    IO_COUNT   : 8 7 8 8 8;
+    GCLK_COUNT : 0 2 0 0 0;
+  END_IO
+  IO IOE
+    DIRECTION : E;
+    DIMENSION : -1 1 -1 -2;
+    IO_COUNT   : 8 8 8 7 8 8 8;
+    GCLK_COUNT : 0 0 0 2 0 0 0;
+  END_IO
+  IO IOSL
+    DIRECTION : S;
+    DIMENSION : 1 0 6 0;
+    IO_COUNT   : 6 6 6 6 6 6;
+    GCLK_COUNT : 0 0 0 0 0 0;
+  END_IO
+  IO IOSR
+    DIRECTION : S;
+    DIMENSION : 8 0 -2 0;
+    IO_COUNT   : 6 6 6 6 6 6 6;
+    GCLK_COUNT : 0 0 0 0 0 0 0;
+  END_IO
+  IO ION
+    DIRECTION : N;
+    DIMENSION : 1 -1 -2 -1;
+    IO_COUNT   : 6 6 6 6 6 6 6 6 6 6 6 6 6 6;
+    GCLK_COUNT : 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+  END_IO
+END_CHIP

@@ -1,0 +1,1623 @@
+CHIP AG576SL144
+  MASTER   : ALTA576T144;
+  IsHidden : NO;
+  DeviceID : 0x00057620;
+END_CHIP
+
+CHIP AG576SL100
+  MASTER   : ALTA576T100A;
+  IsHidden : NO;
+  DeviceID : 0x00057620;
+END_CHIP
+
+CHIP AG272SL100
+  MASTER   : ALTA576T100A;
+  IsHidden : NO;
+  DeviceID : 0x00026020;
+  RESTRICT : 9 4;
+  CCB
+    GROUP global
+      OUTPUT : o_cfgdone     CHIP_CFG_DONE;
+      OUTPUT : o_init_b      CONFIGBIT_INITB;
+      OUTPUT : o_chip_rstb   CHIP_RSTB;
+      INPUT  : i_device_diff 1'b0;
+    END_GROUP
+  END_CCB
+END_CHIP
+
+CHIP AG256SL100
+  IsHidden   : NO;
+  FAMILY     : ALTA;
+  SIZE       : 8 5;
+  DeviceID   : 0x00025610;
+  FlashType  : SPI;
+  FlashPrgIdle : 0.002;
+  FlashSimIdle : 600;
+  FlashPrgSize : 4;
+  GclkInverted : NO;
+  StartPin   : PIN_30;
+  FirstPin   : PIN_3;
+  DevOePin   : PIN_43;
+  DevClrnPin : PIN_44;
+  SpiSignatureStart : 0; // in frames
+  SpiSignatureEnd   : 199; // This frame is not included in signature
+  SpiSignatureCheck : 299;
+
+  LOGIC LOGIC0
+    DIMENSION : 1 1 6 3;
+  END_LOGIC
+
+  GLOBAL_TRACKS
+    FROM_TERMS : SEAM 0 1 SEAM_PIN 0 1 UFM_GCLK0;
+    FROM_GRID  : Default 0;
+    TO_TERMS   : SEAM 0 1 SEAM_PIN 0 1 UFM_GCLK0;
+    TO_GRIDS   : ALL 0;
+
+    FROM_TERMS : clkout0 clkout1 lock;
+    FROM_GRID  : Default 0;
+    TO_TERMS   : clkout0 clkout1 lock;
+    TO_GRIDS   : ALL 0;
+  END_GLOBAL_TRACKS
+
+  CCB
+    // Direction, pin, wire, [width = 1]
+    GROUP global
+      OUTPUT : o_cfgdone     CHIP_CFG_DONE;
+      OUTPUT : o_init_b      CONFIGBIT_INITB;
+      OUTPUT : o_chip_rstb   CHIP_RSTB;
+    END_GROUP
+    GROUP dedicate
+      INPUT  : i_tck TCK;
+      INPUT  : i_tms TMS;
+      INPUT  : i_tdi TDI;
+      OUTPUT : o_tdo TDO;
+    END_GROUP
+    GROUP io
+      INPUT  : i_sysclk     CLKOSC_9M;
+      INPUT  : i_reset_n    POR_TOP_PORB;
+      OUTPUT : o_bst_clk    BST_CLOCK ;
+      OUTPUT : o_bst_highz  BST_HIGHZ ;
+      OUTPUT : o_bst_mode   BST_MODE  ;
+      OUTPUT : o_bst_shift  BST_SHIFT ;
+      OUTPUT : o_bst_update BST_UPDATE;
+      OUTPUT : o_bst_sdi    BST_SDI   ;
+      INPUT  : i_bst_sdo    BST_SDO   ;
+      OUTPUT : o_io_update  CFG_EN    ;
+      OUTPUT : o_io_dev_oe  DEV_OE_IO ;
+      OUTPUT : o_io_cf_clk  IO_CLK    ;
+      OUTPUT : o_io_read_en IO_READ_EN;
+      OUTPUT : o_io_shift   IO_SHIFT  ;
+      OUTPUT : o_io_porb    PORB      ;
+      OUTPUT : o_io_shiftin SHIFT_IN  ;
+      INPUT  : i_io_rdata   IO_RDATA  ;
+    END_GROUP
+    GROUP decoder_wlShared
+      OUTPUT : om_cfgaddr om_cfgaddr 8;
+    END_GROUP
+    GROUP decoder_wlNonShared
+      OUTPUT : o_ena;
+      OUTPUT : o_porb;
+    END_GROUP
+    GROUP decoder_blShared
+      OUTPUT : o_porb_bl;
+      OUTPUT : o_bleq;
+      OUTPUT : o_cread;
+      OUTPUT : o_cshift;
+      OUTPUT : o_cwrite;
+      OUTPUT : o_cf_clk;
+    END_GROUP
+    GROUP decoder_blNonShared
+      OUTPUT : o_blena;
+      OUTPUT : o_cfgin;
+      INPUT  : i_cfgout;
+    END_GROUP
+    GROUP SPI
+      INPUT  : i_flash_sdo;
+      OUTPUT : o_flash_csn;
+      OUTPUT : o_flash_holdn;
+      OUTPUT : o_flash_sclk;
+      OUTPUT : o_flash_sdi;
+      OUTPUT : o_flash_wpn;
+    END_GROUP
+  END_CCB
+
+  IO_CHAIN
+    CHAIN SINGLE 0
+      // Config name : default_in default_out
+      PRG_DELAYB : 1'b1    1'b1;
+      RX_SEL     : 1'b1    1'b0;
+      PU         : 4'b0000 4'b1000;
+      PDCNTL     : 2'b01   2'b11;
+      NDCNTL     : 2'b01   2'b11;
+      PRG_SLR    : 1'b0    1'b0;
+      CFG_KEEP   : 2'b00   2'b00;
+    END_CHAIN
+    CHAIN DEDICATE_IN 3
+    END_CHAIN
+    CHAIN DEDICATE_OUT 4
+    END_CHAIN
+    ALIAS : NC_SINGLE SINGLE;
+  END_IO_CHAIN
+
+  IO IOW
+    DIRECTION  : W;
+    DIMENSION  : 0 2 0 3;
+    IO_COUNT   : 7 8;
+    GCLK_COUNT : 2 0;
+    PIN_INFO
+      IOTILE : 0 PIN_12 IOBANK1 SINGLE, 1 PIN_14 IOBANK1 SINGLE, 2 PIN_15 IOBANK1 SINGLE, 3 PIN_16 IOBANK1 SINGLE, 4 PIN_17 IOBANK1 SINGLE, 5 PIN_18 IOBANK1 SINGLE, 6 PIN_19 IOBANK1 SINGLE;
+      IOTILE : 0 PIN_3  IOBANK1 SINGLE, 1 PIN_4  IOBANK1 SINGLE, 2 PIN_5  IOBANK1 SINGLE, 4 PIN_6  IOBANK1 SINGLE, 5 PIN_7  IOBANK1 SINGLE, 6 PIN_8  IOBANK1 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO IOWD
+    DIRECTION : W;
+    DIMENSION : 0 1 0 1;
+    DEDICATE  : YES;
+    IO_COUNT  : 4;
+    GCLK_COUNT : 0;
+    PIN_INFO
+      IOTILE : 0 TMS IOBANK1 DEDICATE_IN, 1 TDI IOBANK1 DEDICATE_IN, 2 TCK IOBANK1 DEDICATE_IN, 3 TDO IOBANK1 DEDICATE_OUT;
+    END_PIN_INFO
+  END_IO
+  IO IOSL
+    DIRECTION  : S;
+    DIMENSION  : 1 1 1 1;
+    IO_COUNT   : 6;
+    GCLK_COUNT : 0;
+    PIN_INFO
+      IOTILE : 0 PIN_20 IOBANK1 SINGLE, 1 PIN_21 IOBANK1 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO IOSR
+    DIRECTION  : S;
+    DIMENSION  : 3 0 6 0;
+    IO_COUNT   : 6 6 6 6;
+    GCLK_COUNT : 0 0 0 0;
+    PIN_INFO
+      IOTILE : 0 PIN_26 IOBANK1 SINGLE, 1 PIN_27 IOBANK1 SINGLE, 2 PIN_28 IOBANK1 SINGLE, 3 PIN_29 IOBANK1 SINGLE, 4 PIN_30 IOBANK1 SINGLE;
+      IOTILE : 0 PIN_33 IOBANK1 SINGLE, 1 PIN_34 IOBANK1 SINGLE, 2 PIN_35 IOBANK1 SINGLE, 3 PIN_36 IOBANK1 SINGLE, 4 PIN_37 IOBANK1 SINGLE, 5 PIN_38 IOBANK1 SINGLE;
+      IOTILE : 0 PIN_39 IOBANK1 SINGLE, 1 PIN_40 IOBANK1 SINGLE, 2 PIN_41 IOBANK1 SINGLE, 3 PIN_42 IOBANK1 SINGLE, 4 PIN_43 IOBANK1 SINGLE;
+      IOTILE : 0 PIN_44 IOBANK1 SINGLE, 1 PIN_47 IOBANK1 SINGLE, 2 PIN_48 IOBANK1 SINGLE, 3 PIN_49 IOBANK1 SINGLE, 4 PIN_50 IOBANK1 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO IOE
+    DIRECTION  : E;
+    DIMENSION  : 7 1 7 3;
+    IO_COUNT   : 8 7 8;
+    GCLK_COUNT : 0 2 0;
+    PIN_INFO
+      IOTILE : 0 PIN_56 IOBANK2 SINGLE, 1 PIN_55 IOBANK2 SINGLE, 2 PIN_54 IOBANK2 SINGLE, 3 PIN_53 IOBANK2 SINGLE, 4 PIN_52 IOBANK2 SINGLE, 5 PIN_51 IOBANK2 SINGLE;
+      IOTILE : 0 PIN_64 IOBANK2 SINGLE, 1 PIN_62 IOBANK2 SINGLE, 2 PIN_61 IOBANK2 SINGLE, 3 PIN_58 IOBANK2 SINGLE, 4 PIN_57 IOBANK2 SINGLE;
+      IOTILE : 0 PIN_73 IOBANK2 SINGLE, 1 PIN_72 IOBANK2 SINGLE, 2 PIN_71 IOBANK2 SINGLE, 3 PIN_70 IOBANK2 SINGLE, 4 PIN_69 IOBANK2 SINGLE, 5 PIN_68 IOBANK2 SINGLE, 6 PIN_67 IOBANK2 SINGLE, 7 PIN_66 IOBANK2 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO ION
+    DIRECTION  : N;
+    DIMENSION  : 1 4 6 4;
+    IO_COUNT   : 6 6 6 6 6 6;
+    GCLK_COUNT : 0 0 0 0 0 0;
+    PIN_INFO
+      IOTILE : 0 PIN_2   IOBANK1 SINGLE, 1 PIN_1  IOBANK2 SINGLE;
+      IOTILE : 0 PIN_100 IOBANK2 SINGLE, 1 PIN_99 IOBANK2 SINGLE, 2 PIN_98 IOBANK2 SINGLE, 3 PIN_97 IOBANK2 SINGLE, 4 PIN_96 IOBANK2 SINGLE, 5 PIN_95 IOBANK2 SINGLE;
+      IOTILE : 0 PIN_92  IOBANK2 SINGLE, 1 PIN_91 IOBANK2 SINGLE, 2 PIN_90 IOBANK2 SINGLE, 3 PIN_89 IOBANK2 SINGLE, 4 PIN_88 IOBANK2 SINGLE;
+      IOTILE : 0 PIN_87  IOBANK2 SINGLE, 1 PIN_86 IOBANK2 SINGLE, 2 PIN_85 IOBANK2 SINGLE, 3 PIN_84 IOBANK2 SINGLE, 4 PIN_83 IOBANK2 SINGLE;
+      IOTILE : 0 PIN_82  IOBANK2 SINGLE, 1 PIN_81 IOBANK2 SINGLE, 2 PIN_78 IOBANK2 SINGLE, 3 PIN_77 IOBANK2 SINGLE, 4 PIN_76 IOBANK2 SINGLE;
+      IOTILE : 4 PIN_75  IOBANK2 SINGLE, 5 PIN_74 IOBANK2 SINGLE;
+    END_PIN_INFO
+  END_IO
+
+  BB UFM_PLL
+    TILE_TYPE   : UFMTILE;
+    CELL_TYPE   : UFMS;
+    DIMENSION   : 2 1 2 1;
+    HAS_SRAM    : YES;
+    CONST       : i_ufm_set;
+    GCLK_OUTPUT : clkout0;
+    GCLK_OUTPUT : clkout1;
+    GCLK_OUTPUT : UFM_GCLK0 SLICE_UFM_GDDD IO_GCLK_IN;
+    SIM_LINE   : assign clkout00_O \= 1'b1\;;
+    SIM_LINE   : assign clkout10_O \= 1'b1\;;
+    PIN_INFO
+      DIRECTION : N;
+      INPUT  : i_osc_ena;
+      INPUT  : i_ufm_flash_csn;
+      INPUT  : i_ufm_flash_sclk;
+      INPUT  : i_ufm_flash_sdi;
+      BYPASSED_INPUT  : pllen  SLICE_UFM_GDDD PLL_PLLEN;
+      BYPASSED_INPUT  : resetn SLICE_UFM_GDDD PLL_RESETN;
+      BYPASSED_INPUT  : pfden  SLICE_UFM_GDDD PLL_PFDEN;
+      OUTPUT : o_osc;
+      OUTPUT : o_ufm_flash_sdo;
+      BYPASSED_OUTPUT : lock SLICE_UFM_GDDD PLL_LOCK;
+    END_PIN_INFO
+    PIN_INFO
+      DIRECTION : E;
+    END_PIN_INFO
+  END_BB
+
+  BB CCB
+    TILE_TYPE : EmptyTILE;
+    DIMENSION : 0 0 2 0;
+  END_BB
+
+  DECODER
+    NAME         : wl0 l0;
+    ID           : 0;
+    DIMENSION    : 0 0 7 4;
+    BL_MSB_FIRST : 1;
+  END_DECODER
+
+END_CHIP
+
+CHIP AG1200
+  IsHidden     : YES;
+  FAMILY       : AG;
+  CHARACTER    : SMIC055D_GV0;
+  SIZE         : 14 10;
+  DeviceID     : 0x00120010;
+  ConfigSuffix : _bram;
+  GclkInverted : NO;
+  FlashType    : SPI;
+  FlashPrgIdle : 0.0002;
+  FlashSimIdle : 600;
+  FlashPrgSize : 4;
+  FlashCrc     : Yes;
+  StartPin     : PIN_11_CBSEL0;
+  FirstPin     : PIN_1;
+  SEAM_COUNT   : 8;
+  IO_TYPE      : RIO;
+
+  LOGIC LOGIC0
+    DIMENSION : 0 1 12 8;
+    SIZE : 80;
+    SLICE_RAM : SRAM;
+  END_LOGIC
+
+  LOGIC ROGIC0
+    TILE_TYPE : RogicTILE;
+    DIMENSION : 13 1 13 8;
+    SIZE : 8;
+  END_LOGIC
+
+  LOGIC BRAM0
+    TILE_TYPE : BramTILE;
+    CELL_TYPE : BRAM;
+    DIMENSION : 3 2 3 8;
+    SIZE : 7;
+  END_LOGIC
+
+  LOGIC BRAM1
+    TILE_TYPE : BramTILE;
+    CELL_TYPE : BRAM;
+    DIMENSION : 10 1 10 8;
+    SIZE : 8;
+  END_LOGIC
+
+  GLOBAL_TRACKS
+    FROM_TERMS : SEAM 0 SEAM_PIN 0 SEAM_PIN 2 SEAM_PIN 4 UFM_GCLK0;
+    TO_TERMS   : SEAM 0 SEAM_PIN 0 SEAM_PIN 2 SEAM_PIN 4 UFM_GCLK0;
+    FROM_GRID  : Default 0;
+    TO_GRIDS   : ALL 0;
+
+    FROM_TERMS : clkout0 clkout1 clkout2 clkout3 clkout0en clkout1en clkout2en clkout3en pllen resetn lock;
+    TO_TERMS   : clkout0 clkout1 clkout2 clkout3 clkout0en clkout1en clkout2en clkout3en pllen resetn lock;
+    FROM_GRID  : Default 0;
+    TO_GRIDS   : ALL 0;
+  END_GLOBAL_TRACKS
+
+  GLOBAL_PINWIRES
+    OUTPUT : CDONE    CHIP_CFG_DONE;
+    INPUT  : CRESET_B CRESETB;
+    INPUT  : POR_TEST EXT_POR_EN;
+  END_GLOBAL_PINWIRES
+
+  CCB
+    // Direction, pin, wire, [width = 1]
+    GROUP global
+      OUTPUT : o_cfgdone   CHIP_CFG_DONE;
+      OUTPUT : o_init_b    CONFIGBIT_INITB;
+      OUTPUT : o_chip_rstb CHIP_RSTB;
+      OUTPUT : o_init_emb  INIT_EMB;
+    END_GROUP
+    GROUP io
+      OUTPUT : o_spi_dir         SPI_DIR;
+      OUTPUT : o_dedicate_io_enb MODE;
+      OUTPUT : o_ext_fp_csn      CS_CCB;
+      OUTPUT : o_ext_fp_sclk     SCK_CCB;
+      OUTPUT : o_ext_fp_sdo      SO_CCB;
+      OUTPUT : o_io_update       CFG_EN;
+      OUTPUT : o_io_dev_oe       GHIZ;
+      OUTPUT : o_io_cf_clk       IO_CLK;
+      OUTPUT : o_io_read_en      IO_READ_EN;
+      OUTPUT : o_io_shift        IO_SHIFT;
+      OUTPUT : o_io_porb         PORB;
+      OUTPUT : o_io_shiftin      SHIFT_IN;
+      INPUT  : i_io_rdata        IO_RDATA;
+    END_GROUP
+    GROUP osc_por
+      INPUT  : i_sysclk       CLKOSC_CCB;
+      INPUT  : i_reset_n      PORB_CCB;
+      OUTPUT : o_osc_por_down STDBY;
+    END_GROUP
+    GROUP DUAL_IO_INPUT
+      INPUT : i_ext_fp_sdi  X11_Y0_SLICE_IO03_O;
+      INPUT : i_ext_fp_csn  X12_Y0_SLICE_IO00_O;
+      INPUT : i_ext_fp_sclk X12_Y0_SLICE_IO02_O;
+      INPUT : im_cbsel      {X6_Y1_SLICE_IO03_O\,X6_Y1_SLICE_IO02_O};
+    END_GROUP
+    GROUP dedicate
+      INPUT  : i_tck TCK;
+      INPUT  : i_tms TMS;
+      INPUT  : i_tdi TDI;
+      OUTPUT : o_tdo TDO;
+    END_GROUP
+    GROUP decoder_wlShared
+      OUTPUT : om_cfgaddr om_cfgaddr 10;
+    END_GROUP
+    GROUP decoder_wlNonShared
+      OUTPUT : o_ena;
+      OUTPUT : o_porb;
+    END_GROUP
+    GROUP decoder_blShared
+      OUTPUT : o_porb_bl;
+      OUTPUT : o_bleq;
+      OUTPUT : o_cread;
+      OUTPUT : o_cshift;
+      OUTPUT : o_cwrite;
+      OUTPUT : o_cf_clk;
+    END_GROUP
+    GROUP decoder_blNonShared
+      OUTPUT : o_blena;
+      OUTPUT : o_cfgin;
+      INPUT  : i_cfgout;
+    END_GROUP
+  END_CCB
+
+  IO_CHAIN
+    CHAIN DEDICATE_IN 0
+    END_CHAIN
+    CHAIN DEDICATE_OUT 1
+    END_CHAIN
+    CHAIN DEDICATE_OPENDRAIN 2
+    END_CHAIN
+    CHAIN SINGLE 3
+      // Config name : default_in default_out
+      CFG_OPEN_DRAIN : 1'b0  1'b0;
+      CFG_PDRCTRL    : 2'b01 2'b01;
+      CFG_KEEP       : 2'b00 2'b01;
+    END_CHAIN
+    ALIAS : NC_SINGLE SINGLE;
+    ALIAS : SINGLE_D0 SINGLE 4; // Dual purpose input
+    ALIAS : SINGLE_D1 SINGLE 5; // Dual purpose output
+    ALIAS : SINGLE_D2 SINGLE 6; // Dual purpose inout
+    ALIAS : SINGLE_D3 SINGLE 7; // Dual purpose inout with open drain
+  END_IO_CHAIN
+
+  IO IOS0
+    DIRECTION  : S;
+    DIMENSION  : 0 1 2 1;
+    IO_COUNT   : 4 4 4;
+    GCLK_COUNT : 0 0 0;
+    PIN_INFO
+      IOTILE : ;
+      IOTILE : ;
+      IOTILE : 0 PIN_1 IOBANK2 SINGLE, 2 PIN_2, IOBANK2, SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO IOS1
+    DIRECTION  : S;
+    DIMENSION  : 4 1 7 1;
+    IO_COUNT   : 4 4 4 4;
+    GCLK_COUNT : 1 1 1 1;
+    PIN_INFO
+      IOTILE : 0 PIN_3_GB        IOBANK2 SINGLE,    2 PIN_4  IOBANK2 SINGLE;
+      IOTILE : 0 PIN_5_GB        IOBANK2 SINGLE,    1 PIN_6  IOBANK2 SINGLE,       2 PIN_7         IOBANK2 SINGLE,      3 PIN_8         IOBANK2 SINGLE;
+      IOTILE : 0 PIN_9_GB        IOBANK2 SINGLE,    1 PIN_10 IOBANK2 SINGLE,       2 PIN_11_CBSEL0 IOBANK2 SINGLE_D0,   3 PIN_12_CBSEL1 IOBANK2 SINGLE_D0;
+      IOTILE : 0 PIN_13_GB_CDONE IOBANK2 SINGLE_D3, 1 CDONE  IOBANK2 DEDICATE_OUT, 2 CRESET_B      IOBANK2 DEDICATE_IN;
+    END_PIN_INFO
+  END_IO
+  IO IOS2
+    DIRECTION : S;
+    DIMENSION : 9 0 9 0;
+    IO_COUNT   : 4;
+    GCLK_COUNT : 0;
+    PIN_INFO
+      IOTILE : 1 PIN_14 IOBANK2 SINGLE, 3 PIN_15 IOBANK2 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO IOS3
+    DIRECTION : S;
+    DIMENSION : 11 0 12 0;
+    IO_COUNT   : 4 4;
+    GCLK_COUNT : 0 0;
+    PIN_INFO
+      IOTILE : 1 PIN_16_SDO IOBANK0 SINGLE_D1, 3 PIN_17_SDI IOBANK0 SINGLE_D0;
+      IOTILE : 0 PIN_18_SS  IOBANK0 SINGLE_D2, 2 PIN_19_SCK IOBANK0 SINGLE_D2;
+    END_PIN_INFO
+  END_IO
+  IO ION0
+    DIRECTION  : N;
+    DIMENSION  : 0 9 2 9;
+    IO_COUNT   : 4 4 4;
+    GCLK_COUNT : 0 0 0;
+    PIN_INFO
+      IOTILE : 0 PIN_40 IOBANK0 SINGLE, 2 PIN_39 IOBANK0 SINGLE;
+      IOTILE : 1 PIN_38 IOBANK0 SINGLE, 3 PIN_37 IOBANK0 SINGLE;
+      IOTILE : 0 PIN_36 IOBANK0 SINGLE, 2 PIN_35 IOBANK0 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO ION1
+    DIRECTION  : N;
+    DIMENSION  : 4 9 9 9;
+    IO_COUNT   : 4 4 4 4 4 4;
+    GCLK_COUNT : 1 1 1 1 0 0;
+    PIN_INFO
+      IOTILE : 0 PIN_34_GB IOBANK0 SINGLE,      2 PIN_33 IOBANK0 SINGLE;
+      IOTILE : 0 PIN_32_GB IOBANK0 SINGLE,      1 PIN_31 IOBANK0 SINGLE,      2 PIN_30 IOBANK0 SINGLE,       3 PIN_29 IOBANK0 SINGLE;
+      IOTILE : 0 PIN_28_GB IOBANK0 SINGLE,      2 PIN_27 IOBANK0 SINGLE;
+      IOTILE : 0 PIN_26_GB IOBANK0 SINGLE,      1 TDI    IOBANK0 DEDICATE_IN, 2 TCK    IOBANK0 DEDICATE_IN,  3 PIN_25 IOBANK0 SINGLE;
+      IOTILE : 0 PIN_24    IOBANK0 SINGLE,      1 TMS    IOBANK0 DEDICATE_IN, 2 TDO    IOBANK0 DEDICATE_OUT, 3 PIN_23 IOBANK0 SINGLE;
+      IOTILE : 0 POR_TEST  IOBANK0 DEDICATE_IN, 1 PIN_22 IOBANK0 SINGLE,      3 PIN_21 IOBANK0 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO ION2
+    DIRECTION  : N;
+    DIMENSION  : 11 9 12 9;
+    IO_COUNT   : 4 4;
+    GCLK_COUNT : 0 0;
+    PIN_INFO
+      IOTILE : 1 PIN_20 IOBANK0 SINGLE;
+      IOTILE : ;
+    END_PIN_INFO
+  END_IO
+
+  BB BOOT_PLL
+    TILE_TYPE   : UFMTILE;
+    CELL_TYPE   : BOOT;
+    DIMENSION   : 8 1 8 1;
+    HAS_SRAM    : YES;
+    GCLK_OUTPUT : UFM_GCLK0 SLICE_UFM_GDDD IO_GCLK_IN;
+    PIN_INFO
+      DIRECTION : N;
+      INPUT  : i_boot;
+      INPUTS : im_vector_sel 2;
+      INPUT  : i_osc_enb;
+      OUTPUT : o_osc;
+      BYPASSED_OUTPUT : lock SLICE_UFM_GDDD PLL_LOCK;
+    END_PIN_INFO
+    PIN_INFO
+      DIRECTION : E;
+      BYPASSED_INPUT : pllen  SLICE_UFM_GDDD PLLX_PLLEN;
+      BYPASSED_INPUT : resetn SLICE_UFM_GDDD PLLX_RESETN;
+      BYPASSED_INPUT : clkout0en SLICE_UFM_GDDD PLLX_CLKOUT0EN;
+      BYPASSED_INPUT : clkout1en SLICE_UFM_GDDD PLLX_CLKOUT1EN;
+      BYPASSED_INPUT : clkout2en SLICE_UFM_GDDD PLLX_CLKOUT2EN;
+      BYPASSED_INPUT : clkout3en SLICE_UFM_GDDD PLLX_CLKOUT3EN;
+    END_PIN_INFO
+  END_BB
+
+  BB PLL
+    TILE_TYPE : PLLTILE;
+    CELL_TYPE  : PLLX;
+    DIMENSION : 1 0 1 0;
+    TERM_INPUT : SEAM0 SEAM1 SEAM2 SEAM3 SEAM4 SEAM5 SEAM6 SEAM7 SEAM_PIN0 SEAM_PIN2 SEAM_PIN4;
+    TERM_INPUT : SEAM0 SEAM1 SEAM2 SEAM3 SEAM4 SEAM5 SEAM6 SEAM7;
+    TERM_INPUT : pllen;
+    TERM_INPUT : resetn;
+    TERM_INPUT : clkout0en;
+    TERM_INPUT : clkout1en;
+    TERM_INPUT : clkout2en;
+    TERM_INPUT : clkout3en;
+    // Gclks should be at the front
+    GCLK_OUTPUT : clkout0;
+    GCLK_OUTPUT : clkout1;
+    GCLK_OUTPUT : clkout2;
+    GCLK_OUTPUT : clkout3;
+    TERM_OUTPUT : lock;
+
+    CONFIG_CHAIN
+      CHAIN_TYPE   : CFG_SHIFT_CHAIN;
+      CHAIN_ID     : 1;
+      CHAIN_PREFIX : PLL;
+      CHAIN_INPUT  : o_pll_shift   SHIFT   ;
+      CHAIN_INPUT  : o_pll_shiftin SHIFTIN ;
+      CHAIN_INPUT  : o_pll_read_en READ_EN ;
+      CHAIN_INPUT  : o_pll_update  UPDATE  ;
+      CHAIN_INPUT  : o_pll_cf_clk  SHIFTCLK;
+      CHAIN_INPUT  : o_pll_porb    PORB    ;
+      CHAIN_OUTPUT : i_pll_rdata   RDATA   ;
+      // Order of CHAIN_BITS should match ic
+      CHAIN_BITS : CFG_PllClkFbMUX  1'b0;
+      CHAIN_BITS : CFG_SELCLK_G3    3'b0;
+      CHAIN_BITS : CFG_SELCLK_G4    3'b0;
+      CHAIN_BITS : CFG_CLK_EN3      1'b0;
+      CHAIN_BITS : CFG_M_G3         6'b0;
+      CHAIN_BITS : CFG_CLK_EN4      1'b0;
+      CHAIN_BITS : CFG_M_G4         6'b0;
+      CHAIN_BITS : CFG_DLYNUM_G3    6'b0;
+      CHAIN_BITS : CFG_DLYNUM_G4    6'b0;
+      CHAIN_BITS : CFG_DLYNUM_G1    6'b0;
+      CHAIN_BITS : CFG_CLK_EN2      1'b0;
+      CHAIN_BITS : CFG_M_G2         6'b0;
+      CHAIN_BITS : CFG_CLK_EN1      1'b0;
+      CHAIN_BITS : CFG_M_G1         6'b0;
+      CHAIN_BITS : CFG_M_M          6'b0;
+      CHAIN_BITS : CFG_M_N          6'b0;
+      CHAIN_BITS : CFG_PllSeamMUX1  3'b0;
+      CHAIN_BITS : CFG_PllSeamMUX0  3'b0;
+      CHAIN_BITS : CFG_DLYNUM_G2    6'b0;
+      CHAIN_BITS : CFG_PllIntFbMUX  2'b0;
+      CHAIN_BITS : CFG_SELCLK_G2    3'b0;
+      CHAIN_BITS : CFG_SELCLK_G1    3'b0;
+      CHAIN_BITS : CFG_CP           3'b010;
+      CHAIN_BITS : CFG_RREF         2'b01;
+      CHAIN_BITS : CFG_RVI          2'b01;
+      CHAIN_BITS : CFG_PllClkInMUX  2'b0;
+      CHAIN_BITS : CFG_RLPF         2'b01;
+      CHAIN_BITS : CFG_PLL_EN_FLAG  1'b1;
+    END_CONFIG_CHAIN
+  END_BB
+
+  BB BB0
+    TILE_TYPE : EmptyTILE;
+    DIMENSION : 3 1 3 1;
+  END_BB
+
+  BB PLL_CCB
+    TILE_TYPE : EmptyTILE;
+    DIMENSION : 2 0 8 0;
+  END_BB
+
+  BB POR_TOP
+    TILE_TYPE : EmptyTILE;
+    DIMENSION : 10 0 10 0;
+    TERM_INPUT  : STDBY;
+    TERM_INPUT  : CRESETB;
+    TERM_INPUT  : EXT_POR_EN;
+    TERM_OUTPUT : CLKOSC_CCB;
+    TERM_OUTPUT : PORB_CCB;
+  END_BB
+
+  DECODER
+    NAME         : wl0 l0;
+    ID           : 0;
+    DIMENSION    : 0 0 13 9;
+    BL_MSB_FIRST : 1;
+  END_DECODER
+
+END_CHIP
+
+CHIP AG1200NP
+  MASTER    : AG1200;
+  IsHidden  : YES;
+  CHARACTER : SMIC055D_NPV0;
+END_CHIP
+
+CHIP AG1200LP
+  MASTER    : AG1200;
+  IsHidden  : YES;
+  CHARACTER : SMIC055D_LPV0;
+END_CHIP
+
+CHIP AG1280Q48
+  MASTER     : AG1200LP;
+  IsHidden   : NO;
+  StartPin   : PIN_22;
+  FirstPin   : PIN_11;
+  SpiSignatureStart : 0; // in frames
+  SpiSignatureEnd   : 199; // This frame is not included in signature
+  SpiSignatureCheck : 299;
+
+  IO IOS0
+    DIRECTION  : S;
+    DIMENSION  : 0 1 2 1;
+    IO_COUNT   : 4 4 4;
+    GCLK_COUNT : 0 0 0;
+    PIN_INFO
+      IOTILE : ;
+      IOTILE : ;
+      IOTILE : 0 PIN_11 IOBANK2 SINGLE, 2 PIN_12, IOBANK2, SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO IOS1
+    DIRECTION  : S;
+    DIMENSION  : 4 1 7 1;
+    IO_COUNT   : 4 4 4 4;
+    GCLK_COUNT : 1 1 1 1;
+    PIN_INFO
+      IOTILE : 0 PIN_13 IOBANK2 SINGLE,    2 PIN_14 IOBANK2 SINGLE;
+      IOTILE : 0 PIN_15 IOBANK2 SINGLE,    1 PIN_16 IOBANK2 SINGLE,       2 PIN_17   IOBANK2 SINGLE,      3 PIN_18 IOBANK2 SINGLE;
+      IOTILE : 0 PIN_19 IOBANK2 SINGLE,    1 PIN_20 IOBANK2 SINGLE,       2 PIN_22   IOBANK2 SINGLE_D0,   3 PIN_23 IOBANK2 SINGLE_D0;
+      IOTILE : 0 PIN_9  IOBANK2 SINGLE_D3, 1 CDONE  IOBANK2 DEDICATE_OUT, 2 CRESET_B IOBANK2 DEDICATE_IN;
+    END_PIN_INFO
+  END_IO
+  IO IOS2
+    DIRECTION : S;
+    DIMENSION : 9 0 9 0;
+    IO_COUNT   : 4;
+    GCLK_COUNT : 0;
+    PIN_INFO
+      IOTILE : 1 NC_14 IOBANK2 NC_SINGLE, 3 PIN_25 IOBANK2 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO IOS3
+    DIRECTION : S;
+    DIMENSION : 11 0 12 0;
+    IO_COUNT   : 4 4;
+    GCLK_COUNT : 0 0;
+    PIN_INFO
+      IOTILE : 1 NC_16_SDO IOBANK0 SINGLE_D1, 3 NC_17_SDI IOBANK0 SINGLE_D0;
+      IOTILE : 0 NC_18_SS  IOBANK0 SINGLE_D2, 2 NC_19_SCK IOBANK0 SINGLE_D2;
+    END_PIN_INFO
+  END_IO
+  IO ION0
+    DIRECTION  : N;
+    DIMENSION  : 0 9 2 9;
+    IO_COUNT   : 4 4 4;
+    GCLK_COUNT : 0 0 0;
+    PIN_INFO
+      IOTILE : 0 PIN_4 IOBANK0 SINGLE, 2 PIN_3  IOBANK0 SINGLE;
+      IOTILE : 1 PIN_5 IOBANK0 SINGLE, 3 PIN_2  IOBANK0 SINGLE;
+      IOTILE : 0 PIN_1 IOBANK0 SINGLE, 2 PIN_48 IOBANK0 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO ION1
+    DIRECTION  : N;
+    DIMENSION  : 4 9 9 9;
+    IO_COUNT   : 4 4 4 4 4 4;
+    GCLK_COUNT : 1 1 1 1 0 0;
+    PIN_INFO
+      IOTILE : 0 PIN_46   IOBANK0 SINGLE,      2 PIN_45  IOBANK0 SINGLE;
+      IOTILE : 0 PIN_44   IOBANK0 SINGLE,      1 PIN_43  IOBANK0 SINGLE,      2 PIN_42  IOBANK0 SINGLE,       3 NC_29 IOBANK0 NC_SINGLE;
+      IOTILE : 0 PIN_41   IOBANK0 SINGLE,      2 PIN_6   IOBANK0 SINGLE;
+      IOTILE : 0 TDI      IOBANK0 SINGLE,      1 INT_TDI IOBANK0 DEDICATE_IN, 2 INT_TCK IOBANK0 DEDICATE_IN,  3 TCK   IOBANK0 SINGLE;
+      IOTILE : 0 TMS      IOBANK0 SINGLE,      1 INT_TMS IOBANK0 DEDICATE_IN, 2 INT_TDO IOBANK0 DEDICATE_OUT, 3 TDO   IOBANK0 SINGLE;
+      IOTILE : 0 POR_TEST IOBANK0 DEDICATE_IN, 1 DATAOUT IOBANK0 SINGLE,      3 NC_21   IOBANK0 NC_SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO ION2
+    DIRECTION  : N;
+    DIMENSION  : 11 9 12 9;
+    IO_COUNT   : 4 4;
+    GCLK_COUNT : 0 0;
+    PIN_INFO
+      IOTILE : 1 nCS IOBANK0 SINGLE;
+      IOTILE : ;
+    END_PIN_INFO
+  END_IO
+
+  CCB
+    GROUP dedicate
+      INPUT  : i_tck INT_TCK;
+      INPUT  : i_tms INT_TMS;
+      INPUT  : i_tdi INT_TDI;
+      OUTPUT : o_tdo INT_TDO;
+    END_GROUP
+  END_CCB
+
+END_CHIP
+
+CHIP AG1280Q32
+  MASTER     : AG1200LP;
+  IsHidden   : NO;
+  SpiSignatureStart : 0; // in frames
+  SpiSignatureEnd   : 199; // This frame is not included in signature
+  SpiSignatureCheck : 299;
+  StartPin   : NC_11_CBSEL0;
+  FirstPin   : PIN_8;
+
+  IO IOS0
+    DIRECTION  : S;
+    DIMENSION  : 0 1 2 1;
+    IO_COUNT   : 4 4 4;
+    GCLK_COUNT : 0 0 0;
+    PIN_INFO
+      IOTILE : ;
+      IOTILE : ;
+      IOTILE : 0 PIN_8 IOBANK2 SINGLE, 2 PIN_9, IOBANK2, SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO IOS1
+    DIRECTION  : S;
+    DIMENSION  : 4 1 7 1;
+    IO_COUNT   : 4 4 4 4;
+    GCLK_COUNT : 1 1 1 1;
+    PIN_INFO
+      IOTILE : 0 PIN_10 IOBANK2 SINGLE,    2 PIN_11 IOBANK2 SINGLE;
+      IOTILE : 0 PIN_12 IOBANK2 SINGLE,    1 NC_6   IOBANK2 NC_SINGLE,    2 NC_7         IOBANK2 NC_SINGLE,   3 NC_8         IOBANK2 NC_SINGLE;
+      IOTILE : 0 PIN_13 IOBANK2 SINGLE,    1 PIN_14 IOBANK2 SINGLE,       2 NC_11_CBSEL0 IOBANK2 SINGLE_D0,   3 NC_12_CBSEL1 IOBANK2 SINGLE_D0;
+      IOTILE : 0 PIN_6  IOBANK2 SINGLE_D3, 1 CDONE  IOBANK2 DEDICATE_OUT, 2 CRESET_B     IOBANK2 DEDICATE_IN;
+    END_PIN_INFO
+  END_IO
+  IO IOS2
+    DIRECTION : S;
+    DIMENSION : 9 0 9 0;
+    IO_COUNT   : 4;
+    GCLK_COUNT : 0;
+    PIN_INFO
+      IOTILE : 1 NC_14 IOBANK2 NC_SINGLE, 3 NC_15 IOBANK2 NC_SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO IOS3
+    DIRECTION : S;
+    DIMENSION : 11 0 12 0;
+    IO_COUNT   : 4 4;
+    GCLK_COUNT : 0 0;
+    PIN_INFO
+      IOTILE : 1 NC_16_SDO IOBANK0 SINGLE_D1, 3 NC_17_SDI IOBANK0 SINGLE_D0;
+      IOTILE : 0 NC_18_SS  IOBANK0 SINGLE_D2, 2 NC_19_SCK IOBANK0 SINGLE_D2;
+    END_PIN_INFO
+  END_IO
+  IO ION0
+    DIRECTION  : N;
+    DIMENSION  : 0 9 2 9;
+    IO_COUNT   : 4 4 4;
+    GCLK_COUNT : 0 0 0;
+    PIN_INFO
+      IOTILE : 0 PIN_2 IOBANK0 SINGLE, 2 PIN_1 IOBANK0 SINGLE;
+      IOTILE : 1 PIN_3 IOBANK0 SINGLE, 3 NC_37 IOBANK0 NC_SINGLE;
+      IOTILE : 0 NC_36 IOBANK0 NC_SINGLE, 2 NC_35 IOBANK0 NC_SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO ION1
+    DIRECTION  : N;
+    DIMENSION  : 4 9 9 9;
+    IO_COUNT   : 4 4 4 4 4 4;
+    GCLK_COUNT : 1 1 1 1 0 0;
+    PIN_INFO
+      IOTILE : 0 NC_34_GB IOBANK0 NC_SINGLE,   2 NC_33   IOBANK0 NC_SINGLE;
+      IOTILE : 0 PIN_31   IOBANK0 SINGLE,      1 NC_31   IOBANK0 NC_SINGLE,   2 NC_30   IOBANK0 NC_SINGLE,    3 NC_29 IOBANK0 NC_SINGLE;
+      IOTILE : 0 NC_28_GB IOBANK0 NC_SINGLE,   2 NC_27   IOBANK0 NC_SINGLE;
+      IOTILE : 0 TDI      IOBANK0 NC_SINGLE,   1 INT_TDI IOBANK0 DEDICATE_IN, 2 INT_TCK IOBANK0 DEDICATE_IN,  3 TCK   IOBANK0 NC_SINGLE;
+      IOTILE : 0 TMS      IOBANK0 NC_SINGLE,   1 INT_TMS IOBANK0 DEDICATE_IN, 2 INT_TDO IOBANK0 DEDICATE_OUT, 3 TDO   IOBANK0 NC_SINGLE;
+      IOTILE : 0 POR_TEST IOBANK0 DEDICATE_IN, 1 DATAOUT IOBANK0 SINGLE,      3 NC_21   IOBANK0 NC_SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO ION2
+    DIRECTION  : N;
+    DIMENSION  : 11 9 12 9;
+    IO_COUNT   : 4 4;
+    GCLK_COUNT : 0 0;
+    PIN_INFO
+      IOTILE : 1 nCS IOBANK0 SINGLE;
+      IOTILE : ;
+    END_PIN_INFO
+  END_IO
+
+  CCB
+    GROUP dedicate
+      INPUT  : i_tck INT_TCK;
+      INPUT  : i_tms INT_TMS;
+      INPUT  : i_tdi INT_TDI;
+      OUTPUT : o_tdo INT_TDO;
+    END_GROUP
+  END_CCB
+
+END_CHIP
+
+CHIP AG1KLPQ48
+  MASTER     : AG1200LP;
+  IsHidden   : NO;
+  StartPin   : PIN_22;
+  FirstPin   : PIN_11;
+  SpiSignatureStart : 0; // in frames
+  SpiSignatureEnd   : 199; // This frame is not included in signature
+  SpiSignatureCheck : 299;
+
+  IO IOS0
+    DIRECTION  : S;
+    DIMENSION  : 0 1 2 1;
+    IO_COUNT   : 4 4 4;
+    GCLK_COUNT : 0 0 0;
+    PIN_INFO
+      IOTILE : ;
+      IOTILE : ;
+      IOTILE : 0 PIN_11 IOBANK2 SINGLE, 2 PIN_12, IOBANK2, SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO IOS1
+    DIRECTION  : S;
+    DIMENSION  : 4 1 7 1;
+    IO_COUNT   : 4 4 4 4;
+    GCLK_COUNT : 1 1 1 1;
+    PIN_INFO
+      IOTILE : 0 PIN_13 IOBANK2 SINGLE,    2 PIN_14 IOBANK2 SINGLE;
+      IOTILE : 0 PIN_15 IOBANK2 SINGLE,    1 PIN_16 IOBANK2 SINGLE,       2 PIN_17   IOBANK2 SINGLE,      3 PIN_18 IOBANK2 SINGLE;
+      IOTILE : 0 PIN_19 IOBANK2 SINGLE,    1 PIN_20 IOBANK2 SINGLE,       2 PIN_22   IOBANK2 SINGLE_D0,   3 PIN_23 IOBANK2 SINGLE_D0;
+      IOTILE : 0 PIN_9  IOBANK2 SINGLE_D3, 1 CDONE  IOBANK2 DEDICATE_OUT, 2 CRESET_B IOBANK2 DEDICATE_IN;
+    END_PIN_INFO
+  END_IO
+  IO IOS2
+    DIRECTION : S;
+    DIMENSION : 9 0 9 0;
+    IO_COUNT   : 4;
+    GCLK_COUNT : 0;
+    PIN_INFO
+      IOTILE : 1 PIN_25 IOBANK2 SINGLE, 3 PIN_26 IOBANK2 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO IOS3
+    DIRECTION : S;
+    DIMENSION : 11 0 12 0;
+    IO_COUNT   : 4 4;
+    GCLK_COUNT : 0 0;
+    PIN_INFO
+      IOTILE : 1 PIN_27 IOBANK0 SINGLE_D1, 3 PIN_32 IOBANK0 SINGLE_D0;
+      IOTILE : 0 PIN_29 IOBANK0 SINGLE_D2, 2 PIN_31 IOBANK0 SINGLE_D2;
+    END_PIN_INFO
+  END_IO
+  IO ION0
+    DIRECTION  : N;
+    DIMENSION  : 0 9 2 9;
+    IO_COUNT   : 4 4 4;
+    GCLK_COUNT : 0 0 0;
+    PIN_INFO
+      IOTILE : 0 PIN_4 IOBANK0 SINGLE, 2 PIN_3  IOBANK0 SINGLE;
+      IOTILE : 1 PIN_5 IOBANK0 SINGLE, 3 PIN_2  IOBANK0 SINGLE;
+      IOTILE : 0 PIN_1 IOBANK0 SINGLE, 2 PIN_48 IOBANK0 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO ION1
+    DIRECTION  : N;
+    DIMENSION  : 4 9 9 9;
+    IO_COUNT   : 4 4 4 4 4 4;
+    GCLK_COUNT : 1 1 1 1 0 0;
+    PIN_INFO
+      IOTILE : 0 PIN_46   IOBANK0 SINGLE,      2 PIN_45 IOBANK0 SINGLE;
+      IOTILE : 0 PIN_44   IOBANK0 SINGLE,      1 PIN_43 IOBANK0 SINGLE,      2 PIN_42 IOBANK0 SINGLE,       3 PIN_41 IOBANK0 SINGLE;
+      IOTILE : 0 PIN_40   IOBANK0 SINGLE,      2 PIN_6  IOBANK0 SINGLE;
+      IOTILE : 0 PIN_39   IOBANK0 SINGLE,      1 TDI    IOBANK0 DEDICATE_IN, 2 TCK    IOBANK0 DEDICATE_IN,  3 PIN_38 IOBANK0 SINGLE;
+      IOTILE : 0 PIN_33   IOBANK0 SINGLE,      1 TMS    IOBANK0 DEDICATE_IN, 2 TDO    IOBANK0 DEDICATE_OUT, 3 PIN_37 IOBANK0 SINGLE;
+      IOTILE : 0 POR_TEST IOBANK0 DEDICATE_IN, 1 PIN_36 IOBANK0 SINGLE,      3 PIN_35 IOBANK0 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO ION2
+    DIRECTION  : N;
+    DIMENSION  : 11 9 12 9;
+    IO_COUNT   : 4 4;
+    GCLK_COUNT : 0 0;
+    PIN_INFO
+      IOTILE : 1 PIN_34 IOBANK0 SINGLE;
+      IOTILE : ;
+    END_PIN_INFO
+  END_IO
+
+  CCB
+    GROUP dedicate
+      INPUT  : i_tck INT_TCK;
+      INPUT  : i_tms INT_TMS;
+      INPUT  : i_tdi INT_TDI;
+      OUTPUT : o_tdo INT_TDO;
+    END_GROUP
+  END_CCB
+END_CHIP
+
+CHIP AG3K
+  IsHidden     : YES;
+  FAMILY       : AG;
+  CHARACTER    : SMIC055D_LPV0;
+  SIZE         : 23 10;
+  DeviceID     : 0x00300010;
+  ConfigSuffix : _bram;
+  GclkInverted : NO;
+  FlashType    : SPI;
+  FlashPrgIdle : 0.0002;
+  FlashSimIdle : 600;
+  FlashPrgSize : 4;
+  FlashCrc     : Yes;
+  StartPin     : PIN_11;
+  FirstPin     : PIN_1;
+  SEAM_COUNT   : 8;
+  IO_TYPE      : RIO;
+
+  LOGIC ZLOGIC0
+    DIMENSION : 0 1 21 8;
+    SIZE : -1;
+    SLICE_RAM : SRAM;
+  END_LOGIC
+
+  LOGIC ROGIC0
+    TILE_TYPE : RogicTILE;
+    DIMENSION : 22 1 22 7;
+    SIZE : 7;
+  END_LOGIC
+
+  LOGIC BRAM0
+    TILE_TYPE : BramTILE;
+    CELL_TYPE : BRAM;
+    DIMENSION : 5 5 5 8;
+    SIZE : 4;
+  END_LOGIC
+
+  LOGIC BRAM1
+    TILE_TYPE : BramTILE;
+    CELL_TYPE : BRAM;
+    DIMENSION : 16 1 16 8;
+    SIZE : 8;
+  END_LOGIC
+
+  LOGIC MULT0
+    TILE_TYPE : MultTILE;
+    CELL_TYPE  : MULT;
+    DIMENSION : 5 2 5 4;
+    SIZE : 3;
+  END_LOGIC
+
+  LOGIC I2C
+    TILE_TYPE  : IPTILE;
+    CELL_TYPE  : I2C;
+    DIMENSION  : 20 1 21 1;
+    SIZE : 2;
+  END_LOGIC
+
+  LOGIC SPI
+    TILE_TYPE  : IPTILE;
+    CELL_TYPE  : SPI;
+    DIMENSION  : 0 2 1 2;
+    SIZE : 2;
+  END_LOGIC
+
+  BB SPI_EMPTY
+    TILE_TYPE : EmptyTILE;
+    DIMENSION : 0 1 1 1;
+  END_BB
+
+  GLOBAL_TRACKS
+    FROM_TERMS : SEAM 0 SEAM_PIN 0 SEAM_PIN 2 SEAM_PIN 4 UFM_GCLK0;
+    TO_TERMS   : SEAM 0 SEAM_PIN 0 SEAM_PIN 2 SEAM_PIN 4 UFM_GCLK0;
+    FROM_GRID  : Default 0;
+    TO_GRIDS   : ALL 0;
+
+    FROM_TERMS : clkout0 clkout1 clkout2 clkout3 clkout0en clkout1en clkout2en clkout3en pllen resetn lock;
+    TO_TERMS   : clkout0 clkout1 clkout2 clkout3 clkout0en clkout1en clkout2en clkout3en pllen resetn lock;
+    FROM_GRID  : Default 0;
+    TO_GRIDS   : ALL 0;
+  END_GLOBAL_TRACKS
+
+  GLOBAL_PINWIRES
+    OUTPUT : CDONE    CHIP_CFG_DONE;
+    INPUT  : CRESET_B CRESETB;
+    INPUT  : POR_TEST EXT_POR_EN;
+    INPUT  : VIP_IRIP vip0;
+    INPUT  : VIN_IRIP vin0;
+  END_GLOBAL_PINWIRES
+
+  CCB
+    // Direction, pin, wire, [width = 1]
+    GROUP global
+      OUTPUT : o_init_b    CONFIGBIT_INITB;
+      OUTPUT : o_chip_rstb CHIP_RSTB;
+      OUTPUT : o_init_emb  INIT_EMB;
+    END_GROUP
+    GROUP io_global
+      OUTPUT : o_cfgdone CHIP_CFG_DONE;
+    END_GROUP
+    GROUP io
+      OUTPUT : o_spi_dir         SPI_DIR;
+      OUTPUT : o_dedicate_io_enb MODE;
+      OUTPUT : o_ext_fp_csn      CS_CCB;
+      OUTPUT : o_ext_fp_sclk     SCK_CCB;
+      OUTPUT : o_ext_fp_sdo      SO_CCB;
+      OUTPUT : o_io_update       CFG_EN;
+      OUTPUT : o_io_dev_oe       GHIZ;
+      OUTPUT : o_io_cf_clk       IO_CLK;
+      OUTPUT : o_io_read_en      IO_READ_EN;
+      OUTPUT : o_io_shift        IO_SHIFT;
+      OUTPUT : o_io_porb         PORB;
+      OUTPUT : o_io_shiftin      SHIFT_IN;
+      INPUT  : i_io_rdata        IO_RDATA;
+    END_GROUP
+    GROUP osc_por
+      INPUT  : i_sysclk       CLKOSC_CCB;
+      INPUT  : i_reset_n      RSTN_CCB;
+      INPUT  : i_por_rstn     PORB_CCB;
+      OUTPUT : o_osc_por_down STDBY;
+    END_GROUP
+    GROUP DUAL_IO_INPUT
+      INPUT : i_ext_fp_sdi  X13_Y0_SLICE_IO01_O;
+      INPUT : i_ext_fp_csn  X14_Y0_SLICE_IO02_O;
+      INPUT : i_ext_fp_sclk X15_Y0_SLICE_IO03_O;
+      INPUT : im_cbsel      2'b00;
+    END_GROUP
+    GROUP dedicate
+      INPUT  : i_tck TCK;
+      INPUT  : i_tms TMS;
+      INPUT  : i_tdi TDI;
+      OUTPUT : o_tdo TDO;
+    END_GROUP
+    GROUP decoder_wlShared
+      OUTPUT : om_cfgaddr om_cfgaddr 10;
+    END_GROUP
+    GROUP decoder_wlNonShared
+      OUTPUT : o_ena;
+      OUTPUT : o_porb;
+    END_GROUP
+    GROUP decoder_blShared
+      OUTPUT : o_porb_bl;
+      OUTPUT : o_bleq;
+      OUTPUT : o_cread;
+      OUTPUT : o_cshift;
+      OUTPUT : o_cwrite;
+      OUTPUT : o_cf_clk;
+    END_GROUP
+    GROUP decoder_blNonShared
+      OUTPUT : o_blena;
+      OUTPUT : o_cfgin;
+      INPUT  : i_cfgout;
+    END_GROUP
+  END_CCB
+
+  IO_CHAIN
+    CHAIN DEDICATE_IN 0
+    END_CHAIN
+    CHAIN DEDICATE_OUT 1
+    END_CHAIN
+    CHAIN DEDICATE_OPENDRAIN 2
+    END_CHAIN
+    CHAIN SINGLE 3
+      // Config name : default_in default_out
+      CFG_OPEN_DRAIN : 1'b0  1'b0;
+      CFG_PDRCTRL    : 2'b01 2'b01;
+      CFG_KEEP       : 2'b00 2'b10;
+    END_CHAIN
+    ALIAS : SINGLE_D0 SINGLE 4; // Dual purpose input
+    ALIAS : SINGLE_D1 SINGLE 5; // Dual purpose output
+    ALIAS : SINGLE_D2 SINGLE 6; // Dual purpose inout
+    ALIAS : SINGLE_D3 SINGLE 7; // Dual purpose inout with open drain
+    CHAIN DIFFP 8
+      // Config name : default_in default_out
+      CFG_LVDS_OUT_EN  : 1'b0  1'b0;
+      CFG_LVDS_SEL_CUA : 2'b00 2'b00;
+      CFG_LVDS_IREF    : 10'b0 10'b0110000000;
+      CFG_LVDS_IN_EN   : 1'b0  1'b0;
+    END_CHAIN
+    CHAIN DIFFN 9
+    END_CHAIN
+    ALIAS : SINGLEP    SINGLE 10;
+    ALIAS : SINGLEN    SINGLE 11;
+    ALIAS : OPEN_DRAIN SINGLE 12;
+    CHAIN SINK 13
+      CFG_DUMMY     : 2'b00    : 2'b00;
+      CFG_IRBIAS    : 5'b00000 : 5'b01010;
+      CFG_IRDRV_CUA : 4'b0000  : 4'b1111;
+      CFG_IRDRV_EN  : 1'b0     : 1'b0;
+    END_CHAIN
+    CHAIN RGB 14
+      CFG_DUMMY      : 1'b00    : 1'b00;
+      CFG_RGBDRV_CUA : 3'b000   : 3'b111;
+      CFG_RGBBIAS    : 5'b00000 : 5'b01100;
+      CFG_RGBDRV_EN  : 1'b0     : 1'b0;
+    END_CHAIN
+    CHAIN DUMMY 15
+    END_CHAIN
+  END_IO_CHAIN
+
+  IO IOS0
+    DIRECTION  : S;
+    DIMENSION  : 2 1 2 1;
+    IO_COUNT   : 4;
+    GCLK_COUNT : 0;
+    PIN_INFO
+      IOTILE : 0 PIN_1 IOBANK2 SINGLEP, 1 PIN_1 IOBANK2 DIFFP, 2 PIN_2 IOBANK2 DIFFN, 3 PIN_2 IOBANK2 SINGLEN;
+    END_PIN_INFO
+  END_IO
+  IO IOS1
+    DIRECTION  : S;
+    DIMENSION  : 3 1 4 1;
+    IO_COUNT   : 4 4;
+    GCLK_COUNT : 0 0;
+    PIN_INFO
+      IOTILE : 0 PIN_3 IOBANK2 SINGLE, 1 TCK   IOBANK2 DEDICATE_IN, 2 TDI   IOBANK2 DEDICATE_IN, 3 PIN_4 IOBANK2 SINGLE;
+      IOTILE : 1 PIN_5 IOBANK2 SINGLE, 2 PIN_6 IOBANK2 SINGLE,      3 PIN_7 IOBANK2 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO IOS2
+    DIRECTION  : S;
+    DIMENSION  : 6 1 9 1;
+    IO_COUNT   : 4 4 4 4;
+    GCLK_COUNT : 1 1 1 1;
+    PIN_INFO
+      IOTILE : 0 PIN_8_GB       IOBANK2 SINGLE;
+      IOTILE : 0 PIN_9_GB_CDONE IOBANK2 SINGLE_D3, 1 TDO    IOBANK2 DEDICATE_OUT, 2 TMS    IOBANK2 DEDICATE_IN, 3 CRESET_B IOBANK2 DEDICATE_IN;
+      IOTILE : 0 PIN_10_GB      IOBANK2 SINGLE,    2 PIN_11 IOBANK2 SINGLE;
+      IOTILE : 0 PIN_12_GB      IOBANK2 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO IOS3
+    DIRECTION : S;
+    DIMENSION : 11 0 15 0;
+    IO_COUNT   : 4 4 4 4 4;
+    GCLK_COUNT : 0 0 0 0 0;
+    PIN_INFO
+      IOTILE : 0 PIN_13     IOBANK2 SINGLE,    1 PIN_14 IOBANK2 SINGLE, 3 POR_TEST IOBANK2 DEDICATE_IN;
+      IOTILE : 0 PIN_15_SDO IOBANK0 SINGLE_D1;
+      IOTILE : 1 PIN_16_SDI IOBANK0 SINGLE_D0;
+      IOTILE : 2 PIN_17_SS  IOBANK0 SINGLE_D2;
+      IOTILE : 3 PIN_18_SCK IOBANK0 SINGLE_D2;
+    END_PIN_INFO
+  END_IO
+  IO IOS4
+    DIRECTION : S;
+    DIMENSION : 17 0 17 0;
+    IO_COUNT   : 4;
+    GCLK_COUNT : 0;
+    PIN_INFO
+      IOTILE : 0 PIN_19 IOBANK2 SINGLEP, 1 PIN_19 IOBANK2 DIFFP, 2 PIN_20 IOBANK2 DIFFN, 3 PIN_20 IOBANK2 SINGLEN;
+    END_PIN_INFO
+  END_IO
+  IO IOS5
+    DIRECTION : S;
+    DIMENSION : 18 0 19 0;
+    IO_COUNT   : 4 4;
+    GCLK_COUNT : 0 0;
+    PIN_INFO
+      IOTILE : 2 PIN_21 IOBANK2 SINGLE;
+      IOTILE : 3 PIN_22 IOBANK2 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO ION0
+    DIRECTION  : N;
+    DIMENSION  : 0 9 4 9;
+    IO_COUNT   : 4 4 4 4 4;
+    GCLK_COUNT : 0 0 0 0 0;
+    PIN_INFO
+      IOTILE : 0 PIN_34_RGB IOBANK0 OPEN_DRAIN, 1 PIN_34_RGB IOBANK0 RGB, 2 PIN_34_RGB IOBANK0 DUMMY;
+      IOTILE : 0 PIN_33_RGB IOBANK0 OPEN_DRAIN, 1 PIN_33_RGB IOBANK0 RGB, 2 PIN_33_RGB IOBANK0 DUMMY;
+      IOTILE : 0 PIN_32_RGB IOBANK0 OPEN_DRAIN, 1 PIN_32_RGB IOBANK0 RGB, 2 PIN_32_RGB IOBANK0 DUMMY;
+      IOTILE : 1 PIN_31 IOBANK0 SINGLE;
+      IOTILE : 3 PIN_30 IOBANK0 SINGLE;
+    END_PIN_INFO
+  END_IO
+  IO ION1
+    DIRECTION  : N;
+    DIMENSION  : 6 9 15 9;
+    IO_COUNT   : 4 4 4 4 4 4 4 4 4 4;
+    GCLK_COUNT : 1 1 1 1 0 0 0 0 0 0;
+    PIN_INFO
+      IOTILE : 0 PIN_29_GB   IOBANK0 SINGLE;
+      IOTILE : 0 PIN_28_GB   IOBANK0 SINGLE;
+      IOTILE : 0 PIN_27_GB   IOBANK0 SINGLE;
+      IOTILE : 0 PIN_26_GB   IOBANK0 SINGLE;
+      IOTILE : 2 PIN_25      IOBANK0 SINGLE;
+      IOTILE : 0 PIN_24_SINK IOBANK0 OPEN_DRAIN, 1 PIN_24_SINK IOBANK0 SINK, 2 PIN_24_SINK IOBANK0 DUMMY;
+      IOTILE : 0 PIN_23_SINK IOBANK0 OPEN_DRAIN, 1 PIN_23_SINK IOBANK0 SINK, 2 PIN_23_SINK IOBANK0 DUMMY;
+      IOTILE : ;
+      IOTILE : ;
+      IOTILE : ;
+    END_PIN_INFO
+  END_IO
+  IO IRIP
+    DIRECTION : N;
+    DIMENSION : 22 9 22 9;
+    DEDICATE  : YES;
+    IO_COUNT  : 3;
+    GCLK_COUNT : 0;
+    PIN_INFO
+      IOTILE : 0 VIP_IRIP IOBANK0 DEDICATE_IN, 1 VIN_IRIP IOBANK0 DEDICATE_IN;
+    END_PIN_INFO
+  END_IO
+
+  BB BOOT_PLL
+    TILE_TYPE   : UFMTILE;
+    CELL_TYPE   : BOOT;
+    DIMENSION   : 10 1 10 1;
+    HAS_SRAM    : YES;
+    GCLK_OUTPUT : UFM_GCLK0 SLICE_UFM_GDDD IO_GCLK_IN;
+    PIN_INFO
+      DIRECTION : N;
+      INPUT  : i_boot;
+      INPUTS : im_vector_sel 2;
+      INPUT  : i_osc_enb;
+      OUTPUT : o_osc;
+      BYPASSED_OUTPUT : lock SLICE_UFM_GDDD PLL_LOCK;
+    END_PIN_INFO
+    PIN_INFO
+      DIRECTION : E;
+      BYPASSED_INPUT : pllen  SLICE_UFM_GDDD PLLX_PLLEN;
+      BYPASSED_INPUT : resetn SLICE_UFM_GDDD PLLX_RESETN;
+      BYPASSED_INPUT : clkout0en SLICE_UFM_GDDD PLLX_CLKOUT0EN;
+      BYPASSED_INPUT : clkout1en SLICE_UFM_GDDD PLLX_CLKOUT1EN;
+      BYPASSED_INPUT : clkout2en SLICE_UFM_GDDD PLLX_CLKOUT2EN;
+      BYPASSED_INPUT : clkout3en SLICE_UFM_GDDD PLLX_CLKOUT3EN;
+    END_PIN_INFO
+  END_BB
+
+  BB IRDA
+    TILE_TYPE   : UFMTILE;
+    CELL_TYPE   : IRDA;
+    PIN_STYLE   : CellInTile;
+    DIMENSION   : 22 8 22 8;
+    HAS_SRAM    : YES;
+    CONFIG_CHAIN
+      CHAIN_TYPE   : CFG_SHIFT_CHAIN;
+      CHAIN_ID     : 2;
+      CHAIN_PREFIX : IRDA;
+      CHAIN_INPUT  : o_irip_shift   SHIFT   ;
+      CHAIN_INPUT  : o_irip_shiftin SHIFTIN ;
+      CHAIN_INPUT  : o_irip_read_en READ_EN ;
+      CHAIN_INPUT  : o_irip_update  UPDATE  ;
+      CHAIN_INPUT  : o_irip_cf_clk  SHIFTCLK;
+      CHAIN_INPUT  : o_irip_porb    PORB    ;
+      CHAIN_OUTPUT : i_irip_rdata   RDATA   ;
+      // Order of CHAIN_BITS should match ic
+      CHAIN_BITS : CFG_IRIP_EN         1'b1;
+      CHAIN_BITS : CLK_SEL_SYS         1'b0;
+      CHAIN_BITS : CLK_DIV_CMP_SYS     3'b010;
+      CHAIN_BITS : CLK_DIV_SYS         3'b010;
+      CHAIN_BITS : PU_HYSTER_SYS       1'b0;
+      CHAIN_BITS : REG_BYPASS_SYS      1'b0;
+      CHAIN_BITS : OUTPUT_SEL_SYS      1'b0;
+      CHAIN_BITS : CAL_READY_REG_SYS   1'b0;
+      CHAIN_BITS : CAL_READY_DR_SYS    1'b0;
+      CHAIN_BITS : CAL_TIME_SYS        2'b10;
+      CHAIN_BITS : CAL_DELAY_SYS       2'b10;
+      CHAIN_BITS : CAL_SPEED_SYS       2'b10;
+      CHAIN_BITS : DC_ACC_GAIN_SYS     3'b001;
+      CHAIN_BITS : BYPASS_DC_CALC_SYS  1'b0;
+      CHAIN_BITS : DC_TIME_SEL_SYS     3'b0;
+      CHAIN_BITS : REG_VBIT_SYS        2'b01;
+      CHAIN_BITS : RX_CAL_BIT_SYS      8'b10000000;
+      CHAIN_BITS : RX_CAL_BIT_DR_SYS   1'b0;
+      CHAIN_BITS : RX_DC_POLARITY_SYS  1'b0;
+      CHAIN_BITS : RX_CAL_POLARITY_SYS 1'b0;
+      CHAIN_BITS : DC_GAIN_SYS         5'b10000;
+      CHAIN_BITS : DAC_GAIN_SYS        2'b01;
+      CHAIN_BITS : DAC_RANGE_SYS       2'b01;
+      CHAIN_BITS : PGA_CAP_BIT_SYS     4'b1000;
+      CHAIN_BITS : PGA_CAP_EN_SYS      1'b0;
+      CHAIN_BITS : PGA_CAL_MODE_SYS    1'b0;
+      CHAIN_BITS : PGA_GAIN2_SYS       2'b01;
+      CHAIN_BITS : PGA_GAIN_SYS        3'b100;
+      CHAIN_BITS : DIFF_EN_SYS         1'b0;
+      CHAIN_BITS : TIA_GAIN_SYS        2'b01;
+      CHAIN_BITS : BG_SEL_SYS          1'b0;
+    END_CONFIG_CHAIN
+    PIN_INFO
+      DIRECTION : S;
+        INPUT : pu_ivref;
+        INPUT : pu_pga;
+        INPUT : pu_dac;
+        INPUT : tia_reset;
+        OUTPUTS: dac_cal_reg 8;
+    END_PIN_INFO
+    PIN_INFO
+      DIRECTION : W;
+        INPUT : ir_clk;
+        INPUT : ir_reset;
+        INPUT : cal_en;
+        OUTPUT: irx_data;
+        OUTPUT: cal_ready;
+    END_PIN_INFO
+    TERM_INPUT : vip vin;
+  END_BB
+
+  BB PLL
+    TILE_TYPE : PLLTILE;
+    CELL_TYPE  : PLLX;
+    DIMENSION : 5 0 5 0;
+    TERM_INPUT : SEAM0 SEAM1 SEAM2 SEAM3 SEAM4 SEAM5 SEAM6 SEAM7 SEAM_PIN0 SEAM_PIN2 SEAM_PIN4;
+    TERM_INPUT : SEAM0 SEAM1 SEAM2 SEAM3 SEAM4 SEAM5 SEAM6 SEAM7;
+    TERM_INPUT : pllen;
+    TERM_INPUT : resetn;
+    TERM_INPUT : clkout0en;
+    TERM_INPUT : clkout1en;
+    TERM_INPUT : clkout2en;
+    TERM_INPUT : clkout3en;
+    // Gclks should be at the front
+    GCLK_OUTPUT : clkout0;
+    GCLK_OUTPUT : clkout1;
+    GCLK_OUTPUT : clkout2;
+    GCLK_OUTPUT : clkout3;
+    TERM_OUTPUT : lock;
+
+    CONFIG_CHAIN
+      CHAIN_TYPE   : CFG_SHIFT_CHAIN;
+      CHAIN_ID     : 1;
+      CHAIN_PREFIX : PLL;
+      CHAIN_INPUT  : o_pll_shift   SHIFT   ;
+      CHAIN_INPUT  : o_pll_shiftin SHIFTIN ;
+      CHAIN_INPUT  : o_pll_read_en READ_EN ;
+      CHAIN_INPUT  : o_pll_update  UPDATE  ;
+      CHAIN_INPUT  : o_pll_cf_clk  SHIFTCLK;
+      CHAIN_INPUT  : o_pll_porb    PORB    ;
+      CHAIN_OUTPUT : i_pll_rdata   RDATA   ;
+      // Order of CHAIN_BITS should match ic
+      CHAIN_BITS : CFG_PllClkFbMUX  1'b0;
+      CHAIN_BITS : CFG_SELCLK_G3    3'b0;
+      CHAIN_BITS : CFG_SELCLK_G4    3'b0;
+      CHAIN_BITS : CFG_CLK_EN3      1'b0;
+      CHAIN_BITS : CFG_M_G3         6'b0;
+      CHAIN_BITS : CFG_CLK_EN4      1'b0;
+      CHAIN_BITS : CFG_M_G4         6'b0;
+      CHAIN_BITS : CFG_DLYNUM_G3    6'b0;
+      CHAIN_BITS : CFG_DLYNUM_G4    6'b0;
+      CHAIN_BITS : CFG_DLYNUM_G1    6'b0;
+      CHAIN_BITS : CFG_CLK_EN2      1'b0;
+      CHAIN_BITS : CFG_M_G2         6'b0;
+      CHAIN_BITS : CFG_CLK_EN1      1'b0;
+      CHAIN_BITS : CFG_M_G1         6'b0;
+      CHAIN_BITS : CFG_M_M          6'b0;
+      CHAIN_BITS : CFG_M_N          6'b0;
+      CHAIN_BITS : CFG_PllSeamMUX1  3'b0;
+      CHAIN_BITS : CFG_PllSeamMUX0  3'b0;
+      CHAIN_BITS : CFG_DLYNUM_G2    6'b0;
+      CHAIN_BITS : CFG_PllIntFbMUX  2'b0;
+      CHAIN_BITS : CFG_SELCLK_G2    3'b0;
+      CHAIN_BITS : CFG_SELCLK_G1    3'b0;
+      CHAIN_BITS : CFG_CP           3'b010;
+      CHAIN_BITS : CFG_RREF         2'b01;
+      CHAIN_BITS : CFG_RVI          2'b01;
+      CHAIN_BITS : CFG_PllClkInMUX  2'b0;
+      CHAIN_BITS : CFG_RLPF         2'b01;
+      CHAIN_BITS : CFG_PLL_EN_FLAG  1'b1;
+    END_CONFIG_CHAIN
+  END_BB
+
+  BB BB0
+    TILE_TYPE : EmptyTILE;
+    DIMENSION : 5 1 5 1;
+  END_BB
+
+  BB PLL_CCB0
+    TILE_TYPE : EmptyTILE;
+    DIMENSION : 0 0 4 0;
+  END_BB
+
+  BB PLL_CCB1
+    TILE_TYPE : EmptyTILE;
+    DIMENSION : 6 0 10 0;
+  END_BB
+
+  BB POR_TOP_RST
+    TILE_TYPE : EmptyTILE;
+    DIMENSION : 16 0 16 0;
+    TERM_INPUT  : STDBY;
+    TERM_INPUT  : CRESETB;
+    TERM_INPUT  : EXT_POR_EN;
+    TERM_OUTPUT : CLKOSC_CCB;
+    TERM_OUTPUT : RSTN_CCB;
+    TERM_OUTPUT : PORB_CCB;
+  END_BB
+
+  DECODER
+    NAME         : wl0 l0;
+    ID           : 0;
+    DIMENSION    : 0 0 22 9;
+    BL_MSB_FIRST : 1;
+  END_DECODER
+
+END_CHIP
+
+CHIP AG3KLPQ48
+  MASTER   : AG3K;
+  IsHidden : NO;
+END_CHIP
+
+CHIP AGRV3K
+  IsHidden     : YES;
+  FAMILY       : AG_10K;
+  CHARACTER    : SMIC055D_10K_GV0;
+  QuartusFamily: Cyclone\ IV\ E;
+  SIZE         : 27 14;
+  // DeviceID     : 0x10300001;
+  GclkInverted : NO;
+  FlashType    : SPI;
+  FlashPrgIdle : 0.0002;
+  FlashSimIdle : 600;
+  FlashPrgSize : 256;
+  SEAM_COUNT   : 6;
+  GCLK_COUNT   : 10;
+  SEAM_REGIONS : 2;
+  IO_TYPE      : RIO;
+  ConfigSuffix : _agx;
+  FlashCrc     : Yes;
+  // StartPin     : PIN_17P_CLK0;
+  // FirstPin     : nCONFIG;
+  // DevOePin     : PIN_110N_DEV_OE;
+  // DevClrnPin   : PIN_111P_DEV_CLRn;
+
+  CHIP_VAR : CCB_MCU_MIN_X  0;
+  CHIP_VAR : CCB_MCU_MAX_X  15;
+  CHIP_VAR : CCB_MCU_MIN_Y  7;
+  CHIP_VAR : CCB_MCU_MAX_Y  12;
+  CHIP_VAR : MCU_CONN_MAX_X 14;
+  CHIP_VAR : MCU_CONN_Y     6;
+
+  CHIP_VAR : CORE_X  24;
+  CHIP_VAR : CORE_Y  12;
+  CHIP_VAR : ROGIC_X 25;
+  CHIP_VAR : MAX_X   26;
+  CHIP_VAR : MAX_Y   13;
+  CHIP_VAR : BRAM0_X $CCB_MCU_MAX_X;
+  CHIP_VAR : BRAM0_Y 5;
+  CHIP_VAR : MULT0_X 20;
+  CHIP_VAR : GCLK_Y0 5;
+  CHIP_VAR : GCLK_Y1 6;
+
+  IO_CHAIN
+    CHAIN DEDICATE_IN 0
+    END_CHAIN
+    CHAIN DEDICATE_OUT 1
+    END_CHAIN
+    CHAIN DEDICATE_OPENDRAIN 2
+    END_CHAIN
+    CHAIN SINGLE 3
+      // Config name : default_in default_out
+      CFG_TRI_INPUT  : 1'b0    1'b0;
+      CFG_PULL_UP    : 1'b0    1'b1;
+      CFG_SLR        : 1'b0    1'b0;
+      CFG_OPEN_DRAIN : 1'b0    1'b0;
+      CFG_PDRCTRL    : 4'b0010 4'b0010;
+      CFG_KEEP       : 2'b00   2'b00;
+    END_CHAIN
+    ALIAS : SINGLE_D0 SINGLE 4; // Dual purpose input
+    ALIAS : SINGLE_D1 SINGLE 5; // Dual purpose output
+    ALIAS : SINGLE_D2 SINGLE 6; // Dual purpose inout
+    ALIAS : SINGLE_D3 SINGLE 7; // Dual purpose inout with open drain
+    CHAIN DIFFP 8
+      // Config name : default_in default_out
+      CFG_TRI_INPUT    : 1'b0    1'b0;
+      CFG_PULL_UP      : 1'b0    1'b1;
+      CFG_SLR          : 1'b0    1'b0;
+      CFG_OPEN_DRAIN   : 1'b0    1'b0;
+      CFG_PDRCTRL      : 4'b0010 4'b0010;
+      CFG_KEEP         : 2'b00   2'b00;
+      CFG_LVDS_OUT_EN  : 1'b0    1'b0;
+      CFG_LVDS_SEL_CUA : 2'b00   2'b00;
+      CFG_LVDS_IREF    : 10'b0   10'b0110000000;
+      CFG_LVDS_IN_EN   : 1'b0    1'b0;
+    END_CHAIN
+    ALIAS : DIFFN SINGLE 9;
+    CHAIN PSEUDO_DIFFP 10
+      // Config name : default_in default_out
+      CFG_TRI_INPUT    : 1'b0    1'b0;
+      CFG_PULL_UP      : 1'b0    1'b1;
+      CFG_SLR          : 1'b0    1'b0;
+      CFG_OPEN_DRAIN   : 1'b0    1'b0;
+      CFG_PDRCTRL      : 4'b0010 4'b0010;
+      CFG_KEEP         : 2'b00   2'b00;
+      CFG_LVDS_IN_EN   : 1'b0    1'b0;
+      CFG_LVDS_SEL_CUA : 2'b00   2'b00;
+    END_CHAIN
+    ALIAS : PSEUDO_DIFFN SINGLE 11;
+    ALIAS : DIFFP_D1     DIFFP  12; // Dual purpose diffp output
+    ALIAS : DIFFN_D1     DIFFN  13; // Dual purpose diffn output
+    ALIAS : DIFFN_D3     DIFFN  14; // Dual purpose diffn open drain
+    CHAIN DIFFP_IN 15
+      CFG_TRI_INPUT    : 1'b0  1'b0;
+      CFG_LVDS_IN_EN   : 1'b0  1'b0;
+      CFG_LVDS_SEL_CUA : 2'b00 2'b00;
+    END_CHAIN
+    CHAIN DIFFN_IN 16
+      CFG_TRI_INPUT : 1'b0 1'b0;
+    END_CHAIN
+  END_IO_CHAIN
+
+  GRID_GROUP
+    DELTA_X : 0 0;
+    DELTA_Y : 1 $CORE_Y;
+
+    LOGIC zLOGIC0
+      DIMENSION  : 1 0 $CORE_X 0;
+      GRID_INDEX : LOGIC 1;
+    END_LOGIC
+
+    LOGIC ROGIC
+      TILE_TYPE  : RogicTILE;
+      DIMENSION  : $ROGIC_X 0 $ROGIC_X 0;
+      GRID_INDEX : LOGIC $MAX_Y;
+    END_LOGIC
+
+    LOGIC MULT0
+      TILE_TYPE  : MultTILE;
+      CELL_TYPE  : MULT;
+      DIMENSION  : $MULT0_X 0 $MULT0_X 0;
+      GRID_INDEX : LOGIC $MAX_Y;
+    END_LOGIC
+
+    DELTA_Y : 1 $BRAM0_Y;
+    LOGIC yBRAM0
+      TILE_TYPE  : BramTILE;
+      CELL_TYPE  : BRAM9K;
+      DIMENSION  : $BRAM0_X 0 $BRAM0_X 0;
+      GRID_INDEX : LOGIC 1;
+    END_LOGIC
+
+  END_GRID_GROUP
+
+  BB aCCB_MCU
+    TILE_TYPE : EmptyTILE;
+    GRID_INDEX: --- 0;
+    DIMENSION : $CCB_MCU_MIN_X $CCB_MCU_MIN_Y $CCB_MCU_MAX_X $CCB_MCU_MAX_Y;
+  END_BB
+
+  GRID_GROUP
+    DELTA_X : 2 $MCU_CONN_MAX_X;
+    DELTA_Y : 0 0;
+
+    BB MCU_PIN
+      TILE_TYPE : UFMTILE;
+      CELL_TYPE : MCU_M3;
+      PIN_STYLE : CellExtTile;
+      DIMENSION : 0 $MCU_CONN_Y 0 $MCU_CONN_Y;
+      GRID_INDEX: BBOX 0;
+      TO_GRIDS  : BBOX 0;
+      HAS_SRAM  : YES;
+      CONFIG_MODULE : MCU_PIN;
+
+      GRID_PIN_INFO // N
+        DIRECTION : S;
+        BYPASSED_INPUT   : POR_n;
+        BYPASSED_INPUT   : EXT_CPU_RST_n;
+        BYPASSED_INPUT   : JTCK;
+        BYPASSED_INPUT   : JTRST_n;
+        BYPASSED_INPUT   : JTDI;
+        BYPASSED_INPUT   : JTMS;
+        BYPASSED_INPUT   : UART_RXD;
+        BYPASSED_INPUT   : UART_CTS_n;
+        BYPASSED_INPUT   : FLASH_IO0_SI_i;
+        BYPASSED_INPUT   : FLASH_IO1_SO_i;
+        BYPASSED_INPUT   : FLASH_IO2_WPn_i;
+        BYPASSED_INPUT   : FLASH_IO3_HOLDn_i;
+        BYPASSED_OUTPUT  : UART_TXD;
+        BYPASSED_OUTPUT  : UART_RTS_n;
+        BYPASSED_OUTPUT  : FLASH_IO2_WPn;
+        BYPASSED_OUTPUT  : FLASH_IO3_HOLDn;
+        BYPASSED_OUTPUT  : FLASH_SI_OE;
+        BYPASSED_OUTPUT  : FLASH_SO_OE;
+        BYPASSED_OUTPUT  : WPn_IO2_OE;
+        BYPASSED_OUTPUT  : HOLDn_IO3_OE;
+        BYPASSED_OUTPUT  : FLASH_IO0_SI;
+        BYPASSED_OUTPUT  : FLASH_IO1_SO;
+        BYPASSED_OUTPUT  : FLASH_SCK;
+        BYPASSED_OUTPUT  : FLASH_CS_n;
+      END_GRID_PIN_INFO
+
+    END_BB
+
+    DELTA_X : $CCB_MCU_MAX_X $CCB_MCU_MAX_X;
+    DELTA_Y : $MCU_CONN_Y $CORE_Y;
+
+    BB MCU_PINR
+      TILE_TYPE : UFMTILE;
+      CELL_TYPE : MCU_M3;
+      PIN_STYLE : CellExtTile;
+      DIMENSION : 0 0 0 0;
+      GRID_INDEX: BBOX 15;
+      TO_GRIDS  : BBOX 0;
+      HAS_SRAM  : YES;
+      CONFIG_MODULE : MCU_PINR;
+
+      GRID_PIN_INFO
+        DIRECTION : E;
+        BYPASSED_OUTPUTS : HWDATA_EXT 16 0;
+        BYPASSED_INPUTS  : HADDR_EXTM 16 0;
+      END_GRID_PIN_INFO
+
+    END_BB
+
+  END_GRID_GROUP
+  // GRID_GROUP
+    // DELTA_X    : 0 0;
+    // DELTA_Y    : 1 $CORE_Y;
+
+    // SKIP_Y : 1 $GCLK_Y0 $MCU_CONN_Y THRU $CCB_MCU_MAX_Y;
+    // IO IOW
+      // DIRECTION  : W;
+      // DIMENSION  : 0 0 0 0;
+      // GRID_INDEX : IOW 1;
+      // IO_COUNT   : 6;
+      // GCLK_COUNT : 0;
+    // END_IO
+
+    // SKIP_Y : 1 $GCLK_Y1 $CORE_Y;
+    // IO IOE
+      // DIRECTION  : E;
+      // DIMENSION  : $MAX_X 0 $MAX_X 0;
+      // GRID_INDEX : IOE 1;
+      // IO_COUNT   : 6;
+      // GCLK_COUNT : 0;
+    // END_IO
+  // END_GRID_GROUP
+
+END_CHIP

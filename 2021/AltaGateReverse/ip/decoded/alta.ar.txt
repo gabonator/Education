@@ -1,0 +1,8 @@
+CONTENT
+  FILE : alta-header.ar;
+  FILE : alta-misc.ar;
+  FILE : alta-alta.ar;
+  FILE : alta-ag.ar;
+  FILE : alta-ag10k.ar;
+  FILE : alta-agr.ar;
+END_CONTENT

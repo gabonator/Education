@@ -1,0 +1,1208 @@
+CHIP AGRV2K
+  IsHidden     : YES;
+  FAMILY       : AG_10K;
+  CHARACTER    : SMIC055D_10K_GV0;
+  QuartusFamily: Cyclone\ IV\ E;
+  SIZE         : 23 14;
+  DeviceID     : 0x40200001;
+  GclkInverted : NO;
+  FlashType    : SPI;
+  FlashPrgIdle : 0.0002;
+  FlashSimIdle : 600;
+  FlashPrgSize : 256;
+  SEAM_COUNT   : 6;
+  GCLK_COUNT   : 6;
+  SEAM_REGIONS : 1;
+  IO_TYPE      : RIO;
+  ConfigSuffix : _agr;
+  FlashCrc     : Yes;
+  HasIoChain   : Yes;
+  StartPin     : PIN_48;
+  FirstPin     : PIN_51;
+
+  CHIP_VAR : CORE_X  20;
+  CHIP_VAR : CORE_Y  12;
+  CHIP_VAR : ROGIC_X 21;
+  CHIP_VAR : MAX_X   22;
+  CHIP_VAR : MAX_Y   13;
+
+  CHIP_VAR : MCU_MIN_X  0;
+  CHIP_VAR : MCU_MAX_X  13;
+  CHIP_VAR : MCU_MIN_Y  6;
+  CHIP_VAR : MCU_MAX_Y  $CORE_Y;
+  CHIP_VAR : MCU_CONN_X 12;
+  CHIP_VAR : MCU_CONN_Y 5;
+
+  CHIP_VAR : MIPI_CLK_X 4;
+  CHIP_VAR : BRAM0_X $MCU_MAX_X;
+  CHIP_VAR : BRAM0_Y 4;
+  CHIP_VAR : GCLK_Y0 4;
+  CHIP_VAR : PLL_Y0  5;
+
+  CHIP_VAR : DMY0_Y 6;
+  CHIP_VAR : ADC0_Y 7;
+  CHIP_VAR : ADC1_Y 8;
+  CHIP_VAR : ADC2_Y 9;
+  CHIP_VAR : CMP0_Y 10;
+  CHIP_VAR : DAC0_Y 11;
+  CHIP_VAR : DAC1_Y 12;
+
+  IO_CHAIN
+    CHAIN SINGLE_IN 0 // For BOOT0
+      CFG_MCUTEST_EN : 1'b0 1'b0;
+    END_CHAIN
+    CHAIN SINGLE 1
+      // Config name : default_in default_out default_inout
+      CFG_INPUT_EN   : 1'b1    1'b0 1'b1;
+      CFG_PULL_UP    : 1'b0    1'b1;
+      CFG_SLR        : 1'b0    1'b0;
+      CFG_OPEN_DRAIN : 1'b0    1'b0;
+      CFG_PDRCTRL    : 4'b0010 4'b0010;
+      CFG_KEEP       : 2'b00   2'b00;
+    END_CHAIN
+    ALIAS : SINGLE_D0 SINGLE 2; // Dual purpose inout pullup
+    ALIAS : SINGLE_D1 SINGLE 3; // Dual purpose input pulldown
+    ALIAS : SINGLE_D2 SINGLE 4; // Dual purpose input pullup
+    ALIAS : SINGLE_D3 SINGLE 5; // Dual purpose output
+    CHAIN SINGLEP 6 // For wake up pin
+      SINGLE;
+      CFG_WKUP_EN  : 1'b0 1'b0;
+      CFG_WKUP_INV : 1'b0 1'b0;
+    END_CHAIN
+    CHAIN OSC 7
+      SINGLE;
+      CFG_RESSEL   : 2'b0 2'b0;
+      CFG_RCOSCCAL : 7'b0 7'b0;
+      CFG_RCOSC_EN : 1'b0 1'b0;
+    END_CHAIN
+    CHAIN USB 8
+      SINGLE;
+      CFG_PULLUP_ENB : 1'b0 1'b0;
+      CFG_DIFF_EN    : 1'b0 1'b0;
+      CFG_PULLDN_ENB : 1'b0 1'b0;
+    END_CHAIN
+    CHAIN MIPI_TX 9
+       CFG_SELDLY_DACLK : 3'b0 3'b0;
+       CFG_SELDLY_CKCLK : 3'b0 3'b0;
+       CFG_SEL_RPD      : 2'b0 2'b0;
+       CFG_SEL_RPU      : 2'b0 2'b0;
+       CFG_SEL_LPSRC    : 2'b0 2'b0;
+       CFG_SEL_TX_VREF  : 3'b0 3'b0;
+    END_CHAIN
+    CHAIN MIPI_RX 10
+       CFG_SEL_DLY_DA1  : 3'b0 3'b0;
+       CFG_SEL_DLY_DA0  : 3'b0 3'b0;
+       CFG_SEL_DLY_CK   : 3'b0 3'b0;
+       CFG_SEL_HSRX_CUA : 2'b0 2'b0;
+       CFG_SEL_LPSRC    : 2'b0 2'b0;
+    END_CHAIN
+    CHAIN DEDICATE_IN 11 // For NRST
+    END_CHAIN
+    CHAIN DEDICATE_0 12 // For flash cs
+    END_CHAIN
+    CHAIN DEDICATE_1 13 // For flash sck
+    END_CHAIN
+    CHAIN DEDICATE_2 14 // For flash si/so/wp/hold
+    END_CHAIN
+    CHAIN DEDICATE_3 15 // For osc in/out
+    END_CHAIN
+    CHAIN DUMMY 16
+    END_CHAIN
+    CHAIN DEDICATE_DUMMY 17
+    END_CHAIN
+    CHAIN USER_DUMMY 18
+    END_CHAIN
+  END_IO_CHAIN
+
+  GRID_GROUP
+    DELTA_X : 0 0;
+    DELTA_Y : 1 $CORE_Y;
+
+    LOGIC zLOGIC0
+      DIMENSION  : 1 0 $CORE_X 0;
+      GRID_INDEX : LOGIC 1;
+    END_LOGIC
+
+    LOGIC ROGIC
+      TILE_TYPE  : RogicTILE;
+      DIMENSION  : $ROGIC_X 0 $ROGIC_X 0;
+      GRID_INDEX : LOGIC $MAX_Y;
+    END_LOGIC
+
+    DELTA_Y : 1 $BRAM0_Y;
+    LOGIC yBRAM0
+      TILE_TYPE  : BramTILE;
+      CELL_TYPE  : BRAM9K;
+      DIMENSION  : $BRAM0_X 0 $BRAM0_X 0;
+      GRID_INDEX : LOGIC 1;
+    END_LOGIC
+
+  END_GRID_GROUP
+
+  BB zMCU
+    TILE_TYPE : EmptyTILE;
+    GRID_INDEX: --- 0;
+    DIMENSION : $MCU_MIN_X $MCU_MIN_Y $MCU_MAX_X $MCU_MAX_Y;
+  END_BB
+
+  BB MCU
+    TILE_TYPE : UFMTILE;
+    CELL_TYPE : RV32;
+    PIN_STYLE : CellInTile;
+    DIMENSION : 0 $MCU_CONN_Y 0 $MCU_CONN_Y;
+    GRID_INDEX: BBOX 0;
+
+    TERM_OUTPUTS : sys_ctrl_bootLoadn            1;
+    TERM_OUTPUTS : sys_ctrl_swjConfig            5;
+    TERM_INPUTS  : sys_ctrl_hseReady             1;
+    TERM_INPUTS  : sys_ctrl_pllReady             1;
+    TERM_OUTPUTS : sys_ctrl_oscFreq              4;
+    TERM_OUTPUTS : sys_ctrl_volCtrl              1;
+    TERM_OUTPUTS : sys_ctrl_iwdgStop             1;
+    TERM_OUTPUTS : sys_ctrl_rtcStop              1;
+    TERM_INPUTS  : boot_mode                     2;
+    TERM_INPUTS  : sys_clk                       1;
+    TERM_INPUTS  : sys_resetn                    1;
+    TERM_INPUTS  : por_resetn                    1;
+    TERM_INPUTS  : boot_cfg_0_UARTRXD            1;
+    TERM_OUTPUTS : boot_cfg_0_UARTTXD            1;
+    TERM_INPUTS  : swj_jtag_TRSTn                1;
+    TERM_INPUTS  : swj_jtag_TCK                  1;
+    TERM_INPUTS  : swj_jtag_TMS                  1;
+    TERM_INPUTS  : swj_jtag_TDI                  1;
+    TERM_OUTPUTS : swj_jtag_TDO_data             1;
+    TERM_OUTPUTS : swj_jtag_TDO_driven           1;
+    TERM_OUTPUTS : swj_SWDO_data                 1;
+    TERM_OUTPUTS : swj_SWDO_driven               1;
+    TERM_OUTPUTS : xspi_FLASH_SCK                1;
+    TERM_OUTPUTS : xspi_FLASH_CSn                1;
+    TERM_INPUTS  : xspi_FLASH_SI_IO0_in          1;
+    TERM_OUTPUTS : xspi_FLASH_SI_IO0_out_data    1;
+    TERM_OUTPUTS : xspi_FLASH_SI_IO0_out_en      1;
+    TERM_INPUTS  : xspi_FLASH_SO_IO1_in          1;
+    TERM_OUTPUTS : xspi_FLASH_SO_IO1_out_data    1;
+    TERM_OUTPUTS : xspi_FLASH_SO_IO1_out_en      1;
+    TERM_INPUTS  : xspi_FLASH_WPn_IO2_in         1;
+    TERM_OUTPUTS : xspi_FLASH_WPn_IO2_out_data   1;
+    TERM_OUTPUTS : xspi_FLASH_WPn_IO2_out_en     1;
+    TERM_INPUTS  : xspi_FLASH_HOLDn_IO3_in       1;
+    TERM_OUTPUTS : xspi_FLASH_HOLDn_IO3_out_data 1;
+    TERM_OUTPUTS : xspi_FLASH_HOLDn_IO3_out_en   1;
+    TERM_INPUTS  : xspi_EXT_FLASH_SCK_I          1;
+    TERM_INPUTS  : xspi_EXT_FLASH_SREG           1;
+    TERM_OUTPUTS : aon_io_apb_reset              1;
+    TERM_OUTPUTS : aon_io_apb_pwaddr             5;
+    TERM_OUTPUTS : aon_io_apb_pwdata             16;
+    TERM_OUTPUTS : aon_io_apb_pwrite             1;
+    TERM_INPUTS  : aon_io_apb_wready             1;
+    TERM_OUTPUTS : aon_io_apb_praddr             5;
+    TERM_OUTPUTS : aon_io_apb_pread              1;
+    TERM_INPUTS  : aon_io_apb_prdata             16;
+    TERM_INPUTS  : aon_io_rtc_second             1;
+    TERM_INPUTS  : aon_io_rtc_overflow           1;
+    TERM_INPUTS  : aon_io_rtc_alarm              1;
+    TERM_INPUTS  : aon_io_iwdg_rst               1;
+    TERM_OUTPUTS : fcb0_global_initb             1;
+    TERM_OUTPUTS : fcb0_global_cfgdone           1;
+    TERM_OUTPUTS : fcb0_global_chip_rstb         1;
+    TERM_OUTPUTS : fcb0_global_devoe             1;
+    TERM_OUTPUTS : fcb0_global_init_emb          1;
+    TERM_OUTPUTS : fcb0_global_porb_init         1;
+    TERM_OUTPUTS : fcb0_decoder_cfgaddr          10;
+    TERM_OUTPUTS : fcb0_decoder_porb_bl          1;
+    TERM_OUTPUTS : fcb0_decoder_bleq             1;
+    TERM_OUTPUTS : fcb0_decoder_cread            1;
+    TERM_OUTPUTS : fcb0_decoder_cshift           1;
+    TERM_OUTPUTS : fcb0_decoder_cwrite           1;
+    TERM_OUTPUTS : fcb0_decoder_cf_clk           1;
+    TERM_OUTPUTS : fcb0_decoder_wl_porb          1;
+    TERM_OUTPUTS : fcb0_decoder_wl_ena           1;
+    TERM_OUTPUTS : fcb0_decoder_bl_ena           1;
+    TERM_OUTPUTS : fcb0_decoder_bl_cfgin         4;
+    TERM_INPUTS  : fcb0_decoder_bl_cfgout        4;
+    TERM_OUTPUTS : fcb0_chain_shift              2;
+    TERM_OUTPUTS : fcb0_chain_shiftin            2;
+    TERM_OUTPUTS : fcb0_chain_read_en            2;
+    TERM_OUTPUTS : fcb0_chain_update             2;
+    TERM_OUTPUTS : fcb0_chain_cf_clk             2;
+    TERM_OUTPUTS : fcb0_chain_porb               2;
+    TERM_INPUTS  : fcb0_chain_rdata              2;
+    TERM_INPUTS  : test_en                       1;
+    TERM_INPUTS  : test_se                       1;
+    TERM_OUTPUTS : usb0_enable                   1;
+    TERM_OUTPUTS : usb0_tx_en                    1;
+    TERM_OUTPUTS : usb0_tx_dat                   1;
+    TERM_OUTPUTS : usb0_tx_se0                   1;
+    TERM_INPUTS  : usb0_rx_rcv                   1;
+    TERM_INPUTS  : usb0_rx_dm                    1;
+    TERM_INPUTS  : usb0_rx_dp                    1;
+    TERM_OUTPUTS : usb0_speed                    1;
+    TERM_OUTPUTS : usb0_dppullup                 1;
+    TERM_OUTPUTS : usb0_dppulldn                 1;
+    TERM_OUTPUTS : usb0_dmpulldn                 1;
+  END_BB
+
+  GRID_GROUP
+    DELTA_X : $MCU_CONN_X 1 -1; // Start from the right and decrement X
+    DELTA_Y : 0 0;
+
+    BB MCU_PIN
+      TILE_TYPE : UFMTILE;
+      CELL_TYPE : RV32;
+      PIN_STYLE : CellExtTile;
+      DIMENSION : 0 $MCU_CONN_Y 0 $MCU_CONN_Y;
+      GRID_INDEX: BBOX 0;
+      TO_GRIDS  : BBOX 0;
+      HAS_SRAM  : YES;
+      CONFIG_MODULE : MCU_PIN;
+
+      GRID_PIN_INFO
+        DIRECTION : S; // 0
+        BYPASSED_INPUTS  : gpio2_io_in 8 0;
+        BYPASSED_INPUTS  : dummy_in 4;
+        BYPASSED_OUTPUTS : gpio2_io_out_en 5 3;
+        BYPASSED_OUTPUTS : gpio3_io_out_data 7 0;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : S; // 1
+        BYPASSED_INPUTS  : gpio3_io_in 8 0;
+        BYPASSED_INPUTS  : dummy_in 4;
+        BYPASSED_OUTPUTS : gpio3_io_out_data 1 7;
+        BYPASSED_OUTPUTS : gpio3_io_out_en 8 0;
+        BYPASSED_OUTPUTS : gpio4_io_out_data 3 0;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : S; // 2
+        BYPASSED_INPUTS  : gpio4_io_in 8 0;
+        BYPASSED_INPUTS  : dummy_in 4;
+        BYPASSED_OUTPUTS : gpio4_io_out_data 5 3;
+        BYPASSED_OUTPUTS : gpio4_io_out_en 7 0;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : S; // 3
+        BYPASSED_INPUTS  : gpio5_io_in 8 0;
+        BYPASSED_INPUTS  : dummy_in 4;
+        BYPASSED_OUTPUTS : gpio4_io_out_en 1 7;
+        BYPASSED_OUTPUTS : gpio5_io_out_data 8 0;
+        BYPASSED_OUTPUTS : gpio5_io_out_en 3 0;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : S; // 4
+        BYPASSED_INPUTS  : gpio6_io_in 8 0;
+        BYPASSED_INPUTS  : dummy_in 4;
+        BYPASSED_OUTPUTS : gpio5_io_out_en 5 3;
+        BYPASSED_OUTPUTS : gpio6_io_out_data 6 0;
+        BYPASSED_OUTPUTS : dummy_out 1;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : S; // 5
+        BYPASSED_INPUTS  : gpio7_io_in 8 0;
+        BYPASSED_INPUTS  : dummy_in 4;
+        BYPASSED_OUTPUTS : gpio6_io_out_data 2 6;
+        BYPASSED_OUTPUTS : gpio6_io_out_en 8 0;
+        BYPASSED_OUTPUTS : gpio7_io_out_data 1 0;
+        BYPASSED_OUTPUTS : dummy_out 1;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : S; // 6
+        BYPASSED_INPUTS  : gpio8_io_in 8 0;
+        BYPASSED_INPUTS  : dummy_in 4;
+        BYPASSED_OUTPUTS : gpio7_io_out_data 7 1;
+        BYPASSED_OUTPUTS : gpio7_io_out_en 4 0;
+        BYPASSED_OUTPUTS : dummy_out 1;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : S; // 7
+        BYPASSED_INPUTS  : gpio9_io_in 8 0;
+        BYPASSED_INPUTS  : dummy_in 4;
+        BYPASSED_OUTPUTS : gpio7_io_out_en 4 4;
+        BYPASSED_OUTPUTS : gpio8_io_out_data 8 0;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : S; // 8
+        BYPASSED_INPUTS  : ext_resetn 1 0;
+        BYPASSED_INPUTS  : ext_int 8 0;
+        BYPASSED_INPUTS  : dummy_in 3;
+        BYPASSED_OUTPUTS : gpio8_io_out_en 8 0;
+        BYPASSED_OUTPUTS : gpio9_io_out_data 3 0;
+        BYPASSED_OUTPUTS : dummy_out 1;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : S; // 9
+        BYPASSED_INPUTS  : ext_dma_DMACBREQ 4 0;
+        BYPASSED_INPUTS  : ext_dma_DMACLBREQ 4 0;
+        BYPASSED_INPUTS  : dummy_in 4;
+        BYPASSED_OUTPUTS : gpio9_io_out_data 5 3;
+        BYPASSED_OUTPUTS : gpio9_io_out_en 6 0;
+        BYPASSED_OUTPUTS : dummy_out 1;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : S; // 10
+        BYPASSED_INPUTS  : ext_dma_DMACSREQ 4 0;
+        BYPASSED_INPUTS  : ext_dma_DMACLSREQ 4 0;
+        BYPASSED_INPUTS  : dummy_in 4;
+        BYPASSED_OUTPUTS : gpio9_io_out_en 2 6;
+        BYPASSED_OUTPUTS : dmactive 1 0;
+        BYPASSED_OUTPUTS : swj_JTAGNSW 1 0;
+        BYPASSED_OUTPUTS : swj_JTAGSTATE 4 0;
+        BYPASSED_OUTPUTS : swj_JTAGIR 2 0;
+        BYPASSED_OUTPUTS : dummy_out 2;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : S; // 11
+        BYPASSED_INPUTS  : local_int 4 0;
+        BYPASSED_INPUTS  : test_mode 2 0;
+        BYPASSED_INPUTS  : usb0_xcvr_clk 1 0;
+        BYPASSED_INPUTS  : usb0_id 1 0;
+        BYPASSED_INPUTS  : dummy_in 4;
+        BYPASSED_OUTPUTS : swj_JTAGIR 2 2;
+        BYPASSED_OUTPUTS : ext_dma_DMACCLR 4 0;
+        BYPASSED_OUTPUTS : ext_dma_DMACTC 4 0;
+        BYPASSED_OUTPUTS : dummy_out 2;
+      END_GRID_PIN_INFO
+    END_BB
+
+    DELTA_X : $MCU_MAX_X $MCU_MAX_X;
+    DELTA_Y : $CORE_Y $MCU_CONN_Y -1;
+
+    BB MCU_PINR
+      TILE_TYPE : UFMTILE;
+      CELL_TYPE : RV32;
+      PIN_STYLE : CellExtTile;
+      DIMENSION : 0 0 0 0;
+      GRID_INDEX: BBOX 15;
+      TO_GRIDS  : BBOX 0;
+      HAS_SRAM  : YES;
+      CONFIG_MODULE : MCU_PINR;
+
+      GRID_PIN_INFO
+        DIRECTION : E; // 0
+        BYPASSED_INPUTS  : mem_ahb_hreadyout 1 0;
+        BYPASSED_INPUTS  : mem_ahb_hresp 1 0;
+        BYPASSED_INPUTS  : mem_ahb_hrdata 13 0;
+        BYPASSED_INPUTS  : dummy_in 5;
+        BYPASSED_OUTPUTS : mem_ahb_hready 1 0;
+        BYPASSED_OUTPUTS : mem_ahb_htrans 2 0;
+        BYPASSED_OUTPUTS : mem_ahb_hsize 3 0;
+        BYPASSED_OUTPUTS : mem_ahb_hburst 3 0;
+        BYPASSED_OUTPUTS : mem_ahb_hwrite 1 0;
+        BYPASSED_OUTPUTS : mem_ahb_haddr 10 0;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : E; // 1
+        BYPASSED_INPUTS  : mem_ahb_hrdata 19 13;
+        BYPASSED_INPUTS  : dummy_in 1;
+        BYPASSED_OUTPUTS : mem_ahb_haddr 20 10;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : E; // 2
+        BYPASSED_INPUTS  : slave_ahb_hsel 1 0;
+        BYPASSED_INPUTS  : slave_ahb_hready 1 0;
+        BYPASSED_INPUTS  : slave_ahb_htrans 2 0;
+        BYPASSED_INPUTS  : slave_ahb_hsize 3 0;
+        BYPASSED_INPUTS  : slave_ahb_hburst 3 0;
+        BYPASSED_INPUTS  : slave_ahb_hwrite 1 0;
+        BYPASSED_INPUTS  : slave_ahb_haddr 4 0;
+        BYPASSED_INPUTS  : dummy_in 5;
+        BYPASSED_OUTPUTS : mem_ahb_haddr 2 30;
+        BYPASSED_OUTPUTS : mem_ahb_hwdata 18 0;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : E; // 3
+        BYPASSED_INPUTS  : slave_ahb_haddr 15 4;
+        BYPASSED_INPUTS  : dummy_in 5;
+        BYPASSED_OUTPUTS : mem_ahb_hwdata 14 18;
+        BYPASSED_OUTPUTS : slave_ahb_hreadyout 1 0;
+        BYPASSED_OUTPUTS : slave_ahb_hresp 1 0;
+        BYPASSED_OUTPUTS : slave_ahb_hrdata 4 0;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : E; // 4
+        BYPASSED_INPUTS  : slave_ahb_haddr 13 19;
+        BYPASSED_INPUTS  : slave_ahb_hwdata 2 0;
+        BYPASSED_INPUTS  : dummy_in 5;
+        BYPASSED_OUTPUTS : slave_ahb_hrdata 20 4;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : E; // 5
+        BYPASSED_INPUTS  : slave_ahb_hwdata 14 2;
+        BYPASSED_INPUTS  : dummy_in 6;
+        BYPASSED_OUTPUTS : slave_ahb_hrdata 8 24;
+        BYPASSED_OUTPUTS : gpio0_io_out_data 8 0;
+        BYPASSED_OUTPUTS : gpio0_io_out_en 4 0;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : E; // 6
+        BYPASSED_INPUTS  : slave_ahb_hwdata 16 16;
+        BYPASSED_INPUTS  : dummy_in 4;
+        BYPASSED_OUTPUTS : gpio0_io_out_en 4 4;
+        BYPASSED_OUTPUTS : gpio1_io_out_data 8 0;
+        BYPASSED_OUTPUTS : gpio1_io_out_en 8 0;
+      END_GRID_PIN_INFO
+      GRID_PIN_INFO
+        DIRECTION : E; // 7
+        BYPASSED_INPUTS  : gpio0_io_in 8 0;
+        BYPASSED_INPUTS  : gpio1_io_in 8 0;
+        BYPASSED_INPUTS  : dummy_in 4;
+        BYPASSED_OUTPUTS : sys_ctrl_clkSource 2 0;
+        BYPASSED_OUTPUTS : sys_ctrl_hseEnable 1 0;
+        BYPASSED_OUTPUTS : sys_ctrl_hseBypass 1 0;
+        BYPASSED_OUTPUTS : sys_ctrl_pllEnable 1 0;
+        BYPASSED_OUTPUTS : sys_ctrl_sleep 1 0;
+        BYPASSED_OUTPUTS : sys_ctrl_stop 1 0;
+        BYPASSED_OUTPUTS : sys_ctrl_standby 1 0;
+        BYPASSED_OUTPUTS : gpio2_io_out_data 8 0;
+        BYPASSED_OUTPUTS : gpio2_io_out_en 3 0;
+        BYPASSED_OUTPUTS : resetn_out 1 0;
+      END_GRID_PIN_INFO
+    END_BB
+
+  END_GRID_GROUP
+
+  GRID_GROUP
+    DELTA_X    : 0 0;
+    DELTA_Y    : 1 $CORE_Y;
+
+    SKIP_Y : $MCU_CONN_Y THRU $MCU_MAX_Y;
+    IO IOW
+      DIRECTION  : W;
+      DIMENSION  : 0 0 0 0;
+      GRID_INDEX : IOW 1;
+      IO_COUNT   : 6;
+      GCLK_COUNT : 0;
+    END_IO
+
+    SKIP_Y : $GCLK_Y0 $PLL_Y0 THRU $CORE_Y;
+    IO IOE
+      DIRECTION  : E;
+      DIMENSION  : $MAX_X 0 $MAX_X 0;
+      CONFIG_MODULE : io_E6;
+      GRID_INDEX : IOE 1;
+      IO_COUNT   : 6;
+      TERM_MUX   : ---;
+      TERM_IDS   : 2 3;
+      GCLK_COUNT : 0;
+    END_IO
+  END_GRID_GROUP
+
+  GRID_GROUP
+    DELTA_X : 1 $CORE_X;
+    DELTA_Y : 0 0;
+
+    SKIP_X : $MIPI_CLK_X $BRAM0_X;
+    IO IOS
+      DIRECTION  : S;
+      DIMENSION  : 0 0 0 0;
+      GRID_INDEX : IOS 1;
+      IO_COUNT   : 4;
+      GCLK_COUNT : 0;
+    END_IO
+
+    SKIP_X : 1 THRU $MCU_MAX_X;
+    IO ION
+      DIRECTION  : N;
+      DIMENSION  : 0 $MAX_Y 0 $MAX_Y;
+      GRID_INDEX : ION 1;
+      IO_COUNT   : 4;
+      GCLK_COUNT : 0;
+    END_IO
+  END_GRID_GROUP
+
+  IO IOS_MIPI
+    DIRECTION  : S;
+    DIMENSION  : $MIPI_CLK_X 0 $MIPI_CLK_X 0;
+    GRID_INDEX : IOS $MIPI_CLK_X;
+    IO_COUNT   : 4;
+    CONFIG_MODULE : io_S4;
+    TERM_MUX   : IsoMUXPseudo;
+    TERM_IDS   : 1 3 5;
+    GCLK_COUNT : 0;
+  END_IO
+
+  IO GCLKSW_IOE
+    DIRECTION  : E;
+    DIMENSION  : $MAX_X $GCLK_Y0 $MAX_X $GCLK_Y0;
+    GRID_INDEX : GCLK 0;
+    IO_COUNT   : 4;
+    TERM_IDS   : 0 1 2;
+    GCLK_COUNT : 5;
+    PIN_INFO
+    END_PIN_INFO
+  END_IO
+
+  BB zCLKDIS
+    TILE_TYPE  : ClkdisTILE;
+    CELL_TYPE  : IO_GCLK;
+    GRID_INDEX : CLKDIS 0;
+    DIMENSION  : $BRAM0_X 0 $BRAM0_X 0;
+    GCLK_OUTPUT: PLL_FB0;
+  END_BB
+
+  BB PLL0
+    TILE_TYPE  : PLLTILE;
+    CELL_TYPE  : PLLVE;
+    GRID_INDEX : PLL 0;
+    DIMENSION  : $MAX_X $PLL_Y0 $MAX_X $PLL_Y0;
+    TERM_INPUT : SEAM0 SEAM1 SEAM2 SEAM3 SEAM4 SEAM5 GCLK_PIN0 GCLK_PIN1 GCLK_PIN2 GCLK_PIN3;
+    TERM_INPUT : PLL_FB0 PLL_FB0; // Same as 15K but without external feedback
+    TERM_INPUT : BB_MCU_PLLEN;
+    TERM_INPUT : PLL_STDBY;
+    TERM_INPUT : PLL_PORB33;
+    // Gclks should be at the front
+    GCLK_OUTPUT : clkout0;
+    GCLK_OUTPUT : clkout1;
+    GCLK_OUTPUT : clkout2;
+    GCLK_OUTPUT : clkout3;
+    GCLK_OUTPUT : clkout4;
+    TERM_OUTPUT : clkfbout;
+    TERM_OUTPUT : lock;
+    HAS_SRAM    : YES;
+    PIN_STYLE   : CellInTile;
+
+    PIN_INFO
+      DIRECTION : W;
+      INPUT  : pfden; // Not acctually used in this chip
+      INPUT  : resetn; // Used as PLL enable
+      INPUTS : phasecounterselect 3;
+      INPUT  : phaseupdown;
+      INPUT  : phasestep;
+      INPUT  : scanclk;
+      INPUT  : scanclkena;
+      INPUT  : scandata;
+      INPUT  : configupdate;
+      OUTPUT : lock;
+      OUTPUT : scandataout;
+      OUTPUT : scandone;
+      OUTPUT : phasedone;
+    END_PIN_INFO
+
+    CONFIG_CHAIN
+      CHAIN_TYPE   : CFG_SHIFT_CHAIN_DUAL;
+      CHAIN_ID     : 1;
+      CHAIN_PREFIX : PLL;
+      CHAIN_INPUT  : fcb0_chain_shift1   SHIFT   ;
+      CHAIN_INPUT  : fcb0_chain_shiftin1 SHIFTIN ;
+      CHAIN_INPUT  : fcb0_chain_read_en1 READ_EN ;
+      CHAIN_INPUT  : fcb0_chain_update1  UPDATE  ;
+      CHAIN_INPUT  : fcb0_chain_cf_clk1  SHIFTCLK;
+      CHAIN_INPUT  : fcb0_chain_porb1    PORB    ;
+      CHAIN_OUTPUT : fcb0_chain_rdata1   RDATA   ;
+      USER_INPUTS  : CHAIN_SELECT SHIFTCLK2 UPDATE2 SHIFTIN2 SHIFT2 RST;
+      USER_OUTPUTS : RDATA2, SCANDONE;
+      // Order of CHAIN_BITS should match ic
+      // Reconfigurable chain bits first
+      CHAIN_BITS : CFG_IVCO               3'b100 RECONFIG;
+      CHAIN_BITS : CFG_RVI                2'b01  RECONFIG;
+      CHAIN_BITS : CFG_RREF               2'b01  RECONFIG;
+      CHAIN_BITS : CFG_RLPF               2'b01  RECONFIG;
+      CHAIN_BITS : CFG_POST_SCALE_COUNTER 1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DUMMY              5'b0   RECONFIG;
+      CHAIN_BITS : CFG_ICP                3'b100 RECONFIG;
+      CHAIN_BITS : CFG_BYPASS_N           1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DIVNUM_HN          8'b0   RECONFIG;
+      CHAIN_BITS : CFG_EN_DUTYTRIM_N      1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DIVNUM_LN          8'b0   RECONFIG;
+      CHAIN_BITS : CFG_BYPASS_M           1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DIVNUM_HM          8'b0   RECONFIG;
+      CHAIN_BITS : CFG_EN_DUTYTRIM_M      1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DIVNUM_LM          8'b0   RECONFIG;
+      CHAIN_BITS : CFG_BYPASS_G0          1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DIVNUM_HG0         8'b0   RECONFIG;
+      CHAIN_BITS : CFG_EN_DUTYTRIM_G0     1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DIVNUM_LG0         8'b0   RECONFIG;
+      CHAIN_BITS : CFG_BYPASS_G1          1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DIVNUM_HG1         8'b0   RECONFIG;
+      CHAIN_BITS : CFG_EN_DUTYTRIM_G1     1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DIVNUM_LG1         8'b0   RECONFIG;
+      CHAIN_BITS : CFG_BYPASS_G2          1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DIVNUM_HG2         8'b0   RECONFIG;
+      CHAIN_BITS : CFG_EN_DUTYTRIM_G2     1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DIVNUM_LG2         8'b0   RECONFIG;
+      CHAIN_BITS : CFG_BYPASS_G3          1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DIVNUM_HG3         8'b0   RECONFIG;
+      CHAIN_BITS : CFG_EN_DUTYTRIM_G3     1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DIVNUM_LG3         8'b0   RECONFIG;
+      CHAIN_BITS : CFG_BYPASS_G4          1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DIVNUM_HG4         8'b0   RECONFIG;
+      CHAIN_BITS : CFG_EN_DUTYTRIM_G4     1'b0   RECONFIG;
+      CHAIN_BITS : CFG_DIVNUM_LG4         8'b0   RECONFIG;
+      // Non reconfigurable bits
+      CHAIN_BITS : CFG_DLYNUM_G4          8'b0;
+      CHAIN_BITS : CFG_CLK_EN4            1'b0;
+      CHAIN_BITS : CFG_SELCLK_G4          3'b0;
+      CHAIN_BITS : CFG_CASCADE3           1'b0;
+      CHAIN_BITS : CFG_DLYNUM_G3          8'b0;
+      CHAIN_BITS : CFG_CLK_EN3            1'b0;
+      CHAIN_BITS : CFG_SELCLK_G3          3'b0;
+      CHAIN_BITS : CFG_CASCADE2           1'b0;
+      CHAIN_BITS : CFG_DLYNUM_G2          8'b0;
+      CHAIN_BITS : CFG_CLK_EN2            1'b0;
+      CHAIN_BITS : CFG_SELCLK_G2          3'b0;
+      CHAIN_BITS : CFG_CASCADE1           1'b0;
+      CHAIN_BITS : CFG_DLYNUM_G1          8'b0;
+      CHAIN_BITS : CFG_CLK_EN1            1'b0;
+      CHAIN_BITS : CFG_SELCLK_G1          3'b0;
+      CHAIN_BITS : CFG_CASCADE0           1'b0;
+      CHAIN_BITS : CFG_DLYNUM_G0          8'b0;
+      CHAIN_BITS : CFG_CLK_EN0            1'b0;
+      CHAIN_BITS : CFG_SELCLK_G0          3'b0;
+      CHAIN_BITS : CFG_DLYNUM_M           8'b0;
+      CHAIN_BITS : CFG_SELCLK_M           3'b0;
+      CHAIN_BITS : CFG_ENB_PLLOUTP        1'b0 EXTERN;
+      CHAIN_BITS : CFG_ENB_PLLOUTN        1'b0 EXTERN;
+      CHAIN_BITS : CFG_FEEDBACK_MODE      1'b0 EXTERN;
+      CHAIN_BITS : CFG_PllSeamMUX         3'b0 EXTERN;
+      CHAIN_BITS : CFG_PllClkInMUX        6'b0 EXTERN;
+      CHAIN_BITS : CFG_PLLFB_DLY          3'b0 EXTERN;
+      CHAIN_BITS : CFG_PllClkFbMUX        2'b0 EXTERN;
+      CHAIN_BITS : CFG_PLL_EN_FLAG        1'b0; // 0: PLL enable is controlled by MCU, 1: controlled by routing
+      CHAIN_BITS : CFG_REG_CTRL           2'b10;
+    END_CONFIG_CHAIN
+  END_BB
+
+  GRID_GROUP
+    DELTA_X : $MAX_X  $MAX_X;
+    DELTA_Y : $ADC0_Y $ADC2_Y;
+    BB ADC
+      DIMENSION  : 0 0 0 0;
+      TILE_TYPE  : UFMTILE;
+      CELL_TYPE  : ADC;
+      GRID_INDEX : IOE $ADC0_Y;
+      HAS_SRAM   : YES;
+      PIN_STYLE  : CellExtIO;
+      CONFIG_MODULE : MCU_IO;
+      GRID_PIN_INFO // The same pin info will be used for all adc grids
+        DIRECTION : W;
+        INPUT   : enb;
+        INPUT   : sclk;
+        INPUTS  : insel 5;
+        INPUT   : stop;
+        INPUTS  : dummy_in 12;
+        OUTPUTS : db 12;
+        OUTPUT  : eoc;
+        OUTPUTS : dummy_out 7;
+      END_GRID_PIN_INFO
+    END_BB
+  END_GRID_GROUP
+
+  GRID_GROUP
+    DELTA_X : $MAX_X  $MAX_X;
+    DELTA_Y : $DAC0_Y $DAC1_Y;
+    BB DAC
+      DIMENSION  : 0 0 0 0;
+      TILE_TYPE  : UFMTILE;
+      CELL_TYPE  : DAC;
+      GRID_INDEX : IOE $DAC0_Y;
+      HAS_SRAM   : YES;
+      PIN_STYLE  : CellExtIO;
+      CONFIG_MODULE : MCU_IO;
+      GRID_PIN_INFO
+        DIRECTION : W;
+        INPUT   : enb;
+        INPUT   : bufenb;
+        INPUTS  : din 10;
+        INPUT   : stop;
+        INPUTS  : dummy_in 7;
+        OUTPUTS : dummy_out 20;
+      END_GRID_PIN_INFO
+    END_BB
+  END_GRID_GROUP
+
+  GRID_GROUP
+    DELTA_X : $MAX_X  $MAX_X;
+    DELTA_Y : $CMP0_Y $CMP0_Y;
+    BB CMP
+      DIMENSION  : 0 0 0 0;
+      TILE_TYPE  : UFMTILE;
+      CELL_TYPE  : CMP;
+      GRID_INDEX : IOE $CMP0_Y;
+      HAS_SRAM   : YES;
+      PIN_STYLE  : CellExtIO;
+      CONFIG_MODULE : MCU_IO;
+      GRID_PIN_INFO
+        DIRECTION : W;
+        INPUT   : enb1;
+        INPUT   : enb2;
+        INPUTS  : imsel1 3;
+        INPUTS  : imsel2 3;
+        INPUTS  : ipsel1 2;
+        INPUTS  : ipsel2 2;
+        INPUT   : hyst1;
+        INPUT   : hyst2;
+        INPUT   : mode1;
+        INPUT   : mode2;
+        INPUT   : stop;
+        INPUTS  : dummy_in 3;
+        OUTPUT  : out1;
+        OUTPUT  : out2;
+        OUTPUTS : dummy_out 18;
+      END_GRID_PIN_INFO
+    END_BB
+  END_GRID_GROUP
+
+  GRID_GROUP
+    DELTA_X : $MAX_X  $MAX_X;
+    DELTA_Y : $DMY0_Y $DMY0_Y;
+    BB DMY
+      DIMENSION  : 0 0 0 0;
+      TILE_TYPE  : UFMTILE;
+      CELL_TYPE  : BUF; // Just a place holder, not meaningful
+      GRID_INDEX : IOE $DMY0_Y;
+      HAS_SRAM   : YES;
+      PIN_STYLE  : CellExtTile;
+      CONFIG_MODULE : MCU_IO;
+      GRID_PIN_INFO
+        DIRECTION : W;
+        BYPASSED_INPUTS  : dummy_in  20;
+        BYPASSED_OUTPUTS : dummy_out 20;
+      END_GRID_PIN_INFO
+    END_BB
+  END_GRID_GROUP
+
+  GLOBAL_TRACKS
+    FROM_TERMS : SW_CLKOUT -1;
+    FROM_GRID  : GCLK 0;
+    TO_TERMS   : sys_clk 0;
+    TO_GRIDS   : BBOX 0;
+
+    FROM_TERMS : resetn_out 0 sys_ctrl_clkSource 0 1;
+    FROM_GRID  : BBOX 0;
+    TO_TERMS   : SW_RESETN 0 SW_SELECT 0 1;
+    TO_GRIDS   : GCLK 0;
+
+    FROM_TERMS : lock              0;
+    FROM_GRID  : PLL               0;
+    TO_TERMS   : sys_ctrl_pllReady 0;
+    TO_GRIDS   : BBOX              0;
+
+    FROM_TERMS : sys_ctrl_pllEnable 0;
+    FROM_GRID  : BBOX               0;
+    TO_TERMS   : BB_MCU_PLLEN       0;
+    TO_GRIDS   : PLL                0;
+
+    FROM_TERMS : IOTERM 0 1; // PIN_16 and PIN_15
+    FROM_GRID  : IOE    3;
+    TO_TERMS   : IOTERM 0 1;
+    TO_GRIDS   : GCLK   0;
+
+    FROM_TERMS : IOTERM 1; // PIN_7_RTC
+    FROM_GRID  : IOE    2;
+    TO_TERMS   : IOTERM 2;
+    TO_GRIDS   : GCLK   0;
+
+    FROM_TERMS : GCLK   0 5 PLL_FB 0;
+    TO_TERMS   : GCLK   0 5 PLL_FB 0;
+    FROM_GRID  : GCLK   0;
+    TO_GRIDS   : CLKDIS 0;
+
+    FROM_TERMS : SEAM 0 5;
+    TO_TERMS   : SEAM 0 5;
+    FROM_GRID  : CLKDIS 0;
+    TO_GRIDS   : ALL 0;
+
+    FROM_TERMS : PLL_FB 0;
+    TO_TERMS   : PLL_FB 0;
+    FROM_GRID  : CLKDIS 0;
+    TO_GRIDS   : PLL 0;
+
+    FROM_TERMS : GCLK_PIN 1 2; // HSE and OSC
+    FROM_GRID  : GCLK 0;
+    TO_TERMS   : GCLK_PIN 0 1;
+    TO_GRIDS   : PLL 0;
+
+    FROM_TERMS : IOTERM 1; // PIN_7_RTC
+    FROM_GRID  : IOE    2;
+    TO_TERMS   : GCLK_PIN 2;
+    TO_GRIDS   : PLL 0;
+
+    FROM_TERMS : IOTERM 1; // PIN_15
+    FROM_GRID  : IOE    3;
+    TO_TERMS   : GCLK_PIN 3;
+    TO_GRIDS   : PLL 0;
+
+    FROM_TERMS : clkout0 clkout1 clkout2 clkout3 clkout4 clkfbout;
+    FROM_GRID  : PLL 0;
+    TO_TERMS   : clkout0 clkout1 clkout2 clkout3 clkout4 PLL_FB 0;
+    TO_GRIDS   : GCLK 0;
+  END_GLOBAL_TRACKS
+
+  DECODER
+    NAME         : wl0 l0;
+    TYPE         : wldec bldec_quad;
+    ID           : 0;
+    DIMENSION    : 0 0 $MAX_X $MAX_Y;
+    BL_MSB_FIRST : 1;
+  END_DECODER
+
+  IO PIN_LIST
+    PIN_LIST : PIN_51          IOBANK1 SINGLE    0 4 0;
+    PIN_LIST : PIN_52          IOBANK1 SINGLE    0 4 1;
+    PIN_LIST : PIN_53          IOBANK1 SINGLE    0 4 2;
+    PIN_LIST : PIN_54          IOBANK1 SINGLE    0 4 3;
+    PIN_LIST : PIN_55          IOBANK1 SINGLE    0 4 4;
+    PIN_LIST : PIN_56          IOBANK1 SINGLE    0 4 5;
+    PIN_LIST : PIN_57          IOBANK1 SINGLE    0 3 0;
+    PIN_LIST : PIN_58          IOBANK1 SINGLE    0 3 1;
+    PIN_LIST : PIN_59          IOBANK1 SINGLE    0 3 2;
+    PIN_LIST : PIN_60          IOBANK1 SINGLE    0 3 3;
+    PIN_LIST : PIN_61          IOBANK1 SINGLE    0 3 4;
+    PIN_LIST : PIN_62          IOBANK1 SINGLE    0 3 5;
+    PIN_LIST : PIN_63          IOBANK1 SINGLE    0 2 0;
+    PIN_LIST : PIN_64          IOBANK1 SINGLE    0 2 1;
+    PIN_LIST : PIN_65          IOBANK1 SINGLE    0 2 2;
+    PIN_LIST : PIN_66          IOBANK1 SINGLE    0 2 3;
+    PIN_LIST : PIN_67          IOBANK1 SINGLE    0 2 4;
+    PIN_LIST : PIN_68_UART0_TX IOBANK1 SINGLE    0 2 5;
+    PIN_LIST : PIN_69_UART0_RX IOBANK1 SINGLE_D2 0 1 0;
+    PIN_LIST : PIN_70_USBDM    IOBANK1 SINGLE    0 1 2;
+    PIN_LIST : PIN_71_USBDP    IOBANK1 USB       0 1 3;
+    PIN_LIST : PIN_72_JTMS     IOBANK1 SINGLE_D0 0 1 4;
+    PIN_LIST : PIN_73          IOBANK1 SINGLE    0 1 5;
+
+    PIN_LIST : PIN_76_JTCK      IOBANK1 SINGLE_D1  1  0 0;
+    PIN_LIST : PIN_77_JTDI      IOBANK1 SINGLE_D2  1  0 1;
+    PIN_LIST : PIN_78           IOBANK1 SINGLE     1  0 2;
+    PIN_LIST : PIN_79           IOBANK1 SINGLE     1  0 3;
+    PIN_LIST : PIN_MIPI_TX_CKN  IOBANK1 MIPI_TX    2  0 0;
+    PIN_LIST : PIN_MIPI_TX_CKP  IOBANK1 DUMMY      2  0 1;
+    PIN_LIST : PIN_MIPI_TX_DA1N IOBANK1 DUMMY      2  0 2;
+    PIN_LIST : PIN_MIPI_TX_DA1P IOBANK1 DUMMY      2  0 3;
+    PIN_LIST : PIN_MIPI_TX_DA0N IOBANK1 DUMMY      3  0 0;
+    PIN_LIST : PIN_MIPI_TX_DA0P IOBANK1 DUMMY      3  0 1;
+    PIN_LIST : PIN_MIPI_TX_DA0P IOBANK1 USER_DUMMY 3  0 2;
+    PIN_LIST : PIN_MIPI_TX_DA0P IOBANK1 USER_DUMMY 3  0 3;
+    PIN_LIST : PIN_MIPI_TX_DA0P IOBANK1 USER_DUMMY 4  0 0;
+    PIN_LIST : PIN_MIPI_TX_DA0P IOBANK1 USER_DUMMY 4  0 1;
+    PIN_LIST : PIN_MIPI_TX_DA0P IOBANK1 USER_DUMMY 4  0 2;
+    PIN_LIST : PIN_MIPI_TX_DA0P IOBANK1 USER_DUMMY 4  0 3;
+    PIN_LIST : PIN_MIPI_TX_DA0P IOBANK1 USER_DUMMY 5  0 0;
+    PIN_LIST : PIN_MIPI_TX_DA0P IOBANK1 USER_DUMMY 5  0 1;
+    PIN_LIST : PIN_MIPI_TX_DA0P IOBANK1 USER_DUMMY 5  0 2;
+    PIN_LIST : PIN_MIPI_TX_DA0P IOBANK1 USER_DUMMY 5  0 3;
+    PIN_LIST : PIN_80           IOBANK1 SINGLE     6  0 0;
+    PIN_LIST : PIN_81           IOBANK1 SINGLE     6  0 3;
+    PIN_LIST : PIN_82           IOBANK1 SINGLE     7  0 0;
+    PIN_LIST : PIN_83           IOBANK1 SINGLE     7  0 1;
+    PIN_LIST : PIN_84           IOBANK1 SINGLE     7  0 3;
+    PIN_LIST : PIN_85           IOBANK1 SINGLE     8  0 0;
+    PIN_LIST : PIN_86           IOBANK1 SINGLE     8  0 1;
+    PIN_LIST : PIN_87           IOBANK1 SINGLE     8  0 2;
+    PIN_LIST : PIN_88           IOBANK1 SINGLE     8  0 3;
+    PIN_LIST : PIN_MIPI_RX_CKN  IOBANK1 MIPI_RX    9  0 0;
+    PIN_LIST : PIN_MIPI_RX_CKP  IOBANK1 DUMMY      9  0 1;
+    PIN_LIST : PIN_MIPI_RX_DA1N IOBANK1 DUMMY      9  0 2;
+    PIN_LIST : PIN_MIPI_RX_DA1P IOBANK1 DUMMY      9  0 3;
+    PIN_LIST : PIN_MIPI_RX_DA0N IOBANK1 DUMMY      10 0 0;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 DUMMY      10 0 1;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 10 0 2;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 10 0 3;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 11 0 0;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 11 0 1;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 11 0 2;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 11 0 3;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 12 0 0;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 12 0 1;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 12 0 2;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 12 0 3;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 14 0 0;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 14 0 1;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 14 0 2;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 14 0 3;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 15 0 0;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 15 0 1;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 15 0 2;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 15 0 3;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 16 0 0;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 16 0 1;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 16 0 2;
+    PIN_LIST : PIN_MIPI_RX_DA0P IOBANK1 USER_DUMMY 16 0 3;
+    PIN_LIST : PIN_89_JTDO      IOBANK1 SINGLE_D3  17 0 0;
+    PIN_LIST : PIN_90_JNTRST    IOBANK1 SINGLE_D2  17 0 1;
+    PIN_LIST : PIN_91           IOBANK1 SINGLE     17 0 2;
+    PIN_LIST : PIN_92           IOBANK1 OSC        18 0 0;
+    PIN_LIST : PIN_93           IOBANK1 SINGLE     18 0 1;
+    PIN_LIST : PIN_SPI_CS       IOBANK1 DEDICATE_0 18 0 2;
+    PIN_LIST : BOOT0            IOBANK1 SINGLE_IN  18 0 3;
+    PIN_LIST : PIN_SPI_SDO      IOBANK1 DEDICATE_2 19 0 0;
+    PIN_LIST : PIN_95           IOBANK1 SINGLE     19 0 1;
+    PIN_LIST : PIN_SPI_WP       IOBANK1 DEDICATE_2 19 0 2;
+    PIN_LIST : PIN_96           IOBANK1 SINGLE     19 0 3;
+    PIN_LIST : PIN_97           IOBANK1 SINGLE     20 0 0;
+    PIN_LIST : PIN_98           IOBANK1 SINGLE     20 0 2;
+    PIN_LIST : EXT_POR_EN       IOBANK1 DEDICATE_3 20 0 3;
+
+    PIN_LIST : PIN_1           IOBANK1 SINGLE         22 1 4;
+    PIN_LIST : PIN_2           IOBANK1 SINGLE         22 1 3;
+    PIN_LIST : PIN_3           IOBANK1 SINGLE         22 1 2;
+    PIN_LIST : CLKLOCAL_RTC    IOBANK1 DEDICATE_DUMMY 22 1 1;
+    PIN_LIST : PIN_4           IOBANK1 SINGLE         22 1 0;
+    PIN_LIST : PIN_5           IOBANK1 SINGLE         22 2 5;
+    PIN_LIST : VBAT            IOBANK1 DEDICATE_3     22 2 4;
+    PIN_LIST : PIN_7_RTC       IOBANK1 SINGLE         22 2 3;
+    PIN_LIST : OSC32_IN        IOBANK1 DEDICATE_3     22 2 2;
+    PIN_LIST : OSC32_OUT       IOBANK1 DEDICATE_3     22 2 1;
+    PIN_LIST : OSC_IN          IOBANK1 DEDICATE_3     22 2 0;
+    PIN_LIST : OSC_OUT         IOBANK1 DEDICATE_3     22 3 5;
+    PIN_LIST : NRST            IOBANK1 DEDICATE_IN    22 3 4;
+    PIN_LIST : PIN_15_ADC_IN10 IOBANK1 SINGLE         22 3 3;
+    PIN_LIST : PIN_16_ADC_IN11 IOBANK1 SINGLE         22 3 2;
+    PIN_LIST : PIN_17_ADC_IN12 IOBANK1 SINGLE         22 3 1;
+    PIN_LIST : PIN_18_ADC_IN13 IOBANK1 SINGLE         22 3 0;
+    PIN_LIST : PIN_HSI         IOBANK1 VIRTUAL        22 4 0;
+    PIN_LIST : PIN_HSE         IOBANK1 VIRTUAL        22 4 1;
+    PIN_LIST : PIN_OSC         IOBANK1 VIRTUAL        22 4 2;
+    PIN_LIST : PIN_NRST        IOBANK1 VIRTUAL        22 4 3;
+    // These dedicate pads only use the coord here. They do not drive the corresponding io tile.
+    PIN_LIST : VREFN           IOBANK1 DEDICATE_3     22 5 1 E;
+    PIN_LIST : VREFP           IOBANK1 DEDICATE_3     22 5 0 E;
+
+    PIN_LIST : PIN_25_ADC_IN2_CMP_PA2      IOBANK1 SINGLE     20 13 3;
+    PIN_LIST : PIN_24_ADC_IN1_CMP_PA1      IOBANK1 SINGLE     20 13 2;
+    PIN_LIST : PIN_23_WKUP_ADC_IN0_CMP_PA0 IOBANK1 SINGLEP    20 13 1;
+    PIN_LIST : PIN_26_ADC_IN3_CMP_PA3      IOBANK1 SINGLE     19 13 3;
+    PIN_LIST : PIN_29_ADC_IN4_CMP_PA4_DAC0 IOBANK1 SINGLE     19 13 2;
+    PIN_LIST : PIN_30_ADC_IN5_CMP_PA5_DAC1 IOBANK1 SINGLE     19 13 1;
+    PIN_LIST : PIN_31_ADC_IN6              IOBANK1 SINGLE     19 13 0;
+    PIN_LIST : PIN_32_ADC_IN7              IOBANK1 SINGLE     18 13 3;
+    PIN_LIST : PIN_33_ADC_IN14             IOBANK1 SINGLE     18 13 2;
+    PIN_LIST : PIN_34_ADC_IN15             IOBANK1 SINGLE     18 13 1;
+    PIN_LIST : PIN_35_ADC_IN8              IOBANK1 SINGLE     18 13 0;
+    PIN_LIST : PIN_36_ADC_IN9              IOBANK1 SINGLE     17 13 3;
+    PIN_LIST : PIN_37_BOOT1                IOBANK1 SINGLE_D2  17 13 2;
+    PIN_LIST : PIN_38                      IOBANK1 SINGLE     17 13 1;
+    PIN_LIST : PIN_39                      IOBANK1 SINGLE     17 13 0;
+    PIN_LIST : PIN_40                      IOBANK1 SINGLE     16 13 3;
+    PIN_LIST : PIN_41                      IOBANK1 SINGLE     16 13 2;
+    PIN_LIST : PIN_42                      IOBANK1 SINGLE     16 13 1;
+    PIN_LIST : PIN_43                      IOBANK1 SINGLE     16 13 0;
+    PIN_LIST : PIN_44                      IOBANK1 SINGLE     15 13 3;
+    PIN_LIST : PIN_45                      IOBANK1 SINGLE     15 13 2;
+    PIN_LIST : PIN_SPI_SDI                 IOBANK1 DEDICATE_2 15 13 1;
+    PIN_LIST : PIN_46                      IOBANK1 SINGLE     15 13 0;
+    PIN_LIST : PIN_SPI_SCK                 IOBANK1 DEDICATE_1 14 13 3;
+    PIN_LIST : PIN_47                      IOBANK1 SINGLE     14 13 2;
+    PIN_LIST : PIN_SPI_HOLD                IOBANK1 DEDICATE_2 14 13 1;
+    PIN_LIST : PIN_48                      IOBANK1 SINGLE     14 13 0;
+    PIN_LIST : FLASH_SREG                  IOBANK1 DEDICATE_3 1  13 0 N; // Specify direction if coord has no tile
+  END_IO
+
+  GLOBAL_PINWIRES
+    // Flash pins
+    INOUT_O : PIN_SPI_CS   xspi_FLASH_CSn0;
+    INOUT_O : PIN_SPI_SCK  xspi_FLASH_SCK0;
+    INOUT_I : PIN_SPI_SCK  xspi_EXT_FLASH_SCK_I0;
+    INOUT_O : PIN_SPI_SDI  xspi_FLASH_SI_IO0_out_data0;
+    INOUT_E : PIN_SPI_SDI  xspi_FLASH_SI_IO0_out_en0;
+    INOUT_I : PIN_SPI_SDI  xspi_FLASH_SI_IO0_in0;
+    INOUT_O : PIN_SPI_SDO  xspi_FLASH_SO_IO1_out_data0;
+    INOUT_E : PIN_SPI_SDO  xspi_FLASH_SO_IO1_out_en0;
+    INOUT_I : PIN_SPI_SDO  xspi_FLASH_SO_IO1_in0;
+    INOUT_O : PIN_SPI_WP   xspi_FLASH_WPn_IO2_out_data0;
+    INOUT_E : PIN_SPI_WP   xspi_FLASH_WPn_IO2_out_en0;
+    INOUT_I : PIN_SPI_WP   xspi_FLASH_WPn_IO2_in0;
+    INOUT_O : PIN_SPI_HOLD xspi_FLASH_HOLDn_IO3_out_data0;
+    INOUT_E : PIN_SPI_HOLD xspi_FLASH_HOLDn_IO3_out_en0;
+    INOUT_I : PIN_SPI_HOLD xspi_FLASH_HOLDn_IO3_in0;
+
+    // Between MCU and decoders
+    OUTPUT : fcb0_decoder_cfgaddr   om_cfgaddr   10;
+    OUTPUT : fcb0_decoder_porb_bl0  o_porb_bl;
+    OUTPUT : fcb0_decoder_bleq0     o_bleq;
+    OUTPUT : fcb0_decoder_cread0    o_cread;
+    OUTPUT : fcb0_decoder_cshift0   o_cshift;
+    OUTPUT : fcb0_decoder_cwrite0   o_cwrite;
+    OUTPUT : fcb0_decoder_cf_clk0   o_cf_clk;
+    OUTPUT : fcb0_decoder_wl_porb0  o_porb_wl0;
+    OUTPUT : fcb0_decoder_wl_ena0   o_ena_wl0;
+    OUTPUT : fcb0_decoder_bl_ena0   o_blena_l0;
+    OUTPUT : fcb0_decoder_bl_cfgin  om_cfgin_l0  4;
+    INPUT  : fcb0_decoder_bl_cfgout im_cfgout_l0 4;
+
+    OUTPUT : fcb0_global_initb0     CONFIGBIT_INITB;
+    OUTPUT : fcb0_global_cfgdone0   CHIP_CFG_DONE;
+    OUTPUT : fcb0_global_chip_rstb0 CHIP_RSTB;
+    OUTPUT : fcb0_global_init_emb0  INIT_EMB;
+    OUTPUT : fcb0_global_porb_init0 PORB_INIT;
+
+    // Bwtween MCU and core
+    INPUT  : boot_mode0          X18_Y0_SLICE_IO03_O;
+    INPUT  : boot_mode1          X17_Y13_SLICE_IO02_O;
+    INPUT  : swj_jtag_TCK0       X1_Y0_SLICE_IO00_O;
+    INPUT  : swj_jtag_TMS0       X0_Y1_SLICE_IO04_O;
+    INPUT  : swj_jtag_TDI0       X1_Y0_SLICE_IO01_O;
+    INPUT  : swj_jtag_TRSTn0     X17_Y0_SLICE_IO01_O;
+    INPUT  : boot_cfg_0_UARTRXD0 X0_Y1_SLICE_IO00_O;
+
+    // Bit blast any bb tile bus port here since SLICE ports do not support bus
+    OUTPUT : sys_ctrl_oscFreq sys_ctrl_oscFreq 4;
+    OUTPUT : aon_io_apb_pwaddr  aon_io_apb_pwaddr 5;
+    OUTPUT : aon_io_apb_praddr  aon_io_apb_praddr 5;
+    OUTPUT : aon_io_apb_pwdata  aon_io_apb_pwdata 16;
+    INPUT  : aon_io_apb_prdata  aon_io_apb_prdata 16;
+
+    OUTPUT : ADC0_insel ADC0_insel 5;
+    INPUT  : ADC0_db    ADC0_db    12;
+    OUTPUT : ADC1_insel ADC1_insel 5;
+    INPUT  : ADC1_db    ADC1_db    12;
+    OUTPUT : ADC2_insel ADC2_insel 5;
+    INPUT  : ADC2_db    ADC2_db    12;
+
+    OUTPUT : DAC0_din DAC0_din 10;
+    OUTPUT : DAC1_din DAC1_din 10;
+
+    OUTPUT : CMP_imsel1 CMP_imsel1 3;
+    OUTPUT : CMP_imsel2 CMP_imsel2 3;
+    OUTPUT : CMP_ipsel1 CMP_ipsel1 2;
+    OUTPUT : CMP_ipsel2 CMP_ipsel2 2;
+  END_GLOBAL_PINWIRES
+
+  CCB
+    CELL_TYPE : RV32;
+    // There is no real CCB in this chip. Group dedicate and io are used to put wires between MCU and ASPIO. Group
+    // decoder_xxx are used to describe decoder pin names.
+    GROUP dedicate
+      INPUT  : X22_Y4_SLICE_IO03_O      NRST;
+      INPUT  : xspi_EXT_FLASH_SREG0     FLASH_SREG;
+      OUTPUT : X22_Y1_SLICE_IOREG01_O_2 CLKLOCAL_RTC;
+    END_GROUP
+    GROUP io
+      OUTPUT : fcb0_chain_update0  IO_UPDATE;
+      OUTPUT : fcb0_chain_cf_clk0  IO_CF_CLK;
+      OUTPUT : fcb0_chain_read_en0 IO_READ_EN;
+      OUTPUT : fcb0_chain_shift0   IO_SHIFT;
+      OUTPUT : fcb0_chain_porb0    IO_PORB;
+      OUTPUT : fcb0_chain_shiftin0 SHIFT_IN;
+      INPUT  : fcb0_chain_rdata0   IO_RDATA;
+      OUTPUT : fcb0_global_devoe0  IO_GHIZ;
+
+      INPUT  : X22_Y4_SLICE_IO00_O CLKHSI;
+      INPUT  : X22_Y4_SLICE_IO01_O CLKHSE;
+      INPUT  : X22_Y4_SLICE_IO02_O CLKOSC;
+
+      INPUT  : por_resetn0 PORB_MCU;
+      INPUT  : sys_resetn0 RSTN_MCU;
+      INPUT  : test_en0    MCU_TESTEN;
+      INPUT  : test_se0    MCU_TESTSE;
+      OUTPUT : resetn_out0 RSTN_SYS_RTC;
+      OUTPUT : PLL_STDBY0  STDBY33;
+      OUTPUT : PLL_PORB330 PORB33;
+
+      OUTPUT : sys_ctrl_stop0      SYS_STOP;
+      OUTPUT : sys_ctrl_standby0   SYS_STANDBY;
+      OUTPUT : sys_ctrl_volCtrl0   SEL_REGINPUT;
+      OUTPUT : sys_ctrl_oscFreq    SEL_FREQ 4;
+      OUTPUT : sys_ctrl_hseBypass0 HSEBYP;
+      OUTPUT : sys_ctrl_hseEnable0 HSEON;
+      OUTPUT : sys_ctrl_iwdgStop0  DEBUG_FRZ_IWDG;
+      OUTPUT : sys_ctrl_rtcStop0   DEBUG_FRZ_RTC;
+      INPUT  : sys_ctrl_hseReady0  HSERDY;
+      OUTPUT : sys_ctrl_bootLoadn0 MODE_UART_MCU;
+      OUTPUT : boot_cfg_0_UARTTXD0 UART_TX_MCU;
+
+      OUTPUT : sys_ctrl_swjConfig0  MODE_JTCK;
+      OUTPUT : sys_ctrl_swjConfig1  MODE_JTMS_SWDO;
+      OUTPUT : sys_ctrl_swjConfig2  MODE_JTDI;
+      OUTPUT : sys_ctrl_swjConfig3  MODE_JTDO;
+      OUTPUT : sys_ctrl_swjConfig4  MODE_NJRST;
+      OUTPUT : swj_SWDO_driven0     SWDO_TE;
+      OUTPUT : swj_SWDO_data0       SWDO_TX;
+      OUTPUT : swj_jtag_TDO_driven0 JTDO_TE;
+      OUTPUT : swj_jtag_TDO_data0   JTDO_TX;
+
+      OUTPUT : aon_io_apb_pread0    PREAD_RTC;
+      OUTPUT : aon_io_apb_pwrite0   PWRITE_RTC;
+      OUTPUT : aon_io_apb_reset0    RST_RTC;
+      OUTPUT : aon_io_apb_pwaddr    WADDR_RTC  5;
+      OUTPUT : aon_io_apb_praddr    RADDR_RTC  5;
+      OUTPUT : aon_io_apb_pwdata    WRDATA_RTC 16;
+      INPUT  : aon_io_apb_wready0   WR_RDY_RTC;
+      INPUT  : aon_io_apb_prdata    RE_OUT_RTC 16;
+      INPUT  : aon_io_rtc_second0   RTC_SECOND;
+      INPUT  : aon_io_rtc_overflow0 RTC_OVERFLOW;
+      INPUT  : aon_io_rtc_alarm0    RTC_ALARM;
+      INPUT  : aon_io_iwdg_rst0     RTC_IWDG_RST;
+
+      INPUT  : usb0_rx_dm0    USB_SER_RX_DM;
+      INPUT  : usb0_rx_dp0    USB_SER_RX_DP;
+      INPUT  : usb0_rx_rcv0   USB_SER_RX_RCV;
+      OUTPUT : usb0_dppullup0 USB_SER_DPPULLUP;
+      OUTPUT : usb0_dppulldn0 USB_SER_DPPULLDOWN;
+      OUTPUT : usb0_dmpulldn0 USB_SER_DMPULLDOWN;
+      OUTPUT : usb0_speed0    USB_SER_SPEED;
+      OUTPUT : usb0_tx_dat0   USB_SER_TX_DATA;
+      OUTPUT : usb0_tx_en0    USB_SER_TX_EN;
+      OUTPUT : usb0_tx_se00   USB_SER_TX_SE0;
+      OUTPUT : usb0_enable0   USB_EN;
+
+      OUTPUT : IOTERM0 MIPITX_TX_HS_CKCLK;
+      OUTPUT : IOTERM1 MIPITX_TX_HS_DACLK;
+      OUTPUT : IOTERM2 MIPITX_TX_HS_DACLKDIV4;
+
+      OUTPUT : ADC0_enb   ENB_ADC0;
+      OUTPUT : ADC0_insel INSEL_ADC0 5;
+      OUTPUT : ADC0_sclk  SCLK_ADC0;
+      OUTPUT : ADC0_stop  STOP_ADC0;
+      INPUT  : ADC0_db    DB_ADC0    12;
+      INPUT  : ADC0_eoc   EOC_ADC0;
+
+      OUTPUT : ADC1_enb   ENB_ADC1;
+      OUTPUT : ADC1_insel INSEL_ADC1 5;
+      OUTPUT : ADC1_sclk  SCLK_ADC1;
+      OUTPUT : ADC1_stop  STOP_ADC1;
+      INPUT  : ADC1_db    DB_ADC1    12;
+      INPUT  : ADC1_eoc   EOC_ADC1;
+
+      OUTPUT : ADC2_enb   ENB_ADC2;
+      OUTPUT : ADC2_insel INSEL_ADC2 5;
+      OUTPUT : ADC2_sclk  SCLK_ADC2;
+      OUTPUT : ADC2_stop  STOP_ADC2;
+      INPUT  : ADC2_db    DB_ADC2    12;
+      INPUT  : ADC2_eoc   EOC_ADC2;
+
+      OUTPUT : DAC0_enb    DAC0_ENB;
+      OUTPUT : DAC0_bufenb DAC0_BUFENB;
+      OUTPUT : DAC0_din    DAC0_DIN 10;
+      OUTPUT : DAC0_stop   DAC0_STOP;
+
+      OUTPUT : DAC1_enb    DAC1_ENB;
+      OUTPUT : DAC1_bufenb DAC1_BUFENB;
+      OUTPUT : DAC1_din    DAC1_DIN 10;
+      OUTPUT : DAC1_stop   DAC1_STOP;
+
+      OUTPUT : CMP_enb1   COMP1_ENB;
+      OUTPUT : CMP_enb2   COMP2_ENB;
+      OUTPUT : CMP_imsel1 COMP1_IMSEL 3;
+      OUTPUT : CMP_imsel2 COMP2_IMSEL 3;
+      OUTPUT : CMP_ipsel1 COMP1_IPSEL 2;
+      OUTPUT : CMP_ipsel2 COMP2_IPSEL 2;
+      OUTPUT : CMP_hyst1  COMP1_ENHYSIS;
+      OUTPUT : CMP_hyst2  COMP2_ENHYSIS;
+      OUTPUT : CMP_mode1  COMP1_MODESEL;
+      OUTPUT : CMP_mode2  COMP2_MODESEL;
+      OUTPUT : CMP_stop   STOP_COMP;
+      INPUT  : CMP_out1   CMP1OUT;
+      INPUT  : CMP_out2   CMP2OUT;
+    END_GROUP
+    GROUP decoder_wlShared
+      OUTPUT : om_cfgaddr om_cfgaddr 10;
+    END_GROUP
+    GROUP decoder_wlNonShared
+      OUTPUT : o_ena;
+      OUTPUT : o_porb;
+    END_GROUP
+    GROUP decoder_blShared
+      OUTPUT : o_porb_bl;
+      OUTPUT : o_bleq;
+      OUTPUT : o_cread;
+      OUTPUT : o_cshift;
+      OUTPUT : o_cwrite;
+      OUTPUT : o_cf_clk;
+    END_GROUP
+    GROUP decoder_blNonShared
+      OUTPUT : o_blena;
+      OUTPUT : om_cfgin om_cfgin 4;
+      INPUT  : im_cfgout im_cfgout 4;
+    END_GROUP
+  END_CCB
+
+END_CHIP
