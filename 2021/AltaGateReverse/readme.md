@@ -2,16 +2,16 @@
 
 Alta-gate is FPGA manufacturer focused on low end devices. Their chips are programmed using combination of their own software called Supra and Altera Quartus. Supra contains a lot of encrypted files (verilog files, their own hardware description files, CSVs...) and I was hoping that by decoding these files it will help me designing my own verilog code for AG1KLPQ48 used in LA104 since there is no documentation available for these chips. 
 
-At the first sight the encoding looks fairly simple, this file shows CSV table in encoded form. You can see there regular sequences which may be the comma delimiter and 4 white spaces repating many times in every line. But the delimiter character and whitespace changes every line... So there is some conversion table which assigns real character to each encoded character (some sort of Caesar cipher?). The problem is that this table is different for each line and I was not able to see there some clear pattern or period.
+At the first sight the encoding looks fairly simple, this image shows CSV table in encoded form. You can see there sequences of the comma delimiter and 4 white spaces repating many times in every line. But the delimiter character and whitespace changes every line... So there should be some conversion table which assigns real character to each encoded character (some sort of Caesar cipher?). The problem is that this table changes each line and I was not able to see there some clear pattern or period.
 
 ![csv](csvraw.png)
 
-Supra contains two binaries: AF.exe which provides some commandline shell for building project files for Quartus and Supra.exe which is just GUI interface for the previous one.
+Supra contains two binaries: AF.exe which provides some commandline shell for project initialization and final route & placement algorithm and Supra.exe which is just GUI interface for this tool.
 
 By calling following command, it will prepare project files for specific device:
 `af.exe -B --setup --mode QUARTUS --design app --device AG1KLPQ48 -X "set DEVICE_FAMILY 1"`
 
-The first step to minimize the application by removing everything unnecessary to be able to load itself and execute previous command. I ended up with following directory structure:
+The first step was to minimize the application files by removing everything unnecessary while keeping the app able to load itself and execute previous command. I ended up with following directory structure:
 
 ```
 C:\Remote\suptest\bin
@@ -25,7 +25,6 @@ C:\Remote\suptest\lib\tcl8.5\init.tcl
 C:\Remote\suptest\license\license.txt
 ```
 
-
 It resulted in following error message:
 ```
 Error: Can not read open architectual file C:/Remote/suptest/etc/arch/alta.ar.
@@ -34,7 +33,7 @@ Error: [load_architect] Failed to load device AG1KLPQ48.
 Total 0 fatals, 2 errors, 0 warnings, 0 infos.
 ```
 
-So it needs the alta.ar to work. Alta.ar is the first encrypted file Supra is loading, so I tried to alter the contents of this file to see how it handles corrupted file:
+So it needs the **alta.ar** to work. **Alta.ar** is the first encrypted file Supra is loading, so I tried to alter the contents of this file to see how it handles corrupted file:
 
 ```
 Error: Syntax error at C:/Remote/suptest/etc/arch/alta.ar:1.
@@ -43,13 +42,13 @@ Error: [load_architect] Failed to load device AG1KLPQ48.
 Total 0 fatals, 2 errors, 0 warnings, 0 infos.
 ```
 
-Trying to find this message in the executable in all possible encodings (using FAR) did not reveal anything. Nor searching for the reference to **alta.ar** file. And this was very suspicous... It seems like the application is written in TCL and embedded in encrypted form right in the main application executable.
+Trying to find this message in the executable in all possible encodings (using FAR) did not reveal anything. Nor searching for the reference to **alta.ar** file. And this was very suspicous... It seems like the high level application code is written in TCL and embedded in encrypted form right in the main application executable.
 
 Using ProcMon I checked who opens and reads the encrypted file:
 
 ![procmon.png](procmon.png)
 
-So definitely it is the AF.exe which reads this file. Using IDA as debugger I put breakpoints on all CreateFile cals, but later I found out that the application is quite messy and consists of multiple modules which use different approach for accessing filesystem. Some parts were using Win32 api whereas others were using posix fopen. In this case they have used  ` FILE *__cdecl fopen(const char *, const char *)`  for opening and `int __cdecl read(int, void *, unsigned int)` for reading. Debugging the code was pretty nasty and the only way how to find the decryption algorithm was to place hardware breakpoint on memory read at the address where the file was read. This buffer is copied with `memcpy` and then processed character by character.
+So definitely it is the AF.exe. Using IDA as debugger I put breakpoints on all CreateFile cals, but later I found out that the application is quite messy and consists of multiple modules which use different approach for accessing filesystem. Some parts were using Win32 api whereas others were using posix fopen. For accessing the **alta.ar** they have used  `FILE *__cdecl fopen(const char *, const char *)`  for opening and `int __cdecl read(int, void *, unsigned int)` for reading. Debugging the code was pretty nasty and the only way how to find the decryption algorithm was to place hardware breakpoint on *memory read* access at the address where the file was read. This buffer is first copied with `memcpy` and then processed character by character.
 
 ![ida.png](ida.png)
 
@@ -94,7 +93,7 @@ By wathing the table addresses generated by this code I found out that it genera
 6400 7b00 8700 9300 aa00 ...
 ```
 
-I did not go deeper to examine how those tables are generated. They could be embedded in the binary, but more likely are they generated run time. By dumping the [tables](tables.txt) and knowing this sequence I was able to write the [decoder in javascript](decod.js):
+I did not go deeper to examine how those tables are generated. They could be embedded in the binary, but more likely are they generated during run time. By dumping the [tables](tables.txt) and knowing this sequence I was able to write the [decoder in javascript](decod.js):
 
 ```
 var ofs = 0x0ebbd720 - 0x0ebb7320 - 0x6400;
