@@ -27,12 +27,12 @@ Workshop:
 - Odizolovanie smaltovanych drotov s pomocou aspirinu
 - Postupne naletovanie prvych styroch led diod v 5 cm intervaloch
 - Detailne vysvetlenie techniky letovania
-- Skopletovanie zapojenia
+- Skompletovanie zapojenia
 - Pokracovanie v letovani diod do konca workshopu (idealne 10 kusov)
 
 ## BOM
 
-63.06 eur pre 8 ucastnikov (rezerva pre dalsich 2 ucastnikov)
+70.06 eur pre 8 ucastnikov (rezerva pre dalsich 2 ucastnikov)
 
 | Pocet | Co                            | Oznacenie GME                                 | Jednotkova cena | Celkova cena | Linka         |
 |-------|-------------------------------|-----------------------------------------------|-----------------|--------------|---------------|
