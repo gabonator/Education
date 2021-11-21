@@ -4,31 +4,14 @@
 
 ![preview](preview2.jpg)
 
-- Workshop zamerany na techniku letovania
-- Vianocna dekoracia s led diodami a 8 pinovym mikrokontrolerom
-- Vzhladom na narocnost konstrukcie programovanie vynechame a prichystame uz funkcne mikrokontrolery
-- Budeme pracovat s medenymi smaltovanymi vodicmi (daju sa ziskat rozobranim transformatora lubovolneho starsieho spotrebica) o hrubke 0.3mm
-- Vyskusame si odstranovanie smaltu s pomocou acylpyrinu (aspirin) ktory bude sluzit ako tavidlo alebo s pomocou lamacieho nozika
-- na dvojvodicovu linku naletujeme 10 smd LED diod rozmeru 1206 so striedavou polaritou (tym padom mame moznost ovladat kazdu parnu a kazdu neparnu diodu zvlast, ale hlavy dovod je redukcia spotreby. Limit MCU je 40mA na pin, budeme sa drzat do 20mA)
+## Beseda
 
-## Anotacia
+Pri konštrukcii jednoduchých elektrických zapojení vychádzame zo schémy, ktorá znázorňuje zapojenie elektrických súčiastok. Prestavíme si základné schématické značky, aby sme počas nasledujúceho workshopu vedeli stotožniť konkrétnu súčiastku s jej grafickou reprezentáciou. Špeciálny dôraz budeme klásť na LED diódy určené pre povrchovú montáž. Pre správne nastavenie pracovného bodu LED diódy potrebujeme limitovať prúd, ktorý ňou prechádza. S pomocou Ohmovho zákona si vysvetlíme, ako vypočítať hodnotu predradného odporu, aby nám reťazec paralelne zapojených diód svietil vhodnou intenzitou. Povieme si niečo aj o vnútornom odpore a o tom, ako vypočítať životnosť zariadenia napájaného batériou.
 
-Beseda:
-- vysvetlenie ako sa programuju MCU (mali sme v predoslom vianocnom workshope), 
-- napatova kalkulacia, spotreba, vydrz
-- ako lahko ziskat smaltovany drot a ake su moznosti jeho odizolovania.
-- Predstavenie SMD suciastok a ich rozmerov
-- Vysvetlenie polarity LED diody
-- Vysvetenie predradneho rezistora
-- Predstavenie celeho zapojenia
-- Predstavenie pouzitych komponentov
+## Workshop
 
-Workshop:
-- Odizolovanie smaltovanych drotov s pomocou aspirinu
-- Postupne naletovanie prvych styroch led diod v 5 cm intervaloch
-- Detailne vysvetlenie techniky letovania
-- Skompletovanie zapojenia
-- Pokracovanie v letovani diod do konca workshopu (idealne 10 kusov)
+Chcete sa naučiť spájkovať cínom alebo zdokonaliť svoju techniku? Príďte na náš workshop, kde Vám skúsený lektor vysvetlí, ako správne pracovať so spájkovačkou, cínom a kolofóniou. Detailne si vysvetlíme celý postup a prípravu medených vodičov pre kvalitný spoj. Okrem užitočných skúseností si z podujatia domov prinesiete zaujímavú vianočnú dekoráciu, ktorú si sami zostrojíte. Spájkovať budeme okrem lankových vodičov aj smaltovaný drôt. Smalt budeme odstraňovať mechanicky s nožom, alebo s Acylpyrínom použitým ako tavidlo.
+Na takýto drôt budeme pripájať LED diódy pre povrchovú montáž (SMT) a s pomocou predprogramovaného kontroléra Atmel Tiny a gombíkových batérií vyrobíme tlačítkom aktivované dekoračné svietidlo. 
 
 ## BOM
 
@@ -57,6 +40,32 @@ Workshop:
 
 ## Priprava
 - TBD
+
+## Poznamky
+
+- Workshop zamerany na techniku letovania
+- Vianocna dekoracia s led diodami a 8 pinovym mikrokontrolerom
+- Vzhladom na narocnost konstrukcie programovanie vynechame a prichystame uz funkcne mikrokontrolery
+- Budeme pracovat s medenymi smaltovanymi vodicmi (daju sa ziskat rozobranim transformatora lubovolneho starsieho spotrebica) o hrubke 0.3mm
+- Vyskusame si odstranovanie smaltu s pomocou acylpyrinu (aspirin) ktory bude sluzit ako tavidlo alebo s pomocou lamacieho nozika
+- na dvojvodicovu linku naletujeme 10 smd LED diod rozmeru 1206 so striedavou polaritou (tym padom mame moznost ovladat kazdu parnu a kazdu neparnu diodu zvlast, ale hlavy dovod je redukcia spotreby. Limit MCU je 40mA na pin, budeme sa drzat do 20mA)
+
+Beseda:
+- vysvetlenie ako sa programuju MCU (mali sme v predoslom vianocnom workshope), 
+- napatova kalkulacia, spotreba, vydrz
+- ako lahko ziskat smaltovany drot a ake su moznosti jeho odizolovania.
+- Predstavenie SMD suciastok a ich rozmerov
+- Vysvetlenie polarity LED diody
+- Vysvetenie predradneho rezistora
+- Predstavenie celeho zapojenia
+- Predstavenie pouzitych komponentov
+
+Workshop:
+- Odizolovanie smaltovanych drotov s pomocou aspirinu
+- Postupne naletovanie prvych styroch led diod v 5 cm intervaloch
+- Detailne vysvetlenie techniky letovania
+- Skompletovanie zapojenia
+- Pokracovanie v letovani diod do konca workshopu (idealne 10 kusov)
 
 ## Notes
 - Test: [LED 0805 15mcd cervena](https://www.gme.sk/led-0805-cervena-15mcd-120-kpt-2012ec) 20mA/5 kusov
