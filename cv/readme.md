@@ -2,7 +2,40 @@
 
 In this list you will see some interesting projects I was working on
 
+## 2022
+
+### Webfox HD
+- [webfox](res/2022_webfox.png)
+- Porting DOS game with advanced copy protection into javascript
+- used Cicoparser with Ghidra
+- HD remake: custom renderer with 4x upscaled game map split into layers to build three level parallax
+- Gameplay: smooth scrolling, extended view from 320x200 to 400x200
+- Game music: Amiga MODs converted into MIDI with nodejs, remastered and rendered in Garageband
+- Added sound effects
+- Play online: [https://l.valky.eu/webfox](https://l.valky.eu/webfox)
+
+### Gabuino
+- [gabuino](res/2022_gabuino.jpg)
+- Arduino like IDE with debugging and advanced visualisation features. 
+- Cloud compilation targeting the RAM of STM32F103 achieves incredible deployment speed. 
+- The application is built and flashed in under 300ms. 
+- No software package necessary to install, everything runs in web browser with the help of web usb technology.
+- Project: [https://github.com/gabonator/LA104/tree/master/system/apps_featured/117_gabuino](https://github.com/gabonator/LA104/tree/master/system/apps_featured/117_gabuino)
+- Video: Gabuino: Arduino with debugging and a lot of more
+
+[![Gabuino: Arduino with debugging and a lot of more](https://img.youtube.com/vi/XhIkEYYnNi4/0.jpg)](https://www.youtube.com/watch?v=XhIkEYYnNi4 "Gabuino: Arduino with debugging and a lot of more")
+
 ## 2021
+
+### Alta gate reverse engineering
+- [ag1k](res/2021_ag1kfpga.png)
+- Reverse engineering of encryption algorithm
+- https://github.com/gabonator/Education/tree/master/2021/AltaGateReverse
+- Building standalone package for automated building of FPGA images for Alta Gate devices with Intel/Altera Quartus
+- https://github.com/gabonator/LA104/discussions/81
+- Reverse engineering of flashing protocol for AltaGate FPGAs
+- Flashing utility with integrated validation (the same codebase shared between verilator and FPGA)
+- https://github.com/gabonator/LA104/tree/master/system/apps/123_fpga
 
 ### Cicoparser
 - [CicoParser](https://github.com/gabonator/Education/tree/master/2021/CicoParser) is a set of tools for conversion of IBM PC DOS applications into modern operating systems. Instead of emulation of the computer CPU, memory and peripherals, CicoParser translates assembly code of the program into C language and therefore achieves much higher performance than emulation. This also offers unlimited possibilities to extend or improve the original application
