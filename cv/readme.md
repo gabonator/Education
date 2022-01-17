@@ -5,7 +5,7 @@ In this list you will see some interesting projects I was working on
 ## 2022
 
 ### Webfox HD
-- [webfox](res/2022_webfox.png)
+- ![webfox](res/2022_webfox.png)
 - Porting DOS game with advanced copy protection into javascript
 - used Cicoparser with Ghidra
 - HD remake: custom renderer with 4x upscaled game map split into layers to build three level parallax
@@ -15,7 +15,7 @@ In this list you will see some interesting projects I was working on
 - Play online: [https://l.valky.eu/webfox](https://l.valky.eu/webfox)
 
 ### Gabuino
-- [gabuino](res/2022_gabuino.jpg)
+- ![gabuino](res/2022_gabuino.jpg)
 - Arduino like IDE with debugging and advanced visualisation features. 
 - Cloud compilation targeting the RAM of STM32F103 achieves incredible deployment speed. 
 - The application is built and flashed in under 300ms. 
@@ -28,7 +28,7 @@ In this list you will see some interesting projects I was working on
 ## 2021
 
 ### Alta gate reverse engineering
-- [ag1k](res/2021_ag1kfpga.png)
+- ![ag1k](res/2021_ag1kfpga.png)
 - Reverse engineering of encryption algorithm
 - https://github.com/gabonator/Education/tree/master/2021/AltaGateReverse
 - Building standalone package for automated building of FPGA images for Alta Gate devices with Intel/Altera Quartus
