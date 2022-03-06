@@ -38,8 +38,10 @@ Na takýto drôt budeme pripájať LED diódy pre povrchovú montáž (SMT) a s 
 - 1x Acylpyrin (balenie obsahuje 10 tabliet)
 - obojstranna lepiaca paska
 
-## Priprava
-- TBD
+## Prezentacia
+- [Prezentacia](prezentacia.pdf)
+- [Postup](postup.md)
+
 
 ## Poznamky
 
@@ -66,6 +68,17 @@ Workshop:
 - Detailne vysvetlenie techniky letovania
 - Skompletovanie zapojenia
 - Pokracovanie v letovani diod do konca workshopu (idealne 10 kusov)
+
+## Modely
+- [Telo zatky](zatka_telo.stl)
+- [Vrchnak zatky](zatka_vrchnak.stl)
+- [Drziak baterie](zatka_bateria.stl)
+- [Adapter na velku flasu](zatka_adapter.stl)
+
+## Program
+
+- Zdrojovy kod: [dekoracia.ino](dekoracia.ino)
+- Skompilovany firmware: [dekoracia.hex](dekoracia.hex)
 
 ## Notes
 - Test: [LED 0805 15mcd cervena](https://www.gme.sk/led-0805-cervena-15mcd-120-kpt-2012ec) 20mA/5 kusov

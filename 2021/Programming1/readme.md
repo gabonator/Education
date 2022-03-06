@@ -25,4 +25,5 @@ A práve nástroj Developer Tools v browseri Chrome použijeme ako editor a debu
 - https://www.bigtimer.net/?minutes=10
 - Onlinegdb: [https://www.onlinegdb.com/online_c_compiler](https://www.onlinegdb.com/online_c_compiler)
 - Programy pre onlinegdb [onlinegdb](onlinegdb.md)
-
+- Timing: +1:30 - Uloha 1, +3:30 - Uloha 21
+- Symbol pipy - prerusovana alebo suvisla zvisla ciara |
