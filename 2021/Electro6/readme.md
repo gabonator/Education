@@ -4,6 +4,8 @@
 
 ![preview](preview2.jpg)
 
+![preview](photo.jpg)
+
 ## Beseda
 
 Pri konštrukcii jednoduchých elektrických zapojení vychádzame zo schémy, ktorá znázorňuje zapojenie elektrických súčiastok. Prestavíme si základné schématické značky, aby sme počas nasledujúceho workshopu vedeli stotožniť konkrétnu súčiastku s jej grafickou reprezentáciou. Špeciálny dôraz budeme klásť na LED diódy určené pre povrchovú montáž. Pre správne nastavenie pracovného bodu LED diódy potrebujeme limitovať prúd, ktorý ňou prechádza. S pomocou Ohmovho zákona si vysvetlíme, ako vypočítať hodnotu predradného odporu, aby nám reťazec paralelne zapojených diód svietil vhodnou intenzitou. Povieme si niečo aj o vnútornom odpore a o tom, ako vypočítať životnosť zariadenia napájaného batériou.
@@ -74,6 +76,10 @@ Workshop:
 - [Vrchnak zatky](zatka_vrchnak.stl)
 - [Drziak baterie](zatka_bateria.stl)
 - [Adapter na velku flasu](zatka_adapter.stl)
+
+![model](readme.png)
+
+![print layout](printlayout.png)
 
 ## Program
 

@@ -1,3 +1,9 @@
+// Additional Board Manager URLs: 
+// https://raw.githubusercontent.com/damellis/attiny/ide-1.6.x-boards-manager/package_damellis_attiny_index.json
+// Board: ATtiny25/45/85
+// Processor: ATtiny45
+// Clock: Internal 1 MHz
+
 /*
     ATTiny45 / ATTiny25
     
