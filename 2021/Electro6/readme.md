@@ -81,6 +81,11 @@ Workshop:
 
 ![print layout](printlayout.png)
 
+Print settings:
+  - 0.15mm speed
+  - PLA
+  - fill density: 20%
+
 ## Program
 
 - Zdrojovy kod: [dekoracia.ino](dekoracia.ino)
