@@ -7,7 +7,8 @@ In this list you will see some interesting projects I was working on
 ### Webfox HD
 ![webfox](res/2022_webfox.png)
 - Porting DOS game with advanced copy protection into javascript
-- used Cicoparser with Ghidra
+- used DosBox with debugging to extract unpacked game
+- used Cicoparser with Ghidra for conversion
 - HD remake: custom renderer with 4x upscaled game map split into layers to build three level parallax, GIF animations, HTML/CSS composition using mix-blend-mode feature
 - Gameplay: smooth scrolling, extended view from 320x200 to 400x200
 - Game music: Amiga MODs converted into MIDI with nodejs, remastered and rendered in Garageband
