@@ -1,0 +1,116 @@
+<html>
+<div id="game" style="width:800px; height:400px; border:1px solid #d0d0d0">
+</div>
+<script>
+class Ball {
+  constructor()
+  {
+    var elem = document.createElement("img");
+    elem.setAttribute("src", ["red.png", "green.png", "blue.png"][Math.floor(Math.random()*3)]);
+    elem.setAttribute("height", "40");
+    elem.setAttribute("width", "40");
+    elem.setAttribute("alt", "Flower");
+    elem.setAttribute("style", "position:absolute");
+    document.querySelector("#game").appendChild(elem);
+    this.element = elem;
+    this.x = 0;
+    this.y = 0;
+    this.vx = 0;
+    this.vy = 0;
+    this.ax = 0;
+    this.ay = 0.1;
+    this.setPosition(Math.random()*800, Math.random()*400);
+    this.setVector((Math.random()*2-1)*5, (Math.random()*2-1)*5);
+    this.show();
+  }
+  show()
+  {
+    this.element.style.left = this.x-10; // preco -10?
+    this.element.style.top = this.y-10;
+  }
+  setPosition(x, y)
+  {
+    this.x = x;
+    this.y = y;
+  }
+  setVector(vx, vy)
+  {
+    this.vx = vx;
+    this.vy = vy;
+  }
+  distance(b)
+  {
+    return Math.sqrt((b.x-this.x)**2+(b.y-this.y)**2);
+  }                                                     	
+  update(balls)
+  {
+    this.ax = 0;
+    this.ay = 0.1;
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].element != this.element && this.distance(balls[i]) < 20+20)
+      {
+        //var dist = Math.max(10, this.distance(balls[i]));
+        // dist 10..40
+
+//        var force = 1/(1-(dist/40));
+        var vect = {x:this.x-balls[i].x, y:this.y-balls[i].y};
+        var vlen = Math.sqrt(vect.x**2 + vect.y**2);        
+        vect.x /= vlen;
+        vect.y /= vlen;
+
+        if (vlen < 0.001)
+        {
+          vlen = 1;
+          var a = Math.random()*6.28;
+          vect = {x:Math.cos(a), y:Math.sin(a)};
+        }
+
+        vect.x += (Math.random()*2-1)*0.1;
+        vect.y += (Math.random()*2-1)*0.1;
+        //vlen 0..40
+        // 40 -> 0
+        // 39 -> 1
+        // 20 -> 20
+        var k = (40-vlen)/40; // 0 - far, 1 - identity
+        k = Math.max(0.1, 1-k);
+        k = 1/Math.pow(k, 0.5)/10;
+//        this.x += vect.x*k/2;
+//        this.y += vect.y*k/2;
+        this.ax += vect.x*k;
+        this.ay += vect.y*k;
+      }
+    this.vx += this.ax;
+    this.vy += this.ay;
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vx *= 0.99;
+    this.vy *= 0.99;
+//    if (this.y < 400-20-2)
+    if (this.y > 400-20)
+    {
+      this.vy = -Math.abs(this.vy)*0.9;
+      this.y = 400-20;
+    }
+    if (this.x > 800-20)
+    {
+      this.x = 800-20;
+      this.vx = -Math.abs(this.vx)*0.9-0.01;
+    }
+    if (this.x < 20)
+    {
+      this.x = 20;
+      this.vx = Math.abs(this.vx)*0.9+0.01;
+    }
+    this.show();
+  }
+}
+
+var balls = [new Ball()];
+for (var i=0; i<150; i++)
+  balls.push(new Ball());
+setInterval(() =>
+{
+  balls.forEach(b=>b.update(balls));
+}, 10);
+</script>
+</html>

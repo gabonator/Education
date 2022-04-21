@@ -1,0 +1,324 @@
+<html>
+<div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
+<img id="bar" src="bar.png" style="position:absolute; left:0px; top:-282px;">
+</div>
+<script>
+var BallType = {Invalid:0, MapVisible:1, MapHidden:2, Effect:3, Fire:4};
+
+class Game {
+  constructor(id)
+  {
+    this.element = document.querySelector(id);
+    this.width = parseInt(this.element.style.width);
+    this.height = parseInt(this.element.style.height);
+    this.balls = [];
+
+    var elem = document.createElement("img");
+    elem.setAttribute("src", "arrow.png");
+    elem.setAttribute("style", "position:absolute");
+    document.querySelector("#game").appendChild(elem);
+    this.arrow = elem;
+    this.arrow.style.left = this.width/2;
+    this.arrow.style.top = this.height-60;
+    this.angle = 90;
+    this.top = 0;
+    for (var y=0; y<(this.height-40)/34; y++)
+      for (var x=0; x<(this.width-20)/36-(y&1); x++)
+      {
+        var type = (y<5) ? BallType.MapVisible : BallType.MapHidden;
+        this.balls.push(new Ball(type, this).setPosition(20+x*36 + (y&1)*20, 20+y*34).setSpeed(0));
+      }
+
+    this.cannon = new Ball(BallType.Effect, this).setPosition(this.width/2, this.height-40).randomColor();
+    this.balls.push(this.cannon);
+    this.aim(this.angle);
+    this.attachKeys();
+  }
+  aim(angle)
+  {
+    this.arrow.style.transform = "translate(-24px, 0px) rotate("+(-angle)+"deg) translate(+20px, 0px)";
+  }
+  fire(b)
+  {
+    b.setPosition(this.width/2, this.height-40).setAngle(this.angle).setSpeed(5).setColor(this.cannon.getColor()).show();
+    var colors = this.balls.filter(b=>b.type==BallType.MapVisible)
+      .map(b=>b.getColor()).filter((v, i, a) => a.indexOf(v) === i);
+    this.cannon.setColor(colors[Math.floor(Math.random()*colors.length)]);
+    return b;
+  }
+  update()
+  {
+    this.balls = this.balls.filter(b=>b.element);
+    this.balls.forEach(b=>b.update(this.balls));
+    this.balls.filter(b => b.type == BallType.MapVisible || b.type == BallType.MapHidden)
+      .forEach(b=>b.y += 0.03);
+    this.top += 0.03;
+
+    document.querySelector("#bar").style.top = -282+this.top;
+    if (this.isKeyDown(32))
+    {
+       this.clearKey(32);
+       this.balls.push(this.fire(new Ball(BallType.Fire, this)));
+    }
+    if (this.isKeyDown(37) && this.angle < 180-20)
+    {
+      this.angle += 1;
+      this.aim(this.angle);
+    }
+    if (this.isKeyDown(39) && this.angle > 20)
+    {
+      this.angle -= 1;
+      this.aim(this.angle);
+    }
+  }
+  explode(balls)
+  {
+    var center = {x:0, y:0, n:0};
+    for (let b of balls)
+    {
+      center.x += b.x;
+      center.y += b.y;
+      center.n ++;
+    }
+    center.x /= center.n;
+    center.y /= center.n;
+    for (var b of balls)
+    {
+      var angle = Math.atan2(b.y-center.y, b.x-center.x)*180/Math.PI;
+      this.balls.push(new Ball(BallType.Effect, this).setPosition(b.x, b.y).setAngle(angle).setSpeed(3).setGravity(0.3).setColor(b.getColor()).show());
+    }
+  }
+  attachKeys()
+  {
+    var leftKey = 37, upKey = 38, rightKey = 39, downKey = 40;
+    this.keystate = {};
+    document.addEventListener("keydown", e => {
+        this.keystate[e.keyCode] = true;
+    });
+    document.addEventListener("keyup", e => {
+        this.keystate[e.keyCode] = false;
+    });
+  }
+  isKeyDown(k)
+  {
+    return this.keystate[k];
+  }
+  clearKey(k)
+  {
+    this.keystate[k] = false;
+  }
+}
+
+class Ball {
+  constructor(type, game)
+  {
+    var elem = document.createElement("img");
+    elem.setAttribute("style", "position:absolute");
+    document.querySelector("#game").appendChild(elem);
+    this.element = elem;
+    this.x = 0;
+    this.y = 0;
+    this.vx = 0;
+    this.vy = 0;
+    this.ax = 0;
+    this.ay = 0;
+    this.type = type;
+    this.game = game;
+    this.randomColor();
+    if (type != BallType.MapHidden)
+      this.show();
+    else
+      this.hide();
+  }
+  show()
+  {
+    if (this.type == BallType.Invalid)
+      return;
+    if (this.type == BallType.MapHidden)
+      this.type = BallType.MapVisible;
+    this.element.style.visibility = "visible";
+    this.element.style.left = this.x-20; // preco -10?
+    this.element.style.top = this.y-20;
+    return this;
+  }
+  hide()
+  {
+    if (this.type == BallType.MapVisible)
+      this.type = BallType.MapHidden;
+    this.element.style.visibility = "hidden";
+    return this;
+  }
+  setPosition(x, y)
+  {
+    this.x = x;
+    this.y = y;
+    return this;
+  }
+  setAngle(a)
+  {
+    this.vx = Math.cos(a/180*Math.PI);
+    this.vy = -Math.sin(a/180*Math.PI);
+    return this;
+  }
+  setSpeed(v)
+  {
+    this.vx *= v;
+    this.vy *= v;
+    return this;
+  }
+  setGravity(a)
+  {
+    this.ay = a;
+    return this;
+  }
+  getColor()
+  {
+    return this.element.src;
+  }
+  setColor(src)
+  {
+    this.element.src = src;
+    return this;
+  }
+  randomColor()
+  {
+    this.element.src = ["red.png", "green.png", "blue.png"][Math.floor(Math.random()*3)];
+    return this;
+  }
+  distance(b)
+  {
+    return Math.sqrt((b.x-this.x)**2+(b.y-this.y)**2);
+  }                                                     	
+  update(balls)
+  {
+    this.vx += this.ax;
+    this.vy += this.ay;
+    this.x += this.vx;
+    this.y += this.vy;
+
+    if (this.type == BallType.Fire)
+      if (this.vx != 0 || this.vy != 0)
+        for (var i=0; i<balls.length; i++)
+          if (balls[i].element != this.element &&
+              balls[i].type == BallType.MapVisible && 
+              balls[i].distance(this) < 30)
+          {
+            this.hit(balls);                        
+            break;
+          }
+
+    if (this.y > this.game.height-20)
+    {
+      this.vy = -Math.abs(this.vy);
+      this.y = this.game.height-20;
+//      if (this.type == BallType.Effect)
+        this.destroy();
+    }
+    if (this.y < 20-2+this.game.top)
+    {
+      this.vy = Math.abs(this.vy);
+      this.y = 20/*+this.game.top*/;
+      this.hit(balls);
+    }
+    if (this.x > this.game.width-20)
+    {
+      this.x = this.game.width-20;
+      this.vx = -Math.abs(this.vx);
+    }
+    if (this.x < 20)
+    {
+      this.x = 20;
+      this.vx = Math.abs(this.vx);
+    }
+    if (this.type != BallType.MapHidden)
+      this.show();
+  }
+  nearbyBalls(balls, matchColor)
+  {
+    var aux = [];
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].type == BallType.MapVisible && 
+          balls[i].distance(this) < 40)
+      {
+        if (!matchColor || balls[i].getColor() == this.getColor())
+          aux.push(balls[i]);
+      }
+    return aux;
+  }
+  topBalls(balls)
+  {
+    var aux = [];
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].type == BallType.MapVisible && 
+          balls[i].y < this.game.top+30)
+      {
+        aux.push(balls[i]);
+      }
+    return aux;
+  }
+  hit(balls)
+  {
+    var nearesti = 0;
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].type == BallType.MapHidden && 
+          balls[i].distance(this) < balls[nearesti].distance(this))
+        nearesti = i;
+
+    var current = balls[nearesti].setColor(this.getColor()).show();
+    var chunk = [current];
+    var process = [current];
+    while (process.length > 0)
+    {
+      var b = process.shift();
+      var incident = b.nearbyBalls(balls, true);
+      for (var i=0; i<incident.length; i++)
+        if (chunk.map(o=>o.element).indexOf(incident[i].element) == -1)
+        {
+          chunk.push(incident[i]);
+          process.push(incident[i]);
+        }
+    }
+    if (chunk.length >= 3)
+    {
+      for (var i=0; i<chunk.length; i++)
+        chunk[i].hide();
+      var overhangs = this.removeOverhangs(balls);
+      for (var i=0; i<overhangs.length; i++)
+        overhangs[i].hide();
+      this.game.explode([...chunk, ...overhangs]);
+    }
+    this.destroy();
+  }
+  removeOverhangs(balls)
+  {
+    var process = this.topBalls(balls);
+    var chunk = [...process];
+    while (process.length > 0)
+    {
+      var b = process.shift();
+      var incident = b.nearbyBalls(balls, false);
+      for (var i=0; i<incident.length; i++)
+        if (chunk.map(o=>o.element).indexOf(incident[i].element) == -1)
+        {
+          chunk.push(incident[i]);
+          process.push(incident[i]);
+        }
+    }
+    var overhangs = [];
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].type == BallType.MapVisible && chunk.map(o=>o.element).indexOf(balls[i].element) == -1)
+        overhangs.push(balls[i]);
+    return overhangs;
+  }
+  destroy()
+  {
+    this.type = BallType.Invalid;
+    this.game.element.removeChild(this.element);
+    delete this.element;
+  }
+}
+
+var game = new Game("#game");
+setInterval(() => {game.update()}, 10);
+</script>
+</html>

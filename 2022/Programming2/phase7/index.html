@@ -1,0 +1,704 @@
+<html>
+<style>
+body 
+{
+    margin:0; padding:0; 
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+</style>
+<meta content="width=device-width" name="viewport"/>
+<meta name="viewport" content="width=device-width,initial-scale=0.9,minimum-scale=0.9,maximum-scale=0.9" />
+</head>
+
+<div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
+<img id="bar" src="bar.png" style="position:absolute; left:0px; top:-282px;">
+  <div id="winner" class="waviy" style="visibility:hidden">
+   <span style="--i:1">W</span>
+   <span style="--i:2">i</span>
+   <span style="--i:3">n</span>
+   <span style="--i:4">n</span>
+   <span style="--i:5">e</span>
+   <span style="--i:6">r</span>
+  </div>
+  <div id="loser" class="waviy" style="visibility:hidden">
+   <span style="--i:1">L</span>
+   <span style="--i:2">o</span>
+   <span style="--i:3">s</span>
+   <span style="--i:4">e</span>
+   <span style="--i:5">r</span>
+   <span style="--i:6">!</span>
+  </div>
+  <div id="countdown" style="visibility:hidden">
+  </div>
+</div>
+
+<style>
+/*@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');*/
+/*
+body {
+  background-color:  #151719;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}*/
+.waviy {
+  top:40%;
+  left:40px;
+  width:100%; height:70px;
+  z-index:100;
+  position: relative;
+  -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0,0,0,.1));
+  font-size: 60px;
+}
+.waviy span {
+  font-family: 'Arial', cursive;
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  color: #f2f;
+  text-transform: uppercase;
+  animation: waviy 1s infinite;
+  animation-delay: calc(.1s * var(--i));
+  
+}
+@keyframes waviy {
+  0%,40%,100% {
+    transform: translateY(0)
+  }
+  20% {
+    transform: translateY(-20px)
+  }
+}
+.countdown {
+  width: 75vmin;
+  height: 75vmin;
+  font-size: 37.5vmin;
+  text-shadow: 3.75vmin 3.75vmin 7.5vmin rgba(0, 0, 0, 0.2);
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: rgba(250, 100, 100, 0.5);
+  font-weight: 700;
+  z-index:200;
+}
+
+.countdown:before {
+  content: "5";
+  animation: 5s 1s forwards timer_countdown, 1s 0.875s 5 timer_beat;
+}
+
+@keyframes timer_beat {
+  40%, 80% { transform: none; }
+  50% { transform: scale(1.125); }
+}
+
+@keyframes timer_countdown {
+  0%   {    content: "5";  }
+  20%  {    content: "4";  }
+  40%  {    content: "3";  }
+  60%  {    content: "2";  }
+  80%  {    content: "1";  }
+  100% {    content: "0";  }
+}
+
+</style>
+
+<script>
+var BallType = {Invalid:0, MapVisible:1, MapHidden:2, Effect:3, Fire:4};
+
+class Game {
+  constructor(id, config)
+  {
+    this.element = document.querySelector(id);
+    this.width = parseInt(this.element.style.width);
+    this.height = parseInt(this.element.style.height);
+    this.balls = [];
+    this.config = config;
+//    this.colors = config.colors; //["red.png", "green.png", "blue.png", "mod150.png", "mod200.png", "mod075.png"];
+
+    var elem = document.createElement("img");
+    elem.setAttribute("src", "arrow.png");
+    elem.setAttribute("style", "position:absolute");
+    document.querySelector("#game").appendChild(elem);
+    this.arrow = elem;
+    this.arrow.style.left = this.width/2;
+    this.arrow.style.top = this.height-60;
+    this.restart();
+  }
+  restart()
+  {
+    this.balls.forEach(b => b.destroy());
+    this.angle = 90;
+    this.top = 0;
+    for (var y=0; y<(this.height-40)/34; y++)
+      for (var x=0; x<(this.width-20)/36-(y&1); x++)
+      {
+        var type = y<this.config.lines ? BallType.MapVisible : BallType.MapHidden;
+        this.balls.push(new Ball(type, this).setPosition(20+x*36 + (y&1)*20, 20+y*34).setSpeed(0));
+      }
+
+    this.cannon = new Ball(BallType.Effect, this).setPosition(this.width/2, this.height-40).randomColor();
+    this.balls.push(this.cannon);
+    this.aim(this.angle);
+    this.keyLeft = false;
+    this.keyRight = false;
+    this.didWin = false;
+    this.didLose = false;
+    this.lastFire = new Date().getTime();
+  }
+  aim(angle)
+  {
+    this.arrow.style.transform = "translate(-24px, 0px) rotate("+(-angle)+"deg) translate(+20px, 0px)";
+  }
+  fire(b)
+  {
+    b.setPosition(this.width/2, this.height-40).setAngle(this.angle).setSpeed(5).setColor(this.cannon.getColor()).show();
+    var colors = this.balls.filter(b=>b.type==BallType.MapVisible)
+      .map(b=>b.getColor()).filter((v, i, a) => a.indexOf(v) === i);
+    if (colors.length > 0)
+      this.cannon.setColor(colors[Math.floor(Math.random()*colors.length)]);
+    if (b.checkHit(this.balls))
+    {
+      this.onLose();
+      b.destroy();
+    }
+    this.lastFire = new Date().getTime();
+    return b;
+  }
+  update()
+  {
+    this.balls = this.balls.filter(b=>b.element);
+    this.balls.forEach(b=>b.update(this.balls));
+    this.balls.filter(b => b.type == BallType.MapVisible || b.type == BallType.MapHidden)
+      .forEach(b=>b.y = b.basey + this.top);
+ 
+    if (!this.didWin && !this.didLose)
+      this.top += this.config.speed;
+    else
+      this.top = this.top > 1 ? this.top * 0.9 : 0;
+    document.querySelector("#bar").style.top = -282+this.top;
+    if (this.keyLeft && this.angle < 160)
+    {
+      this.angle += 1;
+      this.aim(this.angle);
+    }
+    if (this.keyRight && this.angle > 20)
+    {
+      this.angle -= 1;
+      this.aim(this.angle);
+    }
+  }
+  onKeyLeft(b)
+  {
+    this.keyLeft = b;
+  }
+  onKeyRight(b)
+  {
+    this.keyRight = b;
+  }
+  onKeyFire(b)
+  {
+   if (!b || this.didWin || this.didLose)
+     return;
+   this.balls.push(this.fire(new Ball(BallType.Fire, this)));
+  }
+  onMouse(p)
+  {
+   if (this.didWin || this.didLose)
+     return;
+   var b = {x:this.width/2, y:this.height-40};
+   this.angle = Math.atan2(b.y-p.y, -b.x+p.x)*180/Math.PI;
+   this.angle = Math.max(20, Math.min(this.angle, 160));
+   this.aim(this.angle);
+   this.balls.push(this.fire(new Ball(BallType.Fire, this)));
+  }
+  explode(balls)
+  {
+    var center = {x:0, y:0, n:0};
+    for (let b of balls)
+    {
+      center.x += b.x;
+      center.y += b.y;
+      center.n ++;
+    }
+    center.x /= center.n;
+    center.y /= center.n;
+    for (var b of balls)
+    {
+      var angle = Math.atan2(b.y-center.y, b.x-center.x)*180/Math.PI;
+      this.balls.push(new Ball(BallType.Effect, this).setPosition(b.x, b.y).setAngle(angle).setSpeed(3).setGravity(0.3).setColor(b.getColor()).show());
+    }
+  }
+  onLose()
+  {
+    this.didLose = true;
+    console.log("Lose");
+    var visible = this.balls.filter(b=>b.type==BallType.MapVisible);
+    this.explode(visible);
+    visible.forEach(b=>b.hide());
+  }
+  onWin()
+  {
+    this.didWin = true;
+    console.log("Win");
+  }
+}
+
+class Ball {
+  constructor(type, game)
+  {
+    var elem = document.createElement("img");
+    elem.setAttribute("style", "position:absolute");
+    document.querySelector("#game").appendChild(elem);
+    this.element = elem;
+    this.basey = 0;
+    this.x = 0;
+    this.y = 0;
+    this.vx = 0;
+    this.vy = 0;
+    this.ax = 0;
+    this.ay = 0;
+    this.type = type;
+    this.game = game;
+    this.randomColor();
+    if (type != BallType.MapHidden)
+      this.show();
+    else
+      this.hide();
+  }
+  show()
+  {
+    if (this.type == BallType.Invalid)
+      return;
+    if (this.type == BallType.MapHidden)
+      this.type = BallType.MapVisible;
+    this.element.style.visibility = "visible";
+    this.element.style.left = this.x-20; // preco -10?
+    this.element.style.top = this.y-20;
+    return this;
+  }
+  hide()
+  {
+    if (this.type == BallType.MapVisible)
+      this.type = BallType.MapHidden;
+    this.element.style.visibility = "hidden";
+    return this;
+  }
+  setPosition(x, y)
+  {
+    this.x = x;
+    this.y = this.basey = y;
+    return this;
+  }
+  setAngle(a)
+  {
+    this.vx = Math.cos(a/180*Math.PI);
+    this.vy = -Math.sin(a/180*Math.PI);
+    return this;
+  }
+  setSpeed(v)
+  {
+    this.vx *= v;
+    this.vy *= v;
+    return this;
+  }
+  setGravity(a)
+  {
+    this.ay = a;
+    return this;
+  }
+  getColor()
+  {
+    return this.element.src;
+  }
+  setColor(src)
+  {
+    this.element.src = src;
+    return this;
+  }
+  randomColor()
+  {
+    this.element.src = this.game.config.colors[Math.floor(Math.random()*this.game.config.colors.length)];
+//    this.element.src = ["red.png", "green.png", "blue.png"][Math.floor(Math.random()*3)];
+    return this;
+  }
+  distance(b)
+  {
+    return Math.sqrt((b.x-this.x)**2+(b.y-this.y)**2);
+  }                                                     	
+  checkHit(balls)
+  {
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].type == BallType.MapVisible && 
+          balls[i].distance(this) < 30)
+      {
+        return true;
+      }
+    return false;
+  }
+  update(balls)
+  {
+    this.vx += this.ax;
+    this.vy += this.ay;
+    this.x += this.vx;
+    this.y += this.vy;
+
+    if (this.type == BallType.Fire && this.checkHit(balls))
+      this.hit(balls);                        
+
+    if (this.y > this.game.height-20)
+    {
+      this.vy = -Math.abs(this.vy);
+      this.y = this.game.height-20;
+      if (this.type == BallType.MapVisible)
+        this.game.onLose();
+      this.destroy();
+    }
+    if (this.y < 20-1+this.game.top)
+    {
+      this.vy = Math.abs(this.vy);
+      this.y = 20/*+this.game.top*/;
+      this.hit(balls);
+    }
+    if (this.x > this.game.width-20)
+    {
+      this.x = this.game.width-20;
+      this.vx = -Math.abs(this.vx);
+    }
+    if (this.x < 20)
+    {
+      this.x = 20;
+      this.vx = Math.abs(this.vx);
+    }
+    if (this.type != BallType.MapHidden)
+      this.show();
+  }
+  nearbyBalls(balls, matchColor)
+  {
+    var aux = [];
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].type == BallType.MapVisible && 
+          balls[i].distance(this) < 40)
+      {
+        if (!matchColor || balls[i].getColor() == this.getColor())
+          aux.push(balls[i]);
+      }
+    return aux;
+  }
+  topBalls(balls)
+  {
+    var aux = [];
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].type == BallType.MapVisible && 
+          balls[i].y < this.game.top+30)
+      {
+        aux.push(balls[i]);
+      }
+    return aux;
+  }
+  hit(balls)
+  {
+    var nearesti = 0;
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].type == BallType.MapHidden && 
+          balls[i].distance(this) < balls[nearesti].distance(this))
+        nearesti = i;
+
+    var current = balls[nearesti].setColor(this.getColor()).show();
+    var chunk = [current];
+    var process = [current];
+    while (process.length > 0)
+    {
+      var b = process.shift();
+      var incident = b.nearbyBalls(balls, true);
+      for (var i=0; i<incident.length; i++)
+        if (chunk.map(o=>o.element).indexOf(incident[i].element) == -1)
+        {
+          chunk.push(incident[i]);
+          process.push(incident[i]);
+        }
+    }
+    if (chunk.length >= 3)
+    {
+      for (var i=0; i<chunk.length; i++)
+        chunk[i].hide();
+      var overhangs = this.removeOverhangs(balls);
+      for (var i=0; i<overhangs.length; i++)
+        overhangs[i].hide();
+      this.game.explode([...chunk, ...overhangs]);
+      if (balls.filter(b=>b.type == BallType.MapVisible).length == 0)
+        this.game.onWin();
+    }
+    this.destroy();
+  }
+  removeOverhangs(balls)
+  {
+    var process = this.topBalls(balls);
+    var chunk = [...process];
+    while (process.length > 0)
+    {
+      var b = process.shift();
+      var incident = b.nearbyBalls(balls, false);
+      for (var i=0; i<incident.length; i++)
+        if (chunk.map(o=>o.element).indexOf(incident[i].element) == -1)
+        {
+          chunk.push(incident[i]);
+          process.push(incident[i]);
+        }
+    }
+    var overhangs = [];
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].type == BallType.MapVisible && chunk.map(o=>o.element).indexOf(balls[i].element) == -1)
+        overhangs.push(balls[i]);
+    return overhangs;
+  }
+  destroy()
+  {
+    this.type = BallType.Invalid;
+    this.game.element.removeChild(this.element);
+    delete this.element;
+  }
+}
+
+class Controls
+{
+  constructor(game)
+  {
+    this.game = game;
+    this.element = game.element;
+    this.attachKeys();
+    this.attachMouse();
+  }
+
+  attachKeys()
+  {
+    var leftKey = 37, upKey = 38, rightKey = 39, downKey = 40, spaceKey = 32;
+    this.keystate = {};
+    document.addEventListener("keydown", e => {
+      switch (e.keyCode)
+      {
+        case leftKey: this.game.onKeyLeft(true); break;
+        case rightKey: this.game.onKeyRight(true); break;
+        case spaceKey: this.game.onKeyFire(true); break;
+      }
+    });
+    document.addEventListener("keyup", e => {
+      switch (e.keyCode)
+      {
+        case leftKey: this.game.onKeyLeft(false); break;
+        case rightKey: this.game.onKeyRight(false); break;
+        case spaceKey: this.game.onKeyFire(false); break;
+      }
+    });
+  }
+
+  mousePress(p) {
+   this.game.onMouse(p);
+  }
+  mouseRelease(p) {}
+  mouseMove(p) {}
+
+  attachMouse()
+  {
+	// Set up mouse events for drawing
+	var drawing = false;
+	var mousePos = { x:0, y:0 };
+	var lastPos = mousePos;
+	this.element.addEventListener("mousedown", (e) => {
+	        this.mousePress(getMousePos(this.element, e));
+	}, false);
+	this.element.addEventListener("mouseup", (e) => {
+	        this.mouseRelease(getMousePos(this.element, e));
+	}, false);
+	this.element.addEventListener("mousemove", e => {
+	        this.mouseMove(getMousePos(this.element, e));
+	}, false);
+
+	// Set up touch events for mobile, etc
+	this.element.addEventListener("touchstart", function (e) {
+		mousePos = getTouchPos(canvas, e);
+		var touch = e.touches[0];
+		var mouseEvent = new MouseEvent("mousedown", {
+			clientX: touch.clientX,
+			clientY: touch.clientY
+		});
+		this.element.dispatchEvent(mouseEvent);
+                e.preventDefault(); 
+	}, false);
+	this.element.addEventListener("touchend", function (e) {
+		var mouseEvent = new MouseEvent("mouseup", {});
+		this.element.dispatchEvent(mouseEvent);
+                e.preventDefault(); 
+	}, false);
+	this.element.addEventListener("touchmove", function (e) {
+		var touch = e.touches[0];
+		var mouseEvent = new MouseEvent("mousemove", {
+			clientX: touch.clientX,
+			clientY: touch.clientY
+		});
+		this.element.dispatchEvent(mouseEvent);
+                e.preventDefault(); 
+	}, false);
+
+	// Prevent scrolling when touching the canvas
+	document.body.addEventListener("touchstart", function (e) {
+		if (e.target == this.element) {
+			e.preventDefault();
+		}
+	}, false);
+	document.body.addEventListener("touchend", function (e) {
+		if (e.target == this.element) {
+			e.preventDefault();
+		}
+	}, false);
+	document.body.addEventListener("touchmove", function (e) {
+		if (e.target == this.element) {
+			e.preventDefault();
+		}
+	}, false);
+
+	// Get the position of the mouse relative to the canvas
+	var getMousePos = (canvasDom, mouseEvent) => {
+		var rect = canvasDom.getBoundingClientRect();
+                var kx = canvasDom.clientWidth/parseInt(canvasDom.style.width);
+                var ky = canvasDom.clientHeight/parseInt(canvasDom.style.height);
+		return {
+			x: (mouseEvent.clientX - rect.left)/kx,
+			y: (mouseEvent.clientY - rect.top)/ky
+		};
+	}
+
+	// Get the position of a touch relative to the canvas
+	var getTouchPos = (canvasDom, touchEvent) => {
+		var rect = canvasDom.getBoundingClientRect();
+                var kx = canvasDom.clientWidth/parseInt(canvasDom.style.width);
+                var ky = canvasDom.clientHeight/parseInt(canvasDom.style.height);
+		return {
+			x: (touchEvent.touches[0].clientX - rect.left)/kx,
+			y: (touchEvent.touches[0].clientY - rect.top)/ky
+		};
+	}
+  }
+}
+
+class Gameplay
+{
+  getLevel(level)
+  {
+    switch (level)
+    {
+      case 1:
+        return {seeds:[0, 0], speed: 0.00, 
+                lines: 3, timeout:0, colors: ["red.png", "green.png", "blue.png"]};
+      case 2:
+        return {seeds:[0, 0], speed: 0.00, 
+                lines: 4, timeout:0, colors: ["red.png", "green.png", "blue.png"]};
+      case 3:
+        return {seeds:[0, 0], speed: 0.00, 
+                lines: 5, timeout:0, colors: ["red.png", "green.png", "blue.png"]};
+      case 4:
+        return {seeds:[0, 0], speed: 0.00, 
+                lines: 6, timeout:0, colors: ["red.png", "green.png", "blue.png"]};
+      case 5:
+        return {seeds:[0, 0], speed: 0.01, 
+                lines: 6, timeout:0, colors: ["red.png", "green.png", "blue.png", "mod150.png"]};
+      case 6:
+        return {seeds:[0, 0], speed: 0.01, 
+                lines: 6, timeout:0, colors: ["red.png", "green.png", "blue.png", "mod150.png"]};
+      case 7:
+        return {seeds:[0, 0], speed: 0.01, 
+                lines: 6, timeout:0, colors: ["red.png", "green.png", "blue.png", "mod150.png", "mod200.png"]};
+      case 8:
+        return {seeds:[0, 0], speed: 0.02, 
+                lines: 6, timeout:0, colors: ["red.png", "green.png", "blue.png", "mod150.png", "mod200.png", "mod075.png"]};
+      case 9:
+        return {seeds:[0, 0], speed: 0.02, 
+                lines: 6, timeout:0, colors: ["red.png", "green.png", "blue.png", "mod150.png", "mod200.png", "mod075.png"]};
+      default:
+        return {seed: Math.floor(Math.random()*1000000), speed: 0.03, lines: 6, colors: ["red.png", "green.png", "blue.png", "mod150.png", "mod200.png", "mod075.png"]};
+    }
+  }
+  constructor(game)
+  {
+    this.level = 1;
+    this.levelConfig = this.getLevel(this.level);
+    this.game = new Game("#game", this.levelConfig);
+    this.gameRunning = true;
+    this.timeout = null;
+    this.lastFireTimestamp = 0;
+  }
+  runGame()
+  {
+    // TODO: clear dom!
+    this.game.config = this.levelConfig = this.getLevel(this.level);
+    this.game.restart();
+    this.gameRunning = true;
+  }
+  update()
+  {
+    this.game.update();
+    if (this.gameRunning)
+    {
+      if (this.timeout)
+      {
+        if (this.lastFireTimestamp != this.game.lastFire)
+        {
+          this.lastFireTimestamp = this.game.lastFire;
+          var countdown = document.querySelector("#countdown");
+          countdown.style.visibility = "hidden";
+          countdown.className = "";
+          clearTimeout(this.timeout);
+          delete this.timeout;
+        }
+      }
+      if (this.levelConfig.timeout != 0 && !this.timeout && 
+          new Date().getTime() - this.game.lastFire > this.levelConfig.timeout)
+      {
+        this.lastFireTimestamp = this.game.lastFire;
+        var countdown = document.querySelector("#countdown");
+        countdown.style.visibility = "";
+        countdown.className = "countdown";
+        this.timeout = setTimeout(() => {
+          countdown.style.visibility = "hidden";
+          countdown.className = "";
+          this.game.onKeyFire(true);
+        }, this.levelConfig.timeout)
+      }
+      if (this.game.didWin)
+      {
+        document.querySelector("#winner").style.visibility = "";
+        this.gameRunning = false;
+        setTimeout(() =>
+        {
+          this.level++;
+          this.runGame();
+          document.querySelector("#winner").style.visibility = "hidden";
+        }, 3000);
+      }
+      if (this.game.didLose)
+      {
+        document.querySelector("#loser").style.visibility = "";
+        this.gameRunning = false;
+        setTimeout(() =>
+        {
+          this.runGame();
+          document.querySelector("#loser").style.visibility = "hidden";
+        }, 3000);
+      }
+    }
+  }
+}
+
+var gameplay = new Gameplay(game);
+var controls = new Controls(gameplay.game);
+setInterval(() => {gameplay.update()}, 10);
+</script>
+</html>

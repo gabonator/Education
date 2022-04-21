@@ -1,0 +1,35 @@
+<div id="countdown">aa</div>
+
+<style>
+#countdown {
+  width: 75vmin;
+  height: 75vmin;
+  font-size: 37.5vmin;
+  text-shadow: 3.75vmin 3.75vmin 7.5vmin rgba(0, 0, 0, 0.2);
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: pink;
+  font-weight: 700;
+}
+
+#countdown:before {
+  content: "5";
+  animation: 5s 1s forwards timer_countdown, 1s 0.875s 5 timer_beat;
+}
+@keyframes timer_beat {
+  40%, 80% { transform: none; }
+  50% { transform: scale(1.125); }
+}
+
+@keyframes timer_countdown {
+  0%   {    content: "5";  }
+  20%  {    content: "4";  }
+  40%  {    content: "3";  }
+  60%  {    content: "2";  }
+  80%  {    content: "1";  }
+  100% {    content: "0";  }
+}
+</style>

@@ -1,0 +1,329 @@
+<html>
+<div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative;">
+</div>
+<script>
+class Game {
+  constructor(id)
+  {
+    this.element = document.querySelector(id);
+    this.width = parseInt(this.element.style.width);
+    this.height = parseInt(this.element.style.height);
+    this.balls = [];
+    this.effect = [];
+
+    var elem = document.createElement("img");
+    elem.setAttribute("src", "arrow.png");
+    elem.setAttribute("style", "position:absolute");
+    document.querySelector("#game").appendChild(elem);
+    this.arrow = elem;
+    this.arrow.style.left = this.width/2;
+    this.arrow.style.top = this.height-60;
+    this.angle = 90;
+
+    for (var y=0; y<(this.height-40)/34; y++)
+      for (var x=0; x<(this.width-20)/36-(y&1); x++)
+      {
+        var b = new Ball(this).setPosition(20+x*36 + (y&1)*20, 20+y*34).setSpeed(0);
+        this.balls.push(b);
+        if (y<4)
+          b.show();
+        else
+          b.hide();
+      }
+
+    this.cannon = new Ball(this).setPosition(this.width/2, this.height-40).randomColor().show();
+//    this.balls.push(this.fire(new Ball(this)));
+    this.effect.push(this.cannon);
+    this.aim(this.angle);
+    this.attachKeys();
+  }
+  aim(angle)
+  {
+    this.arrow.style.transform = "translate(-24px, 0px) rotate("+(-angle)+"deg) translate(+20px, 0px)";
+  }
+  fire(b)
+  {
+//    var angle = Math.floor(20+(180-40)*Math.random());
+//    this.aim(angle);
+    b.setPosition(this.width/2, this.height-40).setAngle(this.angle).setSpeed(5).setColor(this.cannon.getColor()).show();
+    this.cannon.randomColor();
+    return b;
+  }
+  update()
+  {
+    this.balls = this.balls.filter(b=>b.element);
+    this.balls.forEach(b=>b.update(this.balls));
+    this.effect.forEach(b=>b.update([]));
+    var toDelete = this.effect.filter(b=>b.y >= this.height-20);
+    this.effect = this.effect.filter(b=>b.y < this.height-20);
+    for (let b of toDelete) // todo: remove
+      document.querySelector("#game").removeChild(b.element);
+
+    if (this.isKeyDown(32))
+    {
+       this.clearKey(32);
+       this.balls.push(this.fire(new Ball(this)));
+    }
+    if (this.isKeyDown(37) && this.angle < 180-20)
+    {
+      this.angle += 1;
+      this.aim(this.angle);
+    }
+    if (this.isKeyDown(39) && this.angle > 20)
+    {
+      this.angle -= 1;
+      this.aim(this.angle);
+    }
+  }
+  explode(balls)
+  {
+    var center = {x:0, y:0, n:0};
+    for (let b of balls)
+    {
+      center.x += b.x;
+      center.y += b.y;
+      center.n ++;
+    }
+    center.x /= center.n;
+    center.y /= center.n;
+    for (var b of balls)
+    {
+      var angle = Math.atan2(b.y-center.y, b.x-center.x)*180/Math.PI;
+      this.effect.push(new Ball(this).setPosition(b.x, b.y).setAngle(angle).setSpeed(3).setGravity(0.3).setColor(b.getColor()).show());
+    }
+  }
+  attachKeys()
+  {
+    var leftKey = 37, upKey = 38, rightKey = 39, downKey = 40;
+    this.keystate = {};
+    document.addEventListener("keydown", e => {
+        this.keystate[e.keyCode] = true;
+    });
+    document.addEventListener("keyup", e => {
+        this.keystate[e.keyCode] = false;
+    });
+  }
+  isKeyDown(k)
+  {
+    return this.keystate[k];
+  }
+  clearKey(k)
+  {
+    this.keystate[k] = false;
+  }
+}
+
+class Ball {
+  constructor(game)
+  {
+    var elem = document.createElement("img");
+    elem.setAttribute("src", ["red.png", "green.png", "blue.png"][Math.floor(Math.random()*3)]);
+    elem.setAttribute("height", "40");
+    elem.setAttribute("width", "40");
+    elem.setAttribute("style", "position:absolute");
+    document.querySelector("#game").appendChild(elem);
+    this.element = elem;
+    this.x = 0;
+    this.y = 0;
+    this.vx = 0;
+    this.vy = 0;
+    this.ax = 0;
+    this.ay = 0;
+    this.visible = false;
+    this.game = game;
+  }
+  show()
+  {
+    this.element.style.visibility = "visible";
+    this.visible = true;
+    this.element.style.left = this.x-20; // preco -10?
+    this.element.style.top = this.y-20;
+    return this;
+  }
+  hide()
+  {
+    this.element.style.visibility = "hidden";
+    this.visible = false;
+    return this;
+  }
+  setPosition(x, y)
+  {
+    this.x = x;
+    this.y = y;
+    return this;
+  }
+  setAngle(a)
+  {
+    this.vx = Math.cos(a/180*Math.PI);
+    this.vy = -Math.sin(a/180*Math.PI);
+    return this;
+  }
+  setSpeed(v)
+  {
+    this.vx *= v;
+    this.vy *= v;
+    return this;
+  }
+  setVector(vx, vy)
+  {
+    this.vx = vx;
+    this.vy = vy;
+  }
+  setGravity(a)
+  {
+    this.ay = a;
+    return this;
+  }
+  getColor()
+  {
+    return this.element.src;
+  }
+  setColor(src)
+  {
+    this.element.src = src;
+    return this;
+  }
+  randomColor()
+  {
+    this.element.src = ["red.png", "green.png", "blue.png"][Math.floor(Math.random()*3)];
+    return this;
+  }
+  distance(b)
+  {
+    return Math.sqrt((b.x-this.x)**2+(b.y-this.y)**2);
+  }                                                     	
+  update(balls)
+  {
+    if (!this.visible)
+      return;
+
+    this.vx += this.ax;
+    this.vy += this.ay;
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.vx != 0 || this.vy != 0)
+      for (var i=0; i<balls.length; i++)
+        if (balls[i].element != this.element &&
+            balls[i].visible && balls[i].distance(this) < 30)
+        {
+          this.hit(balls);                        
+          break;
+        }
+    if (this.y > this.game.height-20)
+    {
+      this.vy = -Math.abs(this.vy);
+      this.y = this.game.height-20;
+    }
+    if (this.y < 20)
+    {
+      this.vy = Math.abs(this.vy);
+      this.y = 20;
+      this.hit(balls);
+    }
+    if (this.x > this.game.width-20)
+    {
+      this.x = this.game.width-20;
+      this.vx = -Math.abs(this.vx);
+    }
+    if (this.x < 20)
+    {
+      this.x = 20;
+      this.vx = Math.abs(this.vx);
+    }
+    if (this.visible)
+      this.show();
+  }
+  nearbyBalls(balls, matchColor)
+  {
+    var aux = [];
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].element != this.element && 
+          balls[i].vx == 0 && balls[i].vy == 0 &&
+          balls[i].visible && 
+          balls[i].distance(this) < 40)
+      {
+        if (!matchColor || balls[i].getColor() == this.getColor())
+          aux.push(balls[i]);
+      }
+    return aux;
+  }
+  topBalls(balls)
+  {
+    var aux = [];
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].vx == 0 && balls[i].vy == 0 &&
+          balls[i].visible && 
+          balls[i].y < 40)
+      {
+        aux.push(balls[i]);
+      }
+    return aux;
+  }
+  hit(balls)
+  {
+    var nearesti = 0;
+    for (var i=0; i<balls.length; i++)
+      if (!balls[i].visible && balls[i].distance(this) < balls[nearesti].distance(this))
+        nearesti = i;
+
+    var current = balls[nearesti].setColor(this.getColor()).show();
+    var chunk = [current];
+    var process = [current];
+    while (process.length > 0)
+    {
+      var b = process.shift();
+      var incident = b.nearbyBalls(balls, true);
+      for (var i=0; i<incident.length; i++)
+        if (chunk.map(o=>o.element).indexOf(incident[i].element) == -1)
+        {
+          chunk.push(incident[i]);
+          process.push(incident[i]);
+        }
+    }
+    if (chunk.length >= 3)
+    {
+      for (var i=0; i<chunk.length; i++)
+        chunk[i].hide();
+      var overhangs = this.removeOverhangs(balls);
+      for (var i=0; i<overhangs.length; i++)
+        overhangs[i].hide();
+      this.game.explode([...chunk, ...overhangs]);
+     // vybuch + ako zistit ktore na tom vyseli? 
+    }
+    this.destroy();
+//    this.game.fire(this);
+  }
+  removeOverhangs(balls)
+  {
+    var process = this.topBalls(balls);
+    var chunk = [...process];
+    while (process.length > 0)
+    {
+      var b = process.shift();
+      var incident = b.nearbyBalls(balls, false);
+      for (var i=0; i<incident.length; i++)
+        if (chunk.map(o=>o.element).indexOf(incident[i].element) == -1)
+        {
+          chunk.push(incident[i]);
+          process.push(incident[i]);
+        }
+    }
+    var overhangs = [];
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].vx == 0 && balls[i].vy == 0 && balls[i].visible && chunk.map(o=>o.element).indexOf(balls[i].element) == -1)
+        overhangs.push(balls[i]);
+    return overhangs;
+  }
+  destroy()
+  {
+    this.visible = false;
+    this.game.element.removeChild(this.element);
+    delete this.element;
+  }
+}
+
+var game = new Game("#game");
+setInterval(() => {game.update()}, 10);
+
+</script>
+</html>
