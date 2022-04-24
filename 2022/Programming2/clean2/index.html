@@ -1,0 +1,40 @@
+<html>
+<div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
+</div>
+
+<script>
+var element = document.querySelector("#game");
+var width = parseInt(this.element.style.width);
+var height = parseInt(this.element.style.height);
+
+var x = width/2;
+var y = height/2;
+var vx = 0;
+var vy = 0;
+var radius = 20;
+
+var ball = document.createElement("img");
+ball.src = "red.png";
+ball.setAttribute("style", "position:absolute");
+document.querySelector("#game").appendChild(ball);
+
+setInterval(() => 
+{
+    x = x + vx;
+    y = y + vy;
+
+    if (x < 20)
+      vx = Math.abs(vx);
+    if (x > width-20)
+      vx = -Math.abs(vx);
+
+    if (y < 20)
+      vy = Math.abs(vy);
+    if (y > height-20)
+      vy = -Math.abs(vy);
+
+    ball.style.left = x-20;
+    ball.style.top = y-20;
+}, 10);
+</script>
+</html>

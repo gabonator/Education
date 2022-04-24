@@ -1,0 +1,72 @@
+<html>
+<div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
+</div>
+
+<script>
+var element = document.querySelector("#game");
+var width = parseInt(this.element.style.width);
+var height = parseInt(this.element.style.height);
+
+class Ball
+{
+  constructor(width, height)
+  {
+    this.width = width;
+    this.height = height;
+    this.element = document.createElement("img");
+    this.element.src = ["red.png", "green.png", "blue.png"][Math.floor(Math.random()*3)];
+    this.element.setAttribute("style", "position:absolute");
+    document.querySelector("#game").appendChild(this.element);
+    this.x = 0;
+    this.y = 0;
+    this.vx = 0;
+    this.vy = 0;
+    this.ax = 0;
+    this.ay = 0;
+  }
+  setPosition(x, y)
+  {
+    this.x = x;
+    this.y = y;
+  }
+  update()
+  {
+    this.vx = this.vx + this.ax;
+    this.vy = this.vy + this.ay;
+    this.x = this.x + this.vx;
+    this.y = this.y + this.vy;
+
+    if (this.x < 20)
+      this.vx = Math.abs(this.vx);
+    if (this.x > this.width-20)
+      this.vx = -Math.abs(this.vx);
+    if (this.y < 20)
+      this.vy = Math.abs(this.vy);
+    if (this.y > this.height-20)
+      this.vy = -Math.abs(this.vy);
+
+    this.element.style.left = this.x-20;
+    this.element.style.top = this.y-20;
+  }
+}
+
+var balls = []; 
+
+for (var y=0; y<18; y++)
+  for (var x=0; x<11-(y%2); x++)
+  {
+    var b = new Ball(width, height);
+    if (y%2==0)
+      b.setPosition(x*36+20, 20+y*32);
+    else
+      b.setPosition(x*36+20+18, 20+y*32);
+    balls.push(b)
+  }
+
+setInterval(() => 
+{
+  for (var i=0; i<balls.length; i++)
+    balls[i].update();
+}, 10);
+</script>
+</html>

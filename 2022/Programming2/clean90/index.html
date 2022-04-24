@@ -1,0 +1,182 @@
+<html>
+<div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
+</div>
+
+<script>
+
+class Game {
+  constructor(id)
+  {
+    this.element = document.querySelector("#game");
+    this.width = parseInt(this.element.style.width);
+    this.height = parseInt(this.element.style.height);
+    this.balls = [];
+
+    for (var y=0; y<(this.height-40)/34; y++)
+      for (var x=0; x<(this.width-20)/36-(y&1); x++)
+      {
+        if (y<5)
+          this.balls.push(new Ball(this).setPosition(20+x*36 + (y&1)*20, 20+y*34).show());
+        else
+          this.balls.push(new Ball(this).setPosition(20+x*36 + (y&1)*20, 20+y*34).hide());
+      }
+    this.fireBall = new Ball(this);
+    this.balls.push(this.fireBall);
+    this.fire(this.fireBall);
+  }
+
+  fire(b)
+  {
+    var a = 20+Math.random()*(160-20);
+    b.setPosition(this.width/2, this.height-40).setAngle(a).setSpeed(5).randomColor().show();
+    return b;
+  }
+
+  update()
+  {
+    this.balls.forEach(b=>b.update(this.balls));
+  }
+}
+
+class Ball {
+  constructor(game)
+  {
+    var elem = document.createElement("img");
+    elem.setAttribute("style", "position:absolute");
+    document.querySelector("#game").appendChild(elem);
+    this.element = elem;
+    this.x = 0;
+    this.y = 0;
+    this.vx = 0;
+    this.vy = 0;
+    this.ax = 0;
+    this.ay = 0;
+    this.game = game;
+    this.randomColor();
+  }
+  show()
+  {
+    this.element.style.visibility = "visible";
+    return this;
+  }
+  updatePosition()
+  {
+    this.element.style.left = this.x-20;
+    this.element.style.top = this.y-20;
+    return this;
+  }
+  hide()
+  {
+    this.element.style.visibility = "hidden";
+    return this;
+  }
+  setPosition(x, y)
+  {
+    this.x = x;
+    this.y = y;
+    return this;
+  }
+  setAngle(a)
+  {
+    this.vx = Math.cos(a/180*Math.PI);
+    this.vy = -Math.sin(a/180*Math.PI);
+    return this;
+  }
+  setSpeed(v)
+  {
+    this.vx *= v;
+    this.vy *= v;
+    return this;
+  }
+  getColor()
+  {
+    return this.element.src;
+  }
+  setColor(src)
+  {
+    this.element.src = src;
+    return this;
+  }
+  randomColor()
+  {
+    this.element.src = ["red.png", "green.png", "blue.png"][Math.floor(Math.random()*3)];
+    return this;
+  }
+  distance(b)
+  {
+    return Math.sqrt((b.x-this.x)**2+(b.y-this.y)**2);
+  }
+  isStatic()
+  {
+    return this.vx == 0 && this.vy == 0;
+  }
+  isMoving()
+  {
+    return !this.isStatic();
+  }
+  isHidden()
+  {
+    return this.element.style.visibility == "hidden";
+  }
+  checkHit(balls)
+  {
+    for (var i=0; i<balls.length; i++)
+      if (!balls[i].isHidden() && balls[i].isStatic() &&
+          balls[i].distance(this) < 30)
+      {
+        return true;
+      }
+    return false;
+  }
+  update(balls)
+  {
+    this.vx += this.ax;
+    this.vy += this.ay;
+    this.x += this.vx;
+    this.y += this.vy;
+
+    if (this.isMoving() && this.checkHit(balls))
+      this.hit(balls);                        
+
+    if (this.y > this.game.height-20)
+    {
+      this.vy = -Math.abs(this.vy);
+      this.y = this.game.height-20;
+    }
+    if (this.y < 20)
+    {
+      this.vy = Math.abs(this.vy);
+      this.y = 20;
+      this.hit(balls);
+    }
+    if (this.x > this.game.width-20)
+    {
+      this.x = this.game.width-20;
+      this.vx = -Math.abs(this.vx);
+    }
+    if (this.x < 20)
+    {
+      this.x = 20;
+      this.vx = Math.abs(this.vx);
+    }
+    this.updatePosition();
+  }
+  hit(balls)
+  {
+    var nearesti = 0;
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].isHidden() && 
+          balls[i].distance(this) < balls[nearesti].distance(this))
+        nearesti = i;
+
+    balls[nearesti].setColor(this.getColor()).show();
+
+    //this.destroy();
+    this.game.fire(this.game.fireBall);
+  }
+}
+
+var game = new Game();
+setInterval(() => {game.update()}, 10);
+</script>
+</html>

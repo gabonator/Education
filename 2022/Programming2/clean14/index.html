@@ -1,0 +1,267 @@
+<html>
+<div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
+</div>
+
+<script>
+var element = document.querySelector("#game");
+var width = parseInt(this.element.style.width);
+var height = parseInt(this.element.style.height);
+
+class Ball
+{
+  constructor(width, height)
+  {
+    this.width = width;
+    this.height = height;
+    this.element = document.createElement("img");
+    this.element.src = ["red.png", "green.png", "blue.png"][Math.floor(Math.random()*3)];
+    this.element.setAttribute("style", "position:absolute");
+    document.querySelector("#game").appendChild(this.element);
+    this.x = 0;
+    this.y = 0;
+    this.vx = 0;
+    this.vy = 0;
+    this.ax = 0;
+    this.ay = 0;
+  }
+  setPosition(x, y)
+  {
+    this.x = x;
+    this.y = y;
+  }
+  setAngle(angleDeg)
+  {
+    var angleRad = angleDeg/180*Math.PI;
+    this.vx = Math.cos(angleRad);
+    this.vy = -Math.sin(angleRad);
+  }
+  setSpeed(s)
+  {
+    this.vx *= s;
+    this.vy *= s;
+  }
+  isFire()
+  {
+    return this.vx != 0 || this.vy != 0;
+  }
+  isFalling()
+  {
+    return this.ay != 0;
+  }
+  hide()
+  {
+    this.element.style.visibility = "hidden";
+  }
+  show()
+  {
+    this.element.style.visibility = "visible";
+  }
+  isHidden()
+  {
+    return this.element.style.visibility == "hidden";
+  }
+  isVisible()
+  {
+    return !this.isHidden();
+  }
+  distance(b)
+  {
+    return Math.sqrt((this.x-b.x)**2 + (this.y-b.y)**2);
+  }
+  getColor(c)
+  {
+    return this.element.src;
+  }
+  setColor(c)
+  {
+    this.element.src = c;
+  }
+  randomColor()
+  {
+    this.element.src = ["red.png", "green.png", "blue.png"][Math.floor(Math.random()*3)];
+  }
+  nearbyBalls(balls)
+  {
+    var aux = [];
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].isVisible() && !balls[i].isFire() && !balls[i].isFalling() &&
+          balls[i].element != this.element && 
+          balls[i].distance(this) < 40)
+      {
+        aux.push(balls[i]);
+      }
+    return aux;
+  }
+  topBalls(balls)
+  {
+    var aux = [];
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].isVisible() && !balls[i].isFire() && !balls[i].isFalling() &&
+          balls[i].element != this.element && 
+          balls[i].y < 30)
+      {
+        aux.push(balls[i]);
+      }
+    return aux;
+  }
+
+  hit(balls)
+  {
+    var besti = -1;
+    for (var i=0; i<balls.length; i++)
+      if (balls[i].isHidden())
+      {
+        if (besti == -1 || 
+            this.distance(balls[i]) < this.distance(balls[besti]))
+          besti = i;
+      }
+
+    if (besti == -1)
+      return;
+
+    balls[besti].show();
+    balls[besti].setColor(this.getColor());
+
+    var process = [balls[besti]];
+    var matching = [];
+    while (process.length > 0)
+    {
+      var b = process.shift();
+      matching.push(b);
+      var nearby = b.nearbyBalls(balls);
+      for (var i=0; i<nearby.length; i++)
+        if (nearby[i].getColor() == this.getColor())
+        {
+          if (matching.indexOf(nearby[i]) == -1)
+            process.push(nearby[i]);
+        }
+    }
+
+    if (matching.length >= 3)
+    {
+      for (var i=0; i<matching.length; i++)
+        matching[i].hide();
+
+      var process = this.topBalls(balls);
+      var hanging = [];
+      while (process.length > 0)
+      {
+        var b = process.shift();
+        hanging.push(b);
+        var nearby = b.nearbyBalls(balls);
+        for (var i=0; i<nearby.length; i++)
+        {
+          if (hanging.indexOf(nearby[i]) == -1)
+            process.push(nearby[i]);
+        }
+      }
+
+      for (var i=0; i<balls.length; i++)
+      {
+        if (balls[i].isVisible() && 
+            hanging.indexOf(balls[i]) == -1 && !balls[i].isFire())
+          matching.push(balls[i]);
+      }
+
+      this.explode(balls, matching);
+    }
+  }
+
+  explode(balls, expl)
+  {
+    for (var i=0; i<expl.length; i++)
+    {
+      expl[i].hide();
+      var b = new Ball(this.width, this.height);
+      b.setColor(expl[i].getColor());
+      b.setPosition(expl[i].x, expl[i].y);
+      b.ay = 0.1;
+      balls.push(b);
+    }
+  }
+
+  update(balls)
+  {
+    if (this.isFire() && !this.isFalling())
+    {
+      for (var i=0; i<balls.length; i++)
+        if (!balls[i].isFire() && 
+            balls[i].isVisible() &&
+            this.distance(balls[i]) < 40)
+        {
+          this.hit(balls);
+          this.setPosition(this.width/2, this.height-40);
+          this.setAngle(20+Math.random()*140);
+          this.setSpeed(5);
+          this.randomColor();
+          break;
+        }
+    }
+    this.vx = this.vx + this.ax;
+    this.vy = this.vy + this.ay;
+    this.x = this.x + this.vx;
+    this.y = this.y + this.vy;
+
+    if (this.x < 20)
+      this.vx = Math.abs(this.vx);
+    if (this.x > this.width-20)
+      this.vx = -Math.abs(this.vx);
+    if (this.y < 20)
+    {
+      this.vy = Math.abs(this.vy);
+      if (!this.isFalling() && this.isFire())
+      {
+        this.hit(balls);
+        this.setPosition(this.width/2, this.height-40);
+        this.setAngle(20+Math.random()*140);
+        this.setSpeed(5);
+        this.randomColor();
+      }
+    }
+    if (this.y > this.height-20)
+    {
+      if (this.isFalling())
+      {
+        this.destroy();
+        return;
+      }
+      this.vy = -Math.abs(this.vy);
+    }
+
+    this.element.style.left = this.x-20;
+    this.element.style.top = this.y-20;
+  }
+  destroy()
+  {
+    document.querySelector("#game").removeChild(this.element);
+    delete this.element;
+  }
+}
+
+var balls = []; 
+
+for (var y=0; y<18; y++)
+  for (var x=0; x<11-(y%2); x++)
+  {
+    var b = new Ball(width, height);
+    if (y%2==0)
+      b.setPosition(x*36+20, 20+y*32);
+    else
+      b.setPosition(x*36+20+18, 20+y*32);
+    b.hide();
+    balls.push(b)
+  }
+
+var fire = new Ball(width, height);
+fire.setPosition(width/2, height-50);
+fire.setAngle(45);
+fire.setSpeed(5);
+balls.push(fire);
+setInterval(() => 
+{
+  balls = balls.filter(b => b.element);
+  for (var i=0; i<balls.length; i++)
+    balls[i].update(balls);
+}, 10);
+</script>
+</html>

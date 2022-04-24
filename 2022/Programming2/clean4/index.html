@@ -1,0 +1,71 @@
+<html>
+<div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
+</div>
+
+<script>
+var element = document.querySelector("#game");
+var width = parseInt(this.element.style.width);
+var height = parseInt(this.element.style.height);
+
+var x = []; //width/2;
+var y = []; //height/2;
+var vx = []; //5;
+var vy = []; //-2;
+var ax = []; //0;
+var ay = []; //0.1;
+var radius = 20;
+var balls = []; 
+/*document.createElement("img");
+ball.src = "red.png";
+ball.setAttribute("style", "position:absolute");
+document.querySelector("#game").appendChild(ball);
+*/
+
+for (var i=0; i<10; i++)
+{
+  var b = document.createElement("img");
+  b.src = "red.png";
+  b.setAttribute("style", "position:absolute");
+  document.querySelector("#game").appendChild(b);
+  balls.push(b);
+
+  x.push(Math.random()*width);
+  y.push(Math.random()*height);
+  vx.push(Math.random()*5-2.5);
+  vy.push(Math.random()*5-2.5);
+  ax.push(0);
+  ay.push(0);
+}
+
+setInterval(() => 
+{
+  for (var i=0; i<balls.length; i++)
+  {
+    vx[i] = vx[i] + ax[i];
+    vy[i] = vy[i] + ay[i];
+//    vx[i] = vx[i] * 0.99;
+//    vy[i] = vy[i] * 0.99;
+    x[i] = x[i] + vx[i];
+    y[i] = y[i] + vy[i];
+
+    if (x[i] < 20)
+      vx[i] = Math.abs(vx[i]);
+    if (x[i] > width-20)
+      vx[i] = -Math.abs(vx[i]);
+
+    if (y[i] < 20)
+      vy[i] = Math.abs(vy[i]);
+    if (y[i] > height-20)
+    {
+      vy[i] = -Math.abs(vy[i]);
+      y[i] = height-20;
+      vy[i] *= 0.8;
+      vx[i] *= 0.8;
+    }
+
+    balls[i].style.left = x[i]-20;
+    balls[i].style.top = y[i]-20;
+  }
+}, 10);
+</script>
+</html>
