@@ -1,0 +1,28 @@
+.wave {
+  top:40%;
+  left:40px;
+  width:100%; height:70px;
+  z-index:100;
+  position: relative;
+  -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0,0,0,.1));
+  font-size: 60px;
+}
+.wave span {
+  font-family: 'Arial', cursive;
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  color: #f2f;
+  text-transform: uppercase;
+  animation: wave 1s infinite;
+  animation-delay: calc(.1s * var(--i));
+  
+}
+@keyframes wave {
+  0%,40%,100% {
+    transform: translateY(0)
+  }
+  20% {
+    transform: translateY(-20px)
+  }
+}

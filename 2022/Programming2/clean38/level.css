@@ -1,0 +1,24 @@
+.level {
+  padding-left:100px;
+  padding-top:200px;
+  position: absolute;
+  font-family: sans-serif;
+  font-size: 60px;
+  letter-spacing: 4px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #bff, #000, #bff);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  animation: level-animate 3s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0);
+}
+
+@keyframes level-animate {
+  0% {
+    background-position: -500%;
+  }
+  100% {
+    background-position: 500%;
+  }
+}
