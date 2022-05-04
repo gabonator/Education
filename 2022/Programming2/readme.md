@@ -7,6 +7,7 @@ Klikni pre spustenie hry:
 
 [![readme.png](readme.png)](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/index.html)
 
+![chrome.png](chrome.png)
 
 ## Workshop 1
 Prvý workshop je určený na oboznámenie sa s vývojárskymi nástrojmi, ktoré sú súčasťou programu Chrome. Pozrieme sa na to, ako použiť Chrome na editovanie HTML kódu a taktiež ako takýto kód generovať prostredníctvom Javascriptu. Pre začiatočníkov si vysvetlíme, ako definovať a zavolať funkciu, ako "debugovať" neznámy kód, ako sa zapíše pole a ako adresujeme jeho prvky. 
