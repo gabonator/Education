@@ -1,0 +1,14 @@
+@font-face {
+	font-family:'frozen'; 
+	src:url('frozen.woff');
+}
+
+.chest_open   {transition: transform .2s ease-in-out;
+  text-align:center; font-weight:bold; font-size:50px; padding-top:10px; color:rgba(255,255,255,0.9); display: inline-block; background:url(box.png); background-size:90px 90px; background-repeat:no-repeat; width:90px; height:90px; filter: drop-shadow(0 0 10px rgb(255, 217, 0));}
+.chest_closed {text-align:center; font-weight:bold; font-size:50px; padding-top:10px; color:rgba(255,255,255,0.7); display: inline-block; background:url(box.png); background-size:90px 90px; background-repeat:no-repeat; width:90px; height:90px; filter: saturate(0%); opacity:0.7; }
+.chest_open:hover { transform: scale(1.1); }
+.menu {position:absolute; width:100%; height:100%; left:0px; top:0px; }
+.menu_white { position:absolute; width:100%; height:100%; background:#ffffff; }
+.menu_background { position:absolute; width:100%; height:100%; background:url(stone.jpeg); 
+position:absolute; top:0px; opacity:0.5; filter: saturate(100%) brightness(100%) hue-rotate(0deg); }
+.frozen { padding-top:20px; padding-bottom:40px; width:100%; font-family:frozen; font-size:85px; letter-spacing:15px; text-align:center; background:url(frozen.jpg); background-size: contain; -webkit-background-clip: text; color:transparent; filter: drop-shadow(4px 4px 5px rgb(0, 0, 0));}

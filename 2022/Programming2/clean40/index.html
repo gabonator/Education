@@ -1,6 +1,6 @@
 <html>
 <div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
-<img id="bar" src="bar.png" style="position:absolute;">
+  <img id="bar" src="bar.png" style="position:absolute;">
   <div id="loser" class="wave" style="visibility:hidden">
    <span style="--i:1">L</span>
    <span style="--i:2">o</span>
@@ -18,9 +18,29 @@
    <span style="--i:6">r</span>
   </div>
   <div id="level" style="visibility:hidden">Level 1</div>
+  <div id="menu" class="menu" style="visibility:visible; z-index:100;">
+<!--    <div class="menu_white"></div>-->
+    <div class="menu_background"></div>
+    <div class="frozen">Frozen bubble</div>
+    <div style="padding-left:10px;">
+      <div class="chest_closed">1</div>
+      <div class="chest_closed">2</div>
+      <div class="chest_closed">3</div>
+      <div class="chest_open">4</div>
+      <div class="chest_open">5</div>
+      <div class="chest_closed">6</div>
+      <div class="chest_closed">7</div>
+      <div class="chest_closed">8</div>
+      <div class="chest_closed">9</div>
+      <div class="chest_closed">10</div>
+      <div class="chest_closed">11</div>
+      <div class="chest_closed">12</div>
+    </div>
+  </div>
 </div>
 <link rel="stylesheet" href="wave.css">
 <link rel="stylesheet" href="level.css">
+<link rel="stylesheet" href="menu.css">
 <script src="controls.js"></script>
 <script>
 class Ball
@@ -158,6 +178,7 @@ class Ball
 
     if (matching.length >= 3)
     {
+      this.game.sounds.playDrop();
       for (var i=0; i<matching.length; i++)
         matching[i].hide();
 
@@ -215,6 +236,7 @@ class Ball
   {
     if (this.isFire() && !this.isFalling() && this.checkHit(balls))
     {
+      this.game.sounds.playHit();
       this.hit(balls);
       this.destroy();
       return;
@@ -225,14 +247,23 @@ class Ball
     this.y = this.y + this.vy;
 
     if (this.x < 20)
+    {
       this.vx = Math.abs(this.vx);
+      if (this.isFire() && !this.isFalling())
+        this.game.sounds.playSpring();
+    }
     if (this.x > this.width-20)
+    {
       this.vx = -Math.abs(this.vx);
+      if (this.isFire() && !this.isFalling())
+        this.game.sounds.playSpring();
+    }
     if (this.y < this.game.top+20)
     {
       this.vy = Math.abs(this.vy);
       if (!this.isFalling() && this.isFire())
       {
+        this.game.sounds.playHit();
         this.hit(balls);
         this.destroy();
         return;
@@ -430,20 +461,60 @@ class Game
   }
 }
 
+class Sounds 
+{
+  constructor()
+  {
+    this.spring = new Audio("spring.mp3");
+    this.throwing = new Audio("throw.mp3");
+    this.win = new Audio("win.mp3");
+    this.lose = new Audio("lose.mp3");
+    this.hit = new Audio("hit.mp3");
+    this.drop = new Audio("drop.mp3");
+  }
+  playWin()
+  {
+    this.win.play();
+  }
+  playLose()
+  {
+    this.lose.play();
+  }
+  playThrow()
+  {
+    this.throwing.play();
+  }
+  playSpring()
+  {
+    this.spring.pause();
+    this.spring.currentTime = 0;
+    this.spring.play();
+  }
+  playHit()
+  {
+    this.hit.play();
+  }
+  playDrop()
+  {
+    this.drop.play();
+  }
+}
+
 class GameController extends Game
 {
   constructor()
   {
     super();
+    this.sounds = new Sounds();
     this.playing = true;
     this.level = 1;
     this.onContinue();
   }
-
   onLose()
   {
    if (!this.playing)
      return;
+   this.sounds.playLose();
    this.playing = false;
    this.scrollSpeed = 0;
    var visible = this.balls.filter(ball => ball.element && ball.isVisible() && 
@@ -461,6 +532,7 @@ class GameController extends Game
   {
    if (!this.playing)
      return;
+   this.sounds.playWin();
    this.playing = false;
    this.scrollSpeed = 0;
    this.level = this.level + 1;
@@ -500,9 +572,9 @@ class GameController extends Game
   {
     switch (this.level)
     {
-      case 1: return {rows:3, speed:0.0, wind:0.02, colors:["red.png", "green.png"]};
+      case 1: return {rows:3, speed:0.0, wind:0, colors:["red.png", "green.png"]};
       case 2: return {rows:4, speed:0.0, wind:0, colors:["red.png", "green.png", "blue.png", "mod200.png"]};
-      case 3: return {rows:5, speed:0.1, wind:0, colors:["red.png", "green.png", "blue.png", "mod200.png"]};
+      case 3: return {rows:5, speed:0.1, wind:0.01, colors:["red.png", "green.png", "blue.png", "mod200.png"]};
       default:
         return {rows:5, speed:0.2, wind:0, colors:["red.png", "green.png", "blue.png", "mod200.png"]};
     }

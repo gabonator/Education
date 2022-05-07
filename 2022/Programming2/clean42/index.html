@@ -1,6 +1,6 @@
 <html>
 <div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
-<img id="bar" src="bar.png" style="position:absolute;">
+  <img id="bar" src="bar.png" style="position:absolute;">
   <div id="loser" class="wave" style="visibility:hidden">
    <span style="--i:1">L</span>
    <span style="--i:2">o</span>
@@ -18,9 +18,29 @@
    <span style="--i:6">r</span>
   </div>
   <div id="level" style="visibility:hidden">Level 1</div>
+  <div id="menu" class="menu" style="visibility:hidden; z-index:100;">
+    <div class="menu_white"></div>
+    <div class="menu_background"></div>
+    <div class="frozen">Frozen bubble</div>
+    <div style="padding-left:10px;">
+      <div class="chest_closed">1</div>
+      <div class="chest_closed">2</div>
+      <div class="chest_closed">3</div>
+      <div class="chest_closed">4</div>
+      <div class="chest_closed">5</div>
+      <div class="chest_closed">6</div>
+      <div class="chest_closed">7</div>
+      <div class="chest_closed">8</div>
+      <div class="chest_closed">9</div>
+      <div class="chest_closed">10</div>
+      <div class="chest_closed">11</div>
+      <div class="chest_closed">12</div>
+    </div>
+  </div>
 </div>
 <link rel="stylesheet" href="wave.css">
 <link rel="stylesheet" href="level.css">
+<link rel="stylesheet" href="menu.css">
 <script src="controls.js"></script>
 <script>
 class Ball
@@ -158,6 +178,7 @@ class Ball
 
     if (matching.length >= 3)
     {
+      this.game.sounds.playDrop();
       for (var i=0; i<matching.length; i++)
         matching[i].hide();
 
@@ -215,6 +236,7 @@ class Ball
   {
     if (this.isFire() && !this.isFalling() && this.checkHit(balls))
     {
+      this.game.sounds.playHit();
       this.hit(balls);
       this.destroy();
       return;
@@ -225,14 +247,23 @@ class Ball
     this.y = this.y + this.vy;
 
     if (this.x < 20)
+    {
       this.vx = Math.abs(this.vx);
+      if (this.isFire() && !this.isFalling())
+        this.game.sounds.playSpring();
+    }
     if (this.x > this.width-20)
+    {
       this.vx = -Math.abs(this.vx);
+      if (this.isFire() && !this.isFalling())
+        this.game.sounds.playSpring();
+    }
     if (this.y < this.game.top+20)
     {
       this.vy = Math.abs(this.vy);
       if (!this.isFalling() && this.isFire())
       {
+        this.game.sounds.playHit();
         this.hit(balls);
         this.destroy();
         return;
@@ -288,7 +319,8 @@ class Game
 
     setInterval(() => 
     {
-      this.update()
+      if (this.engineRunning)
+        this.update()
     }, 10);
   }
 
@@ -299,6 +331,7 @@ class Game
     this.colors = levelconfig.colors;
     this.scrollSpeed = levelconfig.speed;
     this.wind = levelconfig.wind;
+    this.engineRunning = true;
 
     if (this.cannon)
       this.cannon.destroy();
@@ -365,6 +398,9 @@ class Game
   }
   onKeyFire(b)
   { 
+    if (!this.engineRunning)
+      return;
+
     if (this.playing && b)
     {
       this.angle = Math.min(Math.max(20, this.angle), 160);
@@ -396,6 +432,9 @@ class Game
   }
   onMouse(pt) 
   {
+    if (!this.engineRunning)
+      return;
+
     var vx = pt.x - this.cannon.x;
     var vy = pt.y - this.cannon.y;
     this.angle = Math.floor(Math.atan2(-vy, vx) * 180 / Math.PI);
@@ -430,20 +469,93 @@ class Game
   }
 }
 
+class Sounds 
+{
+  constructor()
+  {
+    this.spring = new Audio("spring.mp3");
+    this.throwing = new Audio("throw.mp3");
+    this.win = new Audio("win.mp3");
+    this.lose = new Audio("lose.mp3");
+    this.hit = new Audio("hit.mp3");
+    this.drop = new Audio("drop.mp3");
+  }
+  playWin()
+  {
+    this.win.play();
+  }
+  playLose()
+  {
+    this.lose.play();
+  }
+  playThrow()
+  {
+    this.throwing.play();
+  }
+  playSpring()
+  {
+    this.spring.pause();
+    this.spring.currentTime = 0;
+    this.spring.play();
+  }
+  playHit()
+  {
+    this.hit.play();
+  }
+  playDrop()
+  {
+    this.drop.play();
+  }
+}
+
 class GameController extends Game
 {
   constructor()
   {
     super();
+    this.sounds = new Sounds();
     this.playing = true;
     this.level = 1;
-    this.onContinue();
+    this.loadUnlockedLevels();
+//    this.unlockedLevels = [1];
+    this.showMenu();
   }
+  loadUnlockedLevels()
+  {
+    var persistent = localStorage.getItem("unlocked_levels");
+    if (persistent)
+      this.unlockedLevels = JSON.parse(persistent);
+    else
+      this.unlockedLevels = [1];
+  }
+  saveUnlockedLevels()
+  {
+    var persistent = JSON.stringify(this.unlockedLevels);
+    localStorage.setItem("unlocked_levels", persistent);
+  }
+  showMenu()
+  {
+    this.engineRunning = false;
+    document.querySelector("#menu").style.visibility = "visible";
+//    document.querySelectorAll(".chest_open").forEach( elem => elem.className = "chest_closed" );
+    document.querySelectorAll(".chest_closed").forEach( elem => {
+      var l = parseInt(elem.innerHTML);
+      if (this.unlockedLevels.indexOf(l) != -1)
+        elem.className = "chest_open";
+    });
 
+    document.querySelectorAll(".chest_open").forEach( elem => elem.onclick = (e) => {
+      var level = parseInt(e.target.innerHTML);
+      console.log("Set level: " + level);
+      this.level = level;
+      this.onContinue();
+    });
+  }
   onLose()
   {
    if (!this.playing)
      return;
+   this.sounds.playLose();
    this.playing = false;
    this.scrollSpeed = 0;
    var visible = this.balls.filter(ball => ball.element && ball.isVisible() && 
@@ -453,7 +565,8 @@ class GameController extends Game
    document.querySelector("#loser").style.visibility = "visible";
    setTimeout(()=>
    {
-     this.onContinue();
+     //this.onContinue();
+     this.showMenu();
    }, 5000);
   }
 
@@ -461,8 +574,14 @@ class GameController extends Game
   {
    if (!this.playing)
      return;
+   this.sounds.playWin();
    this.playing = false;
    this.scrollSpeed = 0;
+   if (this.unlockedLevels.indexOf(this.level+1) == -1)
+   {
+     this.unlockedLevels.push(this.level+1);
+     this.saveUnlockedLevels();
+   }
    this.level = this.level + 1;
    document.querySelector("#winner").style.visibility = "visible";
    setTimeout(()=>
@@ -474,6 +593,7 @@ class GameController extends Game
   onContinue()
   {
    this.showLevel();
+   document.querySelector("#menu").style.visibility = "hidden";
    document.querySelector("#loser").style.visibility = "hidden";
    document.querySelector("#winner").style.visibility = "hidden";
    this.playing = true;
@@ -500,11 +620,22 @@ class GameController extends Game
   {
     switch (this.level)
     {
-      case 1: return {rows:3, speed:0.0, wind:0.02, colors:["red.png", "green.png"]};
-      case 2: return {rows:4, speed:0.0, wind:0, colors:["red.png", "green.png", "blue.png", "mod200.png"]};
-      case 3: return {rows:5, speed:0.1, wind:0, colors:["red.png", "green.png", "blue.png", "mod200.png"]};
+      case 1: return {speed: 0.00, rows: 5, wind:0, colors: ["red.png", "green.png", "blue.png"]};
+      case 2: return {speed: 0.00, rows: 5, wind:0.03, colors: ["red.png", "green.png", "blue.png"]};
+      case 3: return {speed: 0.01, rows: 6, wind:0, colors: ["red.png", "green.png", "blue.png", "mod150.png"]};
+      case 4: return {speed: 0.06, rows: 3, wind:0, colors: ["bri050.png", "bri100.png", "bri150.png"]};
+
+      case 5: return {speed: 0.02, rows: 6, wind:0, colors: ["red.png", "green.png", "blue.png", "mod150.png", "mod200.png"]};
+      case 6: return {speed: 0.02, rows: 5, wind:-0.05,  colors: ["red.png", "green.png", "blue.png", "bri150.png"]};
+      case 7: return {speed: 0.04, rows: 6, wind:0, colors: ["red.png", "green.png", "blue.png", "mod150.png", "mod200.png", "mod075.png"]};
+      case 8: return {speed: 0.07, rows: 4, wind:0.03, timeout:0, colors: ["red.png", "green.png", "blue.png"]};
+
+      case 9: return {speed: 0.05, rows: 6, wind:0, colors: ["red.png", "green.png", "blue.png", "mod150.png", "mod200.png", "mod075.png", "bri050.png"]};
+      case 10: return {speed: 0.06, rows: 3, wind:0.02, colors: ["bri050.png", "bri100.png", "bri150.png", "bri200.png"]};
+      case 11: return {speed: 0.05, rows: 6, wind:0, colors: ["red.png", "green.png", "blue.png", "mod150.png", "mod200.png", "mod075.png"]};
+      case 12: return {speed: 0.08, rows: 5, wind:0.01, colors: ["red.png", "green.png", "blue.png", "mod150.png", "mod200.png", "mod075.png", "bri050.png"]};
       default:
-        return {rows:5, speed:0.2, wind:0, colors:["red.png", "green.png", "blue.png", "mod200.png"]};
+        return {speed: 0.08, rows: 7, wind:0, colors: ["red.png", "green.png", "blue.png", "mod150.png", "mod200.png", "mod075.png", "bri050.png", "bri150.png"]};
     }
   }
 }

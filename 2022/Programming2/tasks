@@ -5,13 +5,19 @@
   - funkcia
   - zellers algorithm
   - debugovanie
+
   - pole farieb
   - random
-  TEORIA - pole cisel - vypocet sumy
-  TEORIA - vypocet maxima
-  - vnoreny for, bubble sort
+
+p = ["cervena", "zelena", "modra", "biela", "cierna"]
+p[1], co napisat aby vratilo cervenu?
+p.indexOf("biela"), hneda?
+
+
 1.2. Document object model
   - vytvorenie gulicky
+  TEORIA - odkrokovat program [clean1], zmenit css styl canvasu, zistit suradnice, nastavit suradnice,
+    - aku suradnicu musim nastavit aby bola gulicka uplne vpravo dole? (aby sa dotykala stien)
   TEORIA - suradnicova sustava, vektor rychlosti
   - setinterval, testovanie suradnic, vypocet offsetu gulicky, skontrolovanie rohov [clean0]
   - vektor rychlosti [clean1]
@@ -21,7 +27,16 @@
   - demo: vodna hladina [clean5]  + pridat simulaciu vesmiru? + tvorba gule, kvapka, adhezia
   - demo: pruzny odraz [clean6]
   + demo: magnety odpudzujuce
+
+
 2.1. Ping pong
+
+  TEORIA - pole cisel - vypocet sumy
+  TEORIA - vypocet maxima
+  TEORIA - indexof
+  - vnoreny for, bubble sort
+
+
   - objektovy pristup [clean7]
   - vytvorenie siete guliciek nahodnych farieb [clean8]
   - schovanie siete a pridanie lietajucej gule [clean9]
@@ -64,6 +79,16 @@
   - vietor v leveloch, limitovat uhol vysrelu [clean36]
   - vypisat cislo levelu [clean37]
   - tabulka levelov cez funkciu [clean38]
+  - pridanie zvukov [clean39]
+  TEORIA - stahovanie zvukov https://mixkit.co/free-sound-effects/
+3.2
+  - front screen [clean40]
+  - unlockovanie levelov [clean41]
+  - persistent storage - remember unlocked levels [clean42]
+  TEORIA - https://www.w3schools.com/JS/js_api_web_storage.asp
+  TEORIA - JSON parse, JSON stringify
+  - phone opts [clean43]
+
 --------------------------
 
   - refactor na class
