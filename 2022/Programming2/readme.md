@@ -5,7 +5,9 @@ Bootcamp je určený pre účastníkov, ktorí už majú základné skúsenosti 
 
 Klikni pre spustenie hry:
 
-[![readme.png](readme.png)](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/index.html)
+[![readme.png](readme.png)](https://gabo.guru/)
+
+[![front.png](front.png)](https://gabo.guru/)
 
 ![chrome.png](chrome.png)
 
@@ -22,3 +24,15 @@ Základom každej dobrej hry je nastavenie náročnosti tak, aby hra nebola prí
   
 ## Workshop 4
 Upravíme hru, aby bola plnohodnotne hrateľná na telefóne. Zavesíme ju na verejne dostupný web server. Pridáme úvodnú obrazovku s výberom levelov a zvukové efekty. V tejto fáze by sme mali dosiahnuť kvalitnú hru, ktorá udrží pozornosť užívateľa. V porovnaní s hrami na Google play alebo Apple store nebude potrebné na telefón nič inštalovať, iba zadať správnu adresu do prehliadača.
+
+## Samsung Smart TV
+
+- Samsung apps - options - login
+- Login: develop, Password: (empty)
+- Applications - more applications - options
+- Set ip
+- Refresh list
+
+![tv1.jpg](tv1.jpg)
+
+![tv2.jpg](tv2.jpg)
