@@ -1,12 +1,14 @@
+# 1. Zaklady programovania, DOM, fyzika
+
 ## 1.1. Opakovanie
   - chrome ako html editor
   - img src
   - generovanie html cez javascript
   - funkcia, pouzit konzolu na testovanie
+  - **Uloha 1.1.1**
 
 ```html
 <script>
-// Uloha 1.1.1
 // Co robi funkcia pokus?
 
 function pokus(pocet, farba)
@@ -20,11 +22,12 @@ function pokus(pocet, farba)
     document.write("<br>")
 }
 </script>
-```html
+```
+
+  - **Uloha 1.1.2**
 
 ```html
 <script>
-// Uloha 1.1.2
 // Co robi funkcia vykresli?
 function vykresli(stlpcov, riadkov, farba)
 {
@@ -43,19 +46,20 @@ function vykresli(stlpcov, riadkov, farba)
 }
 </script>
 ```
+
   - prepis na for
-  - Uloha 1.1.3: Nakreslit nasledujuci obazok s pomocou funkcie `vykresli`
+  - **Uloha 1.1.3:** Nakreslit nasledujuci obazok s pomocou funkcie `vykresli`
 
 ![chrome.png](uloha113.png)
 
   - Zellers algorithm
   - Nastudujte [Zellerov algoritmus](https://en.wikipedia.org/wiki/Determination_of_the_day_of_the_week)
   - Krokujte s debuggerom a zistite aky bol den v den vasho narodenia, prepis na matematicky vyraz
-  - Funkcia Math.floor, modulo
+  - Funkcia `Math.floor`, modulo `%`
+  - **Uloha 1.1.4**
 
-```javascript
+```html
 <script>
-// Uloha 1.1.4
 function Zeller(D, M, Y)
 {    
     if (M < 3)
@@ -77,15 +81,15 @@ document.write(Zeller(15, 4, 1985))
 ```
 
   - debugovanie
-  - Random Math.random(), co vracia? Ako to upravit aby vracalo nahodnu hodnotu v rozsahu 0..100
+  - Co vracia `Math.random()`? Ako to upravit aby vracalo nahodnu hodnotu v rozsahu 0..100
   - Nahodnu celociselnu hodnotu 1..6?
   - Nahodnu celociselnu hodnotu v rozsahu 10..100?
   - pole farieb
   - Aku hodnotu ma `p[1]`
+  - **Uloha 1.1.5**
 
-```
+```html
 <script>
-// Uloha 1.1.5
 // Aku hodnotu ma p[1], aku hodnotu ma p[1.5],  aku hodnotu ma p[10], aku hodnotu ma p.length?
 // Co napisat aby nam vratilo cervenu farbu?
 // Vypisat nahodnu farbu
@@ -96,10 +100,10 @@ p = ["cervena", "zelena", "modra", "biela", "cierna"]
 
 ## 1.2. Document object model
   - vytvorenie gulicky, program [clean00](clean00/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean00/index.html)
+  - **Uloha 1.2.1**
 
 ```html
 <script>
-// Uloha 1.2.1
 var element = document.querySelector("#game");
 var ball = document.createElement("img");
 ball.src = "red.png";
@@ -111,8 +115,8 @@ element.appendChild(ball);
   - doplnit rozmery (parseint, ukazat v debugu suffix px), doplnit interval, sudadnice nastavit na stred
   - TEORIA - odkrokovat program, zmenit css styl canvasu, zistit suradnice, nastavit suradnice,
   - aku suradnicu musim nastavit aby bola gulicka uplne vpravo dole? (aby sa dotykala stien)
-  - TEORIA - suradnicova sustava, vektor rychlosti
-  - setinterval, testovanie suradnic, vypocet offsetu gulicky, skontrolovanie rohov
+  - TEORIA - suradnicova sustava, vektor rychlosti, TODO: obrazok
+  - `setInterval`, testovanie suradnic, vypocet offsetu gulicky, skontrolovanie rohov
   - vektor rychlosti [clean01](clean01/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean01/index.html)
   - odrazy [clean02](clean02/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean02/index.html)
   - gravitacia a tlmenie [clean03](clean03/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean03/index.html)
