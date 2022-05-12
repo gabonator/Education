@@ -36,3 +36,7 @@ Upravíme hru, aby bola plnohodnotne hrateľná na telefóne. Zavesíme ju na ve
 ![tv1.jpg](tv1.jpg)
 
 ![tv2.jpg](tv2.jpg)
+
+## Priprava
+
+[Priprava](priprava/priprava.md)

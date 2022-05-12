@@ -1,0 +1,19 @@
+<html>
+<script>
+function pocitaj(pocet)
+{
+  var sum = 1;
+  var sign = -1;
+
+  for (var i = 1; i < pocet; i++)
+  {
+      sum += sign / (2 * i + 1);
+      sign = -sign;
+  }
+  return 4 * sum;
+}
+
+document.write("Pi je " + pocitaj(200000).toFixed(5));
+document.write("<br>Mam rad " + ["pomarance", "jablka", "jahody"][Math.floor(Math.random()*3)]);
+</script>
+</html>
