@@ -1,4 +1,5 @@
 ## 2.1. Ping pong
+  - TEORIA - geometria https://www.geogebra.org/m/cNEtsbvC
 
   - TEORIA - pole cisel - vypocet sumy
 
