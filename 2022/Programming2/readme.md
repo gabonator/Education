@@ -39,14 +39,14 @@ Upravíme hru, aby bola plnohodnotne hrateľná na telefóne. Zavesíme ju na ve
 
 ## Priprava
 
-[Priprava](priprava/priprava.md)
+- [Priprava](priprava/priprava.md)
 
 ## Ulohy
 
-[Workshop 1](tasks1.md)
-[Workshop 2](tasks2.md)
-[Workshop 3/4](tasks34.md)
+- [Workshop 1](tasks1.md)
+- [Workshop 2](tasks2.md)
+- [Workshop 3/4](tasks34.md)
 
 ## Diff
 
-[Diff](diff.md)
+- [Diff](diff.md)

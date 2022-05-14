@@ -9,7 +9,7 @@ do
     echo "## Diff $i vs $old" >> diff.md
     echo "" >> diff.md
     echo "\`\`\`diff" >> diff.md
-    diff ../clean$i/index.html ../clean$old/index.html >> diff.md
+    diff ../clean$old/index.html ../clean$i/index.html >> diff.md
     echo "\`\`\`" >> diff.md
     echo >> diff.md
   fi 	
