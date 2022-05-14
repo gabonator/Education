@@ -1,6 +1,8 @@
 # Diff
 ## Diff 01 vs 00
 
+ - [clean01/index.html](clean01/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean01/index.html)
+
 ```diff
 11a12,13
 > var vx = 0;
@@ -11,6 +13,8 @@
 ```
 
 ## Diff 02 vs 01
+
+ - [clean02/index.html](clean02/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean02/index.html)
 
 ```diff
 13a14
@@ -30,6 +34,8 @@
 ```
 
 ## Diff 03 vs 02
+
+ - [clean03/index.html](clean03/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean03/index.html)
 
 ```diff
 12,13c12,15
@@ -55,6 +61,8 @@
 ```
 
 ## Diff 04 vs 03
+
+ - [clean04/index.html](clean04/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean04/index.html)
 
 ```diff
 10,15c10,15
@@ -153,6 +161,8 @@
 
 ## Diff 05 vs 04
 
+ - [clean05/index.html](clean05/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean05/index.html)
+
 ```diff
 24c24
 < for (var i=0; i<10; i++)
@@ -194,6 +204,8 @@
 ```
 
 ## Diff 06 vs 05
+
+ - [clean06/index.html](clean06/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean06/index.html)
 
 ```diff
 24c24
@@ -267,6 +279,8 @@
 ```
 
 ## Diff 07 vs 06
+
+ - [clean07/index.html](clean07/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean07/index.html)
 
 ```diff
 10,24c10
@@ -407,6 +421,8 @@
 
 ## Diff 08 vs 07
 
+ - [clean08/index.html](clean08/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean08/index.html)
+
 ```diff
 20,23c20,23
 <     this.x = Math.random()*width;
@@ -442,6 +458,8 @@
 
 ## Diff 09 vs 08
 
+ - [clean09/index.html](clean09/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean09/index.html)
+
 ```diff
 31a32,50
 >   setAngle(angleDeg)
@@ -474,6 +492,8 @@
 ```
 
 ## Diff 10 vs 09
+
+ - [clean10/index.html](clean10/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean10/index.html)
 
 ```diff
 42a43,46
@@ -533,6 +553,8 @@
 
 ## Diff 11 vs 10
 
+ - [clean11/index.html](clean11/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean11/index.html)
+
 ```diff
 58a59,62
 >   isVisible()
@@ -568,6 +590,8 @@
 ```
 
 ## Diff 12 vs 11
+
+ - [clean12/index.html](clean12/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean12/index.html)
 
 ```diff
 78a79,91
@@ -618,6 +642,8 @@
 
 ## Diff 13 vs 12
 
+ - [clean13/index.html](clean13/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean13/index.html)
+
 ```diff
 90a91,102
 >   topBalls(balls)
@@ -664,6 +690,8 @@
 ```
 
 ## Diff 14 vs 13
+
+ - [clean14/index.html](clean14/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean14/index.html)
 
 ```diff
 46a47,50
@@ -731,10 +759,14 @@
 
 ## Diff 15 vs 14
 
+ - [clean15/index.html](clean15/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean15/index.html)
+
 ```diff
 ```
 
 ## Diff 16 vs 15
+
+ - [clean16/index.html](clean16/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean16/index.html)
 
 ```diff
 171a172
@@ -757,6 +789,8 @@
 ```
 
 ## Diff 17 vs 16
+
+ - [clean17/index.html](clean17/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean17/index.html)
 
 ```diff
 4c4
@@ -802,6 +836,8 @@
 ```
 
 ## Diff 18 vs 17
+
+ - [clean18/index.html](clean18/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean18/index.html)
 
 ```diff
 6,9d5
@@ -897,6 +933,8 @@
 
 ## Diff 19 vs 18
 
+ - [clean19/index.html](clean19/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean19/index.html)
+
 ```diff
 276,280c276,282
 <     var fire = new Ball(this.width, this.height);
@@ -923,6 +961,8 @@
 ```
 
 ## Diff 20 vs 19
+
+ - [clean20/index.html](clean20/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean20/index.html)
 
 ```diff
 53a54,55
@@ -977,6 +1017,8 @@
 
 ## Diff 21 vs 20
 
+ - [clean21/index.html](clean21/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean21/index.html)
+
 ```diff
 288a289,299
 >     this.angle = 90;
@@ -1000,6 +1042,8 @@
 ```
 
 ## Diff 22 vs 21
+
+ - [clean22/index.html](clean22/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean22/index.html)
 
 ```diff
 285,288c285,286
@@ -1042,6 +1086,8 @@
 
 ## Diff 23 vs 22
 
+ - [clean23/index.html](clean23/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean23/index.html)
+
 ```diff
 205,210d204
 < /*
@@ -1070,6 +1116,8 @@
 
 ## Diff 24 vs 23
 
+ - [clean24/index.html](clean24/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean24/index.html)
+
 ```diff
 160c160
 <             hanging.indexOf(balls[i]) == -1 && !balls[i].isFire())
@@ -1088,6 +1136,8 @@
 
 ## Diff 25 vs 24
 
+ - [clean25/index.html](clean25/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean25/index.html)
+
 ```diff
 340c340,345
 <       this.cannon.randomColor();
@@ -1101,6 +1151,8 @@
 ```
 
 ## Diff 26 vs 25
+
+ - [clean26/index.html](clean26/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean26/index.html)
 
 ```diff
 172a173,176
@@ -1145,6 +1197,8 @@
 ```
 
 ## Diff 27 vs 26
+
+ - [clean27/index.html](clean27/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean27/index.html)
 
 ```diff
 2a3,10
@@ -1229,6 +1283,8 @@
 
 ## Diff 28 vs 27
 
+ - [clean28/index.html](clean28/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean28/index.html)
+
 ```diff
 10a11,18
 >   <div id="winner" class="wave" style="visibility:hidden">
@@ -1298,6 +1354,8 @@
 
 ## Diff 29 vs 28
 
+ - [clean29/index.html](clean29/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean29/index.html)
+
 ```diff
 290c290,293
 <     this.restart();
@@ -1338,6 +1396,8 @@
 ```
 
 ## Diff 30 vs 29
+
+ - [clean30/index.html](clean30/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean30/index.html)
 
 ```diff
 31c31
@@ -1398,6 +1458,8 @@
 
 ## Diff 31 vs 30
 
+ - [clean31/index.html](clean31/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean31/index.html)
+
 ```diff
 448c448,456
 <    var levelconfig = {rows:3, colors:["red.png", "green.png", "blue.png", "mod200.png"]};
@@ -1414,6 +1476,8 @@
 ```
 
 ## Diff 32 vs 31
+
+ - [clean32/index.html](clean32/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean32/index.html)
 
 ```diff
 117c117
@@ -1441,6 +1505,8 @@
 
 ## Diff 33 vs 32
 
+ - [clean33/index.html](clean33/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean33/index.html)
+
 ```diff
 2a3
 > <img id="bar" src="bar.png" style="position:absolute;">
@@ -1452,6 +1518,8 @@
 ```
 
 ## Diff 34 vs 33
+
+ - [clean34/index.html](clean34/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean34/index.html)
 
 ```diff
 183c183
@@ -1536,6 +1604,8 @@
 
 ## Diff 35 vs 34
 
+ - [clean35/index.html](clean35/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean35/index.html)
+
 ```diff
 297a298
 >     this.scrollSpeed = levelconfig.speed;
@@ -1598,6 +1668,8 @@
 
 ## Diff 36 vs 35
 
+ - [clean36/index.html](clean36/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean36/index.html)
+
 ```diff
 298a299,300
 >     this.wind = levelconfig.wind;
@@ -1621,6 +1693,8 @@
 ```
 
 ## Diff 37 vs 36
+
+ - [clean37/index.html](clean37/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean37/index.html)
 
 ```diff
 19a20
@@ -1649,6 +1723,8 @@
 
 ## Diff 38 vs 37
 
+ - [clean38/index.html](clean38/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean38/index.html)
+
 ```diff
 481,487c481
 <    var levelconfig;
@@ -1676,6 +1752,8 @@
 ```
 
 ## Diff 39 vs 38
+
+ - [clean39/index.html](clean39/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean39/index.html)
 
 ```diff
 160a161
@@ -1754,6 +1832,8 @@
 
 ## Diff 40 vs 39
 
+ - [clean40/index.html](clean40/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean40/index.html)
+
 ```diff
 3c3
 < <img id="bar" src="bar.png" style="position:absolute;">
@@ -1786,6 +1866,8 @@
 ```
 
 ## Diff 41 vs 40
+
+ - [clean41/index.html](clean41/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean41/index.html)
 
 ```diff
 21,22c21,22
@@ -1876,6 +1958,8 @@
 
 ## Diff 42 vs 41
 
+ - [clean42/index.html](clean42/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean42/index.html)
+
 ```diff
 519,520c519,520
 < 
@@ -1921,6 +2005,8 @@
 ```
 
 ## Diff 43 vs 42
+
+ - [clean43/index.html](clean43/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean43/index.html)
 
 ```diff
 1a2,5
