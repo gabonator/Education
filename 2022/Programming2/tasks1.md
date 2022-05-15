@@ -129,10 +129,10 @@ element.appendChild(ball);
   - aku suradnicu musim nastavit aby bola gulicka uplne vpravo dole? (aby sa dotykala stien)
   - TEORIA - suradnicova sustava, vektor rychlosti, TODO: obrazok
   - `setInterval`, testovanie suradnic, vypocet offsetu gulicky, skontrolovanie rohov
-  - vektor rychlosti [clean01](clean01/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean01/index.html)
-  - odrazy [clean02](clean02/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean02/index.html)
-  - gravitacia a tlmenie [clean03](clean03/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean03/index.html)
-  - viacej guliciek [clean04](clean04/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean04/index.html)
+  - vektor rychlosti [clean01](clean01/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean01/index.html) [diff](https://github.com/gabonator/Education/blob/master/2022/Programming2/diff.md#diff-01-vs-00)
+  - odrazy [clean02](clean02/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean02/index.html) [diff](https://github.com/gabonator/Education/blob/master/2022/Programming2/diff.md#diff-02-vs-01)
+  - gravitacia a tlmenie [clean03](clean03/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean03/index.html) [diff](https://github.com/gabonator/Education/blob/master/2022/Programming2/diff.md#diff-03-vs-02)
+  - viacej guliciek [clean04](clean04/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean04/index.html) [diff](https://github.com/gabonator/Education/blob/master/2022/Programming2/diff.md#diff-04-vs-03)
   - DEMO: odpudzujuce sa magnety [clean05](clean05/index2.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean05/index2.html)
 
 ```javascript
