@@ -98,6 +98,18 @@ p = ["cervena", "zelena", "modra", "biela", "cierna"]
 </script>
 ```
 
+  - **Uloha 1.1.6:** Zistite co robi nasledujuci program
+
+```html
+<script>
+var i = 1;
+setInterval(() => {
+  console.log("Ahoj", i);
+  i++;
+}, 1000);
+</script>
+```
+
 ## 1.2. Document object model
   - vytvorenie gulicky, program [clean00](clean00/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean00/index.html)
   - **Uloha 1.2.1**
@@ -121,7 +133,7 @@ element.appendChild(ball);
   - odrazy [clean02](clean02/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean02/index.html)
   - gravitacia a tlmenie [clean03](clean03/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean03/index.html)
   - viacej guliciek [clean04](clean04/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean04/index.html)
-  - DEMO: odpudzujuce sa magnety [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean05/index2.html)
+  - DEMO: odpudzujuce sa magnety [clean05](clean05/index2.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean05/index2.html)
 
 ```javascript
     // damping 0.92, gravitaciu 0, 0.1, 0.2, 0.3

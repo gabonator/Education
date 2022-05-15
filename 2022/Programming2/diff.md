@@ -1,4 +1,33 @@
 # Diff
+## Reference
+
+```html
+<html>
+<div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
+</div>
+
+<script>
+var element = document.querySelector("#game");
+var width = parseInt(this.element.style.width);
+var height = parseInt(this.element.style.height);
+
+var x = width/2;
+var y = height/2;
+
+var ball = document.createElement("img");
+ball.src = "red.png";
+ball.setAttribute("style", "position:absolute");
+element.appendChild(ball);
+
+setInterval(() => 
+{
+    ball.style.left = x-20;
+    ball.style.top = y-20;
+}, 10);
+</script>
+</html>
+```
+
 ## Diff 01 vs 00
 
  - [clean01/index.html](clean01/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean01/index.html)
