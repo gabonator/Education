@@ -33,8 +33,8 @@ setInterval(() =>
  - [clean01/index.html](clean01/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean01/index.html)
 
 ```diff
---- ../clean00/index.html	2022-05-14 09:08:56.000000000 +0200
-+++ ../clean01/index.html	2022-05-06 08:53:19.000000000 +0200
+--- ../clean00/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean01/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -9,6 +9,8 @@
  
  var x = width/2;
@@ -60,8 +60,8 @@ setInterval(() =>
  - [clean02/index.html](clean02/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean02/index.html)
 
 ```diff
---- ../clean01/index.html	2022-05-06 08:53:19.000000000 +0200
-+++ ../clean02/index.html	2022-05-06 08:53:28.000000000 +0200
+--- ../clean01/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean02/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -11,6 +11,7 @@
  var y = height/2;
  var vx = 0;
@@ -95,8 +95,8 @@ setInterval(() =>
  - [clean03/index.html](clean03/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean03/index.html)
 
 ```diff
---- ../clean02/index.html	2022-05-06 08:53:28.000000000 +0200
-+++ ../clean03/index.html	2022-05-06 08:53:35.000000000 +0200
+--- ../clean02/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean03/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -9,8 +9,10 @@
  
  var x = width/2;
@@ -141,8 +141,8 @@ setInterval(() =>
  - [clean04/index.html](clean04/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean04/index.html)
 
 ```diff
---- ../clean03/index.html	2022-05-06 08:53:35.000000000 +0200
-+++ ../clean04/index.html	2022-05-06 08:53:45.000000000 +0200
+--- ../clean03/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean04/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -7,45 +7,65 @@
  var width = parseInt(this.element.style.width);
  var height = parseInt(this.element.style.height);
@@ -247,8 +247,8 @@ setInterval(() =>
  - [clean05/index.html](clean05/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean05/index.html)
 
 ```diff
---- ../clean04/index.html	2022-05-06 08:53:45.000000000 +0200
-+++ ../clean05/index.html	2022-05-12 22:51:07.000000000 +0200
+--- ../clean04/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean05/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -21,12 +21,12 @@
  document.querySelector("#game").appendChild(ball);
  */
@@ -306,8 +306,8 @@ setInterval(() =>
  - [clean06/index.html](clean06/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean06/index.html)
 
 ```diff
---- ../clean05/index.html	2022-05-12 22:51:07.000000000 +0200
-+++ ../clean06/index.html	2022-04-21 22:17:28.000000000 +0200
+--- ../clean05/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean06/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -21,10 +21,10 @@
  document.querySelector("#game").appendChild(ball);
  */
@@ -393,8 +393,8 @@ setInterval(() =>
  - [clean07/index.html](clean07/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean07/index.html)
 
 ```diff
---- ../clean06/index.html	2022-04-21 22:17:28.000000000 +0200
-+++ ../clean07/index.html	2022-04-21 22:24:08.000000000 +0200
+--- ../clean06/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean07/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -7,98 +7,53 @@
  var width = parseInt(this.element.style.width);
  var height = parseInt(this.element.style.height);
@@ -542,8 +542,8 @@ setInterval(() =>
  - [clean08/index.html](clean08/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean08/index.html)
 
 ```diff
---- ../clean07/index.html	2022-04-21 22:24:08.000000000 +0200
-+++ ../clean08/index.html	2022-04-21 22:28:55.000000000 +0200
+--- ../clean07/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean08/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -17,13 +17,18 @@
      this.element.src = ["red.png", "green.png", "blue.png"][Math.floor(Math.random()*3)];
      this.element.setAttribute("style", "position:absolute");
@@ -593,8 +593,8 @@ setInterval(() =>
  - [clean09/index.html](clean09/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean09/index.html)
 
 ```diff
---- ../clean08/index.html	2022-04-21 22:28:55.000000000 +0200
-+++ ../clean09/index.html	2022-04-21 22:33:05.000000000 +0200
+--- ../clean08/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean09/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -29,6 +29,25 @@
      this.x = x;
      this.y = y;
@@ -644,8 +644,8 @@ setInterval(() =>
  - [clean10/index.html](clean10/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean10/index.html)
 
 ```diff
---- ../clean09/index.html	2022-04-21 22:33:05.000000000 +0200
-+++ ../clean10/index.html	2022-04-21 22:40:47.000000000 +0200
+--- ../clean09/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean10/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -40,6 +40,10 @@
      this.vx *= s;
      this.vy *= s;
@@ -729,8 +729,8 @@ setInterval(() =>
  - [clean11/index.html](clean11/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean11/index.html)
 
 ```diff
---- ../clean10/index.html	2022-04-21 22:40:47.000000000 +0200
-+++ ../clean11/index.html	2022-05-14 09:09:00.000000000 +0200
+--- ../clean10/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean11/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -56,6 +56,10 @@
    {
      return this.element.style.visibility == "hidden";
@@ -793,8 +793,8 @@ setInterval(() =>
  - [clean12/index.html](clean12/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean12/index.html)
 
 ```diff
---- ../clean11/index.html	2022-05-14 09:09:00.000000000 +0200
-+++ ../clean12/index.html	2022-04-21 23:03:00.000000000 +0200
+--- ../clean11/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean12/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -76,6 +76,19 @@
    {
      this.element.src = ["red.png", "green.png", "blue.png"][Math.floor(Math.random()*3)];
@@ -856,8 +856,8 @@ setInterval(() =>
  - [clean13/index.html](clean13/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean13/index.html)
 
 ```diff
---- ../clean12/index.html	2022-04-21 23:03:00.000000000 +0200
-+++ ../clean13/index.html	2022-04-21 23:17:55.000000000 +0200
+--- ../clean12/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean13/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -88,6 +88,18 @@
        }
      return aux;
@@ -918,8 +918,8 @@ setInterval(() =>
  - [clean14/index.html](clean14/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean14/index.html)
 
 ```diff
---- ../clean13/index.html	2022-04-21 23:17:55.000000000 +0200
-+++ ../clean14/index.html	2022-04-22 09:52:04.000000000 +0200
+--- ../clean13/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean14/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -44,6 +44,10 @@
    {
      return this.vx != 0 || this.vy != 0;
@@ -1039,8 +1039,8 @@ setInterval(() =>
  - [clean16/index.html](clean16/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean16/index.html)
 
 ```diff
---- ../clean15/index.html	2022-04-22 10:52:04.000000000 +0200
-+++ ../clean16/index.html	2022-04-26 22:05:26.000000000 +0200
+--- ../clean15/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean16/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -169,12 +169,26 @@
  
    explode(balls, expl)
@@ -1075,8 +1075,8 @@ setInterval(() =>
  - [clean17/index.html](clean17/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean17/index.html)
 
 ```diff
---- ../clean16/index.html	2022-04-26 22:05:26.000000000 +0200
-+++ ../clean17/index.html	2022-04-27 16:43:39.000000000 +0200
+--- ../clean16/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean17/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -1,7 +1,7 @@
  <html>
  <div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
@@ -1145,8 +1145,8 @@ setInterval(() =>
  - [clean18/index.html](clean18/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean18/index.html)
 
 ```diff
---- ../clean17/index.html	2022-04-27 16:43:39.000000000 +0200
-+++ ../clean18/index.html	2022-04-27 16:50:55.000000000 +0200
+--- ../clean17/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean18/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -3,10 +3,6 @@
  </div>
  <script src="controls.js"></script>
@@ -1258,8 +1258,8 @@ setInterval(() =>
  - [clean19/index.html](clean19/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean19/index.html)
 
 ```diff
---- ../clean18/index.html	2022-04-27 16:50:55.000000000 +0200
-+++ ../clean19/index.html	2022-04-27 16:54:41.000000000 +0200
+--- ../clean18/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean19/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -273,11 +273,13 @@
          this.balls.push(b)
        }
@@ -1306,8 +1306,8 @@ setInterval(() =>
  - [clean20/index.html](clean20/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean20/index.html)
 
 ```diff
---- ../clean19/index.html	2022-04-27 16:54:41.000000000 +0200
-+++ ../clean20/index.html	2022-04-27 17:38:51.000000000 +0200
+--- ../clean19/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean20/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -51,6 +51,8 @@
    show()
    {
@@ -1421,8 +1421,8 @@ setInterval(() =>
  - [clean21/index.html](clean21/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean21/index.html)
 
 ```diff
---- ../clean20/index.html	2022-04-27 17:38:51.000000000 +0200
-+++ ../clean21/index.html	2022-04-27 18:22:28.000000000 +0200
+--- ../clean20/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean21/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -286,12 +286,26 @@
      this.cannon.setPosition(this.width/2, this.height-50);
      this.cannon.show();
@@ -1458,8 +1458,8 @@ setInterval(() =>
  - [clean22/index.html](clean22/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean22/index.html)
 
 ```diff
---- ../clean21/index.html	2022-04-27 18:22:28.000000000 +0200
-+++ ../clean22/index.html	2022-04-27 18:32:17.000000000 +0200
+--- ../clean21/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean22/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -282,10 +282,8 @@
          this.balls.push(b)
        }
@@ -1533,8 +1533,8 @@ setInterval(() =>
  - [clean23/index.html](clean23/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean23/index.html)
 
 ```diff
---- ../clean22/index.html	2022-04-27 18:32:17.000000000 +0200
-+++ ../clean23/index.html	2022-04-28 09:51:46.000000000 +0200
+--- ../clean22/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean23/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -202,12 +202,6 @@
              this.distance(balls[i]) < 40)
          {
@@ -1588,8 +1588,8 @@ setInterval(() =>
  - [clean24/index.html](clean24/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean24/index.html)
 
 ```diff
---- ../clean23/index.html	2022-04-28 09:51:46.000000000 +0200
-+++ ../clean24/index.html	2022-04-28 10:00:54.000000000 +0200
+--- ../clean23/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean24/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -157,11 +157,19 @@
        for (var i=0; i<balls.length; i++)
        {
@@ -1618,8 +1618,8 @@ setInterval(() =>
  - [clean25/index.html](clean25/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean25/index.html)
 
 ```diff
---- ../clean24/index.html	2022-04-28 10:00:54.000000000 +0200
-+++ ../clean25/index.html	2022-04-28 10:10:42.000000000 +0200
+--- ../clean24/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean25/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -337,7 +337,12 @@
        this.fire.setSpeed(5);
        this.fire.show();
@@ -1641,8 +1641,8 @@ setInterval(() =>
  - [clean26/index.html](clean26/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean26/index.html)
 
 ```diff
---- ../clean25/index.html	2022-04-28 10:10:42.000000000 +0200
-+++ ../clean26/index.html	2022-04-28 11:38:42.000000000 +0200
+--- ../clean25/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean26/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -170,6 +170,10 @@
            remaining = remaining + 1;
        }
@@ -1708,8 +1708,8 @@ setInterval(() =>
  - [clean27/index.html](clean27/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean27/index.html)
 
 ```diff
---- ../clean26/index.html	2022-04-28 11:38:42.000000000 +0200
-+++ ../clean27/index.html	2022-04-28 12:53:46.000000000 +0200
+--- ../clean26/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean27/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -1,6 +1,15 @@
  <html>
  <div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
@@ -1823,8 +1823,8 @@ setInterval(() =>
  - [clean28/index.html](clean28/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean28/index.html)
 
 ```diff
---- ../clean27/index.html	2022-04-28 12:53:46.000000000 +0200
-+++ ../clean28/index.html	2022-04-29 11:33:00.000000000 +0200
+--- ../clean27/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean28/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -8,16 +8,25 @@
     <span style="--i:5">r</span>
     <span style="--i:6">!</span>
@@ -1952,8 +1952,8 @@ setInterval(() =>
  - [clean29/index.html](clean29/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean29/index.html)
 
 ```diff
---- ../clean28/index.html	2022-04-29 11:33:00.000000000 +0200
-+++ ../clean29/index.html	2022-04-29 11:43:25.000000000 +0200
+--- ../clean28/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean29/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -287,7 +287,10 @@
    constructor()
    {
@@ -2039,8 +2039,8 @@ setInterval(() =>
  - [clean30/index.html](clean30/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean30/index.html)
 
 ```diff
---- ../clean29/index.html	2022-04-29 11:43:25.000000000 +0200
-+++ ../clean30/index.html	2022-04-29 11:59:25.000000000 +0200
+--- ../clean29/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean30/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -28,7 +28,7 @@
      this.width = game.width;
      this.height = game.height;
@@ -2157,8 +2157,8 @@ setInterval(() =>
  - [clean31/index.html](clean31/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean31/index.html)
 
 ```diff
---- ../clean30/index.html	2022-04-29 11:59:25.000000000 +0200
-+++ ../clean31/index.html	2022-04-29 11:59:49.000000000 +0200
+--- ../clean30/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean31/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -445,7 +445,15 @@
     document.querySelector("#winner").style.visibility = "hidden";
     this.playing = true;
@@ -2183,8 +2183,8 @@ setInterval(() =>
  - [clean32/index.html](clean32/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean32/index.html)
 
 ```diff
---- ../clean31/index.html	2022-04-29 11:59:49.000000000 +0200
-+++ ../clean32/index.html	2022-04-29 17:14:05.000000000 +0200
+--- ../clean31/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean32/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -114,7 +114,7 @@
      for (var i=0; i<balls.length; i++)
        if (balls[i].element && balls[i].isVisible() && !balls[i].isFire() && !balls[i].isFalling() &&
@@ -2241,8 +2241,8 @@ setInterval(() =>
  - [clean33/index.html](clean33/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean33/index.html)
 
 ```diff
---- ../clean32/index.html	2022-04-29 17:14:05.000000000 +0200
-+++ ../clean33/index.html	2022-04-29 17:17:11.000000000 +0200
+--- ../clean32/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean33/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -1,5 +1,6 @@
  <html>
  <div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
@@ -2267,8 +2267,8 @@ setInterval(() =>
  - [clean34/index.html](clean34/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean34/index.html)
 
 ```diff
---- ../clean33/index.html	2022-04-29 17:17:11.000000000 +0200
-+++ ../clean34/index.html	2022-04-29 17:31:39.000000000 +0200
+--- ../clean33/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean34/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -180,7 +180,7 @@
            matching.push(balls[i]);
        }
@@ -2377,8 +2377,8 @@ setInterval(() =>
  - [clean35/index.html](clean35/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean35/index.html)
 
 ```diff
---- ../clean34/index.html	2022-04-29 17:31:39.000000000 +0200
-+++ ../clean35/index.html	2022-04-29 18:39:13.000000000 +0200
+--- ../clean34/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean35/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -295,6 +295,7 @@
      this.top = 0;
      //this.levelconfig = levelconfig;
@@ -2478,8 +2478,8 @@ setInterval(() =>
  - [clean36/index.html](clean36/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean36/index.html)
 
 ```diff
---- ../clean35/index.html	2022-04-29 18:39:13.000000000 +0200
-+++ ../clean36/index.html	2022-04-29 18:47:33.000000000 +0200
+--- ../clean35/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean36/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -296,6 +296,8 @@
      //this.levelconfig = levelconfig;
      this.colors = levelconfig.colors;
@@ -2525,8 +2525,8 @@ setInterval(() =>
  - [clean37/index.html](clean37/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean37/index.html)
 
 ```diff
---- ../clean36/index.html	2022-04-29 18:47:33.000000000 +0200
-+++ ../clean37/index.html	2022-04-29 18:55:48.000000000 +0200
+--- ../clean36/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean37/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -17,8 +17,10 @@
     <span style="--i:5">e</span>
     <span style="--i:6">r</span>
@@ -2579,8 +2579,8 @@ setInterval(() =>
  - [clean38/index.html](clean38/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean38/index.html)
 
 ```diff
---- ../clean37/index.html	2022-04-29 18:55:48.000000000 +0200
-+++ ../clean38/index.html	2022-05-04 08:48:36.000000000 +0200
+--- ../clean37/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean38/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -478,13 +478,7 @@
     document.querySelector("#winner").style.visibility = "hidden";
     this.playing = true;
@@ -2622,8 +2622,8 @@ setInterval(() =>
  - [clean39/index.html](clean39/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean39/index.html)
 
 ```diff
---- ../clean38/index.html	2022-05-04 08:48:36.000000000 +0200
-+++ ../clean39/index.html	2022-05-04 09:54:26.000000000 +0200
+--- ../clean38/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean39/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -158,6 +158,7 @@
  
      if (matching.length >= 3)
@@ -2751,8 +2751,8 @@ setInterval(() =>
  - [clean40/index.html](clean40/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean40/index.html)
 
 ```diff
---- ../clean39/index.html	2022-05-04 09:54:26.000000000 +0200
-+++ ../clean40/index.html	2022-05-06 08:43:03.000000000 +0200
+--- ../clean39/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean40/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -1,6 +1,6 @@
  <html>
  <div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
@@ -2806,8 +2806,8 @@ setInterval(() =>
  - [clean41/index.html](clean41/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean41/index.html)
 
 ```diff
---- ../clean40/index.html	2022-05-06 08:43:03.000000000 +0200
-+++ ../clean41/index.html	2022-05-04 19:03:41.000000000 +0200
+--- ../clean40/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean41/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -18,16 +18,16 @@
     <span style="--i:6">r</span>
    </div>
@@ -2957,8 +2957,8 @@ setInterval(() =>
  - [clean42/index.html](clean42/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean42/index.html)
 
 ```diff
---- ../clean41/index.html	2022-05-04 19:03:41.000000000 +0200
-+++ ../clean42/index.html	2022-05-04 19:08:59.000000000 +0200
+--- ../clean41/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean42/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -516,10 +516,23 @@
      this.sounds = new Sounds();
      this.playing = true;
@@ -3023,8 +3023,8 @@ setInterval(() =>
  - [clean43/index.html](clean43/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean43/index.html)
 
 ```diff
---- ../clean42/index.html	2022-05-04 19:08:59.000000000 +0200
-+++ ../clean43/index.html	2022-05-05 18:14:22.000000000 +0200
+--- ../clean42/index.html	2022-05-15 23:56:39.000000000 +0200
++++ ../clean43/index.html	2022-05-15 23:56:39.000000000 +0200
 @@ -1,4 +1,8 @@
  <html>
 +<head>
