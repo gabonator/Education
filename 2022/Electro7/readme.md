@@ -19,7 +19,7 @@ TBD
 
 ## BOM
 
-| Pocet | Oznacenie                     | GME     | Oznacenie GME                                 | Jednotkova cena | Celkova cena | Linka         |
+| Pocet | Oznacenie                     | GME kod | Oznacenie GME                                 | Jednotkova cena | Celkova cena | Linka         |
 |-------|-------------------------------|---------|-----------------------------------------------|-----------------|--------------|---------------|
 | 8x    | Wemos D1 mini                 | 775-052 | NodeMcu LUA D1 mini WIFI ESP-12F modul s ESP8266 | 7.76         | 62.08        | https://www.gme.sk/nodemcu-lua-d1-mini-wifi-esp-12f-modul-s-esp8266 |
 | 8x    | DHT22                         | 775-004 | Digitálny teplomer a vlhkomer, THT DHT22      | 8.37            | 66.96        | https://www.gme.sk/digitalny-teplomer-a-vlhkomer-s-dht22 |
