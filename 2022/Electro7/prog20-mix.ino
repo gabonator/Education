@@ -9,10 +9,8 @@
 DHTesp dht;
 NeoPixelBus<NeoGrbFeature, NeoEsp8266Uart1800KbpsMethod> strip(8);
 
-#ifndef STASSID
-#define STASSID "lucia"
-#define STAPSK  "Stefanikova15"
-#endif
+#define STASSID "doma"
+#define STAPSK  "SDfjk193rja"
 
 const char* ssid = STASSID;
 const char* password = STAPSK;

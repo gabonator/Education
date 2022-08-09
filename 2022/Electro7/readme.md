@@ -28,6 +28,104 @@ Workshop je určený pre úplných začiatočníkov bez skúseností s programov
 
 Price per one attendant: (62.08+66.96+22.56+12.72+8.08)/8=21.55
 
+## Tasks
+
+### Workshop 1
+![prezentacia 1](prezentacia1.pdf)
+
+1. Nainstalovat Arduino
+2. Nainstalovat podporu pre esp8266
+3. Blink esp8266
+4. Instalacia kniznice pre ws2812 (NeoPixelBus by Makuna)
+5. TODO: !!!Obrazok ako pripojit led pasik!
+6. Examples -> NeoPixel by Makuna -> NeoPixelAnimation (check)
+7. Co urobi nasledujuci program?
+
+    ```C
+    #include <NeoPixelBus.h>
+
+    NeoPixelBus<NeoGrbFeature, NeoEsp8266Uart1800KbpsMethod> strip(8);
+
+    void setup()
+    {
+      strip.Begin();
+      strip.Show();
+    }
+
+    void loop()
+    {
+      // red, green, blue (0..255)
+      strip.SetPixelColor(0, RgbColor(100, 0, 0));
+      strip.SetPixelColor(1, RgbColor(0, 100, 0));
+      strip.SetPixelColor(2, RgbColor(0, 0, 100));
+      strip.SetPixelColor(3, RgbColor(32, 0, 0));
+      strip.SetPixelColor(4, RgbColor(32, 32, 0));
+      strip.SetPixelColor(5, RgbColor(32, 32, 32));
+      strip.SetPixelColor(6, RgbColor(0, 32, 32));
+      strip.SetPixelColor(7, RgbColor(16, 0, 32));
+
+      // hue, saturation, lightness (0..1)
+      strip.SetPixelColor(7, HslColor(0.5, 1.0, 0.1));
+      
+      strip.Show();
+    }
+
+    ```
+
+8. Upravit program na animaciu semaforu
+
+    ```C
+    #include <NeoPixelBus.h>
+
+    NeoPixelBus<NeoGrbFeature, NeoEsp8266Uart1800KbpsMethod> strip(8);
+
+    void setup()
+    {
+      strip.Begin();
+      strip.Show();
+    }
+
+    void loop()
+    {
+      // red, green, blue (0..255)
+      strip.SetPixelColor(0, RgbColor(100, 0, 0));
+      strip.Show();
+      delay(1000);
+
+      strip.SetPixelColor(0, RgbColor(0, 100, 0));
+      strip.Show();
+      delay(1000);
+
+      strip.SetPixelColor(0, RgbColor(0, 0, 100));
+      strip.Show();
+      delay(1000);
+    }
+    ```
+
+9. Jednoduchy farebny prechod (255, 0, 0) -> (0, 255, 0)
+10. Rychly prechod, min max: (x, 255-2*x, 0), overit limity
+11. Ako urobit prechod z tmavo modrej do svetlo zelenej?
+12. Linearna aproximacia
+
+13. DHT22 - nainstalovat kniznicu
+14. TODO: Obrazok ako pripojit DHT senzor
+15. DHT sensor library for ESPx -> DHT_ESP8266
+16. nefunguje, potrebujeme napajanie, upravit cislo pinu
+
+    ```C
+    pinMode(D1, OUTPUT);
+    digitalWrite(D1, HIGH);
+    pinMode(D3, OUTPUT);
+    digitalWrite(D3, LOW);
+
+    dht.setup(D2, DHTesp::DHT22); // Connect DHT sensor to GPIO 17
+    ```
+
+17. Porovnavanie hodnoty, zapnut led pri vyssej vlhkosti,
+18. Kreslit graf s internym toolom
+
+19. Bonus: Menit farbu podla vlhkosti/teploty
+20. Bonus: Pekne animacie sin/cos
 
 ## Notes
 
