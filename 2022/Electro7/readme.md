@@ -31,14 +31,23 @@ Price per one attendant: (62.08+66.96+22.56+12.72+8.08)/8=21.55
 ## Tasks
 
 ### Workshop 1
-![prezentacia 1](prezentacia1.pdf)
+[prezentacia 1](prezentacia1.pdf)
 
 1. Nainstalovat Arduino
 2. Nainstalovat podporu pre esp8266
 3. Blink esp8266
 4. Instalacia kniznice pre ws2812 (NeoPixelBus by Makuna)
-5. TODO: !!!Obrazok ako pripojit led pasik!
-6. Examples -> NeoPixel by Makuna -> NeoPixelAnimation (check)
+5. Zapojte led pasik
+  ![schemeled.jpeg](schemeled.jpeg)
+
+6. Examples -> NeoPixel by Makuna -> NeoPixelCyclon, zmenit dva riadky:
+    ```C
+    // pocet bodov zvysit na 8 (povodne 4)
+    const uint16_t PixelCount = 8;
+    // driver nastavit na NeoEsp8266Uart1800KbpsMethod (povodne Neo800KbpsMethod)
+    NeoPixelBus<NeoGrbFeature, NeoEsp8266Uart1800KbpsMethod> strip(PixelCount, PixelPin);
+    ```
+
 7. Co urobi nasledujuci program?
 
     ```C
@@ -68,6 +77,7 @@ Price per one attendant: (62.08+66.96+22.56+12.72+8.08)/8=21.55
       strip.SetPixelColor(7, HslColor(0.5, 1.0, 0.1));
       
       strip.Show();
+      delay(100);
     }
 
     ```
@@ -88,27 +98,104 @@ Price per one attendant: (62.08+66.96+22.56+12.72+8.08)/8=21.55
     void loop()
     {
       // red, green, blue (0..255)
-      strip.SetPixelColor(0, RgbColor(100, 0, 0));
+      strip.SetPixelColor(0, RgbColor(10, 0, 0));
       strip.Show();
       delay(1000);
 
-      strip.SetPixelColor(0, RgbColor(0, 100, 0));
+      strip.SetPixelColor(0, RgbColor(0, 10, 0));
       strip.Show();
       delay(1000);
 
-      strip.SetPixelColor(0, RgbColor(0, 0, 100));
+      strip.SetPixelColor(0, RgbColor(0, 0, 10));
       strip.Show();
       delay(1000);
     }
     ```
 
-9. Jednoduchy farebny prechod (255, 0, 0) -> (0, 255, 0)
-10. Rychly prechod, min max: (x, 255-2*x, 0), overit limity
-11. Ako urobit prechod z tmavo modrej do svetlo zelenej?
-12. Linearna aproximacia
+8.5. Co urobi nasledujuci program?
+  - Otvorte si monitor seriovej linky **Tools** -> **Serial monitor**
+  - Nastavte prenosovu rychlost na **9600 baud**
+    ```C
+    void setup() {
+      Serial.begin(9600);
+    }
+
+    void loop() {
+      for (int i=0; i<100; i+=5)
+      {
+        Serial.println(i);
+      }
+      delay(1000);
+    }
+    ```
+8.6. Upravte ho na vypis ciselnej postupnosti 10 az 20 (vratane) s krokom 2
+8.7. Najdite hodnotu konstanty maximum aby bola animacia plynula
+  - Zatvorte monitor seriovej linky
+    ```C
+    #include <NeoPixelBus.h>
+    NeoPixelBus<NeoGrbFeature, NeoEsp8266Uart1800KbpsMethod> strip(8);
+
+    void setup() {
+      strip.Begin();
+    }
+
+    void loop() {
+      const int maximum = 300;
+      for (int i=0; i<maximum; i+=1)
+      {
+          strip.SetPixelColor(0, RgbColor(i, 0, 0));
+          strip.Show();
+          delay(10);
+      }
+      for (int i=maximum; i>0; i-=1)
+      {
+          strip.SetPixelColor(0, RgbColor(i, 0, 0));
+          strip.Show();
+          delay(10);
+      }
+    }
+    ```
+9. Naprogramujte:
+
+  ![curve1](curve1.png)
+
+  - Jednoduchy farebny prechod (0, 0, 0) -> (0, 50, 0) s trvanim 5 sekund
+
+  ![curve2](curve2.png)
+
+  - Jednoduchy farebny prechod (0, 0, 0) -> (25, 50, 25) s trvanim 5 sekund
+
+  ![curve3](curve3.png)
+
+  - Jednoduchy farebny prechod (0, 0, 25) -> (0, 0, 25) s trvanim 5 sekund
+
+  ![curve4](curve4.png)
+
+  - Jednoduchy farebny prechod (50, 0, 0) -> (0, 50, 0) s trvanim 5 sekund
+
+11. Ako urobit prechod z tmavo modrej do svetlo zelenej? (7, 4, 15) -> (2, 17, 8)
+12. Linearna interpolacia
+
+  ![linear1](linear1.png)
+
+  ![linear2](linear2.png)
+
+  ![linear3](linear3.png)
+
+  ![linear4](linear4.png)
+
+  ![linear5](linear5.png)
+
+  ![linear6](linear6.png)
+          
+  ![linear7](linear7.png)
+
+  ![linear8](linear8.png)
 
 13. DHT22 - nainstalovat kniznicu
-14. TODO: Obrazok ako pripojit DHT senzor
+14. Pripojenie senzora DHT
+  ![schemedht.jpeg](schemedht.jpeg)
+
 15. DHT sensor library for ESPx -> DHT_ESP8266
 16. nefunguje, potrebujeme napajanie, upravit cislo pinu
 
@@ -126,6 +213,131 @@ Price per one attendant: (62.08+66.96+22.56+12.72+8.08)/8=21.55
 
 19. Bonus: Menit farbu podla vlhkosti/teploty
 20. Bonus: Pekne animacie sin/cos
+
+### Workshop 2
+
+1. Ako prebieha HTTP request?
+
+![http1.png](http1.png)
+
+![http2.png](http2.png)
+
+    ```
+    gabrielvalky@Gabriels-MacBook-Air ~ % telnet 37.9.175.26 80
+    GET /ahoj.html HTTP/1.0
+    Host: gabo.guru
+
+    ```
+
+2. Vytvorte vlastny server: 
+  - nastavte spravne prihlasovacie udaje pre nasu wifi, 
+  - zistite na akej IP adrese bezi (pouzite seriovej linky) a 
+  - nechajte ho vypisat vlastne meno
+
+    ```C
+    #include <ESP8266WiFi.h>
+    #include <WiFiClient.h>
+    #include <ESP8266WebServer.h>
+
+    char* ssid = "******";
+    char* password = "******";
+     
+    ESP8266WebServer server(80);
+
+    void handleRoot() 
+    {
+     server.send(200, "text/html", "Ahoj, ja sa volam Gabo!");
+    }
+
+    void setup(void)
+    {
+      Serial.begin(9600);
+      
+      WiFi.begin(ssid, password);
+     
+      while (WiFi.status() != WL_CONNECTED) 
+      {
+        delay(500);
+        Serial.print(".");
+      }
+     
+      Serial.print("\n");
+      Serial.print("Connected to ");
+      Serial.print(ssid);
+      Serial.print("\n");
+      Serial.print("IP address: ");
+      Serial.print(WiFi.localIP());
+      Serial.print("\n");
+     
+      server.on("/", handleRoot);
+      server.begin();
+    }
+
+    void loop(void)
+    {
+      server.handleClient();
+    }
+    ```
+
+3. Skuste vyuzit niektore html tagy (b-bold, u-underline, hr-line, body bgcolor)
+
+    ```
+    #include <ESP8266WiFi.h>
+    #include <WiFiClient.h>
+    #include <ESP8266WebServer.h>
+
+    char* ssid = "******";
+    char* password = "******";
+     
+    ESP8266WebServer server(80);
+
+    char* html = R""(
+    <HTML>
+      <HEAD>
+          <TITLE>My first web page</TITLE>
+      </HEAD>
+    <BODY>
+      <CENTER>
+          <B>Hello World.... </B>
+      </CENTER> 
+    </BODY>
+    </HTML>
+    )"";
+      
+    void handleRoot() 
+    {
+     server.send(200, "text/html", html);
+    }
+
+    void setup(void)
+    {
+      Serial.begin(9600);
+      
+      WiFi.begin(ssid, password);
+     
+      while (WiFi.status() != WL_CONNECTED) 
+      {
+        delay(500);
+        Serial.print(".");
+      }
+     
+      Serial.print("\n");
+      Serial.print("Connected to ");
+      Serial.print(ssid);
+      Serial.print("\n");
+      Serial.print("IP address: ");
+      Serial.print(WiFi.localIP());
+      Serial.print("\n");
+     
+      server.on("/", handleRoot);
+      server.begin();
+    }
+
+    void loop(void)
+    {
+      server.handleClient();
+    }
+    ```
 
 ## Notes
 
