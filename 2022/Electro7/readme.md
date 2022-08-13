@@ -112,7 +112,7 @@ Price per one attendant: (62.08+66.96+22.56+12.72+8.08)/8=21.55
     }
     ```
 
-8.5. Co urobi nasledujuci program?
+9. Co urobi nasledujuci program?
   - Otvorte si monitor seriovej linky **Tools** -> **Serial monitor**
   - Nastavte prenosovu rychlost na **9600 baud**
     ```C
@@ -128,8 +128,10 @@ Price per one attendant: (62.08+66.96+22.56+12.72+8.08)/8=21.55
       delay(1000);
     }
     ```
-8.6. Upravte ho na vypis ciselnej postupnosti 10 az 20 (vratane) s krokom 2
-8.7. Najdite hodnotu konstanty maximum aby bola animacia plynula
+
+10. Upravte ho na vypis ciselnej postupnosti 10 az 20 (vratane) s krokom 2
+
+11. Najdite hodnotu konstanty **maximum** aby bola animacia plynula
   - Zatvorte monitor seriovej linky
     ```C
     #include <NeoPixelBus.h>
@@ -155,26 +157,29 @@ Price per one attendant: (62.08+66.96+22.56+12.72+8.08)/8=21.55
       }
     }
     ```
-9. Naprogramujte:
+12. Naprogramujte:
+  - Jednoduchy farebny prechod (0, 0, 0) -> (0, 50, 0) s trvanim 5 sekund
 
   ![curve1](curve1.png)
 
-  - Jednoduchy farebny prechod (0, 0, 0) -> (0, 50, 0) s trvanim 5 sekund
+  - Jednoduchy farebny prechod (0, 0, 0) -> (25, 50, 25) s trvanim 5 sekund
 
   ![curve2](curve2.png)
 
-  - Jednoduchy farebny prechod (0, 0, 0) -> (25, 50, 25) s trvanim 5 sekund
-
-  ![curve3](curve3.png)
 
   - Jednoduchy farebny prechod (0, 0, 25) -> (0, 0, 25) s trvanim 5 sekund
 
-  ![curve4](curve4.png)
+  ![curve3](curve3.png)
+
 
   - Jednoduchy farebny prechod (50, 0, 0) -> (0, 50, 0) s trvanim 5 sekund
 
-11. Ako urobit prechod z tmavo modrej do svetlo zelenej? (7, 4, 15) -> (2, 17, 8)
-12. Linearna interpolacia
+  ![curve4](curve4.png)
+
+
+13. Ako urobit prechod z tmavo modrej do svetlo zelenej? (7, 4, 15) -> (2, 17, 8)
+
+14. Teoria: Linearna interpolacia
 
   ![linear1](linear1.png)
 
@@ -192,12 +197,134 @@ Price per one attendant: (62.08+66.96+22.56+12.72+8.08)/8=21.55
 
   ![linear8](linear8.png)
 
-13. DHT22 - nainstalovat kniznicu
-14. Pripojenie senzora DHT
+15. Nasledujuci program interpoluje iba zelenu zlozku farby, upravte ho aby interpoloval aj cervenu (farba.R) a modru zlozku (farba.G)
+
+    ```C
+    #include <NeoPixelBus.h>
+    NeoPixelBus<NeoGrbFeature, NeoEsp8266Uart1800KbpsMethod> strip(8);
+
+    void setup() {
+      strip.Begin();
+    }
+
+    int interpoluj(int x1, int x2, int percent)
+    {
+      return x1 + (x2-x1)*percent/100;
+    }
+
+    void loop() {
+      RgbColor zelena(3, 50, 14);
+      RgbColor modra(11, 7, 50);
+      
+      for (int i=0; i<100; i+=1)
+      {
+        int g = interpoluj(zelena.G, modra.G, i);
+        strip.SetPixelColor(0, RgbColor(0, g, 0));
+        strip.Show();
+        delay(10);
+      }
+      delay(1000);
+      for (int i=100; i>0; i-=1)
+      {
+        int g = interpoluj(zelena.G, modra.G, i);
+        strip.SetPixelColor(0, RgbColor(0, g, 0));
+        strip.Show();
+        delay(10);
+      }
+      delay(1000);
+    }
+    ```
+
+16. Bonus: animacia farieb
+
+    ```C
+    #include <NeoPixelBus.h>
+    NeoPixelBus<NeoGrbFeature, NeoEsp8266Uart1800KbpsMethod> strip(8);
+
+    void setup() {
+      strip.Begin();
+    }
+
+    int interpoluj(int x1, int x2, int percent)
+    {
+      return x1 + (x2-x1)*percent/100;
+    }
+
+    RgbColor farby[] = {
+      RgbColor(255, 0, 0),
+      RgbColor(0, 255, 0),
+      RgbColor(0, 0, 255),
+      RgbColor(255, 0, 255),
+      RgbColor(0, 255, 255),
+      RgbColor(255, 255, 0),
+      RgbColor(255, 255, 255)
+    };
+
+    const int pocet = sizeof(farby)/sizeof(farby[0]);
+    int f = 0;
+     
+    void loop() {  
+      RgbColor farba1 = farby[f % pocet];
+      RgbColor farba2 = farby[(f+1) % pocet];
+      
+      for (int i=0; i<100; i+=1)
+      {
+        int r = interpoluj(farba1.R, farba2.R, i) / 5;
+        int g = interpoluj(farba1.G, farba2.G, i) / 5;
+        int b = interpoluj(farba1.B, farba2.B, i) / 5;
+        for (int j=0; j<8; j+=1)
+        {
+          strip.SetPixelColor(j, RgbColor(r, g, b));
+        }
+        strip.Show();
+        delay(10);
+      }
+      delay(1000);
+      f += 1;
+    }
+    ```
+
+17. Harmonicke farby
+
+    ```C
+    #include <NeoPixelBus.h>
+    NeoPixelBus<NeoGrbFeature, NeoEsp8266Uart1800KbpsMethod> strip(8);
+
+    void setup() {
+      strip.Begin();
+    }
+
+    void loop() {
+      long l = millis();  
+      float a = l/1000.0;
+      float q = 0.4;
+      for (int i=0; i<8; i++)
+      {
+         int r, g, b;
+         r = 128 + sin(a+i*q)*128;
+         g = 128 + sin(a*0.37+i*q)*128;
+         b = 128 + sin(a*0.11+i*q)*128;
+               
+         strip.SetPixelColor(i, RgbColor(r/4, g/4, b/4));
+      }
+      
+      strip.Show();
+    }
+
+    ```
+
+  ![leddemo.jpg](leddemo.jpg)
+
+18. DHT22 - nainstalovat kniznicu
+
+19. Pripojenie senzora DHT
   ![schemedht.jpeg](schemedht.jpeg)
 
-15. DHT sensor library for ESPx -> DHT_ESP8266
-16. nefunguje, potrebujeme napajanie, upravit cislo pinu
+20. DHT sensor library for ESPx -> DHT_ESP8266
+
+21. Nefunguje, potrebujeme napajanie, upravit cislo pinu 
+  - baudrate nastavit na 115200
+  - pre zobrazenie hlavicky tabulky treba resetnut zariadenie
 
     ```C
     pinMode(D1, OUTPUT);
@@ -208,15 +335,63 @@ Price per one attendant: (62.08+66.96+22.56+12.72+8.08)/8=21.55
     dht.setup(D2, DHTesp::DHT22); // Connect DHT sensor to GPIO 17
     ```
 
-17. Porovnavanie hodnoty, zapnut led pri vyssej vlhkosti,
-18. Kreslit graf s internym toolom
+    ![dhtlog.png](dhtlog.png)
 
-19. Bonus: Menit farbu podla vlhkosti/teploty
-20. Bonus: Pekne animacie sin/cos
+22. Porovnavanie hodnoty, zapnut led pri vyssej vlhkosti
+  - pouzit nasledovny kod vo funkcii setup
+
+    ```C
+    pinMode(LED_BUILTIN, OUTPUT);
+    digitalWrite(LED_BUILTIN, HIGH); // zhasne
+    ```
+
+  - dopln podmienku aby sa led rozsvietila pri vlhkosti nad 70%
+
+    ```C
+    if (dopln podmienku)
+    {
+      digitalWrite(LED_BUILTIN, LOW); // rozsvieti
+    } else 
+    {
+      digitalWrite(LED_BUILTIN, HIGH); // zhasne
+    }
+    ```
+
+
+23. Kreslit graf s internym toolom
+    - vyskusat co vypisuje do konzoly tento program
+    - zapnut Tools -> Serial Plotter
+
+    ```C
+    #include "DHTesp.h"
+
+    DHTesp dht;
+
+    void setup()
+    {
+      Serial.begin(115200);
+      pinMode(D1, OUTPUT);
+      digitalWrite(D1, HIGH);
+      pinMode(D3, OUTPUT);
+      digitalWrite(D3, LOW);
+      dht.setup(D2, DHTesp::DHT22);
+    }
+
+    void loop()
+    {
+      float humidity = dht.getHumidity();
+      Serial.println(humidity);
+      delay(500);
+    }
+    ```
+
+    ![dhtchart.png](dhtchart.png)
+
+24. Bonus: Menit farbu LED pasika podla vlhkosti/teploty
 
 ### Workshop 2
 
-1. Ako prebieha HTTP request?
+1. Co je to server? Ako prebieha HTTP request?
 
 ![http1.png](http1.png)
 
@@ -228,6 +403,12 @@ Price per one attendant: (62.08+66.96+22.56+12.72+8.08)/8=21.55
     Host: gabo.guru
 
     ```
+
+2. Motivacia - informacny system
+
+  ![demo1.jpg](demo1.jpg)
+
+  ![demo2.png](demo2.png)
 
 2. Vytvorte vlastny server: 
   - nastavte spravne prihlasovacie udaje pre nasu wifi, 
@@ -338,6 +519,225 @@ Price per one attendant: (62.08+66.96+22.56+12.72+8.08)/8=21.55
       server.handleClient();
     }
     ```
+
+4. Viacej prelinkovanych dokumentov
+
+    ```C
+    #include <ESP8266WiFi.h>
+    #include <WiFiClient.h>
+    #include <ESP8266WebServer.h>
+    #include <DHTesp.h>
+
+    char* ssid = "********";
+    char* password = "********";
+     
+    ESP8266WebServer server(80);
+      
+    void handleRoot() 
+    {
+      String html = R""(
+    <HTML>
+      <HEAD>
+          <TITLE>My first web page</TITLE>
+      </HEAD>
+    <BODY>
+      <CENTER>
+          <a href="/ahoj">Klikni sem</a>
+      </CENTER> 
+    </BODY>
+    </HTML>
+    )"";
+
+      server.send(200, "text/html", html);
+    }
+
+    void handleAhoj() 
+    {
+      server.send(200, "text/html", "Ahoj!");
+    }
+
+    void setup(void)
+    {
+      Serial.begin(9600);
+      
+      WiFi.begin(ssid, password);
+     
+      while (WiFi.status() != WL_CONNECTED) 
+      {
+        delay(500);
+        Serial.print(".");
+      }
+     
+      Serial.print("\n");
+      Serial.print("Connected to ");
+      Serial.print(ssid);
+      Serial.print("\n");
+      Serial.print("IP address: ");
+      Serial.print(WiFi.localIP());
+      Serial.print("\n");
+     
+      server.on("/", handleRoot);
+      server.on("/ahoj", handleAhoj);
+      server.begin();
+    }
+
+    void loop(void)
+    {
+      server.handleClient();
+    }
+    ```
+
+5. Vycitanie udajov z teplomera
+   - nezabudnite inicializovat napajanie pre senzor DHT22 vo funkcii setup
+
+    ```C
+    void handleMeraj() 
+    {
+      DHTesp dht;
+      dht.setup(Ds, DHTesp::DHT22);
+      
+      String html = "Teplota: " + String(dht.getTemperature()) + " &deg;C<br>";
+      html = html + "Vlhkost: " + String(dht.getHumidity()) + "%<br>";
+      server.send(200, "text/html", html);
+    }
+    ```
+
+6. Automaticke obnovenie
+  - pridajte do generovanej stranky nasledujuci text
+
+    ```html
+    <script>setTimeout(() => document.location.reload(), 1000)</script>
+    ```
+
+7. TODO: Tlacitka na nastavenie farby led pasika
+
+8. TODO: color chooser
+
+9. Klient 
+  - nahradte `creativepoint_ba1` za `creativepoint_svojemeno`
+  - otvorte stranku: https://dweet.io/follow/creativepoint_svojemeno
+  - otvorte stranku: https://dweet.io/get/latest/dweet/for/creativepoint_svojemeno
+
+    ```C
+    #include "ESP8266WiFi.h"
+    #include "DHTesp.h"
+
+    const char* ssid = "********";
+    const char* password = "********";
+    const char* id = "creativepoint_ba1";
+
+    int counter = 0;
+
+    DHTesp dht;
+
+    void setup() 
+    {  
+      Serial.begin(115200);
+      dht.setup(D4, DHTesp::DHT22);
+      
+      Serial.print("\n");
+      Serial.print("Connecting to ");
+      Serial.print(ssid);
+      Serial.print("\n");
+      WiFi.begin(ssid, password);
+      
+      while (WiFi.status() != WL_CONNECTED) 
+      {
+        delay(500);
+        Serial.print(".");
+      }
+
+      Serial.print("\n");
+      Serial.print("WiFi connected\n");
+    }
+
+    void loop() 
+    {
+      counter++;
+
+      float humidity = dht.getHumidity();
+      float temperature = dht.getTemperature();
+
+      Serial.print("Connecting...\n");
+      
+      WiFiClient client;
+      if (!client.connect("dweet.io", 80)) 
+      {
+        Serial.println("connection failed");
+        return;
+      }
+      
+      client.print("GET /dweet/for/");
+      client.print(id);
+      client.print("?counter=");
+      client.print(counter);
+      client.print("&humidity=");
+      client.print(humidity);
+      client.print("&temperature=");
+      client.print(temperature);
+      client.print(" HTTP/1.1\r\n");
+      client.print("Host: dweet.io\r\n");
+      client.print("Connection: close\r\n");
+      client.print("\r\n");
+      
+      delay(1000);
+
+      Serial.print("\n<<<< Response >>>>\n");
+      while(client.available())
+      {
+        char c = client.read();
+        Serial.print(c);
+      }
+      Serial.print("\n===================\n");
+     
+      // Repeat every 5 seconds
+      delay(5000); 
+    }
+    ```
+
+
+10. AP mode s dns serverom a captive portalom (esp vytvori vlastny accesspoint na ktory sa pripojime)
+  - pouzite kod, doplnte chybajuce funkcie `handleRoot` a `handleMeraj`
+
+    ```C
+    #include <ESP8266WiFi.h>
+    #include <WiFiClient.h>
+    #include <ESP8266WebServer.h>
+    #include <DHTesp.h>
+    #include <DNSServer.h>
+
+    char* apSsid = "esp weather";
+    char* apPassword = "11111111";
+
+    IPAddress         apIP(10, 10, 10, 1);
+    ESP8266WebServer  server(80);
+    DNSServer         dnsServer;  
+      
+    void setup(void)
+    {
+      Serial.begin(9600);
+
+      WiFi.mode(WIFI_AP);
+      WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
+      dnsServer.start(53, "*", apIP);
+
+      server.on("/", handleRoot);
+      server.on("/meraj", handleMeraj);
+      server.onNotFound(handleRoot);
+      server.begin();
+    }
+
+    void loop(void)
+    {
+      server.handleClient();
+      dnsServer.processNextRequest();
+    }
+
+    ```
+
+11. Ako pridat obrazok
+
+12. Fake login, eeprom collect
 
 ## Notes
 
