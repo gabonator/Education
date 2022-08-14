@@ -1,8 +1,8 @@
 # Ulohy pre workshop 1
 
-1. Nainstalovat Arduino
-2. Nainstalovat podporu pre esp8266
-3. Blink esp8266
+1. Spajkovanie
+2. Nainstalovat Arduino (https://x.valky.eu/arduino), nainstalovat podporu pre esp8266 (https://x.valky.eu/esp)
+3. Pripojit modul USB kablom, vybrat port a napalit testovaci program: Examples -> 01. Basics -> Blink
 4. Instalacia kniznice pre ws2812 (NeoPixelBus by Makuna)
 5. Zapojte led pasik
   ![schemeled.jpeg](schemeled.jpeg)
@@ -79,9 +79,12 @@
     }
     ```
 
+  - riesenie: [task8.ino](task8.ino)
+
 9. Co urobi nasledujuci program?
   - Otvorte si monitor seriovej linky **Tools** -> **Serial monitor**
   - Nastavte prenosovu rychlost na **9600 baud**
+
     ```C
     void setup() {
       Serial.begin(9600);
@@ -100,6 +103,7 @@
 
 11. Najdite hodnotu konstanty **maximum** aby bola animacia plynula
   - Zatvorte monitor seriovej linky
+
     ```C
     #include <NeoPixelBus.h>
     NeoPixelBus<NeoGrbFeature, NeoEsp8266Uart1800KbpsMethod> strip(8);
@@ -143,6 +147,7 @@
 
   ![curve4](curve4.png)
 
+  - riesenie: [task12.ino](task12.ino)
 
 13. Ako urobit prechod z tmavo modrej do svetlo zelenej? (7, 4, 15) -> (2, 17, 8)
 
@@ -202,7 +207,9 @@
     }
     ```
 
-16. Bonus: animacia farieb
+  - riesenie: [task15.ino](task15.ino)
+
+16. Animacia viacerych farieb s polom
 
     ```C
     #include <NeoPixelBus.h>
@@ -280,14 +287,17 @@
 
     ```
 
+  - sin/cos animacia [https://www.geogebra.org/m/cNEtsbvC](https://www.geogebra.org/m/cNEtsbvC)
+
 18. DHT22 - nainstalovat kniznicu
 
 19. Pripojenie senzora DHT
   ![schemedht.jpeg](schemedht.jpeg)
 
-20. DHT sensor library for ESPx -> DHT_ESP8266
+20. File -> Examples -> DHT sensor library for ESPx -> DHT_ESP8266
 
-21. Nefunguje, potrebujeme napajanie, upravit cislo pinu 
+21. Upravenie ukazky
+  - ukazka nefunguje, potrebujeme napajanie, upravit cislo pinu (D1: napajanie 3.3V, D3: napajanie zem, D2: data)
   - baudrate nastavit na 115200
   - pre zobrazenie hlavicky tabulky treba resetnut zariadenie
 
@@ -297,7 +307,7 @@
     pinMode(D3, OUTPUT);
     digitalWrite(D3, LOW);
 
-    dht.setup(D2, DHTesp::DHT22); // Connect DHT sensor to GPIO 17
+    dht.setup(D2, DHTesp::DHT22);
     ```
 
     ![dhtlog.png](dhtlog.png)
@@ -307,10 +317,10 @@
 
     ```C
     pinMode(LED_BUILTIN, OUTPUT);
-    digitalWrite(LED_BUILTIN, HIGH); // zhasne
+    digitalWrite(LED_BUILTIN, HIGH); // zhasni pri starte
     ```
 
-  - dopln podmienku aby sa led rozsvietila pri vlhkosti nad 70%
+  - vloz kod na spravne miesto a dopln podmienku tak, aby sa led rozsvietila pri vlhkosti nad 70%
 
     ```C
     if (dopln podmienku)
@@ -321,7 +331,7 @@
       digitalWrite(LED_BUILTIN, HIGH); // zhasne
     }
     ```
-
+  - riesenie: [task22.ino](task22.ino)
 
 23. Kreslit graf s internym toolom
     - vyskusat co vypisuje do konzoly tento program
