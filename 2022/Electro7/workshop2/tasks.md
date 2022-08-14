@@ -19,7 +19,7 @@
 
 2. Vytvorte vlastny server: 
   - nastavte spravne prihlasovacie udaje pre nasu wifi, 
-  - zistite na akej IP adrese bezi (pouzite seriovej linky) a 
+  - zistite na akej IP adrese bezi (pouzite monitor seriovej linky) a 
   - po otvoreni vypiste vlastne meno
 
     ```C
@@ -253,7 +253,7 @@
     server.send(302, "text/plain", "");
     ```
 
-  - Otestovat otvorenim url linky: `http://123.123.123.123/color?r=20&g=10&b=5
+  - Otestovat otvorenim url linky: `http://123.123.123.123/color?r=20&g=10&b=5`
   - Nahradime nim endpointy pre individualne farby z predoslej ulohy, a upravime zakladnu stranku aby odkazovala na novy endpoint
   - riesenie: [demo_color.ino](demo_color.ino)
 
@@ -339,11 +339,12 @@
   - riesenie: [demo_login.ino](demo_login.ino)
 
 11. Klient - Informacny system
-  - nastavte `const char* id = "creativepoint_vasemeno";`
+  - nastavte `const char* id = "creativepoint_svojemeno";`
   - riesenie: [demo_dweet.ino](demo_dweet.ino)
+  - otvorte: https://dweet.io/follow/creativepoint_svojemeno
 
 12. Access point 
-  - zoberte riesenie z programu 6 [demo_dhtrefresh.ino](demo_dhtrefresh.ino)
+  - zoberte riesenie z programu 6: [demo_dhtrefresh.ino](demo_dhtrefresh.ino)
   - v predoslom programe nahradte kod na pripajanie na wifi za vytvorenie access pointu
   - v premennej `apSsid` pouzite svoje meno
   - po spusteni esp8266 vytvori vlastnu wifi na ktoru sa pripojime
