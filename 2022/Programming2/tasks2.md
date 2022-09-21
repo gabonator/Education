@@ -89,4 +89,4 @@ console.log("Maximum je", maximum);
 
   - vyhra - jednotny interface [clean28](clean28/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean28/index.html) [diff](https://github.com/gabonator/Education/blob/master/2022/Programming2/diff.md#diff-28-vs-27)
   - izolacia na game controller [clean29](clean29/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean29/index.html)  [diff](https://github.com/gabonator/Education/blob/master/2022/Programming2/diff.md#diff-29-vs-28)
-  - levely, pocet riadkov, pocet farieb [clean30](clean20/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean30/index.html) [diff](https://github.com/gabonator/Education/blob/master/2022/Programming2/diff.md#diff-30-vs-29)
+  - levely, pocet riadkov, pocet farieb [clean30](clean30/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean30/index.html) [diff](https://github.com/gabonator/Education/blob/master/2022/Programming2/diff.md#diff-30-vs-29)

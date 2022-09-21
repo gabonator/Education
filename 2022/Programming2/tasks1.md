@@ -115,6 +115,9 @@ setInterval(() => {
   - **Uloha 1.2.1**
 
 ```html
+<div id="game" style="width:400px; height:600px; border:1px solid #d0d0d0; position:relative; background:url(background1.jpg); overflow:hidden;">
+</div>
+
 <script>
 var element = document.querySelector("#game");
 var ball = document.createElement("img");
@@ -127,7 +130,7 @@ element.appendChild(ball);
   - doplnit rozmery (parseint, ukazat v debugu suffix px), doplnit interval, sudadnice nastavit na stred
   - TEORIA - odkrokovat program, zmenit css styl canvasu, zistit suradnice, nastavit suradnice,
   - aku suradnicu musim nastavit aby bola gulicka uplne vpravo dole? (aby sa dotykala stien)
-  - TEORIA - suradnicova sustava, vektor rychlosti, TODO: obrazok
+  - TEORIA - [geometria.md](suradnicova sustava, vektor rychlosti)
   - `setInterval`, testovanie suradnic, vypocet offsetu gulicky, skontrolovanie rohov
   - vektor rychlosti [clean01](clean01/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean01/index.html) [diff](https://github.com/gabonator/Education/blob/master/2022/Programming2/diff.md#diff-01-vs-00)
   - odrazy [clean02](clean02/index.html) [live](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/clean02/index.html) [diff](https://github.com/gabonator/Education/blob/master/2022/Programming2/diff.md#diff-02-vs-01)
