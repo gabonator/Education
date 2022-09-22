@@ -33,7 +33,7 @@ document.write(pole)
 ## program 2 - vnoreny for
 
 ```javascript
-ludia = ["peter", "adam", "igor", "ondrej"]
+ludia = ["tomas", "oliver", "ludo", "laco"]
 
 for (var i=0; i<ludia.length; i++)
 {
