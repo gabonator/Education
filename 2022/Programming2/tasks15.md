@@ -21,7 +21,7 @@ document.write("<br>")
 
 ## program 2 - push
 
-```
+```javascript
 var pole = [];
 
 for (var i=0; i<10; i++)
@@ -72,7 +72,7 @@ ondrej - ondrej
 ## program 4 - sachova partia
 - Vytvorte neopakujuce sa pary
 
-```
+```javascript
 peter - adam
 peter - igor
 peter - ondrej
@@ -132,4 +132,4 @@ function prng()
 - Co robi funkcia `prng()` ? Vyskusajte v konzole
 - Co vrati nasledujuci vyraz v konzole? `new Date().getTime()`
 - Co vrati nasledujuci vyraz v konzole? `new Date("1/1/1970 01:00").getTime()`
-- (PS3 hacked)[https://www.engadget.com/2010-12-29-hackers-obtain-ps3-private-cryptography-key-due-to-epic-programm.html]
+- [PS3 hacked](https://www.engadget.com/2010-12-29-hackers-obtain-ps3-private-cryptography-key-due-to-epic-programm.html)
