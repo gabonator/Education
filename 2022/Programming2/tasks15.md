@@ -89,8 +89,8 @@ var b = 3
 
 // tuto dopln
 
-document.print("a = " + a + "<br>")
-document.print("b = " + b + "<br>")
+document.write("a = " + a + "<br>")
+document.write("b = " + b + "<br>")
 ```
 
 - Co urobi tento program?
