@@ -4,6 +4,15 @@ In this list you will see some interesting projects I was working on
 
 ## 2022
 
+### Battery powered coop door
+- Arduino based hardware project
+- Power consumption optimization
+- Calculation of sunrise/sunset times
+- Web assembly simulator for UI testing and verification
+- Project: [https://github.com/gabonator/Projects/tree/master/CoopDoor](https://github.com/gabonator/Projects/tree/master/CoopDoor)
+
+[![Arduino coop door without light sensor](https://img.youtube.com/vi/TGaVl65u0D0/0.jpg)](https://www.youtube.com/watch?v=TGaVl65u0D0 "Arduino coop door without light sensor")
+
 ### Webfox HD
 ![webfox](res/2022_webfox.png)
 - Porting DOS game with advanced copy protection into javascript
