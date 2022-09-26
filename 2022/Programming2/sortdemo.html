@@ -1,0 +1,109 @@
+<input type="button" value="randomize" onClick="randomize()">
+<input type="button" value="exchangesort" onClick="startSorting(exchangeSort)">
+<input type="button" value="bubblesort" onClick="startSorting(bubbleSort)">
+<input type="button" value="stop" onClick="clearInterval(timer)">
+interval: <input type="text" value="20" id="interval">
+<br>
+ 
+<canvas id="canvas" style="border:1px #808080 dashed; width:800px; height:400px;"></canvas>
+
+<script>
+  function* exchangeSort(array)
+  {
+    for (var i=0; i<array.length; i++)
+      for (var j=i+1; j<array.length; j++)
+      {
+        if (array[i] > array[j])
+        {
+          var temp = array[i]
+          array[i] = array[j]
+          array[j] = temp
+        }
+        yield [i, j]
+      }
+  }
+
+  function* bubbleSort(array)
+  {
+     for (var i = 0; i < arr.length; i++)
+       for (var j = 0; j < arr.length-i-1; j++)
+       {
+         if (arr[j] > arr[j+1])
+         {
+           var temp = arr[j]
+           arr[j] = arr[j + 1]
+           arr[j+1] = temp
+         }
+         yield [j, j+1]
+       }
+  }
+
+  function prepareRandom(n)
+  {
+    var array = [];
+    for (var i = 0; i<n; i++)
+      array.push(i);
+    for (var i = 0; i<n; i++)
+    {
+      var i1 = Math.floor(Math.random()*n)
+      var i2 = Math.floor(Math.random()*n)
+      var t = array[i1]
+      array[i1] = array[i2]
+      array[i2] = t
+    }
+    return array
+  }
+
+  var arr = []
+  var timer = null
+  var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext('2d')
+  canvas.width = 800
+  canvas.height = 400
+
+  function randomize()
+  {
+    arr = prepareRandom(100)
+    redraw()
+  }
+
+  function redraw(highlight)
+  {
+    var max = 0;
+    for (var i=0; i<arr.length; i++)
+      max = Math.max(max, arr[i])
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    for (var i=0; i<arr.length; i++)
+    {
+      if (highlight && highlight.indexOf(i) == 0)
+      {
+        ctx.fillStyle = "#d0d0ff"
+        ctx.fillRect(canvas.width/arr.length*i, 0, 800/arr.length, canvas.height);
+      }
+      if (highlight && highlight.indexOf(i) == 1)
+      {
+        ctx.fillStyle = "#ffd0d0"
+        ctx.fillRect(canvas.width/arr.length*i, 0, 800/arr.length, canvas.height);
+      }
+      var h = arr[i]/max*canvas.height
+      ctx.fillStyle = "#000000"
+      ctx.fillRect(canvas.width/arr.length*i+1, canvas.height - h, 800/arr.length-2, h);
+    }
+  }
+
+  function startSorting(algorithm)
+  {
+    var sortGen = algorithm(arr)
+    var interval = document.getElementById("interval").value
+    timer = setInterval(()=>
+    {
+      var n = sortGen.next();
+      if (!n.done)
+        redraw(n.value)
+      else
+        clearInterval(timer)
+    }, interval);
+  }
+  randomize()
+</script>

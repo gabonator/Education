@@ -1,3 +1,5 @@
+# Opakovanie pred druhym workshopom
+
 ## Chrome 
 
 - ukazat ako schovat element
