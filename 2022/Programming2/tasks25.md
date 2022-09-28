@@ -1,5 +1,13 @@
 # Opakovanie pred tretim workshopom
 
+## Suradnicove systemy
+
+![unitcircle](unitcircle.png)
+
+![compass](compass.png)
+
+![globe](globe.png)
+
 ## Sorty
 
 - [bubble sort a exchange sort](https://rawgit.valky.eu/gabonator/Education/master/2022/Programming2/sortdemo.html) 
@@ -24,8 +32,8 @@ Stvorec so stranou 3 ma obvod 12 a obsah 9
 
 ## program 2 - pizza
 
-- Napiste program, ktory vypise rozmer pizze v rozsahu 15cm az 50cm s krokom 1cm a napise ku nej ci je pizza mala, stredna alebo velka ()
-- V ponuke https://pizzeriaab.sk/jedalny-listok/ pisu ze maju tri velkosti pizze (28cm - mala, 32cm - stredna, 40cm - velka)
+- Napiste program, ktory vypise rozmer pizze v rozsahu 15cm az 50cm s krokom 1cm a napise ku nej ci je pizza mala, stredna alebo velka
+- V ponuke https://pizzeriaab.sk/jedalny-listok/ pisu, ze maju tri velkosti pizze (28cm - mala, 32cm - stredna, 40cm - velka)
 
 ```
 Pizza s priemerom 15 cm je mala
