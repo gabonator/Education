@@ -44,10 +44,12 @@ Upravíme hru, aby bola plnohodnotne hrateľná na telefóne. Zavesíme ju na ve
 ## Ulohy
 
 - [Workshop 1](tasks1.md)
-- [Opakovanie 1/2](tasks15.md)
+- [Opakovanie 1](tasks15.md)
 - [Workshop 2](tasks2.md)
-- [Opakovanie 2/3](tasks25.md)
-- [Workshop 3/4](tasks34.md)
+- [Opakovanie 2](tasks25.md)
+- [Workshop 3](tasks34.md)
+- [Opakovanie 3](tasks35.md)
+- [Workshop 4](tasks34.md)
 - [Geometria](geometria.md)
 
 ## Diff
