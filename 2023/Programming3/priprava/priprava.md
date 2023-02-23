@@ -4,13 +4,13 @@
 
 - **nainstalovat anglicku klavesnicu**, zistit ako sa prepinaju klavesnice
 - nainstalovat a updatnut Chrome
-- stiahnite si [balicek](prazdny.zip)
+- stiahnite si [balicek](prazdny.zip) (Treba kliknut "download")
 - rozbalte a otvorte test.html v Chrome
 - otvorte developer konzolu (Ctrl + Shift + J, alebo tri bodky vpravo hore, More Tools -> Developer Tools)
   ![chrome1](chrome1.png)
 - pridajte adresar s rozbalenym balickom Source -> Filesystem -> Add folder to workspace
   ![chrome2](chrome2.png)
-- vyskusajte modifikovat test.html. Pri kazdom zmenenom subore sa zobrazi hviezdicka. Treba subor ulozit (Ctrl + S) a refreshnut stranku (Ctrl + R)
+- vyskusajte modifikovat index.html. Pri kazdom zmenenom subore sa zobrazi hviezdicka. Treba subor ulozit (Ctrl + S) a refreshnut stranku (Ctrl + R)
   ![chrome3](chrome3.png)
 - Prepinte sa na Anglicku klavesnicu (popripade nainstalujte ak este nemate, kedze Slovenske rozlozenie klaves je nevhodne na programovanie) a skuste prepisat nasledovny kod (pre kontrolu ci viete najst kazdy specialny znak):
 

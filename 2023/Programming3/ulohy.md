@@ -53,7 +53,8 @@ document.getElementById("mojdiv").style.textColor = "gray"
 
 - Uloha: napiste vase meno bielou na ciernom pozadi
 - Uloha: dopln kod s prikazom `for`
-```
+
+```javascript
 for (var i=0; i<20; i++)
 {
   document.getElementById("mojdiv").innerHTML += `obvod stvorca so stranou ${i} je ?`;
@@ -95,7 +96,8 @@ for (var y=0; y<?; y++)
 ```
 
 - Uloha: Preiterujte pole este raz a tie bunkam ktore obsahuju samohlasku nastavte zelene pozadie
-```
+
+```javascript
 for (var y=0; y<?; y++)
 {
   for (var x=0; x<?; x++)
@@ -107,7 +109,8 @@ for (var y=0; y<?; y++)
 ```
 
 - Uloha: upravte predosly program tak aby ste pouzili prikaz `switch`:
-```
+
+```javascript
   switch (nieco)
   {
     case "a": console.log("Samohlaska a"); break;
