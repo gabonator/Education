@@ -59,3 +59,4 @@ document.write("<br>Mam rad " + ["pomarance", "jablka", "jahody"][Math.floor(Mat
   - and (ampersand) &
   - uvodzovka dvojita "
   - uvodzovka jednoducha '
+  - uvodzovka opacna \`

@@ -1,0 +1,425 @@
+<style>body{margin:0px}</style>
+<BODY bgcolor=green>
+<div id="ManLeft"  style = "POSITION: absolute; Z-INDEX: 1; VISIBILITY: hidden; TOP: 20px LEFT: 20px"><IMG SRC="@left.gif" border=0></div>
+<div id="ManRight" style = "POSITION: absolute; Z-INDEX: 1; VISIBILITY: hidden; TOP: 20px LEFT: 20px"><IMG SRC="@right.gif" border=0></div>
+<div id="ManUp"    style = "POSITION: absolute; Z-INDEX: 1; VISIBILITY: hidden; TOP: 20px LEFT: 20px"><IMG SRC="@up.gif" border=0></div>
+<div id="ManDown"  style = "POSITION: absolute; Z-INDEX: 1; VISIBILITY: hidden; TOP: 20px LEFT: 20px"><IMG SRC="@down.gif" border=0></div>
+<div id="TWait"    style = "POSITION: absolute; Z-INDEX: 8; VISIBILITY: hidden; TOP: 120px; LEFT: 50px; color: #000080; font: bold 10pt Tahoma, sans-serif; text-decoration: none; font-family:cursive; FONT-SIZE: 48px;">Klikni sem !</div>
+<div id="TWin"     style = "POSITION: absolute; Z-INDEX: 8; VISIBILITY: hidden; TOP: 120px; LEFT: 50px; color: #000080; font: bold 10pt Tahoma, sans-serif; text-decoration: none; font-family:cursive; FONT-SIZE: 48px;">Vyhral si !</div>
+<div id="TLoading" style = "POSITION: absolute; Z-INDEX: 8; VISIBILITY: visble; TOP: 120px; LEFT: 50px; color: #FFFFFF; font: bold 10pt Tahoma, sans-serif; text-decoration: none; font-family:cursive; FONT-SIZE: 48px;">Nacitavam...</div>
+<div id="TCopyr"   style = "POSITION: absolute; Z-INDEX: 8; VISIBILITY: visible; TOP: 0px; LEFT: 0px; color: #FFFFFF; font: bold 10pt Tahoma, sans-serif; text-decoration: none; font-family:cursive; FONT-SIZE: 10px;"></div>
+<div id="GameInfo" style = "POSITION: absolute; Z-INDEX: 10; VISIBILITY: visble; TOP: 320px; LEFT: 8px;">
+<FORM>
+  <INPUT TYPE=TEXT size=8 value="Level" READONLY>
+  <INPUT TYPE=TEXT size=8 value="Pohybov" READONLY>
+  <INPUT TYPE=TEXT size=8 value="Posunuti" READONLY>
+  <INPUT TYPE=TEXT size=8 value="Cas" READONLY>
+  <INPUT TYPE=TEXT size=8 value="Hrac" READONLY>
+  <BR>
+  <INPUT TYPE=TEXT size=8 value="0" name="Level" READONLY>
+  <INPUT TYPE=TEXT size=8 value="0" name="Moved" READONLY>
+  <INPUT TYPE=TEXT size=8 value="0" name="Pushed" READONLY>
+  <INPUT TYPE=TEXT size=8 value="0" name="Time" READONLY>
+  <INPUT TYPE=TEXT size=8 value="Anonym" name="Player" READONLY>
+  <BR>
+  <INPUT TYPE=TEXT size=8 value="High :" name="High" READONLY>
+  <INPUT TYPE=TEXT size=8 value="0" name="HighMoved" READONLY>
+  <INPUT TYPE=TEXT size=8 value="0" name="HighPushed" READONLY>
+  <INPUT TYPE=TEXT size=8 value="0" name="HighTime" READONLY>
+  <INPUT TYPE=TEXT size=8 value="Anonym" name="HighPlayer" READONLY>
+</FORM>
+</DIV>
+<div id="HighScore" style = "POSITION: absolute; Z-INDEX: 12; VISIBILITY: hidden; TOP: 20px; LEFT: 8px;">
+  <H3><FONT COLOR="red">HIGH SCORE!</FONT>
+<!--
+  <FORM NAME="mail_form" ACTION="mailto:gabonator@Atlas.cz" METHOD="POST" ENCTYPE="text/plain">
+    <input name=verzia type=hidden value="www.gabonator.szm.sk-verzia 3.0-SokobanHigh0000">
+    <INPUT TYPE="TEXT" SIZE=20 NAME="Level" VALUE="Level : "+MyLevel+" READONLY><BR>
+    <INPUT TYPE="TEXT" SIZE=20 NAME="Moved" VALUE="Pocet pohybov :"+CntMove+" READONLY><BR>
+    <INPUT TYPE="TEXT" SIZE=20 NAME="Pushed" VALUE="Pocet posunuti :"+CntPush+" READONLY><BR>
+    <INPUT TYPE="TEXT" SIZE=20 NAME="PlTime" VALUE="Cas :"+PlTime+" READONLY><BR>
+    <INPUT TYPE="TEXT" SIZE=20 NAME="Player" VALUE="Hrac :"+Player+" READONLY><BR><BR>
+    <INPUT TYPE="HIDDEN" SIZE=20 NAME="Date" VALUE="Datum :"+PlnyDatum+" READONLY><BR>
+    <input type="submit" value="Odoslat" onClick="Vybral();"><BR>
+    <input type="button" value="Neodoslat" onClick="Vybral();">
+    </FORM>
+-->
+</DIV>
+
+<SCRIPT language="javascript" src="cookie.js"></SCRIPT>
+<SCRIPT language="javascript">
+  // alert(document.cookie);
+  // programmed by gabonator.Atlas.cz
+  GetCookie("Name");
+  if (CookiesGetted==-1)
+  {
+    Player=(prompt("Napis svoj nick:","Anonym"));
+    if (Player!=null)
+      SetCookie("Name", Player);
+  } else Player=CookiesGetted;
+  if (Player==null) Player="Anonym";
+  document.forms[0].Player.value = Player;
+  GetCookie("Level");
+  if (CookiesGetted>0)
+    MyLevel = CookiesGetted;
+  else
+    MyLevel = 1;
+  if (MyLevel<10)
+    LevelStr="0"+MyLevel;
+  else
+    LevelStr=MyLevel;
+  HighMoved=9999;
+  HighPushed=9999;
+  HighTime=999;
+  HighPlayer="---";
+  document.write("<SCRIPT language=\"javascript\" src=\"level"+LevelStr+".js\"></S"+"CRIPT>");
+</SCRIPT>
+<SCRIPT language="javascript">
+  document.close();
+  var LevelX = 19;
+  var LevelY = 16;
+  var BlkSizX = 20;
+  var BlkSizY = 20;
+  var BlkOfsX = 0;
+  var BlkOfsY = 0;
+
+  var ManX = 0;
+  var ManY = 0;
+  var ManD = 1;
+  var BlockCnt = 0;
+  var DestCnt = 0;
+  var score=0;
+  var LastShow=-1;
+  var PlTime=0;
+  var Hra=0;
+
+  var BlockX=new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  var BlockY=new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  var DestX=new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  var DestY=new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+  var CntMove=0;
+  var CntPush=0;
+  function CheckBlocks()
+  {
+    Suc=0;
+    for (i=0; i<DestCnt; i++)
+      for (j=0; j<BlockCnt; j++)
+        if ((DestX[i]==BlockX[j])&&(DestY[i]==BlockY[j]))
+          Suc++;
+    if (Suc==DestCnt)
+    {
+      DoneGame();
+    }
+  }
+  function MoveBlock(bx, by, dx, dy)
+  {
+    for (i=0; i<BlockCnt; i++)
+      if ((BlockX[i]==bx)&&(BlockY[i]==by))
+      {
+        document.all["block"+i].style.top = parseInt(document.all["block"+i].style.top) + BlkSizY*dy + "px";
+        document.all["block"+i].style.left = parseInt(document.all["block"+i].style.left) + BlkSizX*dx + "px";
+        document.all["blockOn"+i].style.top = document.all["block"+i].style.top;
+        document.all["blockOn"+i].style.left = document.all["block"+i].style.left;
+        BlockX[i]+=dx;
+        BlockY[i]+=dy;
+        Docked=0;
+        for (j=0; j<DestCnt; j++)
+          if ((BlockX[i]==DestX[j])&&(BlockY[i]==DestY[j]))
+            Docked=1;
+        if (Docked==0) {
+          document.all["block"+i].style.visibility  = "visible";
+          document.all["blockOn"+i].style.visibility  = "hidden";
+        } else {
+          document.all["block"+i].style.visibility  = "hidden";
+          document.all["blockOn"+i].style.visibility  = "visible";
+        }
+      }
+  }
+  function MoveMan(dx, dy)
+  {
+    if ((dx==0)&&(dy==-1)) ManD = 3;
+    if ((dx==0)&&(dy==+1)) ManD = 4;
+    if ((dx==-1)&&(dy==0)) ManD = 1;
+    if ((dx==+1)&&(dy==0)) ManD = 2;
+    NObj = Level[ManY+dy].substring(ManX+dx, ManX+dx+1);
+    if (NObj=='*')
+    {
+      NObj = Level[ManY+dy*2].substring(ManX+dx*2, ManX+dx*2+1);
+      if ((NObj=='.')||(NObj=='O')||(NObj=='S'))
+      {
+        CntPush++;
+        document.forms[0].Pushed.value = CntPush;
+        MoveBlock(ManX+dx, ManY+dy, dx, dy);
+        NObj='*';
+        Line1 = Level[ManY+dy].substring(0, ManX+dx)+'.'+
+                Level[ManY+dy].substring(ManX+dx+1, LevelX);
+        Level[ManY+dy] = Line1;
+        Line1 = Level[ManY+dy*2].substring(0, ManX+dx*2)+NObj+
+                Level[ManY+dy*2].substring(ManX+dx*2+1, LevelX);
+        Level[ManY+dy*2] = Line1;
+        NObj = '.';
+        CheckBlocks();
+      } else NObj='#';
+    }
+    if ((NObj == '.')||(NObj == 'O')||(NObj=='S'))
+    {
+      CntMove++;
+      document.forms[0].Moved.value = CntMove;
+
+      ManX+=dx;
+      ManY+=dy;
+    }
+    ShowMan(ManX, ManY, ManD);
+  }
+  function ShowMan(x, y, d)
+  {
+    XPos = x*BlkSizX+BlkOfsX;
+    YPos = y*BlkSizY+BlkOfsY;
+    if (LastShow!=d) {
+      if (LastShow==1) document.all["ManLeft"].style.visibility  = "hidden"; else
+      if (LastShow==2) document.all["ManRight"].style.visibility = "hidden"; else
+      if (LastShow==3) document.all["ManUp"].style.visibility = "hidden"; else
+      if (LastShow==4) document.all["ManDown"].style.visibility  = "hidden";
+      if (d==1) document.all["ManLeft"].style.visibility  = "visible"; else
+      if (d==2) document.all["ManRight"].style.visibility = "visible"; else
+      if (d==3) document.all["ManUp"].style.visibility = "visible"; else
+      if (d==4) document.all["ManDown"].style.visibility  = "visible";
+      LastShow=d;
+    }
+    if (d==1)
+    { document.all["ManLeft"].style.top = YPos;
+       document.all["ManLeft"].style.left = XPos; } else
+    if (d==2)
+    { document.all["ManRight"].style.top = YPos;
+      document.all["ManRight"].style.left = XPos; } else
+    if (d==3)
+    { document.all["ManUp"].style.top = YPos;
+      document.all["ManUp"].style.left = XPos; } else
+    if (d==4)
+    { document.all["ManDown"].style.top = YPos;
+      document.all["ManDown"].style.left = XPos; }
+  }
+  function NewDest(x, y)
+  {
+    DestX[DestCnt] = x;
+    DestY[DestCnt] = y;
+    DestCnt++;
+  }
+  function NewBlock(x, y, on)
+  {
+    XPos = x*BlkSizX+BlkOfsX;
+    YPos = y*BlkSizY+BlkOfsY;
+    if (on==0)
+    {
+      document.write("<div id=\"block"+BlockCnt+"\" style=\"POSITION: ");
+      document.write("absolute; Z-INDEX: 1; VISIBILITY: ");
+      document.write("visible; TOP: "+YPos+"px; LEFT: "+XPos+"px\">");
+      document.write("<IMG SRC=\"@block.gif\" border=0></div>");
+      document.write("<div id=\"blockOn"+BlockCnt+"\" style=\"POSITION: ");
+      document.write("absolute; Z-INDEX: 1; VISIBILITY: ");
+      document.write("hidden; TOP: "+YPos+"px; LEFT: "+XPos+"px\">");
+      document.write("<IMG SRC=\"@block1.gif\" border=0></div>");
+    } else
+    {
+      document.write("<div id=\"block"+BlockCnt+"\" style=\"POSITION: ");
+      document.write("absolute; Z-INDEX: 1; VISIBILITY: ");
+      document.write("hidden; TOP: "+YPos+"px; LEFT: "+XPos+"px\">");
+      document.write("<IMG SRC=\"@block.gif\" border=0></div>");
+      document.write("<div id=\"blockOn"+BlockCnt+"\" style=\"POSITION: ");
+      document.write("absolute; Z-INDEX: 1; VISIBILITY: ");
+      document.write("visible; TOP: "+YPos+"px; LEFT: "+XPos+"px\">");
+      document.write("<IMG SRC=\"@block1.gif\" border=0></div>");
+    }
+
+    BlockX[BlockCnt] = x;
+    BlockY[BlockCnt] = y;
+    BlockCnt++;
+  }
+  function DrawLevelOld()
+  {
+    document.write("<TABLE border=0 cellspacing=0 cellpadding=0>");
+    for (y=0; y<LevelY; y++)
+    {
+      document.write("<TR height=20>");
+      for (x=0; x<LevelX; x++)
+      {
+        Obj = Level[y].substring(x, x+1);
+        Img = "  ";
+        document.write("<TD width=20>");
+        if (Obj=='#') Img = '<IMG SRC=\"@wall.gif\" border=0>';
+        if (Obj=='.') Img = '<IMG SRC=\"@free.gif\" border=0>';
+        if (Obj=='O') Img = '<IMG SRC=\"@dest.gif\" border=0>';
+        if (Obj=='0') Img = '<IMG SRC=\"@dest.gif\" border=0>';
+        if (Obj=='*') Img = '<IMG SRC=\"@free.gif\" border=0>';
+        if (Obj=='S') Img = '<IMG SRC=\"@free.gif\" border=0>';
+        document.write(Img);
+        document.write("</TD>");
+      }
+      document.write("</TR>");
+    }
+    document.write("</TABLE>");
+  }
+  function DrawLevel()
+  {
+    document.write("<TABLE border=0 cellspacing=0 cellpadding=0><TR><TD>");
+    for (y=0; y<LevelY; y++)
+    {
+      for (x=0; x<LevelX; x++)
+      {
+        Obj = Level[y].substring(x, x+1);
+        Img = '??';
+        if (Obj=='#') Img = '<IMG SRC=\"@wall.gif\" border=0>';
+        if (Obj=='.') Img = '<IMG SRC=\"@free.gif\" border=0>';
+        if (Obj=='O') Img = '<IMG SRC=\"@dest.gif\" border=0>';
+        if (Obj=='0') Img = '<IMG SRC=\"@dest.gif\" border=0>';
+        if (Obj=='*') Img = '<IMG SRC=\"@free.gif\" border=0>';
+        if (Obj=='S') Img = '<IMG SRC=\"@free.gif\" border=0>';
+        document.write(Img);
+      }
+      document.write("<BR>");
+    }
+    document.write("</TD></TR></TABLE>");
+  }
+
+  function ProcLevel()
+  {
+    for (y=0; y<LevelY; y++)
+      for (x=0; x<LevelX; x++)
+      {
+        Obj = Level[y].substring(x, x+1);
+        if (Obj=='*') NewBlock(x, y, 0);
+        if (Obj=='O') NewDest(x, y);
+        if (Obj=='0') {
+          NewDest(x, y);
+          NewBlock(x, y, 1);
+          Line1 = Level[y].substring(0, x)+'*'+
+                  Level[y].substring(x+1, LevelX);
+          Level[y] = Line1;
+        }
+        if (Obj=='S')
+        {
+          ManX = x;
+          ManY = y;
+          ManD = 1;
+          ShowMan(ManX, ManY, ManD);
+        }
+      }
+  }
+  function Test()
+  {
+    document.write("<PRE>");
+    for (y=0; y<LevelY; y++)
+    {
+      document.write(Level[y]);
+      document.write("X\n");
+    }
+  }
+  function Klavesnica()
+  {
+    var keyChar = String.fromCharCode(window.event.keyCode);
+    if (keyChar=="&") MoveMan(0, -1);
+    if (keyChar=="(") MoveMan(0, +1);
+    if (keyChar=="%") MoveMan(-1, 0);
+    if (keyChar=="'") MoveMan(+1, 0);
+    if ((Player=="Gabo")&&(keyChar=="N")) DoneGame();
+    if ((Player=="null")&&(keyChar=="N")) DoneGame();
+    if (keyChar=="X") { ResetCookie("Level"); ReloadProgram(); }
+    if (keyChar=="R") ReloadProgram();
+    document.body.scrollTop = 0;
+    document.body.scrollLeft = 0;
+    return false;
+  }
+  function Prepare()
+  {
+    document.all["TLoading"].style.visibility  = "visible";
+    document.forms[0].Level.value = MyLevel;
+    document.forms[0].HighMoved.value = HighMoved;
+    document.forms[0].HighPushed.value = HighPushed;
+    document.forms[0].HighTime.value = HighTime;
+    document.forms[0].HighPlayer.value = HighPlayer;
+    DrawLevel();
+    ProcLevel();
+    document.close();
+    document.all["TLoading"].style.visibility  = "hidden";
+    alert("Level "+MyLevel);
+    document.all["TWait"].style.visibility  = "visible";
+    document.onmousedown = StartGame;
+    CntMove=0;
+    CntPush=0;
+  }
+  function ReloadProgram()
+  {
+    document.location.reload();
+    //document.open('hra.html', 'sokobanmain', '');
+  }
+  function StartGame()
+  {
+    document.onmousedown = null;
+    document.onkeydown = Klavesnica;
+    document.all["TWait"].style.visibility  = "hidden";
+    PlTime=0;
+    Hra=1;
+    Casovac();
+  }
+  function DoneGame()
+  {
+    Hra=0;
+    document.onkeydown = null;
+    document.all["TWin"].style.visibility  = "visible";
+    document.close();
+/*
+    // zapis do cookies
+    // urob formular
+    Formular = 0;
+    if ((Player!="Gabo")&&(Player!="Anonym"))
+    {
+    if (CntPush<HighPushed) { Formular = 1; MakeForm(); }
+      if (CntPush==HighPushed)
+      {
+        if (CntMove<HighMoved) { Formular = 1; MakeForm(); }
+        if (CntMove==HighMoved) 
+        {
+          if (PlTime<HighTime) { Formular = 1; MakeForm(); }
+        }
+      }
+    }
+    // wait for Vybral
+    if (Formular==0) Vybral();
+*/
+    Vybral();
+  }
+  function Reload(L)
+  {
+    document.open();
+    Prepare();
+  }
+  function Casovac()
+  {
+    PlTime++;
+    document.forms[0].Time.value = PlTime;
+    if (Hra==1) setTimeout('Casovac()',1000);
+  }
+  function Vybral()
+  {
+    MyLevel++;
+    SetCookie("Level", MyLevel);
+    document.onmousedown = ReloadProgram;
+    document.all["HighScore"].style.visibility  = "hidden";
+  }
+  function MakeForm()
+  {
+    var dat = new Date();
+    var den = new Array("Nedela", "Pondelok", "Utorok", "Streda", "Štvrtok", "Piatok", "Sobota");
+    var mesiac = new Array("január", "február", "marec", "apríl", "máj", "jún", "júl", "august", "september", "október", "november", "december");
+    var PlnyDatum = den[dat.getDay()] + ", " + dat.getDate() + ". " + mesiac[dat.getMonth()] + " " + dat.getFullYear();
+    document.forms[1].Level.value = "Level : "+MyLevel;
+    document.forms[1].Moved.value = "Pocet pohybov :"+CntMove;
+    document.forms[1].Pushed.value = "Pocet posunuti :"+CntPush;
+    document.forms[1].PlTime.value = "Cas :"+PlTime;
+    document.forms[1].Player.value = "Hrac :"+Player;
+    document.forms[1].Date.value = "Datum :"+PlnyDatum;
+    document.all["HighScore"].style.visibility  = "visible";
+  }
+</SCRIPT>
+<SCRIPT>  Reload(MyLevel); </SCRIPT>

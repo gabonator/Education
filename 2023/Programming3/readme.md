@@ -23,7 +23,12 @@ Ako budeme hru ďalej rozvíjať, závisí od šikovnosti účastníkov. Možnos
 ![ukazka 1](readme1.png)
 ![ukazka 2](readme2.png)
 ![ukazka 3](readme3.png)
+![ukazka 4](readme4.png)
+![ukazka 5](readme5.png)
 
 ## Priprava
 
 - [Priprava pre ucastnikov](priprava/priprava.md)
+
+## Ulohy
+- [Zoznam uloh](ulohy.md)
