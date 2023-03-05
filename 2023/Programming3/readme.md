@@ -30,5 +30,9 @@ Ako budeme hru ďalej rozvíjať, závisí od šikovnosti účastníkov. Možnos
 
 - [Priprava pre ucastnikov](priprava/priprava.md)
 
+## Prezentacia
+
+- [Prezentacia](prezentacia.pdf)
+
 ## Ulohy
 - [Zoznam uloh](ulohy.md)

@@ -1,0 +1,111 @@
+<div id="hra"></div>
+
+<script>
+var hra = document.getElementById("hra");
+
+for (var y=0; y<10; y++)
+{
+  for (var x=0; x<10; x++)
+    hra.innerHTML += `<span id='cell_${x}_${y}'></span>`;
+  hra.innerHTML += "<br>";
+}
+
+var mapa = [
+  "##########",
+  "#    #e  #",
+  "# ## #   #",
+  "#    # #d#",
+  "#  x ###d#",
+  "# #      #",
+  "# #. #####",
+  "# #  d  k#",
+  "#k#  #  k#",
+  "##########"];
+
+for (var y=0; y<10; y++)
+{
+  for (var x=0; x<10; x++)
+  {
+    var cell = document.getElementById(`cell_${x}_${y}`);
+    cell.style.display = "inline-block";
+    cell.style.overflow = "hidden";
+    cell.style.width = "55px";
+    cell.style.height = "55px";// = "display: inline-block; width:50px; height:50px; clip:rect(0px, 0px, 50px, 50px)";
+    cell.style.background = "url(tiles.png)";
+    cell.style.backgroundRepeat = "no-repeat";
+    cell.style.fontSize = "40px"
+    cell.style.textAlign = "center";
+    cell.style.lineHeight = "60px"
+    switch (mapa[y][x])
+    {
+      case "#": cell.style.backgroundPosition = "-4px -2px"; break;
+      case " ": 
+      case "k":
+      case "d":
+      case "e":
+        switch (Math.floor(Math.random()*4))
+        {
+          case 0: cell.style.backgroundPosition = "-2px -128px"; break;
+          case 1: cell.style.backgroundPosition = "-126px -128px"; break;
+          case 2: cell.style.backgroundPosition = "-250px -128px"; break;
+          case 3: cell.style.backgroundPosition = "-374px -128px"; break;
+        }
+      break;
+    }
+    switch (mapa[y][x])
+    {
+      case "k": cell.innerHTML = "&#x1f511;"; break;
+      case "d": cell.innerHTML = "&#x1f6aa;"; break;
+      case "e": cell.innerHTML = "&#x1F353;"; break;
+    }
+  }
+}
+
+var x = 5;
+var y = 5;
+
+var leftKey = 37, upKey = 38, rightKey = 39, downKey = 40, spaceKey = 32;
+document.addEventListener("keydown", e => {
+  switch (e.keyCode)
+  {
+    case leftKey: pohyb(-1, 0); break;
+    case rightKey: pohyb(+1, 0); break;
+    case upKey: pohyb(0, -1); break;
+    case downKey: pohyb(0, +1); break;
+  }
+});
+
+String.prototype.replaceAt = function(index, replacement) {
+    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
+}
+
+pohyb(0, 0);
+var klucov = 0;
+function pohyb(dx, dy)
+{       	
+  if (mapa[y+dy][x+dx] == "e")
+  {
+    mapa[y+dy] = mapa[y+dy].replaceAt(x+dx, " ");
+    alert("Hura!");
+  }
+  if (mapa[y+dy][x+dx] == "k")
+  {
+    klucov++;
+    mapa[y+dy] = mapa[y+dy].replaceAt(x+dx, " ");
+  }
+  if (mapa[y+dy][x+dx] == "d" && klucov > 0)
+  {
+    klucov--;
+    mapa[y+dy] = mapa[y+dy].replaceAt(x+dx, " ");
+  }
+  if (mapa[y+dy][x+dx] != " ")
+    return;
+
+  var cell = document.getElementById(`cell_${x}_${y}`);
+  cell.innerHTML = ""
+  x = x + dx;
+  y = y + dy;
+  var cell = document.getElementById(`cell_${x}_${y}`);
+  cell.innerHTML = "&#x1f600;"
+}
+</script>
