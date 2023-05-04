@@ -1,9 +1,9 @@
 # Ulohy pre workshop 1
 
 1. Spajkovanie
-2. Nainstalovat Arduino (https://x.valky.eu/arduino), nainstalovat podporu pre esp8266 (https://x.valky.eu/esp)
+2. Nainstalovat Arduino (https://x.valky.eu/arduino), nainstalovat podporu pre esp8266 (https://x.valky.eu/esp), zapnut cisla riadkov
 3. Pripojit modul USB kablom, vybrat port a napalit testovaci program: Examples -> 01. Basics -> Blink
-4. Instalacia kniznice pre ws2812 (NeoPixelBus by Makuna)
+4. Instalacia kniznice pre ws2812 (**NeoPixelBus by Makuna**), Instalacia kniznice pre DHT22 (**DHT sensor library for ESPx**)
 5. Zapojte led pasik
   ![schemeled.jpeg](schemeled.jpeg)
 

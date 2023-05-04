@@ -11,6 +11,11 @@
     Host: gabo.guru
 
 
+    gabrielvalky@Gabriels-MacBook-Air ~ % telnet http.badssl.com 80
+    GET / HTTP/1.0
+    Host: http.badssl.com
+
+
 2. Motivacia - informacny system
 
   ![demo1.jpg](demo1.jpg)
@@ -217,6 +222,12 @@
     <script>setTimeout(() => document.location.reload(), 1000)</script>
     ```
 
+  - alebo
+
+    ```html
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    ```
+
   - riesenie: [demo_dhtrefresh.ino](demo_dhtrefresh.ino)
 
 7. Server - Prepinanie farieb
@@ -346,7 +357,7 @@
 12. Access point 
   - zoberte riesenie z programu 6: [demo_dhtrefresh.ino](demo_dhtrefresh.ino)
   - v predoslom programe nahradte kod na pripajanie na wifi za vytvorenie access pointu
-  - v premennej `apSsid` pouzite svoje meno
+  - v premennej `apSsid` pouzite svoje meno, `apPassword` musi mat aspon 8 znakov
   - po spusteni esp8266 vytvori vlastnu wifi na ktoru sa pripojime
   - v seriovej konzole zistime na akej IP adrese vramci virtualnej siete vystupuje nas http server
 
