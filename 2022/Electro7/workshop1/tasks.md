@@ -137,13 +137,11 @@
 
   ![curve2](curve2.png)
 
-
-  - Jednoduchy farebny prechod (0, 0, 25) -> (0, 0, 25) s trvanim 5 sekund
+  - Jednoduchy farebny prechod (0, 0, 25) -> (0, 0, 0) s trvanim 5 sekund
 
   ![curve3](curve3.png)
 
-
-  - Jednoduchy farebny prechod (50, 0, 0) -> (0, 50, 0) s trvanim 5 sekund
+  - Jednoduchy farebny prechod (25, 0, 0) -> (0, 25, 0) s trvanim 5 sekund
 
   ![curve4](curve4.png)
 
@@ -169,7 +167,7 @@
 
   ![linear8](linear8.png)
 
-15. Nasledujuci program interpoluje iba zelenu zlozku farby, upravte ho aby interpoloval aj cervenu (farba.R) a modru zlozku (farba.G)
+15. Nasledujuci program interpoluje iba zelenu zlozku farby, upravte ho aby interpoloval aj cervenu (farba.R) a modru zlozku (farba.B)
 
     ```C
     #include <NeoPixelBus.h>

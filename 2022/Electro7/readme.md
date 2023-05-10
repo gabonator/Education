@@ -55,4 +55,16 @@ Price per one attendant: (62.08+66.96+22.56+12.72+8.08)/8=21.55
   - captive portal
   - falosna login stranka
 
-TBD
+Workaround pre chybne moduly (D3 nevie prepnut na GND):
+
+```
+  pinMode(D1, OUTPUT);
+  digitalWrite(D1, LOW);
+  pinMode(D3, OUTPUT);
+  digitalWrite(D3, HIGH);
+```
+
+- Workaround pri connection failed pri uploade - stlacit reset
+- Workaround pri failujucom uploade firmwaru - odpojit vsetky periferie
+- Workaround pri permission error na linuxe: [usermod dialout](https://support.arduino.cc/hc/en-us/articles/360016495679-Fix-port-access-on-Linux)
+- Online graphing calculator: [desmos.com/calculator](https://www.desmos.com/calculator)
