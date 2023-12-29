@@ -2,6 +2,65 @@
 
 In this list you will see some interesting projects I was working on
 
+## 2023
+
+### STM32H573I-DK lightweight development
+- STM32H573I-DK is a small MCU development board from ST with a lot of peripherals (I2S mic, display, touch screen, ethernet)
+- Minimal code to build simple gui app - you only need C++ compiler and OpenOCD for flashing
+- Nice form engine with antialiased fonts (RLE encoded font generator in html5/canvas included)
+- Photos: TBD
+
+### OOK demodulation model editor
+- web based visual tool for rapid development of OOK demodulating algorithm - with LA104 powerful decoding tool with ability to hack unknown protocols within minutes
+- integrated RTL433, lastest RTL433 ported to webassembly (https://github.com/merbanan/rtl_433/pull/2666)
+- automatic generation of C code from model
+- both decoding and encoding ability
+- Photos: TBD
+
+### Parking controller
+- Web page for controlling multiple outdoor parking barriers
+- Based on project above, compatible with Came Unipark parking saver
+- Hw part: CC1101 + ESP8266 as IOT 
+- Service part: Nodejs
+- Photos: TBD
+
+### Motor angel
+- Finished testing period of AC motor protection system
+- Suitable for water/sewage pumps and everywhere where is a risk of motor overheating or long motor runs
+- Externally mounted waterproof sealed DS1820 thermometer + arduino based current monitor
+- Collecting thermal statistics and run durations
+- Over current protection, long run protection, thermal shut down
+- Photos: TBD
+
+### Short throw projector
+- Built on affordable lenses (fish eye)
+- 3D printed optical table for precise placement of lenses/LCD panel/light source
+- 12864B11 negative display
+- Photos: TBD
+
+### Kebab sign protocol decoding
+- hacking protocol of bluetooth LCD 16x64 led panels (reverse engineering android app + sniffing uart traffic)
+- sample application for LA104/Gabuino
+- Video: TBD
+
+### Cicoparser with capstone disassembler
+- major upgrade to cicoparser transpiler, added support for C/Pascal games and applications
+- Video: TBD
+
+### Novation launchpad hacking
+- Injecting custom code to Novation launchpad to add new features
+- No hardware modification, all modified firmware flashed over USB
+- Games, GPIO (temperature reading by attaching DHT22 sensor directly to USB data lines), UART playing midi (again using USB data lines as UART)
+- 3D printed battery holder for making this device portable toy
+- Video: TBD
+
+## Agricultural calculations
+- Web application
+- Scraping data from public sources (Slovak land register & GSAA) and generation of rental contracts by calculating overlap between farmers land usage and land owners register
+- Using JSTS for calculation of polygon intersection
+- Google maps for visualization
+- Photos: TBD
+
 ## 2022
 
 ### Battery powered coop door
